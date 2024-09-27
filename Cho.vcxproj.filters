@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル\Resources">
+      <UniqueIdentifier>{3c76f1df-9e2d-4d9f-a254-72c7d63e1197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Resources\3DModel">
+      <UniqueIdentifier>{75d28c03-5bb8-4aa3-8da8-caf2cb7dda16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Resources\Texture">
+      <UniqueIdentifier>{afd4058f-97f7-4b7b-acf2-b6849dddd5f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Resources\Shader">
+      <UniqueIdentifier>{34c94039-2e3c-438d-9542-607e5ff520c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Resources\Shader\PixelShader">
+      <UniqueIdentifier>{8b1f3309-fc32-4e68-8763-40166c0457a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Resources\Shader\header">
+      <UniqueIdentifier>{d1e5662c-49f6-4eef-88ea-e38afde2f6bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Resources\Shader\VertexShader">
+      <UniqueIdentifier>{6a9f9b1d-ce9f-47b5-b1ae-bdd776d3be11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Cho">
+      <UniqueIdentifier>{ae85be2c-ed9a-47b4-9627-298afc3d20d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Cho\Engine">
+      <UniqueIdentifier>{28ed2a25-5c90-4267-aad3-e4f98e7a63d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Cho\Utility">
+      <UniqueIdentifier>{6f81fa65-1edd-4e9d-a46c-ae64669c9902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Cho\Game">
+      <UniqueIdentifier>{8633b6d3-ec34-44bb-91f0-0a30bfc30cd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Cho\Game\Objects">
+      <UniqueIdentifier>{a8a01f85-f953-406f-9ec3-a5d53cfade1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Cho\Game\Scenes">
+      <UniqueIdentifier>{747841a9-4bfb-44f0-bb06-d75074310e06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Cho\Engine\FileLoader">
+      <UniqueIdentifier>{64e5a09e-9ed5-405c-ab78-3af6001eba7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Cho\Engine\Scene">
+      <UniqueIdentifier>{7a1af48a-eaa6-42d1-955e-63abf4be8951}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Cho\Engine\Base">
+      <UniqueIdentifier>{705fe5bd-0c2b-4f37-aa5d-9570e03795cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Cho\Engine\Base\Manager">
+      <UniqueIdentifier>{3f6c73ff-a8b2-4c3c-97b9-afd1637ce278}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Cho\Engine\Graphics">
+      <UniqueIdentifier>{c07bb077-777b-4759-95ae-f413ee26236b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Cho">
+      <UniqueIdentifier>{6051bb21-e9b5-4cea-ae14-89fbd4cd9011}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Cho\Engine">
+      <UniqueIdentifier>{148f3601-5c3e-4fc0-81ea-36c0e435a4b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Cho\Utility">
+      <UniqueIdentifier>{78839878-da5f-4054-9e40-39c9df4be17b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Cho\Engine\Base">
+      <UniqueIdentifier>{93b89b30-4b83-467c-adac-0cdd375b3e08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Cho\Engine\Graphics">
+      <UniqueIdentifier>{eb5d34e8-957d-4513-bb0f-903829a8a4bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Cho\Engine\Scene">
+      <UniqueIdentifier>{349c919f-604d-4a69-a2e3-613ebf2ed888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Cho\Engine\Base\Manager">
+      <UniqueIdentifier>{0e1c7460-0bb7-4bfb-8156-6eeb02ff1536}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Cho\Engine\FileLoader">
+      <UniqueIdentifier>{c9a4d407-6723-4245-8b9e-7d11d82de437}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Cho\Game">
+      <UniqueIdentifier>{baff1994-31c5-493e-a29f-ea95922f577b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Cho\Game\Objects">
+      <UniqueIdentifier>{ad907366-a6b1-4865-9055-ac4665670398}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Cho\Game\Scenes">
+      <UniqueIdentifier>{f3cd5ae0-afdd-48a7-a848-e8c170d48f51}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\WinApp\WinApp.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\Main\Cho.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Cho\System\WinApp\WinApp.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\Main\Cho.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
