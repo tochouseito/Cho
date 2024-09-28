@@ -2,6 +2,10 @@
 
 // System
 class WinApp;
+class ResourceLeakChecker;
+class Framelate;
+class DXGIFactory;
+class D3DDevice;
 
 // C++
 #include<memory>
@@ -55,6 +59,14 @@ private:// メンバ変数
 
 	/*ウィンドウズアプリケーション*/
 	static std::unique_ptr <WinApp> win;
+
+	/*フレーム*/
+	static std::unique_ptr<Framelate> framelate;
+
+	/*DirectX*/
+	static std::unique_ptr<ResourceLeakChecker> resourceLeakChecker;
+	static std::unique_ptr<DXGIFactory> dxgiFactory;
+	static std::unique_ptr<D3DDevice> d3dDevice;
 
 	/*ループ終了*/
 	static bool endRequest_;
