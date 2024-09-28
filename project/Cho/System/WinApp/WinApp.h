@@ -20,10 +20,6 @@ public:// 静的メンバ関数
 	/// <summary>
 	/// ウィンドウプロシージャ
 	/// </summary>
-	/// <param name="hwnd"></param>
-	/// <param name="msg"></param>
-	/// <param name="wparam"></param>
-	/// <param name="lparam"></param>
 	/// <returns></returns>
 	static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg,
 		WPARAM wparam, LPARAM lparam);
@@ -53,6 +49,10 @@ public:// メンバ関数
 	HWND GetHwnd() const { return hwnd_; }
 
 	HINSTANCE GetHInstance() const { return wc_.hInstance; }
+
+	int32_t GetWidth()const { return kClientWidth; }
+
+	int32_t GetHeight() const { return kClientHeight; }
 
 private:// メンバ変数
 	HWND hwnd_ = nullptr;
