@@ -6,6 +6,9 @@ class ResourceLeakChecker;
 class Framelate;
 class DXGIFactory;
 class D3DDevice;
+class D3DFence;
+class D3DCommand;
+class D3DSwapChain;
 
 // C++
 #include<memory>
@@ -67,6 +70,9 @@ private:// メンバ変数
 	static std::unique_ptr<ResourceLeakChecker> resourceLeakChecker;
 	static std::unique_ptr<DXGIFactory> dxgiFactory;
 	static std::unique_ptr<D3DDevice> d3dDevice;
+	static std::unique_ptr<D3DFence> d3dFence;
+	static std::unique_ptr<D3DCommand> d3dCommand;
+	static std::unique_ptr<D3DSwapChain> d3dSwapChain;
 
 	/*ループ終了*/
 	static bool endRequest_;

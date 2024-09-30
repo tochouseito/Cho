@@ -12,6 +12,10 @@ public:// メンバ関数
 	/// </summary>
 	void Initialize(ID3D12Device& device);
 
+	ID3D12GraphicsCommandList* GetCommandList()const { return commandList_.Get(); }
+
+	ID3D12CommandQueue* GetCommandQueue()const {return commandQueue_.Get();}
+
 private:// メンバ変数
 	/*コマンド*/
 	Microsoft::WRL::ComPtr < ID3D12CommandQueue>commandQueue_;

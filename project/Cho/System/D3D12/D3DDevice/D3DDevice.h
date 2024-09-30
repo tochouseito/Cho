@@ -12,6 +12,8 @@ public:// メンバ関数
 	/// </summary>
 	void Initialize(IDXGIFactory7& dxgiFactory);
 
+	ID3D12Device* GetDevice()const { return device_.Get(); }
+
 private:
 	/*デバイス*/
 	Microsoft::WRL::ComPtr<ID3D12Device> device_;
