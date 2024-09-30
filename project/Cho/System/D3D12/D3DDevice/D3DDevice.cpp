@@ -101,13 +101,13 @@ void D3DDevice::Initialize(IDXGIFactory7& dxgiFactory)
 #endif // DEBUG
 }
 
-ID3D12DescriptorHeap* D3DDevice::CreateDescriptorHeap(
+Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> D3DDevice::CreateDescriptorHeap(
 	D3D12_DESCRIPTOR_HEAP_TYPE heapType, UINT numDescriptors, bool shaderVisible
 )
 {
 	HRESULT hr;
 	// ディスクリプタヒープの生成
-	ID3D12DescriptorHeap* descriptorHeap = nullptr;
+	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descriptorHeap = nullptr;
 	D3D12_DESCRIPTOR_HEAP_DESC descriptorHeapDesc{};
 	descriptorHeapDesc.Type = heapType;
 	descriptorHeapDesc.NumDescriptors = numDescriptors;

@@ -14,11 +14,13 @@ public:// メンバ関数
 	/// </summary>
 	void Initialize(WinApp* win,IDXGIFactory7& dxgiFactory,ID3D12CommandQueue& commandQueue);
 
+	ID3D12Resource* GetResource(uint8_t index)const { return resources_[index].Get(); }
+
 private:// メンバ変数
 	/*スワップチェーン*/
 	Microsoft::WRL::ComPtr < IDXGISwapChain4>swapChain_;
-	DXGI_SWAP_CHAIN_DESC1 swapChainDesc_{};
-	Microsoft::WRL::ComPtr < ID3D12Resource>swapChainResources_[2];
+	DXGI_SWAP_CHAIN_DESC1 desc_{};
+	Microsoft::WRL::ComPtr < ID3D12Resource>resources_[2];
 
 };
 

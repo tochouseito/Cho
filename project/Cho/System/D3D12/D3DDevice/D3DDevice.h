@@ -15,7 +15,7 @@ public:// メンバ関数
 	/// <summary>
 	/// ディスクリプタヒープの生成
 	/// </summary>
-	ID3D12DescriptorHeap* CreateDescriptorHeap(
+	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> CreateDescriptorHeap(
 		 D3D12_DESCRIPTOR_HEAP_TYPE heapType,
 		UINT numDescriptors,
 		bool shaderVisible

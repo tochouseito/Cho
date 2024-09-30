@@ -68,6 +68,15 @@ void Cho::Initialize()
 		*d3dCommand->GetCommandQueue()
 	);
 
+	// ResourceViewManager
+	resourceViewManager = std::make_unique<ResourceViewManager>();
+	resourceViewManager->Initialize(d3dDevice.get());
+
+	// RTVManager
+	rtvManager = std::make_unique<RTVManager>();
+	rtvManager->Initialize(d3dDevice.get(), d3dSwapChain.get());
+
+
 #pragma endregion
 }
 
