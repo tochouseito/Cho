@@ -1,8 +1,8 @@
-#include"PrecompiledHeader.h"
-#include "ResourceView.h"
+#include "PrecompiledHeader.h"
+#include "ResourceViewManager.h"
 #include"D3D12/D3DDevice/D3DDevice.h"
 
-void ResourceView::Initialize(D3DDevice* d3dDevice)
+void ResourceViewManager::Initialize(D3DDevice* d3dDevice)
 {
 	// デスクリプタヒープの生成
 	descriptorHeap_ = d3dDevice->CreateDescriptorHeap(
@@ -16,10 +16,10 @@ void ResourceView::Initialize(D3DDevice* d3dDevice)
 	);
 }
 
-void ResourceView::SetDescriptorHeap(ID3D12GraphicsCommandList& commandList)
+void ResourceViewManager::SetDescriptorHeap(ID3D12GraphicsCommandList& commandList)
 {
 	// ディスクリプタヒープ
-	ID3D12DescriptorHeap* descriptorHeaps[] = { descriptorHeap_.Get()};
+	ID3D12DescriptorHeap* descriptorHeaps[] = { descriptorHeap_.Get() };
 
 	// コマンドリストにディスクリプタヒープをセット
 	commandList.SetDescriptorHeaps(

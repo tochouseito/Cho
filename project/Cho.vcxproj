@@ -144,6 +144,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\System\D3D12\D3DFence\D3DFence.cpp" />
     <ClCompile Include="Cho\System\D3D12\D3DSwapChain\D3DSwapChain.cpp" />
     <ClCompile Include="Cho\System\D3D12\DrawExecution\DrawExecution.cpp" />
+    <ClCompile Include="Cho\System\D3D12\DSVManager\DSVManager.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -152,7 +153,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Cho\System\D3D12\ResourceViewManager\ResourceView.cpp" />
     <ClCompile Include="Cho\System\D3D12\ResourceLeakChecker\ResourceLeakChecker.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -161,6 +161,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Cho\System\D3D12\RTVManager\RTVManager.cpp" />
+    <ClCompile Include="Cho\System\D3D12\ResourceViewManager\ResourceViewManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig">
@@ -172,7 +174,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\Main\Cho.h" />
     <ClInclude Include="Cho\System\WinApp\WinApp.h" />
     <ClInclude Include="Cho\System\UI\ImGuiManager\ImGuiManager.h" />
-    <ClInclude Include="Cho\System\D3D12\ResourceViewManager\ResourceView.h" />
     <ClInclude Include="Cho\System\D3D12\ResourceLeakChecker\ResourceLeakChecker.h" />
     <ClInclude Include="Cho\System\Framelate\Framelate.h" />
     <ClInclude Include="Cho\System\D3D12\D3DDevice\D3DDevice.h" />
@@ -183,6 +184,9 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\D3D12\D3DFence\D3DFence.h" />
     <ClInclude Include="Cho\System\D3D12\D3DSwapChain\D3DSwapChain.h" />
     <ClInclude Include="Cho\System\D3D12\DrawExecution\DrawExecution.h" />
+    <ClInclude Include="Cho\System\D3D12\DSVManager\DSVManager.h" />
+    <ClInclude Include="Cho\System\D3D12\RTVManager\RTVManager.h" />
+    <ClInclude Include="Cho\System\D3D12\ResourceViewManager\ResourceViewManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

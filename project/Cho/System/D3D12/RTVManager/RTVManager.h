@@ -1,12 +1,10 @@
 #pragma once
-class DrawExecution
+class RTVManager
 {
 public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
 	void Initialize();
-private:
-
 };
 

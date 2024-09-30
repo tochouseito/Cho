@@ -5,7 +5,7 @@
 #include<cstdint>
 
 class D3DDevice;
-class ResourceView
+class ResourceViewManager
 {
 public:// メンバ関数
 

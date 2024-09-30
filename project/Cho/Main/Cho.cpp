@@ -10,6 +10,10 @@ std::unique_ptr <D3DDevice> Cho::d3dDevice = nullptr;
 std::unique_ptr<D3DFence> Cho::d3dFence = nullptr;
 std::unique_ptr<D3DCommand> Cho::d3dCommand = nullptr;
 std::unique_ptr<D3DSwapChain> Cho::d3dSwapChain = nullptr;
+std::unique_ptr<ResourceViewManager>Cho::resourceViewManager = nullptr;
+std::unique_ptr<RTVManager>Cho::rtvManager = nullptr;
+std::unique_ptr<DSVManager> Cho::dsvManager = nullptr;
+std::unique_ptr<DrawExecution> Cho::drawExecution = nullptr;
 
 // System
 #include"WinApp/WinApp.h"
@@ -20,6 +24,10 @@ std::unique_ptr<D3DSwapChain> Cho::d3dSwapChain = nullptr;
 #include"D3D12/D3DFence/D3DFence.h"
 #include"D3D12/D3DCommand/D3DCommand.h"
 #include"D3D12/D3DSwapChain/D3DSwapChain.h"
+#include"D3D12/ResourceViewManager/ResourceViewManager.h"
+#include"D3D12/RTVManager/RTVManager.h"
+#include"D3D12/DSVManager/DSVManager.h"
+#include"D3D12/DrawExecution/DrawExecution.h"
 
 void Cho::Initialize()
 {

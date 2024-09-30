@@ -114,9 +114,6 @@
     <ClCompile Include="Cho\System\UI\ImGuiManager\ImGuiManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\D3D12\ResourceViewManager\ResourceView.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Cho\System\D3D12\ResourceLeakChecker\ResourceLeakChecker.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -147,6 +144,15 @@
     <ClCompile Include="Cho\System\D3D12\DrawExecution\DrawExecution.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Cho\System\D3D12\DSVManager\DSVManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\D3D12\RTVManager\RTVManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\D3D12\ResourceViewManager\ResourceViewManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -159,9 +165,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\UI\ImGuiManager\ImGuiManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Cho\System\D3D12\ResourceViewManager\ResourceView.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\D3D12\ResourceLeakChecker\ResourceLeakChecker.h">
@@ -192,6 +195,15 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\D3D12\DrawExecution\DrawExecution.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\D3D12\DSVManager\DSVManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\D3D12\RTVManager\RTVManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\D3D12\ResourceViewManager\ResourceViewManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
