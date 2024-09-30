@@ -12,6 +12,15 @@ public:// メンバ関数
 	/// </summary>
 	void Initialize(IDXGIFactory7& dxgiFactory);
 
+	/// <summary>
+	/// ディスクリプタヒープの生成
+	/// </summary>
+	ID3D12DescriptorHeap* CreateDescriptorHeap(
+		 D3D12_DESCRIPTOR_HEAP_TYPE heapType,
+		UINT numDescriptors,
+		bool shaderVisible
+	);
+
 	ID3D12Device* GetDevice()const { return device_.Get(); }
 
 private:

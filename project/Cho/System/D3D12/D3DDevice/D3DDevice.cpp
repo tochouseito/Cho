@@ -100,3 +100,22 @@ void D3DDevice::Initialize(IDXGIFactory7& dxgiFactory)
 
 #endif // DEBUG
 }
+
+ID3D12DescriptorHeap* D3DDevice::CreateDescriptorHeap(
+	D3D12_DESCRIPTOR_HEAP_TYPE heapType, UINT numDescriptors, bool shaderVisible
+)
+{
+	HRESULT hr;
+	// ディスクリプタヒープの生成
+	ID3D12DescriptorHeap* descriptorHeap = nullptr;
+	D3D12_DESCRIPTOR_HEAP_DESC descriptorHeapDesc{};
+	descriptorHeapDesc.Type = heapType;
+	descriptorHeapDesc.NumDescriptors = numDescriptors;
+	descriptorHeapDesc.Flags = shaderVisible ? D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE : D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+	hr = device_->CreateDescriptorHeap(&descriptorHeapDesc, IID_PPV_ARGS(&descriptorHeap));
+
+	// ディスクリプタヒープが作れなかったので起動できない
+	assert(SUCCEEDED(hr));
+
+	return descriptorHeap;
+}
