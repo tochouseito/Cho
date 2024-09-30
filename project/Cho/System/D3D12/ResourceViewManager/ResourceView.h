@@ -14,12 +14,20 @@ public:// メンバ関数
 	/// </summary>
 	void Initialize(D3DDevice* d3dDevice);
 
+	/// <summary>
+	/// ディスクリプタヒープをセット
+	/// </summary>
+	/// <param name="commandList"></param>
+	void SetDescriptorHeap(ID3D12GraphicsCommandList& commandList);
+
 private:// メンバ変数
 
 	// デスクリプタサイズ
 	uint32_t descriptorSize_;
+
 	// デスクリプタヒープ
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descriptorHeap_;
+
 	// 次に使用するSRVインデックス。先頭はImGuiで使うので1から
 	uint32_t useIndex_ = 1;
 
