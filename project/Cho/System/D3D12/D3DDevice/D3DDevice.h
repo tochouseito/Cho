@@ -1,6 +1,7 @@
 #pragma once
 
 #include<d3d12.h>
+#include<dxgi1_6.h>
 #include<wrl.h>
 
 class D3DDevice
@@ -11,7 +12,7 @@ public:// メンバ関数
 	/// 初期化
 	/// </summary>
 	void Initialize(IDXGIFactory7& dxgiFactory);
-
+	
 	/// <summary>
 	/// ディスクリプタヒープの生成
 	/// </summary>

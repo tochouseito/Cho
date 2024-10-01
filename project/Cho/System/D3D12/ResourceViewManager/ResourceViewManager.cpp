@@ -34,8 +34,8 @@ ConstantHandleData ResourceViewManager::GetNewHandle()
 
 	descriptorData.index = Allocate();
 
-	descriptorData.handle.first = GetCPUDescriptorHandle(descriptorData.index);
-	descriptorData.handle.second = GetGPUDescriptorHandle(descriptorData.index);
+	descriptorData.CPUHandle = GetCPUDescriptorHandle(descriptorData.index);
+	descriptorData.GPUHandle = GetGPUDescriptorHandle(descriptorData.index);
 
 	return descriptorData;
 }

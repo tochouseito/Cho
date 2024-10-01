@@ -7,10 +7,8 @@
 // ディスクリプタハンドル定数データ
 struct ConstantHandleData {
 	uint32_t index = 0;
-	std::pair<
-		D3D12_CPU_DESCRIPTOR_HANDLE,
-		D3D12_GPU_DESCRIPTOR_HANDLE
-	> handle;
+	D3D12_CPU_DESCRIPTOR_HANDLE CPUHandle;
+	D3D12_GPU_DESCRIPTOR_HANDLE GPUHandle;
 };
 
 class D3DDevice;
@@ -28,6 +26,8 @@ public:// メンバ関数
 	/// </summary>
 	/// <param name="commandList"></param>
 	void SetDescriptorHeap(ID3D12GraphicsCommandList* commandList);
+
+	ID3D12DescriptorHeap* GetDescriptorHeap()const { return descriptorHeap_.Get(); }
 
 	/// <summary>
 	/// 新しいハンドルを入手する
