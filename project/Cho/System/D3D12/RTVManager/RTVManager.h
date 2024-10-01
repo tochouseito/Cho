@@ -13,6 +13,8 @@ public:
 	/// </summary>
 	void Initialize(D3DDevice* d3dDevice,D3DSwapChain* d3dSwapChain);
 
+	D3D12_CPU_DESCRIPTOR_HANDLE GetHandle(uint32_t& index)const {return rtvHandles_[index]; }
+
 private:// メンバ関数
 
 	/// <summary>

@@ -14,7 +14,9 @@ public:// メンバ関数
 	/// </summary>
 	void Initialize(WinApp* win,IDXGIFactory7& dxgiFactory,ID3D12CommandQueue& commandQueue);
 
-	ID3D12Resource* GetResource(uint8_t index)const { return resources_[index].Get(); }
+	void Present();
+
+	ID3D12Resource* GetResource(UINT index)const { return resources_[index].Get(); }
 
 	IDXGISwapChain4* GetSwapChain()const { return swapChain_.Get(); }
 

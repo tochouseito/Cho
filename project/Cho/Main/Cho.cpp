@@ -58,7 +58,7 @@ void Cho::Initialize()
 
 	// Command
 	d3dCommand = std::make_unique<D3DCommand>();
-	d3dCommand->Initialize(*d3dDevice->GetDevice());
+	d3dCommand->Initialize(*d3dDevice->GetDevice(),d3dFence.get());
 
 	// SwapChain
 	d3dSwapChain = std::make_unique<D3DSwapChain>();
@@ -90,6 +90,8 @@ void Cho::Initialize()
 	drawExecution = std::make_unique<DrawExecution>();
 	drawExecution->Initialize(
 		d3dCommand.get(),
+		d3dSwapChain.get(),
+		resourceViewManager.get(),
 		rtvManager.get(),
 		dsvManager.get()
 	);
@@ -138,6 +140,9 @@ void Cho::Update()
 
 void Cho::PreDraw()
 {
+	resourceViewManager->SetDescriptorHeap(d3dCommand->GetCommandList());
+
+	drawExecution->PreDraw();
 }
 
 void Cho::Draw()
@@ -146,6 +151,9 @@ void Cho::Draw()
 
 void Cho::PostDraw()
 {
+	drawExecution->PostDraw();
+
+	d3dCommand->Reset();
 }
 
 bool Cho::IsEndRequest()

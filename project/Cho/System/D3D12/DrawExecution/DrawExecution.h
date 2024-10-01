@@ -5,6 +5,7 @@
 
 class D3DCommand;
 class D3DSwapChain;
+class ResourceViewManager;
 class RTVManager;
 class DSVManager;
 class DrawExecution
@@ -16,6 +17,7 @@ public:
 	void Initialize(
 		D3DCommand* d3dCommand,
 		D3DSwapChain* d3dSwapChain,
+		ResourceViewManager* resourceViewManager,
 		RTVManager* rtvManager,
 		DSVManager* dsvManager
 	);
@@ -49,6 +51,7 @@ private:
 	/*借りインスタンス*/
 	D3DCommand* d3dCommand_ = nullptr;
 	D3DSwapChain* d3dSwapChain_ = nullptr;
+	ResourceViewManager* resourceViewManager_ = nullptr;
 	RTVManager* rtvManager_ = nullptr;
 	DSVManager* dsvManager_ = nullptr;
 };

@@ -27,7 +27,7 @@ public:// メンバ関数
 	/// ディスクリプタヒープをセット
 	/// </summary>
 	/// <param name="commandList"></param>
-	void SetDescriptorHeap(ID3D12GraphicsCommandList& commandList);
+	void SetDescriptorHeap(ID3D12GraphicsCommandList* commandList);
 
 	/// <summary>
 	/// 新しいハンドルを入手する

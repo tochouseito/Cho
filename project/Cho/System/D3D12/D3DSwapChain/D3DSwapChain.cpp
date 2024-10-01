@@ -31,3 +31,9 @@ void D3DSwapChain::Initialize(WinApp* win, IDXGIFactory7& dxgiFactory, ID3D12Com
 	// うまく取得できなければ起動できない
 	assert(SUCCEEDED(hr));
 }
+
+void D3DSwapChain::Present()
+{
+	// GPUとOSに画面の交換を行うように通知する
+	swapChain_->Present(1, 0);
+}

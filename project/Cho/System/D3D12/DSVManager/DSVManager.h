@@ -15,6 +15,8 @@ public:
 	/// </summary>
 	void Initialize(WinApp* win, D3DDevice* d3dDevice);
 
+	ID3D12DescriptorHeap* GetDescriptorHeap()const { return descriptorHeap_.Get(); }
+
 private:// メンバ関数
 
 	/// <summary>

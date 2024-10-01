@@ -14,6 +14,13 @@ public:// メンバ関数
 	/// </summary>
 	void Initialize(ID3D12Device& device);
 
+	void ValueUpdate();
+
+	void WaitForSingle();
+
+	ID3D12Fence* GetFence()const { return fence_.Get(); }
+	uint64_t GetValue()const { return fenceValue_; }
+
 private:// メンバ変数
 	/*フェンス*/
 	Microsoft::WRL::ComPtr <ID3D12Fence>fence_;

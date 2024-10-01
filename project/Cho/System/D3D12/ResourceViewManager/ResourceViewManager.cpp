@@ -16,13 +16,13 @@ void ResourceViewManager::Initialize(D3DDevice* d3dDevice)
 	);
 }
 
-void ResourceViewManager::SetDescriptorHeap(ID3D12GraphicsCommandList& commandList)
+void ResourceViewManager::SetDescriptorHeap(ID3D12GraphicsCommandList* commandList)
 {
 	// ディスクリプタヒープ
 	ID3D12DescriptorHeap* descriptorHeaps[] = { descriptorHeap_.Get() };
 
 	// コマンドリストにディスクリプタヒープをセット
-	commandList.SetDescriptorHeaps(
+	commandList->SetDescriptorHeaps(
 		_countof(descriptorHeaps),
 		descriptorHeaps
 	);
