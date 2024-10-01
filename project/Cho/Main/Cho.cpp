@@ -74,15 +74,25 @@ void Cho::Initialize()
 
 	// RTVManager
 	rtvManager = std::make_unique<RTVManager>();
-	rtvManager->Initialize(d3dDevice.get(), d3dSwapChain.get());
+	rtvManager->Initialize(
+		d3dDevice.get(),
+		d3dSwapChain.get()
+	);
 
 	// DSVManager
 	dsvManager = std::make_unique<DSVManager>();
-	dsvManager->Initialize(win.get(), d3dDevice.get());
+	dsvManager->Initialize(
+		win.get(),
+		d3dDevice.get()
+	);
 
 	// DrawExecution
 	drawExecution = std::make_unique<DrawExecution>();
-	drawExecution->Initialize(d3dCommand.get());
+	drawExecution->Initialize(
+		d3dCommand.get(),
+		rtvManager.get(),
+		dsvManager.get()
+	);
 
 
 #pragma endregion

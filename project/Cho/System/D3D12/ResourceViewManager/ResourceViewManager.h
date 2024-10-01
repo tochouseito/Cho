@@ -4,6 +4,15 @@
 #include<wrl.h>
 #include<cstdint>
 
+// ディスクリプタハンドル定数データ
+struct ConstantHandleData {
+	uint32_t index = 0;
+	std::pair<
+		D3D12_CPU_DESCRIPTOR_HANDLE,
+		D3D12_GPU_DESCRIPTOR_HANDLE
+	> handle;
+};
+
 class D3DDevice;
 class ResourceViewManager
 {
@@ -19,6 +28,19 @@ public:// メンバ関数
 	/// </summary>
 	/// <param name="commandList"></param>
 	void SetDescriptorHeap(ID3D12GraphicsCommandList& commandList);
+
+	/// <summary>
+	/// 新しいハンドルを入手する
+	/// </summary>
+	/// <returns></returns>
+	ConstantHandleData GetNewHandle();
+
+private:
+
+	uint32_t Allocate();
+
+	D3D12_CPU_DESCRIPTOR_HANDLE GetCPUDescriptorHandle(uint32_t& index);
+	D3D12_GPU_DESCRIPTOR_HANDLE GetGPUDescriptorHandle(uint32_t& index);
 
 private:// メンバ変数
 

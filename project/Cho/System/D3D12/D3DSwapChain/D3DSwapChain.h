@@ -16,6 +16,8 @@ public:// メンバ関数
 
 	ID3D12Resource* GetResource(uint8_t index)const { return resources_[index].Get(); }
 
+	IDXGISwapChain4* GetSwapChain()const { return swapChain_.Get(); }
+
 private:// メンバ変数
 	/*スワップチェーン*/
 	Microsoft::WRL::ComPtr < IDXGISwapChain4>swapChain_;

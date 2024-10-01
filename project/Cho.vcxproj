@@ -163,6 +163,9 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </ClCompile>
     <ClCompile Include="Cho\System\D3D12\RTVManager\RTVManager.cpp" />
     <ClCompile Include="Cho\System\D3D12\ResourceViewManager\ResourceViewManager.cpp" />
+    <ClCompile Include="Cho\System\Graphics\PostProcessManager\PostProcessManager.cpp" />
+    <ClCompile Include="Cho\System\Graphics\Pipeline\Pipeline.cpp" />
+    <ClCompile Include="Cho\System\D3D12\ShaderCompiler\ShaderCompiler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig">
@@ -187,6 +190,9 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\D3D12\DSVManager\DSVManager.h" />
     <ClInclude Include="Cho\System\D3D12\RTVManager\RTVManager.h" />
     <ClInclude Include="Cho\System\D3D12\ResourceViewManager\ResourceViewManager.h" />
+    <ClInclude Include="Cho\System\Graphics\PostProcessManager\PostProcessManager.h" />
+    <ClInclude Include="Cho\System\Graphics\Pipeline\Pipeline.h" />
+    <ClInclude Include="Cho\System\D3D12\ShaderCompiler\ShaderCompiler.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
