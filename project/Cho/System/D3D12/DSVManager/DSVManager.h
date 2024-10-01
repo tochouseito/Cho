@@ -13,7 +13,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(WinApp* win,D3DDevice* d3dDevice);
+	void Initialize(WinApp* win, D3DDevice* d3dDevice);
 
 private:// メンバ関数
 

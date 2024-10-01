@@ -28,6 +28,16 @@ void DSVManager::CreateDepthStencil()
 		win_->kClientWidth,
 		win_->kClientHeight
 	);
+	// DSVの設定
+	D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc{};
+	dsvDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;       // Format。基本的にはResourceと合わせる
+	dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;// 2dTexture
+	// DSVHeapの先頭にDSVを作る
+	d3dDevice_->GetDevice()->CreateDepthStencilView(
+		resource_.Get(),
+		&dsvDesc,
+		descriptorHeap_->GetCPUDescriptorHandleForHeapStart()
+	);
 }
 
 Microsoft::WRL::ComPtr<ID3D12Resource> DSVManager::CreateDepthStencilTextureResource(int32_t width, int32_t height)
