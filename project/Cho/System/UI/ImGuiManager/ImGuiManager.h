@@ -6,6 +6,7 @@
 
 class WinApp;
 class D3DDevice;
+class D3DCommand;
 class ResourceViewManager;
 class ImGuiManager
 {
@@ -14,7 +15,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(WinApp* win,D3DDevice* d3dDevice,ResourceViewManager* RVManager);
+	void Initialize(WinApp* win,D3DDevice* d3dDevice, D3DCommand* d3dCommand,ResourceViewManager* RVManager);
 
 	/// <summary>
 	/// 終了
@@ -34,6 +35,9 @@ public:
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw(ID3D12GraphicsCommandList* commandList);
+	void Draw();
+
+private:
+	D3DCommand* d3dCommand_ = nullptr;
 };
 

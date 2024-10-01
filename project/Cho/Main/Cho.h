@@ -14,6 +14,9 @@ class RTVManager;
 class DSVManager;
 class DrawExecution;
 
+// 汎用機能
+class ImGuiManager;
+
 // C++
 #include<memory>
 
@@ -81,6 +84,9 @@ private:// メンバ変数
 	static std::unique_ptr<RTVManager> rtvManager;
 	static std::unique_ptr<DSVManager> dsvManager;
 	static std::unique_ptr<DrawExecution> drawExecution;
+
+	/*汎用機能*/
+	static std::unique_ptr<ImGuiManager> imguiManager;
 
 	/*ループ終了*/
 	static bool endRequest_;

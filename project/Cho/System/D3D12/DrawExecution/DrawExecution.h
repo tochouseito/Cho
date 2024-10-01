@@ -37,6 +37,8 @@ public:
 	/// </summary>
 	void PostDraw();
 
+	void End();
+
 private:
 	/// <summary>
 	/// リソースバリア遷移

@@ -5,9 +5,12 @@
 #include"WinApp/WinApp.h"
 #include"D3D12/D3DDevice/D3DDevice.h"
 #include"D3D12/ResourceViewManager/ResourceViewManager.h"
+#include"D3D12/D3DCommand/D3DCommand.h"
 
-void ImGuiManager::Initialize(WinApp* win, D3DDevice* d3dDevice, ResourceViewManager* RVManager)
+void ImGuiManager::Initialize(WinApp* win, D3DDevice* d3dDevice, D3DCommand* d3dCommand, ResourceViewManager* RVManager)
 {
+	d3dCommand_ = d3dCommand;
+
 	IMGUI_CHECKVERSION();
 	// ImGuiのコンテキストを生成
 	ImGui::CreateContext();
@@ -56,8 +59,10 @@ void ImGuiManager::End()
 	ImGui::Render();
 }
 
-void ImGuiManager::Draw(ID3D12GraphicsCommandList* commandList)
+void ImGuiManager::Draw()
 {
+	ID3D12GraphicsCommandList* commandList = d3dCommand_->GetCommandList();
+
 	// 描画コマンドを発行
 	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), commandList);
 }

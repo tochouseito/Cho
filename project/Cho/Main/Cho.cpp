@@ -15,6 +15,9 @@ std::unique_ptr<RTVManager>Cho::rtvManager = nullptr;
 std::unique_ptr<DSVManager> Cho::dsvManager = nullptr;
 std::unique_ptr<DrawExecution> Cho::drawExecution = nullptr;
 
+// 汎用機能
+std::unique_ptr<ImGuiManager> Cho::imguiManager = nullptr;
+
 // System
 #include"WinApp/WinApp.h"
 #include"D3D12/ResourceLeakChecker/ResourceLeakChecker.h"
@@ -28,6 +31,9 @@ std::unique_ptr<DrawExecution> Cho::drawExecution = nullptr;
 #include"D3D12/RTVManager/RTVManager.h"
 #include"D3D12/DSVManager/DSVManager.h"
 #include"D3D12/DrawExecution/DrawExecution.h"
+
+// 汎用機能
+#include"UI/ImGuiManager/ImGuiManager.h"
 
 void Cho::Initialize()
 {
@@ -98,10 +104,27 @@ void Cho::Initialize()
 
 
 #pragma endregion
+
+#pragma region 汎用機能初期化
+
+	// ImGuiManager
+	imguiManager = std::make_unique<ImGuiManager>();
+	imguiManager->Initialize(
+		win.get(),
+		d3dDevice.get(),
+		d3dCommand.get(),
+		resourceViewManager.get()
+	);
+
+#pragma endregion
 }
 
 void Cho::Finalize()
 {
+	/*フェンスの終了*/
+	d3dFence->Finalize();
+	// ImGui解放
+	imguiManager->Finalize();
 	// ウィンドウの破棄
 	win->TerminateWindow();
 }
@@ -136,10 +159,15 @@ void Cho::Update()
 	if (win->ProcessMessage()) {
 		endRequest_ = true;
 	}
+	// ImGui受付開始
+	imguiManager->Begin();
 }
 
 void Cho::PreDraw()
 {
+	// ImGui受付終了
+	imguiManager->End();
+
 	resourceViewManager->SetDescriptorHeap(d3dCommand->GetCommandList());
 
 	drawExecution->PreDraw();
@@ -151,7 +179,13 @@ void Cho::Draw()
 
 void Cho::PostDraw()
 {
+
 	drawExecution->PostDraw();
+
+	// ImGui描画
+	imguiManager->Draw();
+
+	drawExecution->End();
 
 	d3dCommand->Reset();
 }

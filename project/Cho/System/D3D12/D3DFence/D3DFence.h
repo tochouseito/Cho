@@ -18,6 +18,8 @@ public:// メンバ関数
 
 	void WaitForSingle();
 
+	void Finalize();
+
 	ID3D12Fence* GetFence()const { return fence_.Get(); }
 	uint64_t GetValue()const { return fenceValue_; }
 

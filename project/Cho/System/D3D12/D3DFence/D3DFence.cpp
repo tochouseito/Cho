@@ -32,3 +32,8 @@ void D3DFence::WaitForSingle()
 		WaitForSingleObject(fenceEvent_, INFINITE);
 	}
 }
+
+void D3DFence::Finalize()
+{
+	CloseHandle(fenceEvent_);
+}

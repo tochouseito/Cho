@@ -87,6 +87,11 @@ void DrawExecution::Draw()
 
 void DrawExecution::PostDraw()
 {
+	
+}
+
+void DrawExecution::End()
+{
 	UINT backBufferIndex = d3dSwapChain_->GetSwapChain()->GetCurrentBackBufferIndex();
 
 	BarrierTransition(d3dSwapChain_->GetResource(backBufferIndex),
