@@ -124,11 +124,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Cho\System\Editor\UI\ImGuiManager\ImGuiManager.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Cho\System\Framelate\Framelate.cpp">
+    <ClCompile Include="Cho\System\UI\ImGuiManager\ImGuiManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -154,6 +150,14 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Cho\System\Editor\FileView\FileView.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Cho\System\UI\GameContext\GameContext.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Cho\System\FrameRate\FrameRate.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -206,9 +210,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\Scene\BaseScene\BaseScene.h" />
     <ClInclude Include="Cho\Main\Cho.h" />
     <ClInclude Include="Cho\System\WinApp\WinApp.h" />
-    <ClInclude Include="Cho\System\Editor\UI\ImGuiManager\ImGuiManager.h" />
+    <ClInclude Include="Cho\System\UI\ImGuiManager\ImGuiManager.h" />
     <ClInclude Include="Cho\System\D3D12\ResourceLeakChecker\ResourceLeakChecker.h" />
-    <ClInclude Include="Cho\System\Framelate\Framelate.h" />
     <ClInclude Include="Cho\System\D3D12\D3DDevice\D3DDevice.h" />
     <ClInclude Include="Cho\System\D3D12\DXGIFactory\DXGIFactory.h" />
     <ClInclude Include="Cho\System\PrecompiledHeader\PrecompiledHeader.h" />
@@ -229,6 +232,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\Editor\MainMenu\MainMenu.h" />
     <ClInclude Include="Cho\System\Editor\EditorManager\EditorManager.h" />
     <ClInclude Include="Cho\System\Editor\FileView\FileView.h" />
+    <ClInclude Include="Cho\System\UI\GameContext\GameContext.h" />
+    <ClInclude Include="Cho\System\FrameRate\FrameRate.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

@@ -1,10 +1,10 @@
 #include "Cho.h"
 
-// 静的メンバー変数の定義
+#pragma region 静的メンバー変数の定義
 bool Cho::endRequest_ = false;
 std::unique_ptr <WinApp> Cho::win = nullptr;
 std::unique_ptr <ResourceLeakChecker> Cho::resourceLeakChecker = nullptr;
-std::unique_ptr <Framelate> Cho::framelate = nullptr;
+std::unique_ptr <FrameRate> Cho::frameRate = nullptr;
 std::unique_ptr <DXGIFactory> Cho::dxgiFactory = nullptr;
 std::unique_ptr <D3DDevice> Cho::d3dDevice = nullptr;
 std::unique_ptr<D3DFence> Cho::d3dFence = nullptr;
@@ -15,6 +15,9 @@ std::unique_ptr<RTVManager>Cho::rtvManager = nullptr;
 std::unique_ptr<DSVManager> Cho::dsvManager = nullptr;
 std::unique_ptr<DrawExecution> Cho::drawExecution = nullptr;
 
+// GameContext
+std::unique_ptr<GameContext> Cho::gameContext = nullptr;
+
 // Scene
 std::unique_ptr<SceneManager> Cho::sceneManager = nullptr;
 
@@ -24,10 +27,12 @@ std::unique_ptr<ImGuiManager> Cho::imguiManager = nullptr;
 // Editor
 std::unique_ptr<EditorManager> Cho::editorManager = nullptr;
 
+#pragma endregion
+
 // System
 #include"WinApp/WinApp.h"
 #include"D3D12/ResourceLeakChecker/ResourceLeakChecker.h"
-#include"Framelate/Framelate.h"
+#include"FrameRate/FrameRate.h"
 #include"D3D12/DXGIFactory/DXGIFactory.h"
 #include"D3D12/D3DDevice/D3DDevice.h"
 #include"D3D12/D3DFence/D3DFence.h"
@@ -38,11 +43,14 @@ std::unique_ptr<EditorManager> Cho::editorManager = nullptr;
 #include"D3D12/DSVManager/DSVManager.h"
 #include"D3D12/DrawExecution/DrawExecution.h"
 
+// Context
+#include"UI/GameContext/GameContext.h"
+
 // Scene
 #include"Scene/SceneManager/SceneManager.h"
 
 // 汎用機能
-#include"Editor/UI/ImGuiManager/ImGuiManager.h"
+#include"UI/ImGuiManager/ImGuiManager.h"
 
 // Editor
 #include"Editor/EditorManager/EditorManager.h"
@@ -56,9 +64,13 @@ void Cho::Initialize()
 	// リソースリークチェッカー
 	resourceLeakChecker = std::make_unique<ResourceLeakChecker>();
 
+	// GameContext
+	gameContext = std::make_unique<GameContext>();
+	gameContext->Initialize();
+
 	// フレーム
-	framelate = std::make_unique<Framelate>();
-	framelate->Initialize();
+	frameRate = std::make_unique<FrameRate>();
+	frameRate->Initialize(gameContext.get());
 
 #pragma region DirectX
 
@@ -117,10 +129,6 @@ void Cho::Initialize()
 
 #pragma endregion
 
-	// SceneManager
-	sceneManager = std::make_unique<SceneManager>();
-	sceneManager->Initialize();
-
 #pragma region 汎用機能初期化
 
 	// ImGuiManager
@@ -131,6 +139,14 @@ void Cho::Initialize()
 		d3dCommand.get(),
 		resourceViewManager.get()
 	);
+
+#pragma endregion
+
+	// SceneManager
+	sceneManager = std::make_unique<SceneManager>();
+	sceneManager->Initialize();
+
+#pragma region プロジェクトデータの読み込み
 
 #pragma endregion
 
@@ -178,7 +194,7 @@ void Cho::Operation()
 		/*描画後処理*/
 		PostDraw();
 		/*フレーム更新*/
-		framelate->Update();
+		frameRate->Update();
 	}
 	/*終了処理*/
 	Finalize();
@@ -197,6 +213,9 @@ void Cho::Update()
 
 	// シーンを更新
 	sceneManager->Update();
+
+	// SystemUIの更新
+	gameContext->Update();
 }
 
 void Cho::PreDraw()
@@ -204,26 +223,31 @@ void Cho::PreDraw()
 	// ImGui受付終了
 	imguiManager->End();
 
+	// 使うディスクリプタヒープをセット
 	resourceViewManager->SetDescriptorHeap(d3dCommand->GetCommandList());
 
+	// 描画前処理
 	drawExecution->PreDraw();
 }
 
 void Cho::Draw()
 {
+	// シーン描画
 	sceneManager->Draw();
 }
 
 void Cho::PostDraw()
 {
-
+	// 描画後処理
 	drawExecution->PostDraw();
 
 	// ImGui描画
 	imguiManager->Draw();
 
+	// 描画終了処理
 	drawExecution->End();
 
+	// コマンドリストのリセット
 	d3dCommand->Reset();
 }
 

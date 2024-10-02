@@ -3,7 +3,7 @@
 // System
 class WinApp;
 class ResourceLeakChecker;
-class Framelate;
+class FrameRate;
 class DXGIFactory;
 class D3DDevice;
 class D3DFence;
@@ -13,6 +13,9 @@ class ResourceViewManager;
 class RTVManager;
 class DSVManager;
 class DrawExecution;
+
+// Context
+class GameContext;
 
 // Scene
 class SceneManager;
@@ -77,7 +80,7 @@ private:// メンバ変数
 	static std::unique_ptr <WinApp> win;
 
 	/*フレーム*/
-	static std::unique_ptr<Framelate> framelate;
+	static std::unique_ptr<FrameRate> frameRate;
 
 	/*DirectX*/
 	static std::unique_ptr<ResourceLeakChecker> resourceLeakChecker;
@@ -90,6 +93,9 @@ private:// メンバ変数
 	static std::unique_ptr<RTVManager> rtvManager;
 	static std::unique_ptr<DSVManager> dsvManager;
 	static std::unique_ptr<DrawExecution> drawExecution;
+
+	/*Context*/
+	static std::unique_ptr<GameContext> gameContext;
 
 	/*Scene*/
 	static std::unique_ptr<SceneManager> sceneManager;

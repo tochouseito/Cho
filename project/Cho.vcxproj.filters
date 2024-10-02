@@ -111,13 +111,10 @@
     <ClCompile Include="Cho\Main\Cho.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\Editor\UI\ImGuiManager\ImGuiManager.cpp">
+    <ClCompile Include="Cho\System\UI\ImGuiManager\ImGuiManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cho\System\D3D12\ResourceLeakChecker\ResourceLeakChecker.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\Framelate\Framelate.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cho\System\D3D12\DXGIFactory\DXGIFactory.cpp">
@@ -183,6 +180,12 @@
     <ClCompile Include="Cho\System\Editor\FileView\FileView.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Cho\System\UI\GameContext\GameContext.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\FrameRate\FrameRate.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -194,13 +197,10 @@
     <ClInclude Include="Cho\Main\Cho.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\System\Editor\UI\ImGuiManager\ImGuiManager.h">
+    <ClInclude Include="Cho\System\UI\ImGuiManager\ImGuiManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\D3D12\ResourceLeakChecker\ResourceLeakChecker.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Cho\System\Framelate\Framelate.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\D3D12\DXGIFactory\DXGIFactory.h">
@@ -267,6 +267,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\Editor\FileView\FileView.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\UI\GameContext\GameContext.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\FrameRate\FrameRate.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
