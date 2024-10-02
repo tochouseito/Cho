@@ -20,6 +20,9 @@ class SceneManager;
 // 汎用機能
 class ImGuiManager;
 
+// Editor
+class EditorManager;
+
 // C++
 #include<memory>
 
@@ -93,6 +96,9 @@ private:// メンバ変数
 
 	/*汎用機能*/
 	static std::unique_ptr<ImGuiManager> imguiManager;
+
+	/*Editor*/
+	static std::unique_ptr<EditorManager> editorManager;
 
 	/*ループ終了*/
 	static bool endRequest_;

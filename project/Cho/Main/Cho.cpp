@@ -21,6 +21,9 @@ std::unique_ptr<SceneManager> Cho::sceneManager = nullptr;
 // 汎用機能
 std::unique_ptr<ImGuiManager> Cho::imguiManager = nullptr;
 
+// Editor
+std::unique_ptr<EditorManager> Cho::editorManager = nullptr;
+
 // System
 #include"WinApp/WinApp.h"
 #include"D3D12/ResourceLeakChecker/ResourceLeakChecker.h"
@@ -40,6 +43,9 @@ std::unique_ptr<ImGuiManager> Cho::imguiManager = nullptr;
 
 // 汎用機能
 #include"Editor/UI/ImGuiManager/ImGuiManager.h"
+
+// Editor
+#include"Editor/EditorManager/EditorManager.h"
 
 void Cho::Initialize()
 {
@@ -128,6 +134,14 @@ void Cho::Initialize()
 
 #pragma endregion
 
+#pragma region エディター
+
+	// EditorManager
+	editorManager = std::make_unique<EditorManager>();
+	editorManager->Initialize();
+
+#pragma endregion
+
 	// 最初のシーンを作成
 	sceneManager->ChangeScene("MainScene");
 
@@ -177,6 +191,10 @@ void Cho::Update()
 	}
 	// ImGui受付開始
 	imguiManager->Begin();
+
+	// エディタを更新
+	editorManager->Update();
+
 	// シーンを更新
 	sceneManager->Update();
 }
