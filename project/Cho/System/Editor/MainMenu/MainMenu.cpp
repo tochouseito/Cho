@@ -10,5 +10,8 @@ void MainMenu::Update()
 {
 	ImGui::Begin("MainMenu");
 
+	// スタイルエディタを表示
+	ImGui::ShowStyleEditor();
+
 	ImGui::End();
 }

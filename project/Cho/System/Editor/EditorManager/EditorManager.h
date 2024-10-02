@@ -5,6 +5,7 @@
 
 // Entity
 #include"Editor/MainMenu/MainMenu.h"
+#include"Editor/FileView/FileView.h"
 
 class EditorManager
 {
@@ -24,6 +25,7 @@ public:
 private:
 
 	std::unique_ptr<MainMenu> mainMenu = nullptr;
+	std::unique_ptr<FileView> fileView = nullptr;
 
 };
 
