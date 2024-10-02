@@ -162,6 +162,15 @@
     <ClCompile Include="Cho\System\D3D12\ShaderCompiler\ShaderCompiler.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Cho\System\Scene\SceneManager\SceneManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\Scene\BaseScene\BaseScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\Scene\SceneFactory\SceneFactory.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -222,6 +231,18 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\D3D12\ShaderCompiler\ShaderCompiler.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\Scene\SceneManager\SceneManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\Scene\SceneFactory\AbstractSceneFactory.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\Scene\BaseScene\BaseScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\Scene\SceneFactory\SceneFactory.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

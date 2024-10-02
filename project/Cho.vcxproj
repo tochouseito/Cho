@@ -116,6 +116,9 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cho\System\Scene\BaseScene\BaseScene.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Cho\Main\Cho.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -166,6 +169,12 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\System\Graphics\PostProcessManager\PostProcessManager.cpp" />
     <ClCompile Include="Cho\System\Graphics\Pipeline\Pipeline.cpp" />
     <ClCompile Include="Cho\System\D3D12\ShaderCompiler\ShaderCompiler.cpp" />
+    <ClCompile Include="Cho\System\Scene\SceneFactory\SceneFactory.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Cho\System\Scene\SceneManager\SceneManager.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig">
@@ -174,6 +183,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cho\System\Scene\SceneFactory\AbstractSceneFactory.h" />
+    <ClInclude Include="Cho\System\Scene\BaseScene\BaseScene.h" />
     <ClInclude Include="Cho\Main\Cho.h" />
     <ClInclude Include="Cho\System\WinApp\WinApp.h" />
     <ClInclude Include="Cho\System\UI\ImGuiManager\ImGuiManager.h" />
@@ -193,6 +204,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\Graphics\PostProcessManager\PostProcessManager.h" />
     <ClInclude Include="Cho\System\Graphics\Pipeline\Pipeline.h" />
     <ClInclude Include="Cho\System\D3D12\ShaderCompiler\ShaderCompiler.h" />
+    <ClInclude Include="Cho\System\Scene\SceneFactory\SceneFactory.h" />
+    <ClInclude Include="Cho\System\Scene\SceneManager\SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
