@@ -11,27 +11,27 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	virtual void Initialize();
+	virtual void Initialize()=0;
 
 	/// <summary>
 	/// 終了
 	/// </summary>
-	virtual void Finalize();
+	virtual void Finalize() = 0;
 
 	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
-	virtual void Update();
+	virtual void Update() = 0;
 
 	/// <summary>
 	/// 描画
 	/// </summary>
-	virtual void Draw();
+	virtual void Draw() = 0;
 
 	/// <summary>
 	/// シーンの切り替え依頼
 	/// </summary>
-	virtual void ChangeScene();
+	virtual void ChangeScene()=0;
 
 	virtual void SetSceneManager(SceneManager* sceneManager) { sceneManager_ = sceneManager; }
 private:

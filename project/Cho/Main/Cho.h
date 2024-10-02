@@ -15,6 +15,7 @@ class DSVManager;
 class DrawExecution;
 
 // Scene
+class SceneManager;
 
 // 汎用機能
 class ImGuiManager;
@@ -86,6 +87,9 @@ private:// メンバ変数
 	static std::unique_ptr<RTVManager> rtvManager;
 	static std::unique_ptr<DSVManager> dsvManager;
 	static std::unique_ptr<DrawExecution> drawExecution;
+
+	/*Scene*/
+	static std::unique_ptr<SceneManager> sceneManager;
 
 	/*汎用機能*/
 	static std::unique_ptr<ImGuiManager> imguiManager;

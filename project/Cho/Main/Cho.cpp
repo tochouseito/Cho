@@ -15,6 +15,9 @@ std::unique_ptr<RTVManager>Cho::rtvManager = nullptr;
 std::unique_ptr<DSVManager> Cho::dsvManager = nullptr;
 std::unique_ptr<DrawExecution> Cho::drawExecution = nullptr;
 
+// Scene
+std::unique_ptr<SceneManager> Cho::sceneManager = nullptr;
+
 // 汎用機能
 std::unique_ptr<ImGuiManager> Cho::imguiManager = nullptr;
 
@@ -32,8 +35,11 @@ std::unique_ptr<ImGuiManager> Cho::imguiManager = nullptr;
 #include"D3D12/DSVManager/DSVManager.h"
 #include"D3D12/DrawExecution/DrawExecution.h"
 
+// Scene
+#include"Scene/SceneManager/SceneManager.h"
+
 // 汎用機能
-#include"UI/ImGuiManager/ImGuiManager.h"
+#include"Editor/UI/ImGuiManager/ImGuiManager.h"
 
 void Cho::Initialize()
 {
@@ -105,6 +111,10 @@ void Cho::Initialize()
 
 #pragma endregion
 
+	// SceneManager
+	sceneManager = std::make_unique<SceneManager>();
+	sceneManager->Initialize();
+
 #pragma region 汎用機能初期化
 
 	// ImGuiManager
@@ -117,14 +127,20 @@ void Cho::Initialize()
 	);
 
 #pragma endregion
+
+	// 最初のシーンを作成
+	sceneManager->ChangeScene("MainScene");
+
 }
 
 void Cho::Finalize()
 {
-	/*フェンスの終了*/
-	d3dFence->Finalize();
+	// シーン解放
+	sceneManager->Finalize();
 	// ImGui解放
 	imguiManager->Finalize();
+	/*フェンスの終了*/
+	d3dFence->Finalize();
 	// ウィンドウの破棄
 	win->TerminateWindow();
 }
@@ -161,6 +177,8 @@ void Cho::Update()
 	}
 	// ImGui受付開始
 	imguiManager->Begin();
+	// シーンを更新
+	sceneManager->Update();
 }
 
 void Cho::PreDraw()
@@ -175,6 +193,7 @@ void Cho::PreDraw()
 
 void Cho::Draw()
 {
+	sceneManager->Draw();
 }
 
 void Cho::PostDraw()

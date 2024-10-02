@@ -21,6 +21,7 @@ void DXGIFactory::Initialize([[maybe_unused]] bool enableDebugLayer)
 	}
 #endif
 	// DXGIファクトリーの生成
-	HRESULT hr = CreateDXGIFactory2(0,IID_PPV_ARGS(&dxgiFactory_));
+	HRESULT hr;
+	hr = CreateDXGIFactory2(0,IID_PPV_ARGS(&dxgiFactory_));
 	assert(SUCCEEDED(hr));
 }
