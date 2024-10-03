@@ -24,10 +24,9 @@ void ImGuiManager::Initialize(WinApp* win, D3DDevice* d3dDevice, D3DCommand* d3d
 		RVManager->GetDescriptorHeap()->GetCPUDescriptorHandleForHeapStart(),
 		RVManager->GetDescriptorHeap()->GetGPUDescriptorHandleForHeapStart());
 
-
 	ImGuiIO& io = ImGui::GetIO();
-
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;  // Dockingを有効化
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 	// フォントファイルのパスとサイズを指定してフォントをロードする
 	io.Fonts->AddFontFromFileTTF(
@@ -35,6 +34,9 @@ void ImGuiManager::Initialize(WinApp* win, D3DDevice* d3dDevice, D3DCommand* d3d
 	);
 	// 標準フォントを追加する
 	io.Fonts->AddFontDefault();
+
+	ImGuiPlatformIO& platform_io = ImGui::GetPlatformIO();
+	IM_ASSERT(platform_io.Platform_CreateWindow != NULL && "Platform init didn't install handlers?");
 }
 
 void ImGuiManager::Finalize()
@@ -57,6 +59,9 @@ void ImGuiManager::End()
 {
 	// 描画前準備
 	ImGui::Render();
+
+	ImGui::UpdatePlatformWindows();
+	ImGui::RenderPlatformWindowsDefault();
 }
 
 void ImGuiManager::Draw()

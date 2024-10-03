@@ -46,7 +46,9 @@ public:// メンバ関数
 	/// </summary>
 	void TerminateWindow();
 
-	HWND GetHwnd() const { return hwnd_; }
+	HWND GetHwnd() const {
+		return hwnd_;
+	}
 
 	HINSTANCE GetHInstance() const { return wc_.hInstance; }
 
