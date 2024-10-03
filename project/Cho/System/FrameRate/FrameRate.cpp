@@ -33,6 +33,7 @@ void FrameRate::Update()
 			if (remainingTime.count() > 1) {
 				std::this_thread::sleep_for(remainingTime);
 			}
+			//std::this_thread::sleep_for(std::chrono::microseconds(1));
 		}
 	}
 	// 現在の時間を記録する
@@ -47,4 +48,5 @@ void FrameRate::Update()
 	float frameRate = 1.0f / deltaTime;
 
 	gameContext_->SetFrameValue(frameRate, deltaTime);
+
 }

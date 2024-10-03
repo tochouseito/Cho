@@ -12,6 +12,7 @@ void GameContext::Update()
 	ImGui::Begin("Framerate Info");
 	ImGui::Text("DeltaTime: %.6f", deltaTime_);
 	ImGui::Text("FrameRate: %.1f FPS", frameRate_);
+	ImGui::Text("FrameRate: %.1f FPS", ImGui::GetIO().Framerate);
 	ImGui::End();
 }
 
