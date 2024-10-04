@@ -41,6 +41,8 @@ public:// メンバ関数
 	/// </summary>
 	bool ProcessMessage();
 
+	bool IsEndApp();
+
 	/// <summary>
 	/// ウィンドウの破棄
 	/// </summary>
@@ -60,5 +62,7 @@ private:// メンバ変数
 	HWND hwnd_ = nullptr;
 
 	WNDCLASS wc_{}; // ウィンドウクラス
+
+	static bool isAppRunning; // アプリケーションが動作中かを示すフラグ
 };
 

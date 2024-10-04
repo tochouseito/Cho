@@ -68,12 +68,6 @@ public:// メンバ関数
 	/// </summary>
 	static void PostDraw();
 
-	/// <summary>
-	/// 終了リクエスト
-	/// </summary>
-	/// <returns></returns>
-	static bool IsEndRequest();
-
 private:// メンバ変数
 
 	/*ウィンドウズアプリケーション*/
@@ -105,8 +99,5 @@ private:// メンバ変数
 
 	/*Editor*/
 	static std::unique_ptr<EditorManager> editorManager;
-
-	/*ループ終了*/
-	static bool endRequest_;
 };
 

@@ -1,7 +1,6 @@
 #include "Cho.h"
 
 #pragma region 静的メンバー変数の定義
-bool Cho::endRequest_ = false;
 std::unique_ptr <WinApp> Cho::win = nullptr;
 std::unique_ptr <ResourceLeakChecker> Cho::resourceLeakChecker = nullptr;
 std::unique_ptr <FrameRate> Cho::frameRate = nullptr;
@@ -57,12 +56,12 @@ std::unique_ptr<EditorManager> Cho::editorManager = nullptr;
 
 void Cho::Initialize()
 {
+	// リソースリークチェッカー
+	resourceLeakChecker = std::make_unique<ResourceLeakChecker>();
+
 	// ウィンドウの作成
 	win = std::make_unique<WinApp>();
 	win->CreateGameWindow();
-
-	// リソースリークチェッカー
-	resourceLeakChecker = std::make_unique<ResourceLeakChecker>();
 
 	// GameContext
 	gameContext = std::make_unique<GameContext>();
@@ -182,19 +181,21 @@ void Cho::Operation()
 	/*メインループ*/
 	while (true) {
 		/*ウィンドウ終了リクエスト*/
-		if (IsEndRequest()) {
+		if (win->ProcessMessage()) {
 			break;
 		}
-		/*毎フレーム更新*/
-		Update();
-		/*描画前処理*/
-		PreDraw();
-		/*描画*/
-		Draw();
-		/*描画後処理*/
-		PostDraw();
-		/*フレーム更新*/
-		frameRate->Update();
+		if (!win->IsEndApp()) {
+			/*毎フレーム更新*/
+			Update();
+			/*描画前処理*/
+			PreDraw();
+			/*描画*/
+			Draw();
+			/*描画後処理*/
+			PostDraw();
+			/*フレーム更新*/
+			frameRate->Update();
+		}
 	}
 	/*終了処理*/
 	Finalize();
@@ -202,9 +203,6 @@ void Cho::Operation()
 
 void Cho::Update()
 {
-	if (win->ProcessMessage()) {
-		endRequest_ = true;
-	}
 	// ImGui受付開始
 	imguiManager->Begin();
 
@@ -249,12 +247,4 @@ void Cho::PostDraw()
 
 	// コマンドリストのリセット
 	d3dCommand->Reset();
-}
-
-bool Cho::IsEndRequest()
-{
-	if (endRequest_) {
-		return true;
-	}
-	return false;
 }

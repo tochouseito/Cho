@@ -14,6 +14,15 @@ void ImGuiManager::Initialize(WinApp* win, D3DDevice* d3dDevice, D3DCommand* d3d
 	IMGUI_CHECKVERSION();
 	// ImGuiのコンテキストを生成
 	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable; // Dockingを有効化
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+	// フォントファイルのパスとサイズを指定してフォントをロードする
+	io.Fonts->AddFontFromFileTTF(
+		"C:\\Windows\\Fonts\\Arial.ttf", 16.0f // フォントファイルのパスとフォントサイズ
+	);
+	// 標準フォントを追加する
+	io.Fonts->AddFontDefault();
 	// ImGuiのスタイルを設定
 	ImGui::StyleColorsDark();
 	// プラットフォームとレンダラーのバックエンドを設定する
@@ -23,21 +32,12 @@ void ImGuiManager::Initialize(WinApp* win, D3DDevice* d3dDevice, D3DCommand* d3d
 		DXGI_FORMAT_R8G8B8A8_UNORM, RVManager->GetDescriptorHeap(),
 		RVManager->GetDescriptorHeap()->GetCPUDescriptorHandleForHeapStart(),
 		RVManager->GetDescriptorHeap()->GetGPUDescriptorHandleForHeapStart());
-
-	ImGuiIO& io = ImGui::GetIO();
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;  // Dockingを有効化
-
-	// フォントファイルのパスとサイズを指定してフォントをロードする
-	io.Fonts->AddFontFromFileTTF(
-		"C:\\Windows\\Fonts\\Arial.ttf", 16.0f // フォントファイルのパスとフォントサイズ
-	);
-	// 標準フォントを追加する
-	io.Fonts->AddFontDefault();
 }
 
 void ImGuiManager::Finalize()
 {
 	// 後始末
+	ImGui::DestroyPlatformWindows();
 	ImGui_ImplDX12_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
@@ -55,6 +55,8 @@ void ImGuiManager::End()
 {
 	// 描画前準備
 	ImGui::Render();
+	ImGui::UpdatePlatformWindows();
+	ImGui::RenderPlatformWindowsDefault();
 }
 
 void ImGuiManager::Draw()

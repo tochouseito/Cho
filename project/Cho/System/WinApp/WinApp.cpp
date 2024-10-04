@@ -6,12 +6,13 @@ extern IMGUI_IMPL_API LRESULT
 ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 #endif
 
+bool WinApp::isAppRunning = true;
 
 // ウィンドウプロシージャ
 LRESULT CALLBACK WinApp::WindowProc(HWND hwnd, UINT msg,
 	WPARAM wparam, LPARAM lparam) {
 #ifdef _DEBUG
-	if (msg != WM_CLOSE && ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam)) {
+	if (ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam)) {
 		return true;
 	}
 #endif
@@ -21,6 +22,7 @@ LRESULT CALLBACK WinApp::WindowProc(HWND hwnd, UINT msg,
 	case WM_DESTROY:
 		// OSに対して、アプリの終了を伝える
 		PostQuitMessage(0);
+		isAppRunning = false;
 		return 0;
 
 	}
@@ -32,6 +34,7 @@ LRESULT CALLBACK WinApp::WindowProc(HWND hwnd, UINT msg,
 void WinApp::CreateGameWindow() {
 
 	HRESULT hr;
+
 	// COM初期化
 	hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 
@@ -85,6 +88,14 @@ bool WinApp::ProcessMessage() {
 		DispatchMessage(&msg);
 	}
 	if (msg.message == WM_QUIT) {
+		return true;
+	}
+	return false;
+}
+
+bool WinApp::IsEndApp()
+{
+	if (!isAppRunning) {
 		return true;
 	}
 	return false;
