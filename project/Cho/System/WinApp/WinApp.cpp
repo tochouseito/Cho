@@ -11,8 +11,9 @@ ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 LRESULT CALLBACK WinApp::WindowProc(HWND hwnd, UINT msg,
 	WPARAM wparam, LPARAM lparam) {
 #ifdef _DEBUG
-	if (ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam))
+	if (msg != WM_CLOSE && ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam)) {
 		return true;
+	}
 #endif
 	// メッセージに応じてゲーム固有の処理を行う
 	switch (msg) {
