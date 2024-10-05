@@ -26,5 +26,6 @@ private:// メンバ変数
 	DXGI_SWAP_CHAIN_DESC1 desc_{};
 	Microsoft::WRL::ComPtr < ID3D12Resource>resources_[2];
 
+	int32_t refreshRate_ = 0;
 };
 

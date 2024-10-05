@@ -14,6 +14,9 @@ void D3DSwapChain::Initialize(WinApp* win, IDXGIFactory7& dxgiFactory, ID3D12Com
 	desc_.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;// 描画のターゲットとして利用する
 	desc_.BufferCount = 2;                              // ダブルバッファ
 	desc_.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;   // モニタにうつしたら、中身を破棄
+	desc_.Flags =
+		DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING |
+		DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT; // ティアリングサポート
 
 	// コマンドキュー、ウィンドウハンドル、設定を渡して生成する
 	hr = dxgiFactory.CreateSwapChainForHwnd(
@@ -23,6 +26,14 @@ void D3DSwapChain::Initialize(WinApp* win, IDXGIFactory7& dxgiFactory, ID3D12Com
 
 	assert(SUCCEEDED(hr));
 
+	// リフレッシュレートを取得。floatで取るのは大変なので大体あってれば良いので整数で。
+	HDC hdc = GetDC(win->GetHwnd());
+	refreshRate_ = GetDeviceCaps(hdc, VREFRESH);
+	ReleaseDC(win->GetHwnd(), hdc);
+
+	// VSync共存型fps固定のためにレイテンシ1
+	swapChain_->SetMaximumFrameLatency(1);
+
 	// SwapChainからResourceを引っ張ってくる
 	hr = swapChain_->GetBuffer(0, IID_PPV_ARGS(&resources_[0]));
 	// うまく取得できなければ起動できない
@@ -30,10 +41,18 @@ void D3DSwapChain::Initialize(WinApp* win, IDXGIFactory7& dxgiFactory, ID3D12Com
 	hr = swapChain_->GetBuffer(1, IID_PPV_ARGS(&resources_[1]));
 	// うまく取得できなければ起動できない
 	assert(SUCCEEDED(hr));
+
+	// OSが行うAlt+Enterのフルスクリーンは制御不能なので禁止
+	dxgiFactory.MakeWindowAssociation(
+		win->GetHwnd(), DXGI_MWA_NO_WINDOW_CHANGES | DXGI_MWA_NO_ALT_ENTER);
 }
 
 void D3DSwapChain::Present()
 {
+	HRESULT result;
 	// GPUとOSに画面の交換を行うように通知する
-	swapChain_->Present(1, 0);
+	//swapChain_->Present(1, 0);
+	// バッファをフリップ。60fps固定のため、30fpsなどのモニタはティアリング覚悟で垂直同期無視
+	static constexpr int32_t kThreasholdRefreshRate = 58;
+	result = swapChain_->Present(refreshRate_ < kThreasholdRefreshRate ? 0 : 1, 0);
 }
