@@ -23,6 +23,7 @@ void D3DCommand::Initialize(ID3D12Device& device, D3DFence* d3dFence)
 		IID_PPV_ARGS(&commandList_));
 	// コマンドリストの生成がうまくいかなかったので起動できない
 	assert(SUCCEEDED(hr));
+	commandList_->Close();  // 初期状態で閉じておく
 }
 
 void D3DCommand::Close()

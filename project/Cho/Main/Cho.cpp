@@ -221,6 +221,9 @@ void Cho::PreDraw()
 	// ImGui受付終了
 	imguiManager->End();
 
+	// コマンドリスト記録開始
+	d3dCommand->Reset();
+
 	// 使うディスクリプタヒープをセット
 	resourceViewManager->SetDescriptorHeap(d3dCommand->GetCommandList());
 
@@ -244,7 +247,4 @@ void Cho::PostDraw()
 
 	// 描画終了処理
 	drawExecution->End();
-
-	// コマンドリストのリセット
-	d3dCommand->Reset();
 }
