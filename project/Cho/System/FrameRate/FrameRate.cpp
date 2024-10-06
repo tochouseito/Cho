@@ -11,7 +11,7 @@ void FrameRate::Initialize(GameContext* gameContext)
 
 void FrameRate::Update()
 {
-	 // フレームレートピッタリの時間
+	// フレームレートピッタリの時間
 	constexpr std::chrono::microseconds kMinTime(static_cast<uint64_t>(1000000.0f / 60.0f));
 
 	//// 1/60秒よりわずかに短い時間
@@ -36,7 +36,6 @@ void FrameRate::Update()
 
 	// 新たに経過時間を取得（スリープ後の正確な時間）
 	elapsed = std::chrono::duration_cast<std::chrono::microseconds>(reference_ - now);
-
 
 	// デルタタイムを秒単位に変換
 	float deltaTime = elapsed.count() / 1000000.0f;
