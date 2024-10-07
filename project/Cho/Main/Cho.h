@@ -14,6 +14,9 @@ class RTVManager;
 class DSVManager;
 class DrawExecution;
 
+// GraphicsSystem
+class GraphicsSystem;
+
 // Context
 class GameContext;
 
@@ -87,6 +90,9 @@ private:// メンバ変数
 	static std::unique_ptr<RTVManager> rtvManager;
 	static std::unique_ptr<DSVManager> dsvManager;
 	static std::unique_ptr<DrawExecution> drawExecution;
+
+	/*GraphicsSystem*/
+	static std::unique_ptr<GraphicsSystem> graphicsSystem;
 
 	/*Context*/
 	static std::unique_ptr<GameContext> gameContext;

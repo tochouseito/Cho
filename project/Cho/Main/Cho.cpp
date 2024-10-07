@@ -14,6 +14,9 @@ std::unique_ptr<RTVManager>Cho::rtvManager = nullptr;
 std::unique_ptr<DSVManager> Cho::dsvManager = nullptr;
 std::unique_ptr<DrawExecution> Cho::drawExecution = nullptr;
 
+// GraphicsSystem
+std::unique_ptr<GraphicsSystem> Cho::graphicsSystem = nullptr;
+
 // GameContext
 std::unique_ptr<GameContext> Cho::gameContext = nullptr;
 
@@ -41,6 +44,9 @@ std::unique_ptr<EditorManager> Cho::editorManager = nullptr;
 #include"D3D12/RTVManager/RTVManager.h"
 #include"D3D12/DSVManager/DSVManager.h"
 #include"D3D12/DrawExecution/DrawExecution.h"
+
+// GraphicsSystem
+#include"Graphics/GraphicsSystem/GraphicsSystem.h"
 
 // Context
 #include"UI/GameContext/GameContext.h"
@@ -125,6 +131,14 @@ void Cho::Initialize()
 		dsvManager.get()
 	);
 
+
+#pragma endregion
+
+#pragma region グラフィックスシステム
+
+	// GraphicsSystem
+	graphicsSystem = std::make_unique<GraphicsSystem>();
+	graphicsSystem->Initialize();
 
 #pragma endregion
 
