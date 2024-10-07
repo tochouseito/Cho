@@ -5,6 +5,9 @@ void ShaderCompiler::Initialize()
 {
 	// DXコンパイラー初期化
 	InitializeDxcCompiler();
+
+	// HLSLファイルの名前を読み込み
+	hlslFiles_ = GetHLSLFilesFromFolder(folderPath_);
 }
 
 IDxcBlob* ShaderCompiler::CompilerShader(
@@ -104,4 +107,25 @@ void ShaderCompiler::InitializeDxcCompiler()
 	// 現時点でincludeはしないが、includeに対応するための設定を作っておく
 	hr = dxcUtils_->CreateDefaultIncludeHandler(&includeHandler_);
 	assert(SUCCEEDED(hr));
+}
+
+std::vector<std::string> ShaderCompiler::GetHLSLFilesFromFolder(const std::string& folderPath)
+{
+	std::vector<std::string> hlslFiles;
+
+	// ディレクトリの存在を確認
+	if (!fs::exists(folderPath) || !fs::is_directory(folderPath)) {
+		//std::cerr << "フォルダが存在しないか、ディレクトリではありません: " << folderPath << std::endl;
+		return hlslFiles;
+	}
+
+	// ディレクトリを走査
+	for (const auto& entry : fs::directory_iterator(folderPath)) {
+		if (entry.is_regular_file() && entry.path().extension() == ".hlsl") {
+			// ファイル名のみを保存 (拡張子を含むファイル名)
+			hlslFiles.push_back(entry.path().filename().string());
+		}
+	}
+
+	return hlslFiles;
 }

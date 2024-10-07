@@ -299,5 +299,8 @@
     <ClInclude Include="Cho\System\Lord\ModelLoader\ModelLoader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Cho\Utility\BlendMode.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

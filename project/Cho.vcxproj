@@ -219,6 +219,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\D3D12\D3DDevice\D3DDevice.h" />
     <ClInclude Include="Cho\System\D3D12\DXGIFactory\DXGIFactory.h" />
     <ClInclude Include="Cho\System\PrecompiledHeader\PrecompiledHeader.h" />
+    <ClInclude Include="Cho\Utility\BlendMode.h" />
     <ClInclude Include="Cho\Utility\ConvertString\ConvertString.h" />
     <ClInclude Include="Cho\System\D3D12\D3DCommand\D3DCommand.h" />
     <ClInclude Include="Cho\System\D3D12\D3DFence\D3DFence.h" />
