@@ -1,5 +1,34 @@
 #include "Cho.h"
 
+// System
+#include"WinApp/WinApp.h"
+#include"D3D12/ResourceLeakChecker/ResourceLeakChecker.h"
+#include"FrameRate/FrameRate.h"
+#include"D3D12/DXGIFactory/DXGIFactory.h"
+#include"D3D12/D3DDevice/D3DDevice.h"
+#include"D3D12/D3DFence/D3DFence.h"
+#include"D3D12/D3DCommand/D3DCommand.h"
+#include"D3D12/D3DSwapChain/D3DSwapChain.h"
+#include"D3D12/ResourceViewManager/ResourceViewManager.h"
+#include"D3D12/RTVManager/RTVManager.h"
+#include"D3D12/DSVManager/DSVManager.h"
+#include"D3D12/DrawExecution/DrawExecution.h"
+
+// GraphicsSystem
+#include"Graphics/GraphicsSystem/GraphicsSystem.h"
+
+// Context
+#include"UI/GameContext/GameContext.h"
+
+// Scene
+#include"Scene/SceneManager/SceneManager.h"
+
+// 汎用機能
+#include"UI/ImGuiManager/ImGuiManager.h"
+
+// Editor
+#include"Editor/EditorManager/EditorManager.h"
+
 #pragma region 静的メンバー変数の定義
 std::unique_ptr <WinApp> Cho::win = nullptr;
 std::unique_ptr <ResourceLeakChecker> Cho::resourceLeakChecker = nullptr;
@@ -30,35 +59,6 @@ std::unique_ptr<ImGuiManager> Cho::imguiManager = nullptr;
 std::unique_ptr<EditorManager> Cho::editorManager = nullptr;
 
 #pragma endregion
-
-// System
-#include"WinApp/WinApp.h"
-#include"D3D12/ResourceLeakChecker/ResourceLeakChecker.h"
-#include"FrameRate/FrameRate.h"
-#include"D3D12/DXGIFactory/DXGIFactory.h"
-#include"D3D12/D3DDevice/D3DDevice.h"
-#include"D3D12/D3DFence/D3DFence.h"
-#include"D3D12/D3DCommand/D3DCommand.h"
-#include"D3D12/D3DSwapChain/D3DSwapChain.h"
-#include"D3D12/ResourceViewManager/ResourceViewManager.h"
-#include"D3D12/RTVManager/RTVManager.h"
-#include"D3D12/DSVManager/DSVManager.h"
-#include"D3D12/DrawExecution/DrawExecution.h"
-
-// GraphicsSystem
-#include"Graphics/GraphicsSystem/GraphicsSystem.h"
-
-// Context
-#include"UI/GameContext/GameContext.h"
-
-// Scene
-#include"Scene/SceneManager/SceneManager.h"
-
-// 汎用機能
-#include"UI/ImGuiManager/ImGuiManager.h"
-
-// Editor
-#include"Editor/EditorManager/EditorManager.h"
 
 void Cho::Initialize()
 {
@@ -130,7 +130,6 @@ void Cho::Initialize()
 		rtvManager.get(),
 		dsvManager.get()
 	);
-
 
 #pragma endregion
 

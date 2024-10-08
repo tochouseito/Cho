@@ -7,10 +7,12 @@
 // Windows
 #include<Windows.h>
 
+#include<Graphics/Pipeline/Pipeline.h>
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #pragma warning(pop)
-	
+
 	Cho::Operation();
 
 	return 0;

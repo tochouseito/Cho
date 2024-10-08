@@ -26,6 +26,5 @@ private:
 
 	std::unique_ptr<MainMenu> mainMenu = nullptr;
 	std::unique_ptr<FileView> fileView = nullptr;
-
 };
 

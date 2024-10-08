@@ -12,6 +12,7 @@ void EditorManager::Initialize()
 	// FileView
 	fileView = std::make_unique<FileView>();
 	fileView->Initialize();
+
 }
 
 void EditorManager::Update()

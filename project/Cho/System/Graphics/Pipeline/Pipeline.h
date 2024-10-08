@@ -23,6 +23,6 @@ private:
 		std::array<
 		Microsoft::WRL::ComPtr <ID3D12PipelineState>,
 		BlendMode::kCountOfBlendMode>> PSO;
-
+	
 };
 
