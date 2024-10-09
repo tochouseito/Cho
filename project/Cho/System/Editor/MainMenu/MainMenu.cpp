@@ -14,4 +14,12 @@ void MainMenu::Update()
 	ImGui::ShowStyleEditor();
 
 	ImGui::End();
+
+	ImGui::Begin("AddObject");
+
+	if (ImGui::Button("Cube")) {
+
+	}
+
+	ImGui::End();
 }

@@ -21,6 +21,9 @@ public:
 	/// </summary>
 	void Update();
 
+private:// メンバ関数
+
+	void UpdateMainWindow();
 
 private:
 

@@ -34,16 +34,17 @@ void FrameRate::Update()
 	// 現在の時間を記録する
 	reference_ = std::chrono::steady_clock::now();
 
-	// 新たに経過時間を取得（スリープ後の正確な時間）
+	// スリープ後の正確な経過時間を計算
 	elapsed = std::chrono::duration_cast<std::chrono::microseconds>(reference_ - now);
 
 	// デルタタイムを秒単位に変換
-	float deltaTime = elapsed.count() / 1000000.0f;
-	// フレームレート計算
-	float frameRate = 1.0f / deltaTime;
+	float deltaTime = static_cast<float>(elapsed.count()) / 1000000.0f;
 
+	// もし deltaTime が極端に小さすぎない場合にフレームレートを計算
+	float frameRate = (deltaTime > 0.0f) ? (1.0f / deltaTime) : 0.0f;
+
+	// フレームレートとデルタタイムをゲームコンテキストにセット
 	gameContext_->SetFrameValue(frameRate, deltaTime);
-	
 }
 
 
