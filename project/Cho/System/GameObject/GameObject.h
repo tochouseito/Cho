@@ -4,7 +4,7 @@
 class GameObject {
 public:
     std::string name;
-   // Transform transform;  // 位置、回転、スケールを持つ
+    //Transform transform;  // 位置、回転、スケールを持つ
     bool isActive;
 
     GameObject() : name("New GameObject"), isActive(true) {}
