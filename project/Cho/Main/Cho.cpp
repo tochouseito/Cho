@@ -137,7 +137,7 @@ void Cho::Initialize()
 
 	// GraphicsSystem
 	graphicsSystem = std::make_unique<GraphicsSystem>();
-	graphicsSystem->Initialize();
+	graphicsSystem->Initialize(d3dDevice.get());
 
 #pragma endregion
 

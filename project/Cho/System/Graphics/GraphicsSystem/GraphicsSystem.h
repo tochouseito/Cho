@@ -9,6 +9,7 @@
 // C++
 #include<memory>
 
+class D3DDevice;
 class GraphicsSystem
 {
 public:
@@ -16,7 +17,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize();
+	void Initialize(D3DDevice* d3dDevice);
 
 private:
 

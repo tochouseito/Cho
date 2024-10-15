@@ -10,19 +10,35 @@
 // Utility
 #include"BlendMode.h"
 
+class D3DDevice;
+class ShaderCompiler;
 class Pipeline
 {
 public:
+	struct PSOBlend {
+		std::array<Microsoft::WRL::ComPtr <ID3D12PipelineState>,
+			BlendMode::kCountOfBlendMode> Blend;
+		Microsoft::WRL::ComPtr < ID3D12RootSignature> rootSignature;
+		std::vector<std::pair<uint32_t, std::string>> rootParm;
+	};
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize();
+	void Initialize(D3DDevice* d3dDevice,ShaderCompiler* shaderCompiler);
+
+	void CreatePSODemo();
 
 private:
-	std::vector<
+
+	D3DDevice* d3dDevice_ = nullptr;
+
+	/*std::vector<
 		std::array<
 		Microsoft::WRL::ComPtr <ID3D12PipelineState>,
-		BlendMode::kCountOfBlendMode>> PSO;
+		BlendMode::kCountOfBlendMode>> PSO;*/
+	std::vector<PSOBlend> psoBlends;
 	
+	ShaderCompiler* shaderCompiler_ = nullptr;
 };
 

@@ -13,14 +13,20 @@
 
 namespace fs = std::filesystem;
 
+class D3DDevice;
 class ShaderCompiler
 {
 public:
 
 	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~ShaderCompiler();
+
+	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize();
+	void Initialize(D3DDevice* d3dDevice);
 
 	/// <summary>
 	/// shaderのコンパイル
@@ -44,6 +50,20 @@ public:
 	/// <returns></returns>
 	uint32_t GetHLSLFilesSize()const { return static_cast<uint32_t>(hlslFiles_.size()); }
 
+	/// <summary>
+	/// 仮のルートシグネチャ生成用
+	/// </summary>
+	void CreateRootParm();
+	ID3D12RootSignature* GetRootSig()const { return rootSignatureDemo.Get(); }
+	/// <summary>
+	/// ルートパラメータ生成
+	/// </summary>
+	std::vector<std::pair<uint32_t, std::string>> CreateRootParameters(
+		ID3D12ShaderReflection* pReflector,
+		std::vector<D3D12_ROOT_PARAMETER>& rootParameters,
+		std::vector<D3D12_DESCRIPTOR_RANGE>& descriptorRanges,
+		D3D12_SHADER_VISIBILITY VISIBILITY
+	);
 private:
 
 	/// <summary>
@@ -56,6 +76,8 @@ private:
 
 private:
 
+	D3DDevice* d3dDevice_ = nullptr;
+
 	/*dxcCompiler*/
 	Microsoft::WRL::ComPtr < IDxcUtils> dxcUtils_;
 	Microsoft::WRL::ComPtr < IDxcCompiler3> dxcCompiler_;
@@ -64,5 +86,7 @@ private:
 	std::string folderPath_ = "Cho/Resources/Shader"; // 対象のフォルダパスを指定
 	std::vector<std::string> hlslFiles_;
 
+	std::vector<std::pair<uint32_t, std::string>> rootParmDemo;
+	Microsoft::WRL::ComPtr < ID3D12RootSignature> rootSignatureDemo;
 };
 
