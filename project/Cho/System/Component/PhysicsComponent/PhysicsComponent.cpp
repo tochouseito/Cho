@@ -1,2 +1,2 @@
 #include "PrecompiledHeader.h"
-#include "Component.h"
+#include "PhysicsComponent.h"

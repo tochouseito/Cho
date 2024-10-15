@@ -1,3 +1,4 @@
+#pragma once
 // C++
 #include<string>
 
@@ -9,7 +10,7 @@ public:
 
     GameObject() : name("New GameObject"), isActive(true) {}
 
-    virtual void Update(float deltaTime) {
+    virtual void Update() {
         // ゲームオブジェクトの状態を更新
     }
 
