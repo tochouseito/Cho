@@ -162,7 +162,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Cho\System\Graphics\GraphicsSystem\GraphicsSystem.cpp" />
-    <ClCompile Include="Cho\System\GameObject\GameObject.cpp">
+    <ClCompile Include="Cho\System\ECS\GameObject\GameObject.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -170,11 +170,11 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Cho\System\EntityManager\EntityManager.cpp">
+    <ClCompile Include="Cho\System\ECS\EntityManager\EntityManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Cho\System\ComponentManager\ComponentManager.cpp">
+    <ClCompile Include="Cho\System\ECS\ComponentManager\ComponentManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -220,9 +220,21 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\System\Lord\ModelLoader\ModelLoader.cpp" />
     <ClCompile Include="Cho\System\Component\PhysicsComponent\PhysicsComponent.cpp" />
     <ClCompile Include="Cho\System\Component\RendererComponent\RendererComponent.cpp" />
+    <ClCompile Include="Cho\System\ECS\System\PhysicsSystem\PhysicsSystem.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Cho\System\ECS\System\SystemManager\SystemManager.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Cho\System\ECS\System\RenderSystem\RenderSystem.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cho\System\ComponentManager\Components\Components.h" />
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\Components.h" />
     <ClInclude Include="Cho\System\Scene\SceneFactory\AbstractSceneFactory.h" />
     <ClInclude Include="Cho\System\Scene\BaseScene\BaseScene.h" />
     <ClInclude Include="Cho\Main\Cho.h" />
@@ -260,12 +272,15 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\Generator\Mesh\Mesh.h" />
     <ClInclude Include="Cho\System\Lord\TextureLoader\TextureLoader.h" />
     <ClInclude Include="Cho\System\Lord\ModelLoader\ModelLoader.h" />
-    <ClInclude Include="Cho\System\GameObject\GameObject.h" />
+    <ClInclude Include="Cho\System\ECS\GameObject\GameObject.h" />
     <ClInclude Include="Cho\System\Component\Base\Component.h" />
     <ClInclude Include="Cho\System\Component\PhysicsComponent\PhysicsComponent.h" />
     <ClInclude Include="Cho\System\Component\RendererComponent\RendererComponent.h" />
-    <ClInclude Include="Cho\System\EntityManager\EntityManager.h" />
-    <ClInclude Include="Cho\System\ComponentManager\ComponentManager.h" />
+    <ClInclude Include="Cho\System\ECS\EntityManager\EntityManager.h" />
+    <ClInclude Include="Cho\System\ECS\ComponentManager\ComponentManager.h" />
+    <ClInclude Include="Cho\System\ECS\System\PhysicsSystem\PhysicsSystem.h" />
+    <ClInclude Include="Cho\System\ECS\System\SystemManager\SystemManager.h" />
+    <ClInclude Include="Cho\System\ECS\System\RenderSystem\RenderSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
