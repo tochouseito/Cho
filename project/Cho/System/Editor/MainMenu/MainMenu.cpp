@@ -8,16 +8,16 @@ void MainMenu::Initialize()
 
 void MainMenu::Update()
 {
-	ImGui::Begin("MainMenu");
+	//ImGui::Begin("MainMenu");
 
-	// スタイルエディタを表示
-	ImGui::ShowStyleEditor();
+	//// スタイルエディタを表示
+	//ImGui::ShowStyleEditor();
 
-	ImGui::End();
+	//ImGui::End();
 
 	ImGui::Begin("AddObject");
 
-	if (ImGui::Button("Cube")) {
+	if (ImGui::Button("Sphere")) {
 
 	}
 

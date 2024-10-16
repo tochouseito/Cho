@@ -4,6 +4,7 @@
 void SceneManager::Initialize()
 {
 	sceneFactory_ = new SceneFactory();
+
 }
 
 void SceneManager::Finalize()
