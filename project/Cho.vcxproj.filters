@@ -198,15 +198,6 @@
     <ClCompile Include="Cho\System\ECS\GameObject\GameObject.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\Component\Base\Component.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\Component\PhysicsComponent\PhysicsComponent.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\Component\RendererComponent\RendererComponent.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Cho\System\ECS\EntityManager\EntityManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -222,10 +213,10 @@
     <ClCompile Include="Cho\System\ECS\System\RenderSystem\RenderSystem.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\Game\Scenes\MainScene.cpp">
+    <ClCompile Include="Cho\Game\Assets\Scenes\MainScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\Game\Assets\Scenes\MainScene.cpp">
+    <ClCompile Include="Cho\System\ECS\PrefabManager\PrefabManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -341,15 +332,6 @@
     <ClInclude Include="Cho\System\ECS\GameObject\GameObject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\System\Component\Base\Component.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Cho\System\Component\PhysicsComponent\PhysicsComponent.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Cho\System\Component\RendererComponent\RendererComponent.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Cho\System\ECS\EntityManager\EntityManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -368,10 +350,10 @@
     <ClInclude Include="Cho\System\ECS\System\RenderSystem\RenderSystem.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\Game\Scenes\MainScene.h">
+    <ClInclude Include="Cho\Game\Assets\Scenes\MainScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\Game\Assets\Scenes\MainScene.h">
+    <ClInclude Include="Cho\System\ECS\PrefabManager\PrefabManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

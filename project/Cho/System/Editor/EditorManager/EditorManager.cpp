@@ -17,6 +17,11 @@ void EditorManager::Initialize()
 
 void EditorManager::Update()
 {
+    ImGui::Begin("Test");
+    if (ImGui::Button("NewEntity")) {
+
+    }
+    ImGui::End();
 	// 全体のImGuiウィンドウ
 	//UpdateMainWindow();
 

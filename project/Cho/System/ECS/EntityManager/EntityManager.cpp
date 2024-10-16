@@ -1,7 +1,7 @@
 #include "EntityManager.h"
 
 // 新しいエンティティを作成し、そのエンティティIDを返します。
-inline Entity EntityManager::CreateEntity() {
+Entity EntityManager::CreateEntity() {
     Entity entity = nextEntityID++;  // 次のエンティティIDを生成します。
     activeEntities.push_back(entity);  // アクティブなエンティティリストに追加します。
     return entity;

@@ -211,7 +211,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\System\Generator\Mesh\Mesh.cpp" />
     <ClCompile Include="Cho\System\Lord\TextureLoader\TextureLoader.cpp" />
     <ClCompile Include="Cho\System\Lord\ModelLoader\ModelLoader.cpp" />
-    
     <ClCompile Include="Cho\System\ECS\System\PhysicsSystem\PhysicsSystem.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -224,7 +223,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    
+    <ClCompile Include="Cho\System\ECS\PrefabManager\PrefabManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cho\Game\Assets\Scenes\MainScene.h" />
@@ -266,13 +265,12 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\Lord\TextureLoader\TextureLoader.h" />
     <ClInclude Include="Cho\System\Lord\ModelLoader\ModelLoader.h" />
     <ClInclude Include="Cho\System\ECS\GameObject\GameObject.h" />
-    
     <ClInclude Include="Cho\System\ECS\EntityManager\EntityManager.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\ComponentManager.h" />
     <ClInclude Include="Cho\System\ECS\System\PhysicsSystem\PhysicsSystem.h" />
     <ClInclude Include="Cho\System\ECS\System\SystemManager\SystemManager.h" />
     <ClInclude Include="Cho\System\ECS\System\RenderSystem\RenderSystem.h" />
-    
+    <ClInclude Include="Cho\System\ECS\PrefabManager\PrefabManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
