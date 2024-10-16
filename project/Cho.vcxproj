@@ -170,6 +170,14 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Cho\System\EntityManager\EntityManager.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Cho\System\ComponentManager\ComponentManager.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -214,6 +222,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\System\Component\RendererComponent\RendererComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cho\System\ComponentManager\Components\Components.h" />
     <ClInclude Include="Cho\System\Scene\SceneFactory\AbstractSceneFactory.h" />
     <ClInclude Include="Cho\System\Scene\BaseScene\BaseScene.h" />
     <ClInclude Include="Cho\Main\Cho.h" />
@@ -255,6 +264,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\Component\Base\Component.h" />
     <ClInclude Include="Cho\System\Component\PhysicsComponent\PhysicsComponent.h" />
     <ClInclude Include="Cho\System\Component\RendererComponent\RendererComponent.h" />
+    <ClInclude Include="Cho\System\EntityManager\EntityManager.h" />
+    <ClInclude Include="Cho\System\ComponentManager\ComponentManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
