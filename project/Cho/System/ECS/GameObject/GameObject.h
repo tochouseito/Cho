@@ -23,11 +23,17 @@ public:
 
     void AddComponent(const PhysicsComponent& component);
 
-    TransformComponent* GetTransform();
+    inline TransformComponent* GetTransform() {
+        return componentManager->GetTransform(entity);
+    }
 
-    RenderComponent* GetRender();
+    inline RenderComponent* GetRender() {
+        return componentManager->GetRender(entity);
+    }
 
-    PhysicsComponent* GetPhysics();
+    inline PhysicsComponent* GetPhysics() {
+        return componentManager->GetPhysics(entity);
+    }
 
     void UpdateChildren(float deltaTime);
 

@@ -225,6 +225,9 @@
     <ClCompile Include="Cho\Game\Scenes\MainScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Cho\Game\Assets\Scenes\MainScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cho\System\WinApp\WinApp.h">
@@ -368,5 +371,12 @@
     <ClInclude Include="Cho\Game\Scenes\MainScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Cho\Game\Assets\Scenes\MainScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Cho\Resources\Shader\header\FullScreen.hlsli" />
+    <None Include="Cho\Resources\Shader\header\obj3d.hlsli" />
   </ItemGroup>
 </Project>

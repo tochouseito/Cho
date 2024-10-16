@@ -30,18 +30,6 @@ inline void GameObject::AddComponent(const PhysicsComponent& component) {
     componentManager->AddComponent(entity, component);
 }
 
-inline TransformComponent* GameObject::GetTransform() {
-    return componentManager->GetTransform(entity);
-}
-
-inline RenderComponent* GameObject::GetRender() {
-    return componentManager->GetRender(entity);
-}
-
-inline PhysicsComponent* GameObject::GetPhysics() {
-    return componentManager->GetPhysics(entity);
-}
-
 inline void GameObject::UpdateChildren(float deltaTime) {
     // 子オブジェクトの更新
     for (auto child : children) {

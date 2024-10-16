@@ -12,7 +12,9 @@ public:
 
     void DestroyEntity(Entity entity);
 
-    const std::vector<Entity>& GetActiveEntities() const;
+    inline const std::vector<Entity>& GetActiveEntities() const {
+        return activeEntities;
+    }
 
 private:
     uint32_t nextEntityID = 1;  // エンティティIDの管理

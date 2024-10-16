@@ -116,6 +116,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cho\Game\Assets\Scenes\MainScene.cpp" />
     <ClCompile Include="Cho\System\Scene\BaseScene\BaseScene.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -166,10 +167,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Cho\System\Component\Base\Component.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Cho\System\ECS\EntityManager\EntityManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -214,8 +211,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\System\Generator\Mesh\Mesh.cpp" />
     <ClCompile Include="Cho\System\Lord\TextureLoader\TextureLoader.cpp" />
     <ClCompile Include="Cho\System\Lord\ModelLoader\ModelLoader.cpp" />
-    <ClCompile Include="Cho\System\Component\PhysicsComponent\PhysicsComponent.cpp" />
-    <ClCompile Include="Cho\System\Component\RendererComponent\RendererComponent.cpp" />
+    
     <ClCompile Include="Cho\System\ECS\System\PhysicsSystem\PhysicsSystem.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -228,9 +224,10 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Cho\Game\Scenes\MainScene.cpp" />
+    
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cho\Game\Assets\Scenes\MainScene.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\Components.h" />
     <ClInclude Include="Cho\System\Scene\SceneFactory\AbstractSceneFactory.h" />
     <ClInclude Include="Cho\System\Scene\BaseScene\BaseScene.h" />
@@ -269,15 +266,13 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\Lord\TextureLoader\TextureLoader.h" />
     <ClInclude Include="Cho\System\Lord\ModelLoader\ModelLoader.h" />
     <ClInclude Include="Cho\System\ECS\GameObject\GameObject.h" />
-    <ClInclude Include="Cho\System\Component\Base\Component.h" />
-    <ClInclude Include="Cho\System\Component\PhysicsComponent\PhysicsComponent.h" />
-    <ClInclude Include="Cho\System\Component\RendererComponent\RendererComponent.h" />
+    
     <ClInclude Include="Cho\System\ECS\EntityManager\EntityManager.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\ComponentManager.h" />
     <ClInclude Include="Cho\System\ECS\System\PhysicsSystem\PhysicsSystem.h" />
     <ClInclude Include="Cho\System\ECS\System\SystemManager\SystemManager.h" />
     <ClInclude Include="Cho\System\ECS\System\RenderSystem\RenderSystem.h" />
-    <ClInclude Include="Cho\Game\Scenes\MainScene.h" />
+    
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
@@ -286,6 +281,10 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ProjectReference Include="Cho\Externals\imgui\imgui.vcxproj">
       <Project>{b4e3cfd6-cd84-4565-84e7-03feb4c6881e}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Cho\Resources\Shader\header\FullScreen.hlsli" />
+    <None Include="Cho\Resources\Shader\header\obj3d.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

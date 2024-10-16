@@ -17,11 +17,17 @@ public:
 
     void AddComponent(Entity entity, const PhysicsComponent& component);
 
-    TransformComponent* GetTransform(Entity entity);
+    inline TransformComponent* GetTransform(Entity entity) {
+        return &transforms[entity];
+    }
 
-    RenderComponent* GetRender(Entity entity);
+    inline RenderComponent* GetRender(Entity entity) {
+        return &renders[entity];
+    }
 
-    PhysicsComponent* GetPhysics(Entity entity);
+    inline PhysicsComponent* GetPhysics(Entity entity) {
+        return &physics[entity];
+    }
 
     void RemoveComponent(Entity entity);
 private:

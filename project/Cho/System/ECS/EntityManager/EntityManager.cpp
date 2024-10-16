@@ -9,7 +9,3 @@ inline Entity EntityManager::CreateEntity() {
 inline void EntityManager::DestroyEntity(Entity entity) {
     activeEntities.erase(std::remove(activeEntities.begin(), activeEntities.end(), entity), activeEntities.end());
 }
-
-inline const std::vector<Entity>& EntityManager::GetActiveEntities() const {
-    return activeEntities;
-}
