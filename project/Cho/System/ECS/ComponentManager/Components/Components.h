@@ -22,3 +22,7 @@ struct PhysicsComponent {
     Vector3 velocity;
     Vector3 acceleration;
 };
+
+struct MeshComponent {
+
+};
