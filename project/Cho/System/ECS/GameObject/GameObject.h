@@ -1,40 +1,50 @@
 #pragma once
 
 // ComponentManager
-#include"ECS/ComponentManager/ComponentManager.h"
+#include "ECS/ComponentManager/ComponentManager.h"
 
 // C++
-#include<string>
+#include <string>
 
 class GameObject {
 
 public:
     GameObject(EntityManager* em, ComponentManager* cm);
 
+    // 親オブジェクトを設定します。
     void SetParent(GameObject* newParent);
 
+    // 子オブジェクトを追加します。
     void AddChild(GameObject* child);
 
+    // EntityのIDを取得します。
     Entity GetEntityID() const;
 
+    // TransformComponentを追加します。
     void AddComponent(const TransformComponent& component);
 
+    // RenderComponentを追加します。
     void AddComponent(const RenderComponent& component);
 
+    // PhysicsComponentを追加します。
     void AddComponent(const PhysicsComponent& component);
 
+    // TransformComponentを取得します。
     inline TransformComponent* GetTransform() {
         return componentManager->GetTransform(entity);
     }
 
+    // RenderComponentを取得します。
     inline RenderComponent* GetRender() {
         return componentManager->GetRender(entity);
     }
 
+    // PhysicsComponentを取得します。
     inline PhysicsComponent* GetPhysics() {
         return componentManager->GetPhysics(entity);
     }
 
+    // 子オブジェクトを更新します。
     void UpdateChildren(float deltaTime);
 
 private:
