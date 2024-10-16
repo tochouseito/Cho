@@ -1,7 +1,7 @@
 #pragma once
 
 // Components
-#include"Components/Components.h"
+#include"ECS/ComponentManager/Components/Components.h"
 
 // EntityManager
 #include"ECS/EntityManager/EntityManager.h"

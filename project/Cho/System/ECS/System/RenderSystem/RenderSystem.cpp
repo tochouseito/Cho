@@ -2,4 +2,6 @@
 
 void RenderSystem::Render(EntityManager& entityManager, ComponentManager& componentManager)
 {
+	entityManager;
+	componentManager;
 }
