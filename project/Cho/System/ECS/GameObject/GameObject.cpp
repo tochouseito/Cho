@@ -1,8 +1,14 @@
 #include "GameObject.h"
 
-GameObject::GameObject(EntityManager* em, ComponentManager* cm)
-    : entityManager(em), componentManager(cm) {
+void GameObject::CreateEntity()
+{
     entity = entityManager->CreateEntity();
+}
+
+void GameObject::SetManager(EntityManager* em, ComponentManager* cm)
+{
+    entityManager = em;
+    componentManager = cm;
 }
 
 void GameObject::SetParent(GameObject* newParent) {

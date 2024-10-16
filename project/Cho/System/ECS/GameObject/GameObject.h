@@ -9,7 +9,11 @@
 class GameObject {
 
 public:
-    GameObject(EntityManager* em, ComponentManager* cm);
+    GameObject() = default;
+
+    void CreateEntity();
+
+    void SetManager(EntityManager* em, ComponentManager* cm);
 
     // 親オブジェクトを設定します。
     void SetParent(GameObject* newParent);

@@ -20,7 +20,7 @@ public:
     }
 
 private:
-    uint32_t nextEntityID = 1;  // 次に使用するエンティティIDを管理するための変数。
+    uint32_t nextEntityID = 0;  // 次に使用するエンティティIDを管理するための変数。
     std::vector<Entity> activeEntities;  // 現在アクティブなエンティティのリスト。
 };
 

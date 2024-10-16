@@ -58,3 +58,12 @@ void SceneManager::ChangeScene(const std::string& sceneName)
 	/*次のシーン生成*/
 	nextScene_ = sceneFactory_->CreateScene(sceneName);
 }
+
+void SceneManager::AddGameObject(const std::string& objectName)
+{
+	// 新しいGameObjectを作成してマップに追加
+	gameObjects[objectName] = std::make_unique<GameObject>();
+	GameObject* gameObject = gameObjects[objectName].get();
+	gameObject->SetManager(entityManager_, componentManager_);
+	gameObject->CreateEntity();
+}

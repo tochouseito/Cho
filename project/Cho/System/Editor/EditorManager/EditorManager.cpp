@@ -3,11 +3,15 @@
 // ImGui
 #include"imgui.h"
 
+// SceneManager
+#include"Scene/SceneManager/SceneManager.h"
+
 void EditorManager::Initialize(
     EntityManager* entityManager,
     ComponentManager* componentManager,
     SystemManager* systemManager,
-    PrefabManager* prefabManager
+    PrefabManager* prefabManager,
+    SceneManager* sceneManager
 )
 {
 	// MainMenu
@@ -23,15 +27,49 @@ void EditorManager::Initialize(
     componentManager_ = componentManager;
     systemManager_ = systemManager;
     prefabManager_ = prefabManager;
+
+    // SceneManager
+    sceneManager_ = sceneManager;
 }
 
 void EditorManager::Update()
 {
+    ImGui::Begin("AddObject");
+
+    static char nameBuffer[128] = "";  // 名前を入力するバッファ
+    static bool inputActive = false;   // 入力がアクティブかどうかを管理するフラグ
+
+    if (ImGui::Button("Input Name")) {
+        inputActive = true;  // ボタンを押したら入力を開始
+    }
+
+    if (inputActive) {
+        ImGui::Begin("Input Name");  // 名前の入力用のウィンドウを作成
+
+        ImGui::InputText("Name", nameBuffer, IM_ARRAYSIZE(nameBuffer));  // 名前を入力するフィールド
+
+        if (ImGui::Button("OK")) {
+            std::string name(nameBuffer);
+            sceneManager_->AddGameObject(name);  // 入力された名前を使用してオブジェクトを追加
+            inputActive = false;  // 入力終了
+        }
+
+        ImGui::SameLine();  // 次のボタンを同じ行に配置する
+
+        if (ImGui::Button("Cancel")) {
+            inputActive = false;  // キャンセルして入力終了
+        }
+
+        ImGui::End();  // ウィンドウを閉じる
+    }
+
+    ImGui::End();
+
 	// 全体のImGuiウィンドウ
 	//UpdateMainWindow();
 
 	// MainMenu
-	mainMenu->Update();
+	//mainMenu->Update();
 
 	// FileView
 	//fileView->Update();

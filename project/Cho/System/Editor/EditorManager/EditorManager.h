@@ -13,6 +13,9 @@ class ComponentManager;
 class SystemManager;
 class PrefabManager;
 
+// SceneManager
+class SceneManager;
+
 class EditorManager
 {
 public:
@@ -24,7 +27,8 @@ public:
 		EntityManager* entityManager,
 		ComponentManager* componentManager,
 		SystemManager* systemManager,
-		PrefabManager* prefabManager
+		PrefabManager* prefabManager,
+		SceneManager* sceneManager
 	);
 
 	/// <summary>
@@ -46,5 +50,6 @@ private:
 	ComponentManager* componentManager_ = nullptr;
 	SystemManager* systemManager_ = nullptr;
 	PrefabManager* prefabManager_ = nullptr;
+	SceneManager* sceneManager_ = nullptr;
 };
 

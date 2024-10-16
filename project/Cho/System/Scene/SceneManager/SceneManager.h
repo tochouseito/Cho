@@ -1,5 +1,11 @@
 #pragma once
 #include"Scene\SceneFactory\SceneFactory.h"
+#include"ECS/GameObject/GameObject.h"
+
+// C++
+#include<string>
+#include<unordered_map>
+#include<memory>
 
 // ECS
 class EntityManager;
@@ -40,6 +46,9 @@ public:
 	/*シーン切り替え*/
 	void ChangeScene(const std::string& sceneName);
 
+public:
+	void AddGameObject(const std::string& objectName);
+
 private:
 	/*今のシーン*/
 	BaseScene* scene_ = nullptr;
@@ -53,5 +62,7 @@ private:
 	ComponentManager* componentManager_ = nullptr;
 	SystemManager* systemManager_ = nullptr;
 	PrefabManager* prefabManager_ = nullptr;
+
+	std::unordered_map<std::string, std::unique_ptr<GameObject>> gameObjects;
 };
 

@@ -17,7 +17,11 @@ GameObject* PrefabManager::InstantiatePrefab(const std::string& prefabName, Enti
 }
 
 GameObject* PrefabManager::InstantiatePrefab(const Prefab& prefab, EntityManager& entityManager, ComponentManager& componentManager) {
-    GameObject* gameObject = new GameObject(&entityManager, &componentManager);
+    GameObject* gameObject = new GameObject();
+
+    gameObject->SetManager(&entityManager, &componentManager);
+
+    gameObject->CreateEntity();
 
     // Prefabの各コンポーネントを新しいエンティティに追加
     for (const auto& [type, component] : prefab.components) {

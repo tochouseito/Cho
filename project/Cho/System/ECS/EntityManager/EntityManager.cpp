@@ -2,7 +2,8 @@
 
 // 新しいエンティティを作成し、そのエンティティIDを返します。
 Entity EntityManager::CreateEntity() {
-    Entity entity = nextEntityID++;  // 次のエンティティIDを生成します。
+    Entity entity = nextEntityID;  // 次のエンティティIDを生成します。
+    nextEntityID++;
     activeEntities.push_back(entity);  // アクティブなエンティティリストに追加します。
     return entity;
 }
