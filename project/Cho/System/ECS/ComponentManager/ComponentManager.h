@@ -38,7 +38,7 @@ public:
 
     // 指定されたエンティティからコンポーネントを削除します。
     void RemoveComponent(Entity entity);
-
+    
 private:
     std::unordered_map<Entity, TransformComponent> transforms;  // エンティティのTransformコンポーネントを管理します。
     std::unordered_map<Entity, RenderComponent> renders;        // エンティティのRenderコンポーネントを管理します。

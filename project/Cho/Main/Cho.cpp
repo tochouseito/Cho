@@ -20,6 +20,12 @@
 // Context
 #include"UI/GameContext/GameContext.h"
 
+// ECS
+#include"ECS/EntityManager/EntityManager.h"
+#include"ECS/ComponentManager/ComponentManager.h"
+#include"ECS/System/SystemManager/SystemManager.h"
+#include"ECS/PrefabManager/PrefabManager.h"
+
 // Scene
 #include"Scene/SceneManager/SceneManager.h"
 
@@ -48,6 +54,12 @@ std::unique_ptr<GraphicsSystem> Cho::graphicsSystem = nullptr;
 
 // GameContext
 std::unique_ptr<GameContext> Cho::gameContext = nullptr;
+
+// ECS
+std::unique_ptr<EntityManager>Cho::entityManager = nullptr;
+std::unique_ptr<ComponentManager> Cho::componentManager = nullptr;
+std::unique_ptr<SystemManager> Cho::systemManager = nullptr;
+std::unique_ptr<PrefabManager> Cho::prefabManager = nullptr;
 
 // Scene
 std::unique_ptr<SceneManager> Cho::sceneManager = nullptr;
@@ -154,9 +166,30 @@ void Cho::Initialize()
 
 #pragma endregion
 
+#pragma region ECS
+
+	// EntityManager
+	entityManager = std::make_unique<EntityManager>();
+
+	// ComponentManager
+	componentManager = std::make_unique<ComponentManager>();
+
+	// SystemManager
+	systemManager = std::make_unique<SystemManager>();
+
+	// PrefabManager
+	prefabManager = std::make_unique<PrefabManager>();
+
+#pragma endregion
+
 	// SceneManager
 	sceneManager = std::make_unique<SceneManager>();
-	sceneManager->Initialize();
+	sceneManager->Initialize(
+		entityManager.get(),
+		componentManager.get(),
+		systemManager.get(),
+		prefabManager.get()
+		);
 
 #pragma region プロジェクトデータの読み込み
 
@@ -166,7 +199,12 @@ void Cho::Initialize()
 
 	// EditorManager
 	editorManager = std::make_unique<EditorManager>();
-	editorManager->Initialize();
+	editorManager->Initialize(
+		entityManager.get(),
+		componentManager.get(),
+		systemManager.get(),
+		prefabManager.get()
+		);
 
 #pragma endregion
 

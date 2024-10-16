@@ -1,10 +1,21 @@
 #include "SceneManager.h"
 #include<assert.h>
 
-void SceneManager::Initialize()
+void SceneManager::Initialize(
+	EntityManager* entityManager,
+	ComponentManager* componentManager,
+	SystemManager* systemManager,
+	PrefabManager* prefabManager
+)
 {
+	// シーンファクトリーの生成
 	sceneFactory_ = new SceneFactory();
 
+	// ECS
+	entityManager_ = entityManager;
+	componentManager_ = componentManager;
+	systemManager_ = systemManager;
+	prefabManager_ = prefabManager;
 }
 
 void SceneManager::Finalize()

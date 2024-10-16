@@ -5,6 +5,7 @@
 
 // C++
 #include<cstdint>
+#include<string>
 
 struct TransformComponent {
     Vector3 position;
@@ -13,7 +14,7 @@ struct TransformComponent {
 };
 
 struct RenderComponent {
-    uint32_t textureID;
+    std::string textureID;
     uint32_t viewID;
     bool visible;
 };

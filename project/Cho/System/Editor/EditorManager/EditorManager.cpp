@@ -3,7 +3,12 @@
 // ImGui
 #include"imgui.h"
 
-void EditorManager::Initialize()
+void EditorManager::Initialize(
+    EntityManager* entityManager,
+    ComponentManager* componentManager,
+    SystemManager* systemManager,
+    PrefabManager* prefabManager
+)
 {
 	// MainMenu
 	mainMenu = std::make_unique<MainMenu>();
@@ -13,6 +18,11 @@ void EditorManager::Initialize()
 	fileView = std::make_unique<FileView>();
 	fileView->Initialize();
 
+    // ECS
+    entityManager_ = entityManager;
+    componentManager_ = componentManager;
+    systemManager_ = systemManager;
+    prefabManager_ = prefabManager;
 }
 
 void EditorManager::Update()

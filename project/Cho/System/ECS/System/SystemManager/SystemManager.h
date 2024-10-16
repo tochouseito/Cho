@@ -10,6 +10,8 @@
 class SystemManager {
 public:
     void Update(EntityManager& entityManager, ComponentManager& componentManager, float deltaTime);
+
+    void Draw(EntityManager& entityManager, ComponentManager& componentManager);
 private:
     PhysicsSystem physicsSystem;
     RenderSystem renderSystem;

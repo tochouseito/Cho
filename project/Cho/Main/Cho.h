@@ -20,6 +20,12 @@ class GraphicsSystem;
 // Context
 class GameContext;
 
+// ECS
+class EntityManager;
+class ComponentManager;
+class SystemManager;
+class PrefabManager;
+
 // Scene
 class SceneManager;
 
@@ -34,7 +40,16 @@ class EditorManager;
 
 class Cho
 {
-public:// メンバ関数
+public:
+	/// <summary>
+	/// 稼働
+	/// </summary>
+	static void Operation();
+
+	static inline ResourceViewManager* GetResourceViewManagetPtr() { return resourceViewManager.get(); }
+
+
+private:// メンバ関数
 
 	/// <summary>
 	/// 初期化
@@ -45,11 +60,6 @@ public:// メンバ関数
 	/// 終了
 	/// </summary>
 	static void Finalize();
-
-	/// <summary>
-	/// 稼働
-	/// </summary>
-	static void Operation();
 
 	/// <summary>
 	/// 更新
@@ -96,6 +106,12 @@ private:// メンバ変数
 
 	/*Context*/
 	static std::unique_ptr<GameContext> gameContext;
+
+	/*ECS*/
+	static std::unique_ptr<EntityManager> entityManager;
+	static std::unique_ptr<ComponentManager> componentManager;
+	static std::unique_ptr<SystemManager> systemManager;
+	static std::unique_ptr<PrefabManager> prefabManager;
 
 	/*Scene*/
 	static std::unique_ptr<SceneManager> sceneManager;
