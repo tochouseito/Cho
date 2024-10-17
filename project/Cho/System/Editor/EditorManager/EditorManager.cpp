@@ -84,9 +84,13 @@ void EditorManager::Update()
     if (selectedGameObject_) {
         // 名前と EntityID を表示
         ImGui::Text("Name: %s EntityID: %d", selectedGamaObjectName_.c_str(), selectedGameObject_->GetEntityID());
+        static bool isAdd = false;
+        if (isAdd) {
+        } else
+        {
+            if (ImGui::Button("AddComponent")) {
 
-        if (ImGui::Button("AddComponent")) {
-
+            }
         }
     }
     ImGui::End();
