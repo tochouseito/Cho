@@ -86,10 +86,17 @@ void EditorManager::Update()
         ImGui::Text("Name: %s EntityID: %d", selectedGamaObjectName_.c_str(), selectedGameObject_->GetEntityID());
         static bool isAdd = false;
         if (isAdd) {
+            if (ImGui::Selectable("MeshComponent")) {
+                isAdd = false;
+
+            }
+            if (ImGui::Selectable("TransformComponent")) {
+                isAdd = false;
+            }
         } else
         {
             if (ImGui::Button("AddComponent")) {
-
+                isAdd = true;
             }
         }
     }

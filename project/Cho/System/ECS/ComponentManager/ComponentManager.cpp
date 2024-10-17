@@ -18,6 +18,11 @@ void ComponentManager::AddComponent(Entity entity, const PhysicsComponent& compo
     physics[entity] = component;
 }
 
+void ComponentManager::AddComponent(Entity entity, const MeshComponent& component)
+{
+    meshs[entity] = component;
+}
+
 // Entityに関連するすべてのコンポーネントを削除します。
 // 指定されたentityに対して、TransformComponent、RenderComponent、PhysicsComponentをそれぞれのマップから削除します。
 void ComponentManager::RemoveComponent(Entity entity) {

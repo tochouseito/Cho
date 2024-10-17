@@ -264,6 +264,8 @@ void Cho::Update()
 	// シーンを更新
 	sceneManager->Update();
 
+	systemManager->Update(*entityManager.get(), *componentManager.get(),0.01f);
+
 	// SystemUIの更新
 	gameContext->Update();
 }
@@ -287,6 +289,8 @@ void Cho::Draw()
 {
 	// シーン描画
 	sceneManager->Draw();
+
+	systemManager->Draw(*entityManager.get(), *componentManager.get());
 }
 
 void Cho::PostDraw()

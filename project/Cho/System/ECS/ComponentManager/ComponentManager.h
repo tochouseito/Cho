@@ -21,6 +21,8 @@ public:
     // エンティティにPhysicsコンポーネントを追加します。
     void AddComponent(Entity entity, const PhysicsComponent& component);
 
+    void AddComponent(Entity entity, const MeshComponent& component);
+
     // 指定されたエンティティのTransformコンポーネントを取得します。
     inline TransformComponent* GetTransform(Entity entity) {
         return &transforms[entity];
@@ -43,4 +45,5 @@ private:
     std::unordered_map<Entity, TransformComponent> transforms;  // エンティティのTransformコンポーネントを管理します。
     std::unordered_map<Entity, RenderComponent> renders;        // エンティティのRenderコンポーネントを管理します。
     std::unordered_map<Entity, PhysicsComponent> physics;       // エンティティのPhysicsコンポーネントを管理します。
+    std::unordered_map<Entity, MeshComponent> meshs;
 };
