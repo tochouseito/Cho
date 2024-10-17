@@ -6,6 +6,8 @@
 // SceneManager
 #include"Scene/SceneManager/SceneManager.h"
 
+#include"ECS/GameObject/GameObject.h"
+
 void EditorManager::Initialize(
     EntityManager* entityManager,
     ComponentManager* componentManager,
@@ -65,11 +67,35 @@ void EditorManager::Update()
 
     ImGui::End();
 
+    ImGui::Begin("GameObjectList");
+    
+    for (auto& pair : sceneManager_->GetGameObjects()) {
+        const std::string& name = pair.first;  // マップのキーがオブジェクトの名前と仮定
+
+        if (ImGui::Selectable(name.c_str())) {
+            selectedGamaObjectName_ = name;
+            selectedGameObject_ = pair.second.get();  // 選択したオブジェクトを保持
+        }
+    }
+
+    ImGui::End();
+
+    ImGui::Begin("ObjectInfo");
+    if (selectedGameObject_) {
+        // 名前と EntityID を表示
+        ImGui::Text("Name: %s EntityID: %d", selectedGamaObjectName_.c_str(), selectedGameObject_->GetEntityID());
+
+        if (ImGui::Button("AddComponent")) {
+
+        }
+    }
+    ImGui::End();
+
 	// 全体のImGuiウィンドウ
 	//UpdateMainWindow();
 
 	// MainMenu
-	//mainMenu->Update();
+	mainMenu->Update();
 
 	// FileView
 	//fileView->Update();

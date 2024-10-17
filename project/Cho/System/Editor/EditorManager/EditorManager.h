@@ -13,6 +13,9 @@ class ComponentManager;
 class SystemManager;
 class PrefabManager;
 
+// GameObject
+class GameObject;
+
 // SceneManager
 class SceneManager;
 
@@ -51,5 +54,8 @@ private:
 	SystemManager* systemManager_ = nullptr;
 	PrefabManager* prefabManager_ = nullptr;
 	SceneManager* sceneManager_ = nullptr;
+
+	std::string selectedGamaObjectName_;
+	GameObject* selectedGameObject_ = nullptr;
 };
 

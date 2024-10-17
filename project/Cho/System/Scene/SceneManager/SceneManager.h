@@ -49,6 +49,9 @@ public:
 public:
 	void AddGameObject(const std::string& objectName);
 
+	const std::unordered_map<std::string, std::unique_ptr<GameObject>>& GetGameObjects() const {
+		return gameObjects;
+	}
 private:
 	/*今のシーン*/
 	BaseScene* scene_ = nullptr;
