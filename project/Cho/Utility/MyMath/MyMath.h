@@ -11,12 +11,12 @@
 #include"Matrix4x4.h"
 #include"mathShapes.h"
 #include<numbers>
-static const uint32_t N = 4; //逆行列を求める行列の行数・列数
+static const uint32_t MatNum = 4; //逆行列を求める行列の行数・列数
 class MyMath
 {
 public:
 	// 行列のチェック関数
-	static int Check(double mat[N][N], double inv[N][N]);
+	static int Check(double mat[MatNum][MatNum], double inv[MatNum][MatNum]);
 
 	//// 行列の加法
 	//static Matrix4x4 Add(const Matrix4x4& m1, const Matrix4x4& m2);

@@ -17,6 +17,9 @@ class DrawExecution;
 // GraphicsSystem
 class GraphicsSystem;
 
+// Loader
+class TextureLoader;
+
 // Context
 class GameContext;
 
@@ -103,6 +106,9 @@ private:// メンバ変数
 
 	/*GraphicsSystem*/
 	static std::unique_ptr<GraphicsSystem> graphicsSystem;
+
+	/*Loader*/
+	static std::unique_ptr<TextureLoader> textureLoader;
 
 	/*Context*/
 	static std::unique_ptr<GameContext> gameContext;

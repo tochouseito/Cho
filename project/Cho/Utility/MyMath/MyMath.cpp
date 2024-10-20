@@ -1,16 +1,16 @@
 #include "PrecompiledHeader.h"
 #include "MyMath.h"
 
-int MyMath::Check(double mat[N][N], double inv[N][N])
+int MyMath::Check(double mat[MatNum][MatNum], double inv[MatNum][MatNum])
 {
 	double inner_product;
 	int i, j, k;
 	double ans;
 	double diff;
-	for (i = 0; i < N; i++) {
-		for (j = 0; j < N; j++) {
+	for (i = 0; i < MatNum; i++) {
+		for (j = 0; j < MatNum; j++) {
 			inner_product = 0;
-			for (k = 0; k < N; k++) {
+			for (k = 0; k < MatNum; k++) {
 				inner_product += mat[i][k] * inv[k][j];
 			}
 
@@ -27,8 +27,8 @@ int MyMath::Check(double mat[N][N], double inv[N][N])
 Matrix4x4 MyMath::Transpose(const Matrix4x4& m)
 {
 	Matrix4x4 result = { 0 };
-	for (int i = 0; i < N; ++i) {
-		for (int j = 0; j < N; ++j) {
+	for (int i = 0; i < MatNum; ++i) {
+		for (int j = 0; j < MatNum; ++j) {
 			result.m[j][i] = m.m[i][j];
 		}
 	}
@@ -38,7 +38,7 @@ Matrix4x4 MyMath::Transpose(const Matrix4x4& m)
 Matrix4x4 MyMath::MakeIdentity4x4()
 {
 	Matrix4x4 result = { 0 };
-	for (int i = 0; i < N; ++i) {
+	for (int i = 0; i < MatNum; ++i) {
 		result.m[i][i] = 1.0;
 	}
 	return result;
@@ -47,9 +47,9 @@ Matrix4x4 MyMath::MakeIdentity4x4()
 Matrix4x4 MyMath::Multiply(const Matrix4x4& m1, const Matrix4x4& m2)
 {
 	Matrix4x4 result = { 0 };
-	for (int i = 0; i < N; ++i) {
-		for (int j = 0; j < N; ++j) {
-			for (int k = 0; k < N; ++k) {
+	for (int i = 0; i < MatNum; ++i) {
+		for (int j = 0; j < MatNum; ++j) {
+			for (int k = 0; k < MatNum; ++k) {
 				result.m[i][j] += m1.m[i][k] * m2.m[k][j];
 			}
 		}
@@ -147,13 +147,13 @@ Matrix4x4 MyMath::Inverse(const Matrix4x4& m)
 {
 	Matrix4x4 result = { 0 };
 	/* 逆行列を求める行列用の２次元配列 */
-	double mat[N][N];
+	double mat[MatNum][MatNum];
 
 	/* 逆行列用の２次元配列 */
-	double inv[N][N];
+	double inv[MatNum][MatNum];
 
 	/* 掃き出し法を行う行列 */
-	double sweep[N][N * 2];
+	double sweep[MatNum][MatNum * 2];
 
 	int i; /* 行 */
 	int j; /* 列 */
@@ -167,26 +167,26 @@ Matrix4x4 MyMath::Inverse(const Matrix4x4& m)
 	mat[2][0] = m.m[2][0]; mat[2][1] = m.m[2][1]; mat[2][2] = m.m[2][2]; mat[2][3] = m.m[2][3];
 	mat[3][0] = m.m[3][0]; mat[3][1] = m.m[3][1]; mat[3][2] = m.m[3][2]; mat[3][3] = m.m[3][3];
 
-	for (i = 0; i < N; i++) {
-		for (j = 0; j < N; j++) {
+	for (i = 0; i < MatNum; i++) {
+		for (j = 0; j < MatNum; j++) {
 			/* sweepの左側に逆行列を求める行列をセット */
 			sweep[i][j] = mat[i][j];
 
 			/* sweepの右側に単位行列をセット */
-			sweep[i][N + j] = (i == j) ? 1 : 0;
+			sweep[i][MatNum + j] = (i == j) ? 1 : 0;
 		}
 	}
 
 
 	/* 全ての列の対角成分に対する繰り返し */
-	for (k = 0; k < N; k++) {
+	for (k = 0; k < MatNum; k++) {
 
 		/* 最大の絶対値を注目対角成分の絶対値と仮定 */
 		double max = fabs(sweep[k][k]);
 		int max_i = k;
 
 		/* k列目が最大の絶対値となる行を探す */
-		for (i = k + 1; i < N; i++) {
+		for (i = k + 1; i < MatNum; i++) {
 			if (fabs(sweep[i][k]) > max) {
 				max = fabs(sweep[i][k]);
 				max_i = i;
@@ -197,7 +197,7 @@ Matrix4x4 MyMath::Inverse(const Matrix4x4& m)
 
 		/* 操作（１）：k行目とmax_i行目を入れ替える */
 		if (k != max_i) {
-			for (j = 0; j < N * 2; j++) {
+			for (j = 0; j < MatNum * 2; j++) {
 				double tmp = sweep[max_i][j];
 				sweep[max_i][j] = sweep[k][j];
 				sweep[k][j] = tmp;
@@ -208,13 +208,13 @@ Matrix4x4 MyMath::Inverse(const Matrix4x4& m)
 		a = 1 / sweep[k][k];
 
 		/* 操作（２）：k行目をa倍する */
-		for (j = 0; j < N * 2; j++) {
+		for (j = 0; j < MatNum * 2; j++) {
 			/* これによりsweep[k][k]が1になる */
 			sweep[k][j] *= a;
 		}
 
 		/* 操作（３）によりk行目以外の行のk列目を0にする */
-		for (i = 0; i < N; i++) {
+		for (i = 0; i < MatNum; i++) {
 			if (i == k) {
 				/* k行目はそのまま */
 				continue;
@@ -223,7 +223,7 @@ Matrix4x4 MyMath::Inverse(const Matrix4x4& m)
 			/* k行目に掛ける値を求める */
 			a = -sweep[i][k];
 
-			for (j = 0; j < N * 2; j++) {
+			for (j = 0; j < MatNum * 2; j++) {
 				/* i行目にk行目をa倍した行を足す */
 				/* これによりsweep[i][k]が0になる */
 				sweep[i][j] += sweep[k][j] * a;
@@ -232,15 +232,15 @@ Matrix4x4 MyMath::Inverse(const Matrix4x4& m)
 	}
 
 	/* sweepの右半分がmatの逆行列 */
-	for (i = 0; i < N; i++) {
-		for (j = 0; j < N; j++) {
-			inv[i][j] = sweep[i][N + j];
+	for (i = 0; i < MatNum; i++) {
+		for (j = 0; j < MatNum; j++) {
+			inv[i][j] = sweep[i][MatNum + j];
 		}
 	}
 
 	/* 逆行列invを表示 */
-	for (i = 0; i < N; i++) {
-		for (j = 0; j < N; j++) {
+	for (i = 0; i < MatNum; i++) {
+		for (j = 0; j < MatNum; j++) {
 			result.m[i][j] = float(inv[i][j]);
 			//printf("%0.2f, ", inv[i][j]);
 		}

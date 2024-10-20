@@ -1,6 +1,8 @@
 #pragma once
 
 #include<d3d12.h>
+#include<d3dx12.h>
+#include<DirectXTex.h>
 #include<wrl.h>
 #include<cstdint>
 #include<unordered_map>
@@ -17,6 +19,7 @@ struct VBVData {
 	D3D12_VERTEX_BUFFER_VIEW vbv{};
 };
 class D3DDevice;
+class D3DCommand;
 class ResourceViewManager
 {
 public:// メンバ関数
@@ -24,7 +27,7 @@ public:// メンバ関数
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(D3DDevice* d3dDevice);
+	void Initialize(D3DDevice* d3dDevice, D3DCommand* d3dCommand);
 
 	/// <summary>
 	/// ディスクリプタヒープをセット
@@ -51,6 +54,12 @@ public:// メンバ関数
 
 	ID3D12Resource* GetVBVResource(uint32_t& index);
 
+	void CreateTextureResource(uint32_t& index,const DirectX::TexMetadata& metadata);
+
+	void UploadTextureDataEx(uint32_t& index,const DirectX::ScratchImage& mipImages);
+
+	void CreateSRVforTexture2D(uint32_t& index, DXGI_FORMAT Format, UINT MipLevels);
+
 private:
 
 	uint32_t Allocate();
@@ -71,6 +80,7 @@ private:
 private:// メンバ変数
 
 	D3DDevice* d3dDevice_ = nullptr;
+	D3DCommand* d3dCommand_ = nullptr;
 
 	// デスクリプタサイズ
 	uint32_t descriptorSize_;
@@ -102,5 +112,9 @@ private:// メンバ変数
 
 	// VBVコンテナ
 	std::unordered_map<uint32_t, VBVData> VBVResources;
+
+	// アップロードリソース
+	std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> uploadResources;
+
 };
 

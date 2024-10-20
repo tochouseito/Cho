@@ -1,8 +1,9 @@
 #include "PrecompiledHeader.h"
 #include "ResourceViewManager.h"
 #include"D3D12/D3DDevice/D3DDevice.h"
+#include"D3D12/D3DCommand/D3DCommand.h"
 
-void ResourceViewManager::Initialize(D3DDevice* d3dDevice)
+void ResourceViewManager::Initialize(D3DDevice* d3dDevice, D3DCommand* d3dCommand)
 {
 	// デスクリプタヒープの生成
 	descriptorHeap_ = d3dDevice->CreateDescriptorHeap(
@@ -16,6 +17,7 @@ void ResourceViewManager::Initialize(D3DDevice* d3dDevice)
 	);
 
 	d3dDevice_ = d3dDevice;
+	d3dCommand_ = d3dCommand;
 }
 
 void ResourceViewManager::SetDescriptorHeap(ID3D12GraphicsCommandList* commandList)
@@ -86,6 +88,76 @@ ID3D12Resource* ResourceViewManager::GetVBVResource(uint32_t& index)
 		return nullptr;
 	}
 	return VBVResources[index].resource.Get();
+}
+
+void ResourceViewManager::CreateTextureResource(uint32_t& index, const DirectX::TexMetadata& metadata)
+{
+	// 1.metadataを基にResourceの設定
+	D3D12_RESOURCE_DESC resourceDesc{};
+	resourceDesc.Width = UINT(metadata.width);// Textureの幅
+	resourceDesc.Height = UINT(metadata.height);// Textureの高さ
+	resourceDesc.MipLevels = UINT16(metadata.mipLevels);// mipmapの数
+	resourceDesc.DepthOrArraySize = UINT16(metadata.arraySize);// 奥行き or 配列Textureの配列数
+	resourceDesc.Format = metadata.format;// TextureのFormat
+	resourceDesc.SampleDesc.Count = 1;// サンプリングカウント。1固定。
+	resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION(metadata.dimension);// Textureの次元数。普段使っているのは2次元
+	// 2.利用するHeapの設定 非常に特殊な運用。02_04exで一般的なケース版がある
+	D3D12_HEAP_PROPERTIES heapProperties{};
+	heapProperties.Type = D3D12_HEAP_TYPE_DEFAULT;// 細かい設定を行う
+	//heapProperties.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;// WriteBackポリシーでCPUアクセス可能
+	//heapProperties.MemoryPoolPreference = D3D12_MEMORY_POOL_UNKNOWN;// プロセッサの近くに配置
+	//heapProperties.Type = D3D12_HEAP_TYPE_CUSTOM;// 細かい設定を行う
+	//heapProperties.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_WRITE_BACK;// WriteBackポリシーでCPUアクセス可能
+	//heapProperties.MemoryPoolPreference = D3D12_MEMORY_POOL_L0;// プロセッサの近くに配置
+	// 3.Resourceを生成する
+	Microsoft::WRL::ComPtr < ID3D12Resource> resource = nullptr;
+	HRESULT hr = d3dDevice_->GetDevice()->CreateCommittedResource(
+		&heapProperties,// Heapの設定
+		D3D12_HEAP_FLAG_NONE,// Heapの特殊な設定。特になし
+		&resourceDesc,// Resourceの設定
+		//D3D12_RESOURCE_STATE_GENERIC_READ,// 初回のResourceState。Textureは基本読むだけ
+		D3D12_RESOURCE_STATE_COPY_DEST,// 初回のResourceState。Textureは基本読むだけ
+		nullptr,// Clear最適値。使わないのでnullptr
+		IID_PPV_ARGS(&resource));// 作成するResourceポインタのポインタ
+	assert(SUCCEEDED(hr));
+
+	handles[index].resource = resource;
+}
+
+void ResourceViewManager::UploadTextureDataEx(uint32_t& index, const DirectX::ScratchImage& mipImages)
+{
+	std::vector<D3D12_SUBRESOURCE_DATA>subresources;
+	DirectX::PrepareUpload(d3dDevice_->GetDevice(), mipImages.GetImages(), mipImages.GetImageCount(), mipImages.GetMetadata(), subresources);
+	uint64_t intermediateSize = GetRequiredIntermediateSize(handles[index].resource.Get(), 0, UINT(subresources.size()));
+	Microsoft::WRL::ComPtr < ID3D12Resource> intermediateResource = CreateBufferResource(intermediateSize);
+	UpdateSubresources(d3dCommand_->GetCommandList(), handles[index].resource.Get(), intermediateResource.Get(), 0, 0, UINT(subresources.size()), subresources.data());
+	// Textureへの転送後は利用できるよう,D3D12_RESOURCE_STATE_COPY_DESTからD3D12_RESOURCE_STATE_GENERIC_READへResourceStateを変更する
+	D3D12_RESOURCE_BARRIER barrier{};
+	barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+	barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
+	barrier.Transition.pResource = handles[index].resource.Get();
+	barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
+	barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_COPY_DEST;
+	barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_GENERIC_READ;
+	d3dCommand_->GetCommandList()->ResourceBarrier(1, &barrier);
+	uploadResources.push_back(intermediateResource);
+}
+
+void ResourceViewManager::CreateSRVforTexture2D(uint32_t& index, DXGI_FORMAT Format, UINT MipLevels)
+{
+	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
+
+	// metadataを基にSRVの設定
+	srvDesc.Format = Format;
+	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;// 2Dのテクスチャ
+	srvDesc.Texture2D.MipLevels = UINT(MipLevels);
+
+	d3dDevice_->GetDevice()->CreateShaderResourceView(
+		handles[index].resource.Get(), 
+		&srvDesc,
+		handles[index].CPUHandle
+	);
 }
 
 

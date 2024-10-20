@@ -115,6 +115,14 @@ void EditorManager::Update()
                     selectedGameObject_->AddComponent(TFCompo);
                 }
             }
+            if (!selectedGameObject_->GetRender()) {
+                if (ImGui::Selectable("RenderComponent")) {
+                    isAdd = false;
+                    RenderComponent RenderCompo;
+
+                    selectedGameObject_->AddComponent(RenderCompo);
+                }
+            }
         } else
         {
             if (ImGui::Button("AddComponent")) {

@@ -17,6 +17,9 @@
 // GraphicsSystem
 #include"Graphics/GraphicsSystem/GraphicsSystem.h"
 
+// Loader
+#include"Load/TextureLoader/TextureLoader.h"
+
 // Context
 #include"UI/GameContext/GameContext.h"
 
@@ -51,6 +54,9 @@ std::unique_ptr<DrawExecution> Cho::drawExecution = nullptr;
 
 // GraphicsSystem
 std::unique_ptr<GraphicsSystem> Cho::graphicsSystem = nullptr;
+
+// Loader
+std::unique_ptr<TextureLoader> Cho::textureLoader = nullptr;
 
 // GameContext
 std::unique_ptr<GameContext> Cho::gameContext = nullptr;
@@ -117,7 +123,7 @@ void Cho::Initialize()
 
 	// ResourceViewManager
 	resourceViewManager = std::make_unique<ResourceViewManager>();
-	resourceViewManager->Initialize(d3dDevice.get());
+	resourceViewManager->Initialize(d3dDevice.get(),d3dCommand.get());
 
 	// RTVManager
 	rtvManager = std::make_unique<RTVManager>();
@@ -154,6 +160,14 @@ void Cho::Initialize()
 #pragma endregion
 
 #pragma region 汎用機能初期化
+
+	// TextureManager
+	textureLoader = std::make_unique<TextureLoader>();
+	textureLoader->Initialize(
+		d3dDevice.get(),
+		d3dCommand.get(),
+		resourceViewManager.get()
+	);
 
 	// ImGuiManager
 	imguiManager = std::make_unique<ImGuiManager>();
@@ -231,6 +245,15 @@ void Cho::Operation()
 {
 	/*初期化*/
 	Initialize();
+	// 後で消す
+	// コマンドリスト記録開始
+	d3dCommand->Reset();
+	textureLoader->Load();
+	d3dCommand->Close();
+
+	d3dSwapChain->Present();
+
+	d3dCommand->Signal();
 	/*メインループ*/
 	while (true) {
 		/*ウィンドウ終了リクエスト*/

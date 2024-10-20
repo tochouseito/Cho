@@ -189,10 +189,10 @@
     <ClCompile Include="Cho\System\Generator\Mesh\Mesh.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\Lord\TextureLoader\TextureLoader.cpp">
+    <ClCompile Include="Cho\System\Load\TextureLoader\TextureLoader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\Lord\ModelLoader\ModelLoader.cpp">
+    <ClCompile Include="Cho\System\Load\ModelLoader\ModelLoader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cho\System\ECS\GameObject\GameObject.cpp">
@@ -311,10 +311,10 @@
     <ClInclude Include="Cho\System\Generator\Mesh\Mesh.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\System\Lord\TextureLoader\TextureLoader.h">
+    <ClInclude Include="Cho\System\Load\TextureLoader\TextureLoader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\System\Lord\ModelLoader\ModelLoader.h">
+    <ClInclude Include="Cho\System\Load\ModelLoader\ModelLoader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\Utility\BlendMode.h">

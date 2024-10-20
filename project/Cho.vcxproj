@@ -209,8 +209,14 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Cho\System\Generator\Mesh\Mesh.cpp" />
-    <ClCompile Include="Cho\System\Lord\TextureLoader\TextureLoader.cpp" />
-    <ClCompile Include="Cho\System\Lord\ModelLoader\ModelLoader.cpp" />
+    <ClCompile Include="Cho\System\Load\TextureLoader\TextureLoader.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Cho\System\Load\ModelLoader\ModelLoader.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Cho\System\ECS\System\PhysicsSystem\PhysicsSystem.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -268,8 +274,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\FrameRate\FrameRate.h" />
     <ClInclude Include="Cho\System\Graphics\GraphicsSystem\GraphicsSystem.h" />
     <ClInclude Include="Cho\System\Generator\Mesh\Mesh.h" />
-    <ClInclude Include="Cho\System\Lord\TextureLoader\TextureLoader.h" />
-    <ClInclude Include="Cho\System\Lord\ModelLoader\ModelLoader.h" />
+    <ClInclude Include="Cho\System\Load\TextureLoader\TextureLoader.h" />
+    <ClInclude Include="Cho\System\Load\ModelLoader\ModelLoader.h" />
     <ClInclude Include="Cho\System\ECS\GameObject\GameObject.h" />
     <ClInclude Include="Cho\System\ECS\EntityManager\EntityManager.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\ComponentManager.h" />

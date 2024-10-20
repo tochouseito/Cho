@@ -57,8 +57,7 @@ struct TransformComponent {
 };
 
 struct RenderComponent {
-    std::string textureID;
-    uint32_t viewID;
+    std::string textureID = "";
     bool visible;
 };
 
@@ -70,4 +69,8 @@ struct PhysicsComponent {
 struct MeshComponent {
     std::unordered_map <std::string, MeshData> meshData;
     std::vector<std::string> names;
+};
+
+struct CameraComponent {
+
 };
