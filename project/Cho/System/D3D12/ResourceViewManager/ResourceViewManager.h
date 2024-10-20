@@ -12,7 +12,10 @@ struct ConstantHandleData {
 	D3D12_CPU_DESCRIPTOR_HANDLE CPUHandle;
 	D3D12_GPU_DESCRIPTOR_HANDLE GPUHandle;
 };
-
+struct VBVData {
+	Microsoft::WRL::ComPtr<ID3D12Resource> resource;
+	D3D12_VERTEX_BUFFER_VIEW vbv{};
+};
 class D3DDevice;
 class ResourceViewManager
 {
@@ -44,6 +47,10 @@ public:// メンバ関数
 
 	ID3D12Resource* GetCBVResource(uint32_t& index);
 
+	uint32_t CreateVBV(const size_t& sizeInBytes, uint32_t& vertices);
+
+	ID3D12Resource* GetVBVResource(uint32_t& index);
+
 private:
 
 	uint32_t Allocate();
@@ -55,6 +62,11 @@ private:
 
 	// CBVリソース作成
 	Microsoft::WRL::ComPtr < ID3D12Resource> CreateBufferResource(const size_t& sizeInBytes);
+
+	uint32_t VBVAllocate();
+
+	// VBVリソース作成
+	VBVData CreateVBVResource(const size_t& sizeInBytes, uint32_t& vertices);
 
 private:// メンバ変数
 
@@ -84,5 +96,11 @@ private:// メンバ変数
 
 	// CBVコンテナ
 	std::unordered_map<uint32_t, Microsoft::WRL::ComPtr<ID3D12Resource>> CBVResources;
+
+	// 次に使用するVBVインデックス
+	uint32_t useVBVIndex_ = 0;
+
+	// VBVコンテナ
+	std::unordered_map<uint32_t, VBVData> VBVResources;
 };
 

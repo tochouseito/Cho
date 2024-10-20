@@ -69,6 +69,25 @@ ID3D12Resource* ResourceViewManager::GetCBVResource(uint32_t& index)
 	return CBVResources[index].Get();
 }
 
+uint32_t ResourceViewManager::CreateVBV(const size_t& sizeInBytes, uint32_t& vertices)
+{
+	uint32_t index = VBVAllocate();
+
+	VBVData& vbvData = VBVResources[index];
+
+	vbvData = CreateVBVResource(sizeInBytes, vertices);
+
+	return index;
+}
+
+ID3D12Resource* ResourceViewManager::GetVBVResource(uint32_t& index)
+{
+	if (VBVResources.find(index) == VBVResources.end()) {
+		return nullptr;
+	}
+	return VBVResources[index].resource.Get();
+}
+
 
 uint32_t ResourceViewManager::Allocate()
 {
@@ -133,4 +152,33 @@ Microsoft::WRL::ComPtr<ID3D12Resource> ResourceViewManager::CreateBufferResource
 	);
 	assert(SUCCEEDED(hr));
 	return resource;
+}
+
+uint32_t ResourceViewManager::VBVAllocate()
+{
+	// returnする番号を一旦記録する
+	int index = useVBVIndex_;
+	// 次回のため番号を1進める
+	useVBVIndex_++;
+	// 上で記録した番号をreturn
+	return index;
+}
+
+VBVData ResourceViewManager::CreateVBVResource(const size_t& sizeInBytes, uint32_t& vertices)
+{
+	VBVData vbvData;
+
+	vbvData.resource = CreateBufferResource(sizeInBytes*static_cast<size_t>(vertices));
+
+	// 頂点バッファビューを作成する
+	// リソースの先頭のアドレスから使う
+	vbvData.vbv.BufferLocation = vbvData.resource->GetGPUVirtualAddress();
+
+	// 使用するリソースのサイズは頂点のサイズ
+	vbvData.vbv.SizeInBytes = static_cast<UINT>(sizeInBytes * vertices);
+
+	// 1頂点アタリのサイズ
+	vbvData.vbv.StrideInBytes = static_cast<UINT>(sizeInBytes);
+
+	return vbvData;
 }

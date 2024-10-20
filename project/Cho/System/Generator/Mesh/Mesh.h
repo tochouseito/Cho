@@ -18,6 +18,8 @@ enum class Object {
 };
 struct MeshData {
 	VertexData* vertexData;
+	uint32_t vertices;
+	uint32_t vbvIndex;
 };
 class Mesh
 {

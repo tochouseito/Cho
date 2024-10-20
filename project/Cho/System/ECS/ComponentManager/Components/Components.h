@@ -11,6 +11,7 @@
 #include<cstdint>
 #include<string>
 #include<unordered_map>
+#include<vector>
 
 // Data
 #include"Generator/Mesh/Mesh.h"
@@ -68,4 +69,5 @@ struct PhysicsComponent {
 
 struct MeshComponent {
     std::unordered_map <std::string, MeshData> meshData;
+    std::vector<std::string> names;
 };
