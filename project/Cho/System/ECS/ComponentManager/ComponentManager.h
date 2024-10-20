@@ -9,9 +9,12 @@
 // C++
 #include <unordered_map>
 
+class ResourceViewManager;
 // 各エンティティに対してコンポーネントを管理するクラス
 class ComponentManager {
 public:
+    void SetRVManager(ResourceViewManager* RVManager);
+
     // エンティティにTransformコンポーネントを追加します。
     void AddComponent(Entity entity, const TransformComponent& component);
 
@@ -55,4 +58,6 @@ private:
     std::unordered_map<Entity, RenderComponent> renders;        // エンティティのRenderコンポーネントを管理します。
     std::unordered_map<Entity, PhysicsComponent> physics;       // エンティティのPhysicsコンポーネントを管理します。
     std::unordered_map<Entity, MeshComponent> meshs;
+
+    ResourceViewManager* RVManager_ = nullptr;
 };

@@ -1,9 +1,21 @@
 #include "ComponentManager.h"
 
+#include"D3D12/ResourceViewManager/ResourceViewManager.h"
+
+void ComponentManager::SetRVManager(ResourceViewManager* RVManager)
+{
+    RVManager_ = RVManager;
+}
+
 // EntityにTransformComponentを追加します。
 // 指定されたentityにTransformComponentをtransformsマップに割り当てます。
 void ComponentManager::AddComponent(Entity entity, const TransformComponent& component) {
     transforms[entity] = component;
+    transforms[entity].cbvIndex = RVManager_->CreateCBV(sizeof(ConstBufferDataWorldTransform));
+    RVManager_->GetCBVResource(
+        transforms[entity].cbvIndex)->Map(
+            0, nullptr, reinterpret_cast<void**>(&transforms[entity].constData)
+        );
 }
 
 // EntityにRenderComponentを追加します。

@@ -227,6 +227,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Cho\Utility\MyMath\MyMath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cho\Game\Assets\Scenes\MainScene.h" />
@@ -241,6 +242,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\D3D12\DXGIFactory\DXGIFactory.h" />
     <ClInclude Include="Cho\System\PrecompiledHeader\PrecompiledHeader.h" />
     <ClInclude Include="Cho\Utility\Base\Color.h" />
+    <ClInclude Include="Cho\Utility\Base\mathShapes.h" />
     <ClInclude Include="Cho\Utility\Base\Matrix4x4.h" />
     <ClInclude Include="Cho\Utility\Base\Vector2.h" />
     <ClInclude Include="Cho\Utility\Base\Vector3.h" />
@@ -275,6 +277,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\ECS\System\SystemManager\SystemManager.h" />
     <ClInclude Include="Cho\System\ECS\System\RenderSystem\RenderSystem.h" />
     <ClInclude Include="Cho\System\ECS\PrefabManager\PrefabManager.h" />
+    <ClInclude Include="Cho\Utility\MyMath\MyMath.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

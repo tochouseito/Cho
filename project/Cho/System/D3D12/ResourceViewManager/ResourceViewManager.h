@@ -3,10 +3,12 @@
 #include<d3d12.h>
 #include<wrl.h>
 #include<cstdint>
+#include<unordered_map>
+#include"ECS/EntityManager/EntityManager.h"
 
 // ディスクリプタハンドル定数データ
 struct ConstantHandleData {
-	uint32_t index = 0;
+	Microsoft::WRL::ComPtr<ID3D12Resource> resource;
 	D3D12_CPU_DESCRIPTOR_HANDLE CPUHandle;
 	D3D12_GPU_DESCRIPTOR_HANDLE GPUHandle;
 };
@@ -33,7 +35,14 @@ public:// メンバ関数
 	/// 新しいハンドルを入手する
 	/// </summary>
 	/// <returns></returns>
-	ConstantHandleData GetNewHandle();
+	uint32_t GetNewHandle();
+
+	// ハンドルを取得
+	ConstantHandleData GetHandle(uint32_t& index);
+
+	uint32_t CreateCBV(const size_t& sizeInBytes);
+
+	ID3D12Resource* GetCBVResource(uint32_t& index);
 
 private:
 
@@ -42,7 +51,14 @@ private:
 	D3D12_CPU_DESCRIPTOR_HANDLE GetCPUDescriptorHandle(uint32_t& index);
 	D3D12_GPU_DESCRIPTOR_HANDLE GetGPUDescriptorHandle(uint32_t& index);
 
+	uint32_t CBVAllocate();
+
+	// CBVリソース作成
+	Microsoft::WRL::ComPtr < ID3D12Resource> CreateBufferResource(const size_t& sizeInBytes);
+
 private:// メンバ変数
+
+	D3DDevice* d3dDevice_ = nullptr;
 
 	// デスクリプタサイズ
 	uint32_t descriptorSize_;
@@ -60,5 +76,13 @@ private:// メンバ変数
 	static const D3D12_DESCRIPTOR_HEAP_TYPE HEAP_TYPE =
 		D3D12_DESCRIPTOR_HEAP_TYPE::D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 
+	// ハンドルコンテナ
+	std::unordered_map<uint32_t, ConstantHandleData> handles;
+
+	// 次に使用するCBVインデックス
+	uint32_t useCBVIndex_ = 0;
+
+	// CBVコンテナ
+	std::unordered_map<uint32_t, Microsoft::WRL::ComPtr<ID3D12Resource>> CBVResources;
 };
 

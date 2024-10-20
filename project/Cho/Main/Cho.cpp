@@ -173,6 +173,7 @@ void Cho::Initialize()
 
 	// ComponentManager
 	componentManager = std::make_unique<ComponentManager>();
+	componentManager->SetRVManager(resourceViewManager.get());
 
 	// SystemManager
 	systemManager = std::make_unique<SystemManager>();
