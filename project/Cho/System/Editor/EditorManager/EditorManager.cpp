@@ -99,15 +99,21 @@ void EditorManager::Update()
         // コンポーネント追加
         static bool isAdd = false;
         if (isAdd) {
-            if (ImGui::Selectable("MeshComponent")) {
-                isAdd = false;
+            if (!selectedGameObject_->GetMesh()) {
+                if (ImGui::Selectable("MeshComponent")) {
+                    isAdd = false;
+                    MeshComponent MeshCompo;
 
+                    selectedGameObject_->AddComponent(MeshCompo);
+                }
             }
-            if (ImGui::Selectable("TransformComponent")) {
-                isAdd = false;
-                TransformComponent TFCompo;
-                TFCompo.Initialize();
-                selectedGameObject_->AddComponent(TFCompo);
+            if (!selectedGameObject_->GetTransform()) {
+                if (ImGui::Selectable("TransformComponent")) {
+                    isAdd = false;
+                    TransformComponent TFCompo;
+                    TFCompo.Initialize();
+                    selectedGameObject_->AddComponent(TFCompo);
+                }
             }
         } else
         {

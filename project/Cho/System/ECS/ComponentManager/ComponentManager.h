@@ -50,6 +50,13 @@ public:
         return &physics[entity];
     }
 
+    inline MeshComponent* GetMesh(Entity entity) {
+        if (meshs.find(entity) == meshs.end()) {
+            return nullptr;
+        }
+        return &meshs[entity];
+    }
+
     // 指定されたエンティティからコンポーネントを削除します。
     void RemoveComponent(Entity entity);
     

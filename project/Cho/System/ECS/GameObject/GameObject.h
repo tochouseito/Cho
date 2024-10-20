@@ -33,6 +33,8 @@ public:
     // PhysicsComponentを追加します。
     void AddComponent(const PhysicsComponent& component);
 
+    void AddComponent(const MeshComponent& component);
+
     // TransformComponentを取得します。
     inline TransformComponent* GetTransform() {
         return componentManager->GetTransform(entity);
@@ -46,6 +48,10 @@ public:
     // PhysicsComponentを取得します。
     inline PhysicsComponent* GetPhysics() {
         return componentManager->GetPhysics(entity);
+    }
+
+    inline MeshComponent* GetMesh() {
+        return componentManager->GetMesh(entity);
     }
 
     // 子オブジェクトを更新します。
