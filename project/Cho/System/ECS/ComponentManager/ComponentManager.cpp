@@ -29,4 +29,5 @@ void ComponentManager::RemoveComponent(Entity entity) {
     transforms.erase(entity);
     renders.erase(entity);
     physics.erase(entity);
+    meshs.erase(entity);
 }

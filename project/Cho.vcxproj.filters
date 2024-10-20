@@ -356,6 +356,9 @@
     <ClInclude Include="Cho\System\ECS\PrefabManager\PrefabManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Cho\Utility\Base\Matrix4x4.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Cho\Resources\Shader\header\FullScreen.hlsli" />

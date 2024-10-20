@@ -84,6 +84,19 @@ void EditorManager::Update()
     if (selectedGameObject_) {
         // 名前と EntityID を表示
         ImGui::Text("Name: %s EntityID: %d", selectedGamaObjectName_.c_str(), selectedGameObject_->GetEntityID());
+
+        // コンポーネントがあれば表示
+        if (componentManager_->GetTransform(selectedGameObject_->GetEntityID())) {
+            TransformComponent& TFCompo = *componentManager_->GetTransform(selectedGameObject_->GetEntityID());
+            // Transformを表示
+            if (ImGui::CollapsingHeader("Transform")) {
+                ImGui::DragFloat3("Position", &TFCompo.position.x, 0.01f);
+                ImGui::DragFloat3("Rotation", &TFCompo.rotation.x, 0.01f);
+                ImGui::DragFloat3("Scale", &TFCompo.scale.x, 0.01f);
+            }
+        }
+
+        // コンポーネント追加
         static bool isAdd = false;
         if (isAdd) {
             if (ImGui::Selectable("MeshComponent")) {
@@ -92,6 +105,9 @@ void EditorManager::Update()
             }
             if (ImGui::Selectable("TransformComponent")) {
                 isAdd = false;
+                TransformComponent TFCompo;
+                TFCompo.Initialize();
+                selectedGameObject_->AddComponent(TFCompo);
             }
         } else
         {
@@ -99,6 +115,7 @@ void EditorManager::Update()
                 isAdd = true;
             }
         }
+
     }
     ImGui::End();
 

@@ -25,16 +25,25 @@ public:
 
     // 指定されたエンティティのTransformコンポーネントを取得します。
     inline TransformComponent* GetTransform(Entity entity) {
+        if (transforms.find(entity) == transforms.end()) {
+            return nullptr;
+        }
         return &transforms[entity];
     }
 
     // 指定されたエンティティのRenderコンポーネントを取得します。
     inline RenderComponent* GetRender(Entity entity) {
+        if (renders.find(entity) == renders.end()) {
+            return nullptr;
+        }
         return &renders[entity];
     }
 
     // 指定されたエンティティのPhysicsコンポーネントを取得します。
     inline PhysicsComponent* GetPhysics(Entity entity) {
+        if (physics.find(entity) == physics.end()) {
+            return nullptr;
+        }
         return &physics[entity];
     }
 

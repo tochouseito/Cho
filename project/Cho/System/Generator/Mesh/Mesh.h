@@ -5,23 +5,24 @@
 #include"Base/Vector3.h"
 #include"Base/Vector4.h"
 
+// 頂点データ構造体（テクスチャあり）
+struct VertexData {
+	Vector4 position;
+	Vector2 texcoord;
+	Vector3 normal;
+};
+enum class Object {
+	kBox,
+	kPlane,
+	kSphere,
+};
+struct MeshData {
+	VertexData* vertexData;
+};
 class Mesh
 {
 public:
-	// 頂点データ構造体（テクスチャあり）
-	struct VertexData {
-		Vector4 position;
-		Vector2 texcoord;
-		Vector3 normal;
-	};
-	enum class Object {
-		kBox,
-		kPlane,
-		kSphere,
-	};
-	struct MeshData {
-		VertexData* vertexData;
-	};
+	
 private:
 
 };
