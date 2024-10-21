@@ -21,7 +21,7 @@ void Pipeline::CreatePSODemo()
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
 			L"Cho/Resources/Shader/DemoOBJ.VS.hlsl",
-			L"vs_6_0");
+			L"vs_6_5");
 	assert(vertexShaderBlob);
 
 	Microsoft::WRL::ComPtr < ID3D12ShaderReflection> vertexShaderReflection = nullptr;
@@ -30,7 +30,7 @@ void Pipeline::CreatePSODemo()
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
 			L"Cho/Resources/Shader/DemoOBJ.PS.hlsl",
-			L"ps_6_0");
+			L"ps_6_5");
 	assert(pixelShaderBlob);
 
 	Microsoft::WRL::ComPtr < ID3D12ShaderReflection> pixelShaderReflection = nullptr;

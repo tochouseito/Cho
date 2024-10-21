@@ -5,7 +5,12 @@ void SystemManager::Update(EntityManager& entityManager, ComponentManager& compo
     physicsSystem.Update(entityManager, componentManager, deltaTime);
 }
 
-void SystemManager::Draw(EntityManager& entityManager, ComponentManager& componentManager)
+void SystemManager::Draw(
+    EntityManager& entityManager,
+    ComponentManager& componentManager,
+    D3DCommand* d3dCommand,
+    ResourceViewManager* rvManager
+)
 {
-    renderSystem.Render(entityManager, componentManager);
+    renderSystem.Render(entityManager, componentManager,d3dCommand,rvManager);
 }

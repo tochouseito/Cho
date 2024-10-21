@@ -314,7 +314,7 @@ void Cho::Draw()
 	// シーン描画
 	sceneManager->Draw();
 
-	systemManager->Draw(*entityManager.get(), *componentManager.get());
+	systemManager->Draw(*entityManager.get(), *componentManager.get(),d3dCommand.get(),resourceViewManager.get());
 }
 
 void Cho::PostDraw()

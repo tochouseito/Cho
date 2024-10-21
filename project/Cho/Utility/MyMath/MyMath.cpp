@@ -143,6 +143,17 @@ Matrix4x4 MyMath::MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, 
 	return result;
 }
 
+Matrix4x4 MyMath::MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip, float farClip)
+{
+	float tanHalfFovY = std::tanf(fovY / 2.0f);
+	return Matrix4x4{
+		1.0f / (aspectRatio * tanHalfFovY), 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f / tanHalfFovY, 0.0f, 0.0f,
+		0.0f, 0.0f, (farClip + nearClip) / (farClip - nearClip), 1.0f,
+		0.0f, 0.0f, -(2.0f * farClip * nearClip) / (farClip - nearClip), 0.0f
+	};
+}
+
 Matrix4x4 MyMath::Inverse(const Matrix4x4& m)
 {
 	Matrix4x4 result = { 0 };

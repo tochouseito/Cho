@@ -102,52 +102,46 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\WinApp\WinApp.cpp">
+    <ClCompile Include="Cho\Game\Assets\Scenes\MainScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cho\Main\Cho.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\UI\ImGuiManager\ImGuiManager.cpp">
+    <ClCompile Include="Cho\System\D3D12\D3DCommand\D3DCommand.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\D3D12\ResourceLeakChecker\ResourceLeakChecker.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\D3D12\DXGIFactory\DXGIFactory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\D3D12\D3DDevice\D3DDevice.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\PrecompiledHeader\PrecompiledHeader.cpp">
+    <ClCompile Include="Cho\Utility\MyMath\MyMath.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cho\Utility\ConvertString\ConvertString.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\D3D12\D3DCommand\D3DCommand.cpp">
+    <ClCompile Include="Cho\System\WinApp\WinApp.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\D3D12\D3DFence\D3DFence.cpp">
+    <ClCompile Include="Cho\System\UI\ImGuiManager\ImGuiManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\D3D12\D3DSwapChain\D3DSwapChain.cpp">
+    <ClCompile Include="Cho\System\UI\GameContext\GameContext.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\D3D12\DrawExecution\DrawExecution.cpp">
+    <ClCompile Include="Cho\System\Scene\SceneManager\SceneManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\D3D12\DSVManager\DSVManager.cpp">
+    <ClCompile Include="Cho\System\Scene\SceneFactory\SceneFactory.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\D3D12\RTVManager\RTVManager.cpp">
+    <ClCompile Include="Cho\System\Scene\BaseScene\BaseScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\D3D12\ResourceViewManager\ResourceViewManager.cpp">
+    <ClCompile Include="Cho\System\PrecompiledHeader\PrecompiledHeader.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\Load\TextureLoader\TextureLoader.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\Load\ModelLoader\ModelLoader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cho\System\Graphics\PostProcessManager\PostProcessManager.cpp">
@@ -156,43 +150,34 @@
     <ClCompile Include="Cho\System\Graphics\Pipeline\Pipeline.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\D3D12\ShaderCompiler\ShaderCompiler.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\Scene\SceneManager\SceneManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\Scene\BaseScene\BaseScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\Scene\SceneFactory\SceneFactory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\Editor\MainMenu\MainMenu.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\Editor\EditorManager\EditorManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\Editor\FileView\FileView.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\UI\GameContext\GameContext.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Cho\System\FrameRate\FrameRate.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Cho\System\Graphics\GraphicsSystem\GraphicsSystem.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cho\System\Generator\Mesh\Mesh.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\Load\TextureLoader\TextureLoader.cpp">
+    <ClCompile Include="Cho\System\FrameRate\FrameRate.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\Load\ModelLoader\ModelLoader.cpp">
+    <ClCompile Include="Cho\System\Editor\MainMenu\MainMenu.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\Editor\FileView\FileView.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\Editor\EditorManager\EditorManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\ECS\System\SystemManager\SystemManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\ECS\System\RenderSystem\RenderSystem.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\ECS\System\PhysicsSystem\PhysicsSystem.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\ECS\PrefabManager\PrefabManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cho\System\ECS\GameObject\GameObject.cpp">
@@ -204,22 +189,37 @@
     <ClCompile Include="Cho\System\ECS\ComponentManager\ComponentManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\ECS\System\PhysicsSystem\PhysicsSystem.cpp">
+    <ClCompile Include="Cho\System\D3D12\ShaderCompiler\ShaderCompiler.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\ECS\System\SystemManager\SystemManager.cpp">
+    <ClCompile Include="Cho\System\D3D12\RTVManager\RTVManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\ECS\System\RenderSystem\RenderSystem.cpp">
+    <ClCompile Include="Cho\System\D3D12\ResourceViewManager\ResourceViewManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\Game\Assets\Scenes\MainScene.cpp">
+    <ClCompile Include="Cho\System\D3D12\ResourceLeakChecker\ResourceLeakChecker.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\ECS\PrefabManager\PrefabManager.cpp">
+    <ClCompile Include="Cho\System\D3D12\DXGIFactory\DXGIFactory.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\Utility\MyMath\MyMath.cpp">
+    <ClCompile Include="Cho\System\D3D12\DSVManager\DSVManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\D3D12\DrawExecution\DrawExecution.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\D3D12\D3DSwapChain\D3DSwapChain.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\D3D12\D3DFence\D3DFence.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\D3D12\D3DDevice\D3DDevice.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -353,9 +353,6 @@
     <ClInclude Include="Cho\System\ECS\System\RenderSystem\RenderSystem.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\Game\Assets\Scenes\MainScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Cho\System\ECS\PrefabManager\PrefabManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -370,7 +367,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Cho\Resources\Shader\header\FullScreen.hlsli" />
-    <None Include="Cho\Resources\Shader\header\obj3d.hlsli" />
+    <FxCompile Include="Cho\Resources\Shader\DemoOBJ.VS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\DemoOBJ.PS.hlsl" />
   </ItemGroup>
 </Project>

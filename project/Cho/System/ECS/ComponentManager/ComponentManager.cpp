@@ -26,7 +26,7 @@ void ComponentManager::AddComponent(Entity entity, const TransformComponent& com
 void ComponentManager::AddComponent(Entity entity, const RenderComponent& component) {
     renders[entity] = component;
 	renders[entity].visible = true;
-	
+	renders[entity].textureID = "Cho/Resources/Texture/monsterBall.png";
 }
 
 // EntityにPhysicsComponentを追加します。
@@ -126,6 +126,16 @@ void ComponentManager::AddComponent(Entity entity, const MeshComponent& componen
 #pragma endregion
 }
 
+void ComponentManager::AddComponent(Entity entity, const CameraComponent& component)
+{
+	cameras[entity] = component;
+	cameras[entity].cbvIndex = RVManager_->CreateCBV(sizeof(ConstBufferDataViewProjection));
+	RVManager_->GetCBVResource(
+		cameras[entity].cbvIndex)->Map(
+			0, nullptr, reinterpret_cast<void**>(&cameras[entity].constData)
+		);
+}
+
 // Entityに関連するすべてのコンポーネントを削除します。
 // 指定されたentityに対して、TransformComponent、RenderComponent、PhysicsComponentをそれぞれのマップから削除します。
 void ComponentManager::RemoveComponent(Entity entity) {
@@ -133,4 +143,5 @@ void ComponentManager::RemoveComponent(Entity entity) {
     renders.erase(entity);
     physics.erase(entity);
     meshs.erase(entity);
+	cameras.erase(entity);
 }

@@ -6,12 +6,18 @@
 #include"ECS/System/PhysicsSystem/PhysicsSystem.h"
 #include"ECS/System/RenderSystem/RenderSystem.h"
 
-
+class D3DCommand;
+class ResourceViewManager;
 class SystemManager {
 public:
     void Update(EntityManager& entityManager, ComponentManager& componentManager, float deltaTime);
 
-    void Draw(EntityManager& entityManager, ComponentManager& componentManager);
+    void Draw(
+        EntityManager& entityManager,
+        ComponentManager& componentManager,
+        D3DCommand* d3dCommand,
+        ResourceViewManager* rvManager
+    );
 private:
     PhysicsSystem physicsSystem;
     RenderSystem renderSystem;

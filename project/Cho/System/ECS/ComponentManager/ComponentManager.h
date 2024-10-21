@@ -26,6 +26,8 @@ public:
 
     void AddComponent(Entity entity, const MeshComponent& component);
 
+    void AddComponent(Entity entity, const CameraComponent& component);
+
     // 指定されたエンティティのTransformコンポーネントを取得します。
     inline TransformComponent* GetTransform(Entity entity) {
         if (transforms.find(entity) == transforms.end()) {
@@ -57,6 +59,13 @@ public:
         return &meshs[entity];
     }
 
+    inline CameraComponent* GetCamera(Entity entity) {
+        if (cameras.find(entity) == cameras.end()) {
+            return nullptr;
+        }
+        return &cameras[entity];
+    }
+
     // 指定されたエンティティからコンポーネントを削除します。
     void RemoveComponent(Entity entity);
     
@@ -65,6 +74,7 @@ private:
     std::unordered_map<Entity, RenderComponent> renders;        // エンティティのRenderコンポーネントを管理します。
     std::unordered_map<Entity, PhysicsComponent> physics;       // エンティティのPhysicsコンポーネントを管理します。
     std::unordered_map<Entity, MeshComponent> meshs;
+    std::unordered_map<Entity, CameraComponent> cameras;
 
     ResourceViewManager* RVManager_ = nullptr;
 };
