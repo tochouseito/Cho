@@ -35,6 +35,8 @@ public:
 
     void AddComponent(const MeshComponent& component);
 
+    void AddComponent(const CameraComponent& component);
+
     // TransformComponentを取得します。
     inline TransformComponent* GetTransform() {
         return componentManager->GetTransform(entity);
@@ -52,6 +54,10 @@ public:
 
     inline MeshComponent* GetMesh() {
         return componentManager->GetMesh(entity);
+    }
+
+    inline CameraComponent* GetCamera() {
+        return componentManager->GetCamera(entity);
     }
 
     // 子オブジェクトを更新します。

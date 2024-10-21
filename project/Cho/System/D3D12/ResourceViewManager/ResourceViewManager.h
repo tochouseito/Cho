@@ -44,7 +44,7 @@ public:// メンバ関数
 	uint32_t GetNewHandle();
 
 	// ハンドルを取得
-	ConstantHandleData GetHandle(uint32_t& index);
+	ConstantHandleData GetHandle(uint32_t index);
 
 	uint32_t CreateCBV(const size_t& sizeInBytes);
 
@@ -52,7 +52,7 @@ public:// メンバ関数
 
 	uint32_t CreateVBV(const size_t& sizeInBytes, uint32_t& vertices);
 
-	ID3D12Resource* GetVBVResource(uint32_t& index);
+	VBVData* GetVBVData(uint32_t& index);
 
 	void CreateTextureResource(uint32_t& index,const DirectX::TexMetadata& metadata);
 

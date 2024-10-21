@@ -123,6 +123,14 @@ void EditorManager::Update()
                     selectedGameObject_->AddComponent(RenderCompo);
                 }
             }
+            if (!selectedGameObject_->GetCamera()) {
+                if (ImGui::Selectable("CameraComponent")) {
+                    isAdd = false;
+                    CameraComponent cameraCompo;
+                    cameraCompo.Initialize();
+                    selectedGameObject_->AddComponent(cameraCompo);
+                }
+            }
         } else
         {
             if (ImGui::Button("AddComponent")) {

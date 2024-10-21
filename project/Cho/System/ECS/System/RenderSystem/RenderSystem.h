@@ -5,13 +5,17 @@
 
 class D3DCommand;
 class ResourceViewManager;
+class GraphicsSystem;
+class TextureLoader;
 class RenderSystem{
 public:
 	void Render(
 		EntityManager& entityManager,
 		ComponentManager& componentManager,
 		D3DCommand* d3dCommand,
-		ResourceViewManager* rvManager
+		ResourceViewManager* rvManager,
+		GraphicsSystem* graphicsSystem,
+		TextureLoader* texLoad
 	);
 };
 

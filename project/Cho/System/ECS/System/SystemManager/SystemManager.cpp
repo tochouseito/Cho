@@ -9,8 +9,10 @@ void SystemManager::Draw(
     EntityManager& entityManager,
     ComponentManager& componentManager,
     D3DCommand* d3dCommand,
-    ResourceViewManager* rvManager
+    ResourceViewManager* rvManager,
+    GraphicsSystem* graphicsSystem,
+    TextureLoader* texLoad
 )
 {
-    renderSystem.Render(entityManager, componentManager,d3dCommand,rvManager);
+    renderSystem.Render(entityManager, componentManager,d3dCommand,rvManager,graphicsSystem,texLoad);
 }

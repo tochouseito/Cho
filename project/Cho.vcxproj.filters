@@ -367,7 +367,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Cho\Resources\Shader\DemoOBJ.VS.hlsl" />
     <FxCompile Include="Cho\Resources\Shader\DemoOBJ.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\DemoOBJ.VS.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Cho\Resources\Shader\header\Demo.hlsli" />
   </ItemGroup>
 </Project>

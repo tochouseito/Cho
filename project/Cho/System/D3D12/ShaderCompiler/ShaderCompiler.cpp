@@ -282,10 +282,14 @@ std::vector<std::pair<uint32_t, std::string>> ShaderCompiler::CreateRootParamete
 
 					descriptorRanges.push_back(descriptorRange);
 
-					rootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-					rootParam.ShaderVisibility = VISIBILITY;					   // 必要に応じて設定
-					rootParam.DescriptorTable.pDescriptorRanges = &descriptorRanges.back();// Tableの中身の配列を指定
-					rootParam.DescriptorTable.NumDescriptorRanges = 1;			   // Tableで利用する数
+					//rootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+					//rootParam.ShaderVisibility = VISIBILITY;					   // 必要に応じて設定
+					//rootParam.DescriptorTable.pDescriptorRanges = &descriptorRanges.back();// Tableの中身の配列を指定
+					//rootParam.DescriptorTable.NumDescriptorRanges = 1;			   // Tableで利用する数
+
+					rootParam.ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;
+					rootParam.ShaderVisibility = VISIBILITY;
+					rootParam.Descriptor.ShaderRegister = resourceDesc.BindPoint;
 				} else if (resourceDesc.Type == D3D_SIT_UAV_RWTYPED)  // 書き込み可能なリソースの場合
 				{
 					D3D12_DESCRIPTOR_RANGE descriptorRange = {};

@@ -44,7 +44,7 @@ uint32_t ResourceViewManager::GetNewHandle()
 	return index;
 }
 
-ConstantHandleData ResourceViewManager::GetHandle(uint32_t& index)
+ConstantHandleData ResourceViewManager::GetHandle(uint32_t index)
 {
 	if (handles.find(index) == handles.end()) {
 		assert(0);
@@ -82,12 +82,12 @@ uint32_t ResourceViewManager::CreateVBV(const size_t& sizeInBytes, uint32_t& ver
 	return index;
 }
 
-ID3D12Resource* ResourceViewManager::GetVBVResource(uint32_t& index)
+VBVData* ResourceViewManager::GetVBVData(uint32_t& index)
 {
 	if (VBVResources.find(index) == VBVResources.end()) {
 		return nullptr;
 	}
-	return VBVResources[index].resource.Get();
+	return &VBVResources[index];
 }
 
 void ResourceViewManager::CreateTextureResource(uint32_t& index, const DirectX::TexMetadata& metadata)

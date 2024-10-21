@@ -29,6 +29,8 @@ public:
 
 	void CreatePSODemo();
 
+	PSOBlend& GetPSO() { return psoBlends[0]; }
+
 private:
 
 	D3DDevice* d3dDevice_ = nullptr;

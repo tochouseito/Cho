@@ -19,6 +19,8 @@ public:
 	/// </summary>
 	void Initialize(D3DDevice* d3dDevice);
 
+	Pipeline* GetPipeline()const { return pipeline.get(); }
+
 private:
 
 	// ShaderCompiler

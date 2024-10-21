@@ -99,8 +99,10 @@ struct CameraComponent {
     // 初期化
     inline void Initialize() {
         position.Initialize();
+        position.z = -50.0f;
         rotation.Initialize();
         matWorld = MyMath::MakeIdentity4x4();
+        
     }
     inline void UpdateMatrix() {
         matWorld = MyMath::MakeAffineMatrix(Vector3(1.0f,1.0f,1.0f), rotation, position);

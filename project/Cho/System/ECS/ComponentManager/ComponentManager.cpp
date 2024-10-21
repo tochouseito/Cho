@@ -48,8 +48,8 @@ void ComponentManager::AddComponent(Entity entity, const MeshComponent& componen
     MeshData& meshData = meshs[entity].meshData[name];
     meshData.vertices = kVertices;
     meshData.vbvIndex = RVManager_->CreateVBV(sizeof(VertexData), kVertices);
-    RVManager_->GetVBVResource(
-        meshs[entity].meshData[name].vbvIndex)->Map(
+    RVManager_->GetVBVData(
+        meshs[entity].meshData[name].vbvIndex)->resource->Map(
             0, nullptr, reinterpret_cast<void**>(&meshs[entity].meshData[name].vertexData)
         );
 #pragma region

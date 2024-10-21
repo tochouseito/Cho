@@ -5,6 +5,9 @@ void PhysicsSystem::Update(EntityManager& entityManager, ComponentManager& compo
     for (Entity entity : entityManager.GetActiveEntities()) {
         PhysicsComponent* physics = componentManager.GetPhysics(entity);
         TransformComponent* transform = componentManager.GetTransform(entity);
+
+        // 後で消す
+        CameraComponent* cameraCompo = componentManager.GetCamera(entity);
         if (physics && transform) {
             // 物理計算: 位置の更新
             physics->velocity.x += physics->acceleration.x * deltaTime;
@@ -13,6 +16,9 @@ void PhysicsSystem::Update(EntityManager& entityManager, ComponentManager& compo
         } else if(!physics&&transform)
         {
             transform->UpdateMatrix();
+        }
+        if (cameraCompo) {
+            cameraCompo->UpdateMatrix();
         }
     }
 }

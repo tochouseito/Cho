@@ -8,6 +8,8 @@
 
 class D3DCommand;
 class ResourceViewManager;
+class GraphicsSystem;
+class TextureLoader;
 class SystemManager {
 public:
     void Update(EntityManager& entityManager, ComponentManager& componentManager, float deltaTime);
@@ -16,7 +18,9 @@ public:
         EntityManager& entityManager,
         ComponentManager& componentManager,
         D3DCommand* d3dCommand,
-        ResourceViewManager* rvManager
+        ResourceViewManager* rvManager,
+        GraphicsSystem* graphicsSystem,
+        TextureLoader* texLoad
     );
 private:
     PhysicsSystem physicsSystem;
