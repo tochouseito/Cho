@@ -217,6 +217,7 @@ void Cho::Initialize()
 	editorManager->Initialize(
 		resourceViewManager.get(),
 		rtvManager.get(),
+		drawExecution.get(),
 		entityManager.get(),
 		componentManager.get(),
 		systemManager.get(),

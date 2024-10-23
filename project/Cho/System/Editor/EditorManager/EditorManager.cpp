@@ -5,6 +5,7 @@
 
 #include"D3D12/ResourceViewManager/ResourceViewManager.h"
 #include"D3D12/RTVManager/RTVManager.h"
+#include"D3D12/DrawExecution/DrawExecution.h"
 
 // SceneManager
 #include"Scene/SceneManager/SceneManager.h"
@@ -14,6 +15,7 @@
 void EditorManager::Initialize(
     ResourceViewManager* rvManager,
     RTVManager* rtvManager,
+    DrawExecution* drawExe,
     EntityManager* entityManager,
     ComponentManager* componentManager,
     SystemManager* systemManager,
@@ -29,9 +31,14 @@ void EditorManager::Initialize(
 	fileView = std::make_unique<FileView>();
 	fileView->Initialize();
 
+    // SceneView
+    sceneView = std::make_unique<SceneView>();
+    sceneView->Initialize(drawExe->GetRenderTexIndex(), rvManager);
+
     // D3D12
     rvManager_ = rvManager;
     rtvManager_ = rtvManager;
+    drawExe_ = drawExe;
 
     // ECS
     entityManager_ = entityManager;
@@ -167,6 +174,9 @@ void EditorManager::Update()
 
 	// FileView
 	//fileView->Update();
+
+    // SceneView
+    sceneView->Update();
 
     //ImGuiIO& io = ImGui::GetIO();
     //if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)

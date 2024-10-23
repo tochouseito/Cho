@@ -40,6 +40,10 @@ public:
 
 	void End();
 
+	uint32_t GetRenderTexIndex()const { return offscreenRenderTextureIndex; }
+
+	uint32_t GetRendTexRTVHandInd()const { return offscreenRenderRTVHandleIndex; }
+
 private:
 	/// <summary>
 	/// リソースバリア遷移
