@@ -168,6 +168,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\Utility\ConvertString\ConvertString.cpp" />
     <ClCompile Include="Cho\Utility\MyMath\MyMath.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Cho\System\Editor\SceneView\SceneView.cpp" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\Components.h" />
     <ClInclude Include="Cho\System\Scene\SceneFactory\AbstractSceneFactory.h" />
     <ClInclude Include="Cho\System\Scene\BaseScene\BaseScene.h" />
@@ -215,6 +216,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\ECS\System\RenderSystem\RenderSystem.h" />
     <ClInclude Include="Cho\System\ECS\PrefabManager\PrefabManager.h" />
     <ClInclude Include="Cho\Utility\MyMath\MyMath.h" />
+    <ClInclude Include="Cho\System\Editor\SceneView\SceneView.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

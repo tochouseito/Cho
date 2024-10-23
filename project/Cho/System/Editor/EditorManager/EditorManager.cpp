@@ -54,6 +54,7 @@ void EditorManager::Update()
             std::string name(nameBuffer);
             sceneManager_->AddGameObject(name);  // 入力された名前を使用してオブジェクトを追加
             inputActive = false;  // 入力終了
+            memset(nameBuffer, 0, sizeof(nameBuffer));
         }
 
         ImGui::SameLine();  // 次のボタンを同じ行に配置する

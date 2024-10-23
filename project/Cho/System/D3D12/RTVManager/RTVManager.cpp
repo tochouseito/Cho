@@ -11,7 +11,7 @@ void RTVManager::Initialize(D3DDevice* d3dDevice, D3DSwapChain* d3dSwapChain)
 	// デスクリプタヒープの生成
 	descriptorHeap_ = d3dDevice_->CreateDescriptorHeap(
 		HEAP_TYPE,
-		3,
+		kMaxDescriptor,
 		false
 	);
 	// デスクリプタ1個分のサイズを取得して記録
@@ -29,7 +29,7 @@ void RTVManager::CreateRenderTargetView()
 	D3D12_RENDER_TARGET_VIEW_DESC rtvDesc{};
 
 	// RTVの設定
-	rtvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;// 出力結果をSRGBに変換して書き込む
+	rtvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;// 出力結果をSRGBに変換して書き込む
 	rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;// 2dテクスチャとして書き込む
 
 	// ディスクリプタの先頭取得する

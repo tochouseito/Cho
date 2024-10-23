@@ -49,10 +49,10 @@ void D3DSwapChain::Initialize(WinApp* win, IDXGIFactory7& dxgiFactory, ID3D12Com
 
 void D3DSwapChain::Present()
 {
-	HRESULT result;
+	//HRESULT result;
 	// GPUとOSに画面の交換を行うように通知する
-	//swapChain_->Present(1, 0);
+	swapChain_->Present(1, 0);
 	// バッファをフリップ。60fps固定のため、30fpsなどのモニタはティアリング覚悟で垂直同期無視
-	static constexpr int32_t kThreasholdRefreshRate = 58;
-	result = swapChain_->Present(refreshRate_ < kThreasholdRefreshRate ? 0 : 1, 0);
+	/*static constexpr int32_t kThreasholdRefreshRate = 58;
+	result = swapChain_->Present(refreshRate_ < kThreasholdRefreshRate ? 0 : 1, 0);*/
 }
