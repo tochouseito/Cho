@@ -7,6 +7,10 @@
 #include"Editor/MainMenu/MainMenu.h"
 #include"Editor/FileView/FileView.h"
 
+// D3D12
+class ResourceViewManager;
+class RTVManager;
+
 // ECS
 class EntityManager;
 class ComponentManager;
@@ -27,6 +31,8 @@ public:
 	/// 初期化
 	/// </summary>
 	void Initialize(
+		ResourceViewManager* rvManager,
+		RTVManager* rtvManager,
 		EntityManager* entityManager,
 		ComponentManager* componentManager,
 		SystemManager* systemManager,
@@ -47,6 +53,10 @@ private:
 
 	std::unique_ptr<MainMenu> mainMenu = nullptr;
 	std::unique_ptr<FileView> fileView = nullptr;
+
+	/*D3D12*/
+	ResourceViewManager* rvManager_ = nullptr;
+	RTVManager* rtvManager_ = nullptr;
 
 	/*ECS*/
 	EntityManager* entityManager_ = nullptr;

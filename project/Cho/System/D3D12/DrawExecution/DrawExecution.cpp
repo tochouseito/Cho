@@ -7,6 +7,8 @@
 #include"D3D12/RTVManager/RTVManager.h"
 #include"D3D12/DSVManager/DSVManager.h"
 
+static const float clearColor[] = { 0.1f,0.25f,0.5f,1.0f };
+
 void DrawExecution::Initialize(
 	D3DCommand* d3dCommand,
 	D3DSwapChain* d3dSwapChain,
@@ -20,6 +22,19 @@ void DrawExecution::Initialize(
 	resourceViewManager_ = resourceViewManager;
 	rtvManager_ = rtvManager;
 	dsvManager_ = dsvManager;
+
+	uint32_t w = 1280;
+	uint32_t h = 720;
+	offscreenRenderTextureIndex = resourceViewManager_->GetNewHandle();
+	resourceViewManager_->CreateRenderTextureResource(offscreenRenderTextureIndex,
+		w, h, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
+		Color(clearColor[0], clearColor[1], clearColor[2], clearColor[3])
+		);
+	offscreenRenderRTVHandleIndex = 
+		rtvManager_->CreateRTV(
+			resourceViewManager_->GetHandle(
+				offscreenRenderTextureIndex).resource.Get()
+		);
 }
 
 void DrawExecution::PreDraw()
@@ -43,7 +58,6 @@ void DrawExecution::PreDraw()
 	);
 
 	// 指定した色で画面全体をクリアする
-	float clearColor[] = { 0.1f,0.25f,0.5f,1.0f };
 	commandList->ClearRenderTargetView(
 		rtvHandle,
 		clearColor,

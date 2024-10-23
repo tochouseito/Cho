@@ -215,6 +215,8 @@ void Cho::Initialize()
 	// EditorManager
 	editorManager = std::make_unique<EditorManager>();
 	editorManager->Initialize(
+		resourceViewManager.get(),
+		rtvManager.get(),
 		entityManager.get(),
 		componentManager.get(),
 		systemManager.get(),

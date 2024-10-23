@@ -143,7 +143,7 @@ void ResourceViewManager::UploadTextureDataEx(uint32_t& index, const DirectX::Sc
 	uploadResources.push_back(intermediateResource);
 }
 
-void ResourceViewManager::CreateSRVforTexture2D(uint32_t& index, DXGI_FORMAT Format, UINT MipLevels)
+void ResourceViewManager::CreateSRVForTexture2D(uint32_t& index, DXGI_FORMAT Format, UINT MipLevels)
 {
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
 
@@ -158,6 +158,45 @@ void ResourceViewManager::CreateSRVforTexture2D(uint32_t& index, DXGI_FORMAT For
 		&srvDesc,
 		handles[index].CPUHandle
 	);
+}
+
+void ResourceViewManager::CreateRenderTextureResource(uint32_t& index, uint32_t& width, uint32_t& height, DXGI_FORMAT format, const Color& clearColor)
+{
+	// 生成するResourceの設定
+	D3D12_RESOURCE_DESC resourceDesc{};
+	resourceDesc.Width = width;// Textureの幅
+	resourceDesc.Height = height;// Textureの高さ
+	resourceDesc.MipLevels = 1;//mipmapの数
+	resourceDesc.DepthOrArraySize = 1;// 奥行き or 配列Textureの配列数
+	resourceDesc.Format = format;// DepthStencilとして利用可能なフォーマット
+	resourceDesc.SampleDesc.Count = 1;// サンプリングカウント。1固定。
+	resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;// 2次元
+	resourceDesc.Flags = D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;// RenderTargetとして利用可能にする
+
+	// 利用するHeapの設定
+	D3D12_HEAP_PROPERTIES heapProperties{};
+	heapProperties.Type = D3D12_HEAP_TYPE_DEFAULT;// VRAM上に作る
+
+	// 深度値のクリア設定
+	D3D12_CLEAR_VALUE clearValue;
+	clearValue.Format = format;
+	clearValue.Color[0] = clearColor.r;
+	clearValue.Color[1] = clearColor.g;
+	clearValue.Color[2] = clearColor.b;
+	clearValue.Color[3] = clearColor.a;
+
+	// Resourceの生成
+	Microsoft::WRL::ComPtr < ID3D12Resource> resource = nullptr;
+	HRESULT hr = d3dDevice_->GetDevice()->CreateCommittedResource(
+		&heapProperties,
+		D3D12_HEAP_FLAG_NONE,
+		&resourceDesc,
+		D3D12_RESOURCE_STATE_RENDER_TARGET,//これから描画することを前提としたTextureなのでRenderTargetとして使うとこから始める
+		&clearValue,// Clear最適値。ClearRenderTargetをこの色でClearするようにする。最適化されているので高速である
+		IID_PPV_ARGS(&resource)
+	);
+	assert(SUCCEEDED(hr));
+	handles[index].resource = resource;
 }
 
 
@@ -197,10 +236,10 @@ uint32_t ResourceViewManager::CBVAllocate()
 
 Microsoft::WRL::ComPtr<ID3D12Resource> ResourceViewManager::CreateBufferResource(const size_t& sizeInBytes)
 {
-	// 頂点リソース用のヒープの設定
+	// リソース用のヒープの設定
 	D3D12_HEAP_PROPERTIES uploadHeapProperties{};
 	uploadHeapProperties.Type = D3D12_HEAP_TYPE_UPLOAD;// UploadHeapを使う
-	// 頂点リソースの設定
+	// リソースの設定
 	D3D12_RESOURCE_DESC resourceDesc{};
 	// バッファリソース。テクスチャの場合はまた別の設定をする
 	resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
@@ -212,7 +251,7 @@ Microsoft::WRL::ComPtr<ID3D12Resource> ResourceViewManager::CreateBufferResource
 	resourceDesc.SampleDesc.Count = 1;
 	// バッファの場合ははこれにする決まり
 	resourceDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
-	// 実際に頂点リソースを作る
+	// 実際にリソースを作る
 	Microsoft::WRL::ComPtr<ID3D12Resource> resource = nullptr;
 	HRESULT hr = d3dDevice_->GetDevice()->CreateCommittedResource(
 		&uploadHeapProperties,

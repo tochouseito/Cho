@@ -72,5 +72,5 @@ void TextureLoader::Load()
 
 	texData.metadata = metadata;
 
-	rvManager_->CreateSRVforTexture2D(texData.rvIndex, metadata.format, UINT(metadata.mipLevels));
+	rvManager_->CreateSRVForTexture2D(texData.rvIndex, metadata.format, UINT(metadata.mipLevels));
 }

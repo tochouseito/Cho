@@ -2,6 +2,7 @@
 
 #include<d3d12.h>
 #include<wrl.h>
+#include<cstdint>
 
 class D3DCommand;
 class D3DSwapChain;
@@ -56,5 +57,8 @@ private:
 	ResourceViewManager* resourceViewManager_ = nullptr;
 	RTVManager* rtvManager_ = nullptr;
 	DSVManager* dsvManager_ = nullptr;
+
+	uint32_t offscreenRenderRTVHandleIndex;
+	uint32_t offscreenRenderTextureIndex;
 };
 

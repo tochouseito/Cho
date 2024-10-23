@@ -7,6 +7,7 @@
 #include<cstdint>
 #include<unordered_map>
 #include"ECS/EntityManager/EntityManager.h"
+#include"Color.h"
 
 // ディスクリプタハンドル定数データ
 struct ConstantHandleData {
@@ -37,6 +38,9 @@ public:// メンバ関数
 
 	ID3D12DescriptorHeap* GetDescriptorHeap()const { return descriptorHeap_.Get(); }
 
+	uint32_t GetNowIndex()const { return useIndex_ ; }
+	static uint32_t GetMaxIndex() { return kMaxDescriptor; }
+
 	/// <summary>
 	/// 新しいハンドルを入手する
 	/// </summary>
@@ -58,7 +62,15 @@ public:// メンバ関数
 
 	void UploadTextureDataEx(uint32_t& index,const DirectX::ScratchImage& mipImages);
 
-	void CreateSRVforTexture2D(uint32_t& index, DXGI_FORMAT Format, UINT MipLevels);
+	void CreateSRVForTexture2D(uint32_t& index, DXGI_FORMAT Format, UINT MipLevels);
+
+	void CreateRenderTextureResource(
+		uint32_t& index,
+		uint32_t& width,
+		uint32_t& height,
+		DXGI_FORMAT format,
+		const Color& clearColor
+	);
 
 private:
 

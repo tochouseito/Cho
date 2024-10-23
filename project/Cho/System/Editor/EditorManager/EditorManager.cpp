@@ -3,12 +3,17 @@
 // ImGui
 #include"imgui.h"
 
+#include"D3D12/ResourceViewManager/ResourceViewManager.h"
+#include"D3D12/RTVManager/RTVManager.h"
+
 // SceneManager
 #include"Scene/SceneManager/SceneManager.h"
 
 #include"ECS/GameObject/GameObject.h"
 
 void EditorManager::Initialize(
+    ResourceViewManager* rvManager,
+    RTVManager* rtvManager,
     EntityManager* entityManager,
     ComponentManager* componentManager,
     SystemManager* systemManager,
@@ -23,6 +28,10 @@ void EditorManager::Initialize(
 	// FileView
 	fileView = std::make_unique<FileView>();
 	fileView->Initialize();
+
+    // D3D12
+    rvManager_ = rvManager;
+    rtvManager_ = rtvManager;
 
     // ECS
     entityManager_ = entityManager;
@@ -140,6 +149,14 @@ void EditorManager::Update()
         }
 
     }
+    ImGui::End();
+
+    // Viewの使用数
+    ImGui::Begin("Descriptor");
+
+    ImGui::Text("S.U.View : %d / %d", rvManager_->GetNowIndex(), ResourceViewManager::GetMaxIndex());
+    ImGui::Text("RTV : %d / %d", rtvManager_->GetNowIndex(), RTVManager::GetMaxIndex());
+
     ImGui::End();
 
 	// 全体のImGuiウィンドウ
