@@ -375,8 +375,11 @@
   <ItemGroup>
     <FxCompile Include="Cho\Resources\Shader\DemoOBJ.PS.hlsl" />
     <FxCompile Include="Cho\Resources\Shader\DemoOBJ.VS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\FullScreen.VS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\FullScreen.PS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Cho\Resources\Shader\header\Demo.hlsli" />
+    <None Include="Cho\Resources\Shader\header\FullScreen.hlsli" />
   </ItemGroup>
 </Project>

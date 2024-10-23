@@ -29,7 +29,9 @@ public:
 
 	void CreatePSODemo();
 
-	PSOBlend& GetPSO() { return psoBlends[0]; }
+	void CreatePSOScreenCopy();
+
+	PSOBlend& GetPSO(uint32_t index) { return psoBlends[index]; }
 
 private:
 

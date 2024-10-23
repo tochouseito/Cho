@@ -26,8 +26,8 @@ void RenderSystem::Render(
         if (renderComp && renderComp->visible&& meshComp) {
             // 描画処理: 描画コンポーネントに基づきリソースをバインドして描画
             
-            commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO().rootSignature.Get());
-            commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO().Blend[kBlendModeNone].Get());
+            commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(0).rootSignature.Get());
+            commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(0).Blend[kBlendModeNone].Get());
             for (std::string name : meshComp->names) {
                 commandList->IASetVertexBuffers(0, 1, &rvManager->GetVBVData(meshComp->meshData[name].vbvIndex)->vbv);
 

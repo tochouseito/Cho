@@ -9,6 +9,7 @@ class D3DSwapChain;
 class ResourceViewManager;
 class RTVManager;
 class DSVManager;
+class GraphicsSystem;
 class DrawExecution
 {
 public:
@@ -20,7 +21,8 @@ public:
 		D3DSwapChain* d3dSwapChain,
 		ResourceViewManager* resourceViewManager,
 		RTVManager* rtvManager,
-		DSVManager* dsvManager
+		DSVManager* dsvManager,
+		GraphicsSystem* graphicsSystem
 	);
 
 	/// <summary>
@@ -61,6 +63,7 @@ private:
 	ResourceViewManager* resourceViewManager_ = nullptr;
 	RTVManager* rtvManager_ = nullptr;
 	DSVManager* dsvManager_ = nullptr;
+	GraphicsSystem* graphicsSystem_ = nullptr;
 
 	uint32_t offscreenRenderRTVHandleIndex;
 	uint32_t offscreenRenderTextureIndex;

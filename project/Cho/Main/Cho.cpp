@@ -139,6 +139,14 @@ void Cho::Initialize()
 		d3dDevice.get()
 	);
 
+#pragma endregion
+
+#pragma region グラフィックスシステム
+
+	// GraphicsSystem
+	graphicsSystem = std::make_unique<GraphicsSystem>();
+	graphicsSystem->Initialize(d3dDevice.get());
+
 	// DrawExecution
 	drawExecution = std::make_unique<DrawExecution>();
 	drawExecution->Initialize(
@@ -148,14 +156,6 @@ void Cho::Initialize()
 		rtvManager.get(),
 		dsvManager.get()
 	);
-
-#pragma endregion
-
-#pragma region グラフィックスシステム
-
-	// GraphicsSystem
-	graphicsSystem = std::make_unique<GraphicsSystem>();
-	graphicsSystem->Initialize(d3dDevice.get());
 
 #pragma endregion
 

@@ -191,12 +191,14 @@ void ResourceViewManager::CreateRenderTextureResource(uint32_t& index, uint32_t&
 		&heapProperties,
 		D3D12_HEAP_FLAG_NONE,
 		&resourceDesc,
-		D3D12_RESOURCE_STATE_RENDER_TARGET,//これから描画することを前提としたTextureなのでRenderTargetとして使うとこから始める
+		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
 		&clearValue,// Clear最適値。ClearRenderTargetをこの色でClearするようにする。最適化されているので高速である
 		IID_PPV_ARGS(&resource)
 	);
 	assert(SUCCEEDED(hr));
 	handles[index].resource = resource;
+
+	CreateSRVForTexture2D(index, format, 1);
 }
 
 

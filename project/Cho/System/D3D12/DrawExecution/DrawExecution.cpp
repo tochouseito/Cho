@@ -6,6 +6,7 @@
 #include"D3D12/ResourceViewManager/ResourceViewManager.h"
 #include"D3D12/RTVManager/RTVManager.h"
 #include"D3D12/DSVManager/DSVManager.h"
+#include"Graphics/GraphicsSystem/GraphicsSystem.h"
 
 static const float clearColor[] = { 0.1f,0.25f,0.5f,1.0f };
 
@@ -14,7 +15,8 @@ void DrawExecution::Initialize(
 	D3DSwapChain* d3dSwapChain,
 	ResourceViewManager* resourceViewManager,
 	RTVManager* rtvManager,
-	DSVManager* dsvManager
+	DSVManager* dsvManager,
+	GraphicsSystem* graphicsSystem
 )
 {
 	d3dCommand_ = d3dCommand;
@@ -22,6 +24,7 @@ void DrawExecution::Initialize(
 	resourceViewManager_ = resourceViewManager;
 	rtvManager_ = rtvManager;
 	dsvManager_ = dsvManager;
+	graphicsSystem_ = graphicsSystem;
 
 	uint32_t w = 1280;
 	uint32_t h = 720;
@@ -41,15 +44,20 @@ void DrawExecution::PreDraw()
 {
 	ID3D12GraphicsCommandList* commandList = d3dCommand_->GetCommandList();
 
-	UINT backBufferIndex = d3dSwapChain_->GetSwapChain()->GetCurrentBackBufferIndex();
+	//UINT backBufferIndex = d3dSwapChain_->GetSwapChain()->GetCurrentBackBufferIndex();
 
-	BarrierTransition(d3dSwapChain_->GetResource(backBufferIndex),
+	/*BarrierTransition(d3dSwapChain_->GetResource(backBufferIndex),
 		D3D12_RESOURCE_STATE_PRESENT,
+		D3D12_RESOURCE_STATE_RENDER_TARGET
+	);*/
+	BarrierTransition(
+		resourceViewManager_->GetHandle(offscreenRenderTextureIndex).resource.Get(),
+		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
 		D3D12_RESOURCE_STATE_RENDER_TARGET
 	);
 	// 描画先のRTVとDSVを設定する
 	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle = dsvManager_->GetDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
-	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = rtvManager_->GetHandle(backBufferIndex);
+	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = rtvManager_->GetHandle(offscreenRenderRTVHandleIndex);
 	commandList->OMSetRenderTargets(
 		1,
 		&rtvHandle,
@@ -101,7 +109,9 @@ void DrawExecution::Draw()
 
 void DrawExecution::PostDraw()
 {
-	
+	UINT backBufferIndex = d3dSwapChain_->GetSwapChain()->GetCurrentBackBufferIndex();
+
+	BarrierTransition()
 }
 
 void DrawExecution::End()

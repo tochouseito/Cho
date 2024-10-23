@@ -12,13 +12,19 @@ void SceneView::Initialize(uint32_t index, ResourceViewManager* rvManager)
 
 void SceneView::Update()
 {
-	// シーンビューを表示する ImGui のウィンドウ
-	ImGui::Begin("Scene View");
+	// ウィンドウの開始
+	ImGui::Begin("Scene View", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
-	// テクスチャを ImGui::Image() で表示
-	ImTextureID textureID = (ImTextureID)rvManager_->GetHandle(2).GPUHandle.ptr;
-	ImVec2 imageSize(1280, 720);  // シーンビューのサイズを指定
-	ImGui::Image(textureID, imageSize);
+	// ウィンドウ内で利用可能な領域のサイズを取得
+	ImVec2 availableSize = ImGui::GetContentRegionAvail();
+
+	// テクスチャを描画する大きさを、利用可能な領域に合わせて設定
+	ImVec2 textureSize = availableSize;
+
+	// テクスチャを描画
+	D3D12_GPU_DESCRIPTOR_HANDLE srvHandle = rvManager_->GetHandle(sceneTextureIndex).GPUHandle;
+	ImTextureID textureID = (ImTextureID)srvHandle.ptr;
+	ImGui::Image(textureID, textureSize);
 
 	ImGui::End();
 }
