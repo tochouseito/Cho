@@ -84,6 +84,11 @@ private:// メンバ関数
 	/// </summary>
 	static void PostDraw();
 
+	/// <summary>
+	/// 読み込み
+	/// </summary>
+	static void Load();
+
 private:// メンバ変数
 
 	/*ウィンドウズアプリケーション*/

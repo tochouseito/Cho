@@ -1,6 +1,7 @@
 #include "TextureLoader.h"
 
 #include"D3D12/ResourceViewManager/ResourceViewManager.h"
+#include"D3D12/D3DCommand/D3DCommand.h"
 
 // Utility
 #include"ConvertString/ConvertString.h"
@@ -67,8 +68,13 @@ void TextureLoader::Load()
 	const DirectX::TexMetadata& metadata = mipImages.GetMetadata();
 
 	// リソース作成
+	d3dCommand_->Reset();
+
 	rvManager_->CreateTextureResource(texData.rvIndex, metadata);
 	rvManager_->UploadTextureDataEx(texData.rvIndex, mipImages);
+
+	d3dCommand_->Close();
+	d3dCommand_->Signal();
 
 	texData.metadata = metadata;
 

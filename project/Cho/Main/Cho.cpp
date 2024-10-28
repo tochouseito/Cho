@@ -249,15 +249,8 @@ void Cho::Operation()
 {
 	/*初期化*/
 	Initialize();
-	// 後で消す
-	// コマンドリスト記録開始
-	d3dCommand->Reset();
-	textureLoader->Load();
-	d3dCommand->Close();
-
-	d3dSwapChain->Present();
-
-	d3dCommand->Signal();
+	/*読み込み*/
+	Load();
 	/*メインループ*/
 	while (true) {
 		/*ウィンドウ終了リクエスト*/
@@ -349,4 +342,10 @@ void Cho::PostDraw()
 
 	// 描画終了処理
 	drawExecution->End();
+}
+
+void Cho::Load()
+{
+	/*テクスチャリソースの読み込み*/
+	textureLoader->Load();
 }
