@@ -55,12 +55,6 @@ void DrawExecution::PreDraw()
 {
 	ID3D12GraphicsCommandList* commandList = d3dCommand_->GetCommandList();
 
-	//UINT backBufferIndex = d3dSwapChain_->GetSwapChain()->GetCurrentBackBufferIndex();
-
-	/*BarrierTransition(d3dSwapChain_->GetResource(backBufferIndex),
-		D3D12_RESOURCE_STATE_PRESENT,
-		D3D12_RESOURCE_STATE_RENDER_TARGET
-	);*/
 	BarrierTransition(
 		resourceViewManager_->GetHandle(offscreenRenderTextureIndex).resource.Get(),
 		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
