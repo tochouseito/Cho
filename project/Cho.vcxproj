@@ -128,6 +128,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cho\System\ECS\System\CameraSystem\CameraSystem.cpp" />
     <ClCompile Include="Cho\Game\Assets\Scenes\MainScene.cpp" />
     <ClCompile Include="Cho\Main\Cho.cpp" />
     <ClCompile Include="Cho\System\D3D12\D3DCommand\D3DCommand.cpp" />
@@ -169,6 +170,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\Utility\MyMath\MyMath.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Cho\System\Editor\SceneView\SceneView.cpp" />
+    <ClInclude Include="Cho\System\ECS\System\CameraSystem\CameraSystem.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\Components.h" />
     <ClInclude Include="Cho\System\Scene\SceneFactory\AbstractSceneFactory.h" />
     <ClInclude Include="Cho\System\Scene\BaseScene\BaseScene.h" />

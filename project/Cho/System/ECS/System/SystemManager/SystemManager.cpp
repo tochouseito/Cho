@@ -3,6 +3,7 @@
 
 void SystemManager::Update(EntityManager& entityManager, ComponentManager& componentManager, float deltaTime) {
     physicsSystem.Update(entityManager, componentManager, deltaTime);
+    cameraSystem.Update(entityManager, componentManager);
 }
 
 void SystemManager::Draw(

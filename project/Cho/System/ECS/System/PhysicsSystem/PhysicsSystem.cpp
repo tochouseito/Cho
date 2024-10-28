@@ -7,7 +7,7 @@ void PhysicsSystem::Update(EntityManager& entityManager, ComponentManager& compo
         TransformComponent* transform = componentManager.GetTransform(entity);
 
         // 後で消す
-        CameraComponent* cameraCompo = componentManager.GetCamera(entity);
+       /* CameraComponent* cameraCompo = componentManager.GetCamera(entity);*/
         if (physics && transform) {
             // 物理計算: 位置の更新
             physics->velocity.x += physics->acceleration.x * deltaTime;
@@ -17,8 +17,8 @@ void PhysicsSystem::Update(EntityManager& entityManager, ComponentManager& compo
         {
             transform->UpdateMatrix();
         }
-        if (cameraCompo) {
+        /*if (cameraCompo) {
             cameraCompo->UpdateMatrix();
-        }
+        }*/
     }
 }

@@ -67,3 +67,12 @@ void SceneManager::AddGameObject(const std::string& objectName)
 	gameObject->SetManager(entityManager_, componentManager_);
 	gameObject->CreateEntity();
 }
+
+void SceneManager::AddCameraObject(const std::string& cameraName)
+{
+	// 新しいGameObjectを作成してマップに追加
+	cameraObjects[cameraName] = std::make_unique<GameObject>();
+	GameObject* cameraObject = cameraObjects[cameraName].get();
+	cameraObject->SetManager(entityManager_, componentManager_);
+	cameraObject->CreateCameraEntity();
+}

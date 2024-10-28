@@ -11,6 +11,8 @@ public:
     // 新しいエンティティを作成し、そのエンティティIDを返します。
     Entity CreateEntity();
 
+    Entity CreateCameraEntity();
+
     // 指定されたエンティティを破棄します。
     void DestroyEntity(Entity entity);
 
@@ -19,8 +21,15 @@ public:
         return activeEntities;
     }
 
+    inline const std::vector<Entity>& GetCameraEntities() const {
+        return cameraEntities;
+    }
+
 private:
     uint32_t nextEntityID = 0;  // 次に使用するエンティティIDを管理するための変数。
     std::vector<Entity> activeEntities;  // 現在アクティブなエンティティのリスト。
+
+    uint32_t nextCameraID = 0;
+    std::vector<Entity> cameraEntities;
 };
 

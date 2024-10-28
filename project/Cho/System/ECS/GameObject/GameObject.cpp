@@ -3,6 +3,13 @@
 void GameObject::CreateEntity()
 {
     entity = entityManager->CreateEntity();
+    type = Type::Object;
+}
+
+void GameObject::CreateCameraEntity()
+{
+    entity = entityManager->CreateCameraEntity();
+    type = Type::Camera;
 }
 
 void GameObject::SetManager(EntityManager* em, ComponentManager* cm)
@@ -22,6 +29,11 @@ void GameObject::AddChild(GameObject* child) {
 
 Entity GameObject::GetEntityID() const {
     return entity;
+}
+
+Type GameObject::GetObjectType() const
+{
+    return type;
 }
 
 void GameObject::AddComponent(const TransformComponent& component) {

@@ -16,13 +16,18 @@ void RenderSystem::Render(
 {
     ID3D12GraphicsCommandList* commandList = d3dCommand->GetCommandList();
 
+    CameraComponent* cameraComp = nullptr;
+    for (Entity entity : entityManager.GetCameraEntities()) {
+        cameraComp = componentManager.GetCamera(entity);
+    }
+
     for (Entity entity : entityManager.GetActiveEntities()) {
         RenderComponent* renderComp = componentManager.GetRender(entity);
         MeshComponent* meshComp = componentManager.GetMesh(entity);
 
         // 後で消す
         TransformComponent* transComp = componentManager.GetTransform(entity);
-        CameraComponent* cameraComp = componentManager.GetCamera(entity);
+        //CameraComponent* cameraComp = componentManager.GetCamera(entity);
         if (renderComp && renderComp->visible&& meshComp) {
             // 描画処理: 描画コンポーネントに基づきリソースをバインドして描画
             

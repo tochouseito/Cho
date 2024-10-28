@@ -8,6 +8,14 @@ Entity EntityManager::CreateEntity() {
     return entity;
 }
 
+Entity EntityManager::CreateCameraEntity()
+{
+    Entity entity = nextCameraID;  // 次のエンティティIDを生成します。
+    nextCameraID++;
+    cameraEntities.push_back(entity);  // アクティブなエンティティリストに追加します。
+    return entity;
+}
+
 // 指定されたエンティティを破棄します。
 inline void EntityManager::DestroyEntity(Entity entity) {
     // 指定されたエンティティをアクティブリストから削除します。

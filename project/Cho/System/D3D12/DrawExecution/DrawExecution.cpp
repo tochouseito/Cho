@@ -109,15 +109,69 @@ void DrawExecution::Draw()
 
 void DrawExecution::PostDraw()
 {
+	ID3D12GraphicsCommandList* commandList = d3dCommand_->GetCommandList();
+
 	UINT backBufferIndex = d3dSwapChain_->GetSwapChain()->GetCurrentBackBufferIndex();
 
-	BarrierTransition()
+	// スワップチェーンリソースの状態遷移
+	BarrierTransition(d3dSwapChain_->GetResource(backBufferIndex),
+		D3D12_RESOURCE_STATE_PRESENT,
+		D3D12_RESOURCE_STATE_RENDER_TARGET
+	);
+
+	// レンダーテクスチャリソースの状態遷移
+	BarrierTransition(resourceViewManager_->GetHandle(offscreenRenderTextureIndex).resource.Get(),
+		D3D12_RESOURCE_STATE_RENDER_TARGET,
+		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE
+	);
+
+	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = rtvManager_->GetHandle(backBufferIndex);
+
+	// 描画先のRTVを設定
+	commandList->OMSetRenderTargets(1, &rtvHandle, false, nullptr);
+
+	// 指定した色で画面全体をクリアする
+	commandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
+
+	// ビューポートの設定
+	D3D12_VIEWPORT viewport =
+		D3D12_VIEWPORT(
+			0.0f, 0.0f,
+			static_cast<float>((WinApp::kClientWidth)),
+			static_cast<float>((WinApp::kClientHeight)),
+			0.0f, 1.0f
+		);
+	commandList->RSSetViewports(1, &viewport);// Viewportを設定
+
+	// シザリング矩形の設定
+	D3D12_RECT rect = D3D12_RECT(
+		0, 0,
+		WinApp::kClientWidth,
+		WinApp::kClientHeight
+	);
+	commandList->RSSetScissorRects(1, &rect);// Scissorを設定
+
+	// 形状を設定。
+	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	commandList->SetGraphicsRootSignature(graphicsSystem_->GetPipeline()->GetPSO(1).rootSignature.Get());
+
+	commandList->SetPipelineState(graphicsSystem_->GetPipeline()->GetPSO(1).Blend[0].Get());
+
+	commandList->SetGraphicsRootDescriptorTable(0, resourceViewManager_->GetHandle(offscreenRenderTextureIndex).GPUHandle);
+
+	commandList->DrawInstanced(3, 1, 0, 0);
 }
 
 void DrawExecution::End()
 {
 	UINT backBufferIndex = d3dSwapChain_->GetSwapChain()->GetCurrentBackBufferIndex();
 
+	//// レンダーテクスチャリソースの状態遷移
+	//BarrierTransition(resourceViewManager_->GetHandle(offscreenRenderTextureIndex).resource.Get(),
+	//	)
+
+	// スワップチェーンリソースの状態遷移
 	BarrierTransition(d3dSwapChain_->GetResource(backBufferIndex),
 		D3D12_RESOURCE_STATE_RENDER_TARGET,
 		D3D12_RESOURCE_STATE_PRESENT

@@ -6,12 +6,20 @@
 // C++
 #include <string>
 
+enum Type {
+    Object,
+    Camera,
+    Light
+};
+
 class GameObject {
 
 public:
     GameObject() = default;
 
     void CreateEntity();
+
+    void CreateCameraEntity();
 
     void SetManager(EntityManager* em, ComponentManager* cm);
 
@@ -23,6 +31,8 @@ public:
 
     // EntityのIDを取得します。
     Entity GetEntityID() const;
+
+    Type GetObjectType() const;
 
     // TransformComponentを追加します。
     void AddComponent(const TransformComponent& component);
@@ -69,4 +79,5 @@ private:
     ComponentManager* componentManager;
     std::vector<GameObject*> children;
     GameObject* parent = nullptr;
+    Type type;
 };

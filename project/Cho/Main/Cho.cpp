@@ -154,7 +154,8 @@ void Cho::Initialize()
 		d3dSwapChain.get(),
 		resourceViewManager.get(),
 		rtvManager.get(),
-		dsvManager.get()
+		dsvManager.get(),
+		graphicsSystem.get()
 	);
 
 #pragma endregion

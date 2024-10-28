@@ -49,8 +49,14 @@ public:
 public:
 	void AddGameObject(const std::string& objectName);
 
+	void AddCameraObject(const std::string& cameraName);
+
 	const std::unordered_map<std::string, std::unique_ptr<GameObject>>& GetGameObjects() const {
 		return gameObjects;
+	}
+
+	const std::unordered_map<std::string, std::unique_ptr<GameObject>>& GetCameraObjects() const {
+		return cameraObjects;
 	}
 private:
 	/*今のシーン*/
@@ -67,5 +73,7 @@ private:
 	PrefabManager* prefabManager_ = nullptr;
 
 	std::unordered_map<std::string, std::unique_ptr<GameObject>> gameObjects;
+	std::unordered_map<std::string, std::unique_ptr<GameObject>> cameraObjects;
+	//std::unordered_map<std::string, std::unique_ptr<GameObject>> lightObjects;
 };
 
