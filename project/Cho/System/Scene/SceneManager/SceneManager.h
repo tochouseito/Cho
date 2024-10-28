@@ -58,6 +58,13 @@ public:
 	const std::unordered_map<std::string, std::unique_ptr<GameObject>>& GetCameraObjects() const {
 		return cameraObjects;
 	}
+
+	// デバッグ用
+	const GameObject* GetDebugCamera(){
+		std::string key = "DebugCamera";
+		GameObject* result = cameraObjects[key].get();
+		return result;
+	}
 private:
 	/*今のシーン*/
 	BaseScene* scene_ = nullptr;

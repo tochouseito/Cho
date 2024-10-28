@@ -55,7 +55,7 @@ private:
 	uint32_t useIndex_ = 0;
 
 	// 最大ディスクリプタ数
-	static const uint32_t kMaxDescriptor = 3;
+	static const uint32_t kMaxDescriptor = 8;
 
 	// ヒープタイプ
 	static const D3D12_DESCRIPTOR_HEAP_TYPE HEAP_TYPE =

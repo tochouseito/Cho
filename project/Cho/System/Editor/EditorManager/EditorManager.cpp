@@ -33,7 +33,7 @@ void EditorManager::Initialize(
 
     // SceneView
     sceneView = std::make_unique<SceneView>();
-    sceneView->Initialize(drawExe->GetRenderTexIndex(), rvManager);
+    sceneView->Initialize(drawExe->GetDebugRenTexInd(), rvManager);
 
     // D3D12
     rvManager_ = rvManager;
@@ -79,19 +79,26 @@ void EditorManager::Update()
             inputActive = false;  // キャンセルして入力終了
         }
 
-        //　消す   
-        if (ImGui::Button("Camera")) {
-            std::string name(nameBuffer);
-            sceneManager_->AddCameraObject(name);
-            inputActive = false;
-            memset(nameBuffer, 0, sizeof(nameBuffer));
-        }
 
         ImGui::End();  // ウィンドウを閉じる
     }
 
     ImGui::End();
 
+    //　消す   
+    //if (ImGui::Button("Camera")) {
+    static bool one = true;
+    if (one) {
+
+        std::string name = "DebugCamera";
+        sceneManager_->AddCameraObject(name);
+        one = false;
+        name = "SceneCamera";
+        sceneManager_->AddCameraObject(name);
+        entityManager_->SetCameraID(1);
+    }
+    //}
+    
     ImGui::Begin("GameObjectList");
     
     for (auto& pair : sceneManager_->GetGameObjects()) {
@@ -205,6 +212,7 @@ void EditorManager::Update()
                     isAdd = true;
                 }
             }
+            break;
         default:
             break;
         }
@@ -232,7 +240,7 @@ void EditorManager::Update()
 	//fileView->Update();
 
     // SceneView
-    sceneView->Update();
+    sceneView->Update(drawExe_->GetRenderTexIndex());
 
     //ImGuiIO& io = ImGui::GetIO();
     //if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)

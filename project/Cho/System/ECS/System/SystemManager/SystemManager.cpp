@@ -17,3 +17,15 @@ void SystemManager::Draw(
 {
     renderSystem.Render(entityManager, componentManager,d3dCommand,rvManager,graphicsSystem,texLoad);
 }
+
+void SystemManager::DebugDraw(
+    EntityManager& entityManager,
+    ComponentManager& componentManager,
+    D3DCommand* d3dCommand,
+    ResourceViewManager* rvManager,
+    GraphicsSystem* graphicsSystem,
+    TextureLoader* texLoad
+)
+{
+    renderSystem.DebugRender(entityManager, componentManager, d3dCommand, rvManager, graphicsSystem, texLoad);
+}

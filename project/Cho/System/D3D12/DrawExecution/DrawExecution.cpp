@@ -38,6 +38,17 @@ void DrawExecution::Initialize(
 			resourceViewManager_->GetHandle(
 				offscreenRenderTextureIndex).resource.Get()
 		);
+
+	debugRenderTexIndex = resourceViewManager_->GetNewHandle();
+	resourceViewManager_->CreateRenderTextureResource(debugRenderTexIndex,
+		w, h, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
+		Color(clearColor[0], clearColor[1], clearColor[2], clearColor[3])
+	);
+	debugRTVHandleIndex =
+		rtvManager_->CreateRTV(
+			resourceViewManager_->GetHandle(
+				debugRenderTexIndex).resource.Get()
+		);
 }
 
 void DrawExecution::PreDraw()
@@ -99,7 +110,64 @@ void DrawExecution::PreDraw()
 	);
 	commandList->RSSetScissorRects(1, &rect);// Scissorを設定
 
-	// 形状を設定。PSOに設定しているものとはまた別。同じものを設定すると考えておけばいい
+	// 形状を設定。
+	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+}
+
+void DrawExecution::DebugPreDraw()
+{
+	ID3D12GraphicsCommandList* commandList = d3dCommand_->GetCommandList();
+
+	BarrierTransition(
+		resourceViewManager_->GetHandle(debugRenderTexIndex).resource.Get(),
+		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
+		D3D12_RESOURCE_STATE_RENDER_TARGET
+	);
+	// 描画先のRTVとDSVを設定する
+	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle = dsvManager_->GetDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
+	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = rtvManager_->GetHandle(debugRTVHandleIndex);
+	commandList->OMSetRenderTargets(
+		1,
+		&rtvHandle,
+		false,
+		&dsvHandle
+	);
+
+	// 指定した色で画面全体をクリアする
+	commandList->ClearRenderTargetView(
+		rtvHandle,
+		clearColor,
+		0,
+		nullptr
+	);
+
+	// 指定した深度で画面全体をクリアする
+	commandList->ClearDepthStencilView(
+		dsvHandle,
+		D3D12_CLEAR_FLAG_DEPTH,
+		1.0f, 0, 0,
+		nullptr
+	);
+
+	// ビューポートの設定
+	D3D12_VIEWPORT viewport =
+		D3D12_VIEWPORT(
+			0.0f, 0.0f,
+			static_cast<float>((WinApp::kClientWidth)),
+			static_cast<float>((WinApp::kClientHeight)),
+			0.0f, 1.0f
+		);
+	commandList->RSSetViewports(1, &viewport);// Viewportを設定
+
+	// シザリング矩形の設定
+	D3D12_RECT rect = D3D12_RECT(
+		0, 0,
+		WinApp::kClientWidth,
+		WinApp::kClientHeight
+	);
+	commandList->RSSetScissorRects(1, &rect);// Scissorを設定
+
+	// 形状を設定。
 	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
@@ -121,6 +189,12 @@ void DrawExecution::PostDraw()
 
 	// レンダーテクスチャリソースの状態遷移
 	BarrierTransition(resourceViewManager_->GetHandle(offscreenRenderTextureIndex).resource.Get(),
+		D3D12_RESOURCE_STATE_RENDER_TARGET,
+		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE
+	);
+
+	// デバッグレンダーテクスチャリソースの状態遷移
+	BarrierTransition(resourceViewManager_->GetHandle(debugRenderTexIndex).resource.Get(),
 		D3D12_RESOURCE_STATE_RENDER_TARGET,
 		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE
 	);

@@ -23,6 +23,16 @@ public:
         GraphicsSystem* graphicsSystem,
         TextureLoader* texLoad
     );
+
+    // デバッグカメラ
+    void DebugDraw(
+        EntityManager& entityManager,
+        ComponentManager& componentManager,
+        D3DCommand* d3dCommand,
+        ResourceViewManager* rvManager,
+        GraphicsSystem* graphicsSystem,
+        TextureLoader* texLoad
+    );
 private:
     PhysicsSystem physicsSystem;
     RenderSystem renderSystem;

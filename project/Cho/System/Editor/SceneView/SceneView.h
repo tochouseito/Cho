@@ -8,7 +8,7 @@ class SceneView
 public:
 	void Initialize(uint32_t index,ResourceViewManager* rvManager);
 
-	void Update();
+	void Update(uint32_t CameraIndex);
 private:
 	ResourceViewManager* rvManager_ = nullptr;
 

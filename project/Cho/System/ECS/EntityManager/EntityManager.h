@@ -25,11 +25,18 @@ public:
         return cameraEntities;
     }
 
+    void SetCameraID(Entity entity);
+
+    inline const Entity GetNowCameraEntity() {
+        return nowCameraID;
+    }
+
 private:
     uint32_t nextEntityID = 0;  // 次に使用するエンティティIDを管理するための変数。
     std::vector<Entity> activeEntities;  // 現在アクティブなエンティティのリスト。
 
     uint32_t nextCameraID = 0;
     std::vector<Entity> cameraEntities;
+    Entity nowCameraID = 0;
 };
 

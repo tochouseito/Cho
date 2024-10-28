@@ -326,6 +326,17 @@ void Cho::Draw()
 		graphicsSystem.get(),
 		textureLoader.get()
 	);
+
+	drawExecution->DebugPreDraw();
+	// デバッグ用
+	systemManager->DebugDraw(
+		*entityManager.get(),
+		*componentManager.get(),
+		d3dCommand.get(),
+		resourceViewManager.get(),
+		graphicsSystem.get(),
+		textureLoader.get()
+	);
 }
 
 void Cho::PostDraw()

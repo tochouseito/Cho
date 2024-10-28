@@ -31,6 +31,11 @@ public:
 	void PreDraw();
 
 	/// <summary>
+	/// デバッグ用描画前処理
+	/// </summary>
+	void DebugPreDraw();
+
+	/// <summary>
 	/// 描画
 	/// </summary>
 	void Draw();
@@ -45,6 +50,10 @@ public:
 	uint32_t GetRenderTexIndex()const { return offscreenRenderTextureIndex; }
 
 	uint32_t GetRendTexRTVHandInd()const { return offscreenRenderRTVHandleIndex; }
+
+	uint32_t GetDebugRenTexInd()const { return debugRenderTexIndex; }
+
+	uint32_t GetDebugRTVHandInd()const { return debugRTVHandleIndex; }
 
 private:
 	/// <summary>
@@ -67,5 +76,8 @@ private:
 
 	uint32_t offscreenRenderRTVHandleIndex;
 	uint32_t offscreenRenderTextureIndex;
+
+	uint32_t debugRenderTexIndex;
+	uint32_t debugRTVHandleIndex;
 };
 
