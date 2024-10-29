@@ -38,6 +38,13 @@ private:
 	D3DDevice* d3dDevice_ = nullptr;
 	D3DSwapChain* d3dSwapChain_ = nullptr;
 
+	// 最大ディスクリプタ数
+	static const uint32_t kMaxDescriptor = 8;
+
+	// ヒープタイプ
+	static const D3D12_DESCRIPTOR_HEAP_TYPE HEAP_TYPE =
+		D3D12_DESCRIPTOR_HEAP_TYPE::D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+
 	// デスクリプタサイズ
 	uint32_t descriptorSize_;
 
@@ -45,7 +52,7 @@ private:
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descriptorHeap_;
 
 	/*ハンドル*/
-	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandles_[3];
+	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandles_[kMaxDescriptor];
 	// ハンドルコンテナ
 	//std::unordered_map<uint32_t, D3D12_CPU_DESCRIPTOR_HANDLE> handles;
 
@@ -54,11 +61,6 @@ private:
 	// 次に使用するRTVインデックス。
 	uint32_t useIndex_ = 0;
 
-	// 最大ディスクリプタ数
-	static const uint32_t kMaxDescriptor = 8;
-
-	// ヒープタイプ
-	static const D3D12_DESCRIPTOR_HEAP_TYPE HEAP_TYPE =
-		D3D12_DESCRIPTOR_HEAP_TYPE::D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+	
 };
 
