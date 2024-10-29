@@ -62,7 +62,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Utility\Mymath;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Cho\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Utility\Mymath;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Cho\Game;$(ProjectDir)Cho\Externals\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>PrecompiledHeader.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -101,7 +101,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Utility\Mymath;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Cho\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Utility\Mymath;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Cho\Game;$(ProjectDir)Cho\Externals\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>PrecompiledHeader.h</PrecompiledHeaderFile>
     </ClCompile>
