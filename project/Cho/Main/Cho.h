@@ -97,6 +97,11 @@ private:// メンバ関数
 	/// </summary>
 	static void StartSetUp();
 
+	/// <summary>
+	/// 保存
+	/// </summary>
+	static void Save();
+
 private:// メンバ変数
 
 	/*ウィンドウズアプリケーション*/

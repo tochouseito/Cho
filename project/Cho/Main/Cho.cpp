@@ -375,3 +375,8 @@ void Cho::StartSetUp()
 	// 解放
 	startSetting.reset();
 }
+
+void Cho::Save()
+{
+
+}
