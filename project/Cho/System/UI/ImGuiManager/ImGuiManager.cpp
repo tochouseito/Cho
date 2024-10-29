@@ -33,7 +33,8 @@ void ImGuiManager::Initialize(WinApp* win, D3DDevice* d3dDevice, D3DCommand* d3d
 		d3dDevice->GetDevice(), 2,
 		DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, RVManager->GetDescriptorHeap(),
 		RVManager->GetDescriptorHeap()->GetCPUDescriptorHandleForHeapStart(),
-		RVManager->GetDescriptorHeap()->GetGPUDescriptorHandleForHeapStart());
+		RVManager->GetDescriptorHeap()->GetGPUDescriptorHandleForHeapStart()
+	);
 }
 
 void ImGuiManager::Finalize()
