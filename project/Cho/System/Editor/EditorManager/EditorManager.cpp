@@ -25,7 +25,16 @@ void EditorManager::Initialize(
 {
 	// MainMenu
 	mainMenu = std::make_unique<MainMenu>();
-	mainMenu->Initialize();
+	mainMenu->Initialize(
+        rvManager,
+        rtvManager,
+        drawExe,
+        entityManager,
+        componentManager,
+        systemManager,
+        prefabManager,
+        sceneManager
+        );
 
 	// FileView
 	fileView = std::make_unique<FileView>();
@@ -233,16 +242,6 @@ void EditorManager::Update()
 
     }
     ImGui::End();
-
-    // Viewの使用数
-    ImGui::Begin("Descriptor");
-
-    ImGui::Text("S.U.View : %d / %d", rvManager_->GetNowIndex(), ResourceViewManager::GetMaxIndex());
-    ImGui::Text("RTV : %d / %d", rtvManager_->GetNowIndex(), RTVManager::GetMaxIndex());
-
-    ImGui::End();
-
-    
 
     //// 個別のドッカブルウィンドウのセットアップ
     //ImGui::Begin("Memory Editor", nullptr, ImGuiWindowFlags_NoCollapse);

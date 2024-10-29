@@ -11,7 +11,7 @@ void FileView::Initialize()
 // 毎フレーム呼ばれる更新処理
 void FileView::Update() {
     ShowFileBrowserWithDirectories();
-    ShowFileContent();
+    //ShowFileContent();
 }
 
 // ファイルブラウザを表示
