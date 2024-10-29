@@ -170,6 +170,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\Utility\MyMath\MyMath.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Cho\System\Editor\SceneView\SceneView.cpp" />
+    <ClCompile Include="Cho\System\StartSetting\StartSetting.cpp" />
     <ClInclude Include="Cho\Game\Assets\Scenes\MainScene.h" />
     <ClInclude Include="Cho\System\ECS\System\CameraSystem\CameraSystem.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\Components.h" />
@@ -220,6 +221,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\ECS\PrefabManager\PrefabManager.h" />
     <ClInclude Include="Cho\Utility\MyMath\MyMath.h" />
     <ClInclude Include="Cho\System\Editor\SceneView\SceneView.h" />
+    <ClInclude Include="Cho\System\StartSetting\StartSetting.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

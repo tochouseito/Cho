@@ -73,52 +73,8 @@ void EditorManager::Update()
     // SceneView
     sceneView->Update(drawExe_->GetRenderTexIndex());
 
-    ImGui::Begin("AddObject");
+    
 
-    static char nameBuffer[128] = "";  // 名前を入力するバッファ
-    static bool inputActive = false;   // 入力がアクティブかどうかを管理するフラグ
-
-    if (ImGui::Button("Input Name")) {
-        inputActive = true;  // ボタンを押したら入力を開始
-    }
-
-    if (inputActive) {
-        ImGui::Begin("Input Name");  // 名前の入力用のウィンドウを作成
-
-        ImGui::InputText("Name", nameBuffer, IM_ARRAYSIZE(nameBuffer));  // 名前を入力するフィールド
-
-        if (ImGui::Button("OK")) {
-            std::string name(nameBuffer);
-            sceneManager_->AddGameObject(name);  // 入力された名前を使用してオブジェクトを追加
-            inputActive = false;  // 入力終了
-            memset(nameBuffer, 0, sizeof(nameBuffer));
-        }
-
-        ImGui::SameLine();  // 次のボタンを同じ行に配置する
-
-        if (ImGui::Button("Cancel")) {
-            inputActive = false;  // キャンセルして入力終了
-        }
-
-
-        ImGui::End();  // ウィンドウを閉じる
-    }
-
-    ImGui::End();
-
-    //　消す   
-    //if (ImGui::Button("Camera")) {
-    static bool one = true;
-    if (one) {
-
-        std::string name = "DebugCamera";
-        sceneManager_->AddCameraObject(name);
-        one = false;
-        name = "SceneCamera";
-        sceneManager_->AddCameraObject(name);
-        entityManager_->SetCameraID(1);
-    }
-    //}
     
     ImGui::Begin("GameObjectList");
     

@@ -89,6 +89,9 @@ void MainMenu::MenuBar()
 
         ImGui::EndMenuBar(); // メニューバーを終了
     }
+
+    // ポップアップウィンドウ
+    PopUp();
 }
 
 void MainMenu::FileMenu()
@@ -104,6 +107,20 @@ void MainMenu::EditMenu()
 {
     if (ImGui::BeginMenu("Edit")) {
         // 編集アクションをここに追加
+
+        // 「Add」メニュー項目の追加
+        if (ImGui::BeginMenu("Add"))
+        {
+            // Addメニューの横にリスト表示
+            if (ImGui::MenuItem("3DObject")) { 
+                popWindow = PopType::Add3DObject;
+            }
+            if (ImGui::MenuItem("Item 2")) { /* Item 2の処理 */ }
+            if (ImGui::MenuItem("Item 3")) { /* Item 3の処理 */ }
+
+            ImGui::EndMenu(); // Addメニューを終了
+        }
+
         ImGui::EndMenu();
     }
 }
@@ -130,5 +147,53 @@ void MainMenu::EngineInfoMenu()
 
 
         ImGui::EndMenu();
+    }
+}
+
+void MainMenu::Add()
+{
+    ImGui::OpenPopup("Input Name");
+    static char nameBuffer[128] = "";  // 名前を入力するバッファ
+
+    // モーダルウィンドウの表示処理
+    if (ImGui::BeginPopupModal("Input Name", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+    {
+        ImGui::InputText("Name", nameBuffer, IM_ARRAYSIZE(nameBuffer));  // 名前を入力するフィールド
+
+        if (ImGui::Button("OK")) {
+            std::string name(nameBuffer);
+            sceneManager_->AddGameObject(name);  // 入力された名前を使用してオブジェクトを追加
+            memset(nameBuffer, 0, sizeof(nameBuffer));// バッファクリア[
+            popWindow = PopType::None;
+            ImGui::CloseCurrentPopup();  // ポップアップを閉じる
+        }
+
+        ImGui::SameLine();  // 次のボタンを同じ行に配置する
+
+        if (ImGui::Button("Cancel")) {
+            popWindow = PopType::None;
+            ImGui::CloseCurrentPopup();  // ポップアップを閉じる
+        }
+
+        ImGui::EndPopup(); // モーダルポップアップを終了
+    }
+}
+
+void MainMenu::PopUp()
+{
+    switch (popWindow)
+    {
+    case None:
+
+        // 何もしない
+        break;
+
+    case Add3DObject:
+
+        Add();
+
+        break;
+    default:
+        break;
     }
 }

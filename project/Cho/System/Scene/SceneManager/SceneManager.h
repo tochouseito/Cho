@@ -65,6 +65,11 @@ public:
 		GameObject* result = cameraObjects[key].get();
 		return result;
 	}
+
+	GameObject* GetCameraObjectData(const std::string& name) {
+		GameObject* result = cameraObjects[name].get();
+		return result;
+	}
 private:
 	/*今のシーン*/
 	BaseScene* scene_ = nullptr;

@@ -38,6 +38,9 @@ class ImGuiManager;
 // Editor
 class EditorManager;
 
+// Starter
+class StartSetting;
+
 // C++
 #include<memory>
 
@@ -89,6 +92,11 @@ private:// メンバ関数
 	/// </summary>
 	static void Load();
 
+	/// <summary>
+	/// スターター
+	/// </summary>
+	static void StartSetUp();
+
 private:// メンバ変数
 
 	/*ウィンドウズアプリケーション*/
@@ -132,5 +140,8 @@ private:// メンバ変数
 
 	/*Editor*/
 	static std::unique_ptr<EditorManager> editorManager;
+
+	/*Starter*/
+	static std::unique_ptr<StartSetting> startSetting;
 };
 

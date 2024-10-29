@@ -38,6 +38,9 @@
 // Editor
 #include"Editor/EditorManager/EditorManager.h"
 
+// StartSetting
+#include"StartSetting/StartSetting.h"
+
 #pragma region 静的メンバー変数の定義
 std::unique_ptr <WinApp> Cho::win = nullptr;
 std::unique_ptr <ResourceLeakChecker> Cho::resourceLeakChecker = nullptr;
@@ -75,6 +78,9 @@ std::unique_ptr<ImGuiManager> Cho::imguiManager = nullptr;
 
 // Editor
 std::unique_ptr<EditorManager> Cho::editorManager = nullptr;
+
+/*Starter*/
+std::unique_ptr<StartSetting> Cho::startSetting = nullptr;
 
 #pragma endregion
 
@@ -231,6 +237,11 @@ void Cho::Initialize()
 	// 最初のシーンを作成
 	sceneManager->ChangeScene("MainScene");
 
+	// 新プロジェクトの時のみ
+	/*スターター*/
+	StartSetUp();
+	/*読み込み*/
+	Load();
 }
 
 void Cho::Finalize()
@@ -249,8 +260,6 @@ void Cho::Operation()
 {
 	/*初期化*/
 	Initialize();
-	/*読み込み*/
-	Load();
 	/*メインループ*/
 	while (true) {
 		/*ウィンドウ終了リクエスト*/
@@ -348,4 +357,21 @@ void Cho::Load()
 {
 	/*テクスチャリソースの読み込み*/
 	textureLoader->Load();
+}
+
+void Cho::StartSetUp()
+{
+	startSetting = std::make_unique<StartSetting>();
+	startSetting->Initialize(
+		resourceViewManager.get(),
+		rtvManager.get(),
+		drawExecution.get(),
+		entityManager.get(),
+		componentManager.get(),
+		systemManager.get(),
+		prefabManager.get(),
+		sceneManager.get()
+	);
+	// 解放
+	startSetting.reset();
 }

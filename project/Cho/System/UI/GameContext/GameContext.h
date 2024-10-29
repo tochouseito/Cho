@@ -20,3 +20,11 @@ private:
 	float frameRate_;
 };
 
+#ifndef GAMECONTEXT_H
+#define GAMECONTEXT_H
+
+extern int value;
+
+#endif 
+
+
