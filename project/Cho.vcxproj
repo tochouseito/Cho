@@ -168,6 +168,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\System\WinApp\WinApp.cpp" />
     <ClCompile Include="Cho\Utility\ConvertString\ConvertString.cpp" />
     <ClCompile Include="Cho\Utility\MyMath\MyMath.cpp" />
+    <ClCompile Include="Cho\System\Load\JsonFileLoader\JsonFileLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Cho\System\Editor\SceneView\SceneView.cpp" />
     <ClCompile Include="Cho\System\StartSetting\StartSetting.cpp" />
@@ -222,6 +223,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\Utility\MyMath\MyMath.h" />
     <ClInclude Include="Cho\System\Editor\SceneView\SceneView.h" />
     <ClInclude Include="Cho\System\StartSetting\StartSetting.h" />
+    <ClInclude Include="Cho\System\Load\JsonFileLoader\JsonFileLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
