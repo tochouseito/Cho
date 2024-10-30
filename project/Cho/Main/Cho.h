@@ -41,6 +41,9 @@ class EditorManager;
 // Starter
 class StartSetting;
 
+// Json
+class JsonFileLoader;
+
 // C++
 #include<memory>
 
@@ -148,5 +151,8 @@ private:// メンバ変数
 
 	/*Starter*/
 	static std::unique_ptr<StartSetting> startSetting;
+
+	/*Json*/
+	static std::unique_ptr<JsonFileLoader> jsonFileLoader;
 };
 

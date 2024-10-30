@@ -25,7 +25,6 @@ void ImGuiManager::Initialize(WinApp* win, D3DDevice* d3dDevice, D3DCommand* d3d
 	io.Fonts->AddFontDefault();
 	// ImGuiのスタイルを設定
 	ImGui::StyleColorsDark();
-	//StyleSet();
 
 	// プラットフォームとレンダラーのバックエンドを設定する
 	ImGui_ImplWin32_Init(win->GetHwnd());
@@ -68,17 +67,4 @@ void ImGuiManager::Draw()
 
 	// 描画コマンドを発行
 	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), commandList);
-}
-
-void ImGuiManager::StyleSet()
-{
-	ImGuiStyle& style = ImGui::GetStyle();
-
-	// 全ての色を深緑系に設定
-	for (int i = 0; i < ImGuiCol_COUNT; i++) {
-		style.Colors[i] = ImVec4(0.0f, 0.3f, 0.0f, 1.0f); // 深緑系の色
-	}
-
-	style.WindowRounding = 5.0f;  // 角をより丸くする
-
 }

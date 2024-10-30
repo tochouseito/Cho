@@ -41,6 +41,9 @@
 // StartSetting
 #include"StartSetting/StartSetting.h"
 
+// Json
+#include"Load/JsonFileLoader/JsonFileLoader.h"
+
 #pragma region 静的メンバー変数の定義
 std::unique_ptr <WinApp> Cho::win = nullptr;
 std::unique_ptr <ResourceLeakChecker> Cho::resourceLeakChecker = nullptr;
@@ -81,6 +84,9 @@ std::unique_ptr<EditorManager> Cho::editorManager = nullptr;
 
 /*Starter*/
 std::unique_ptr<StartSetting> Cho::startSetting = nullptr;
+
+/*Json*/
+std::unique_ptr<JsonFileLoader> Cho::jsonFileLoader = nullptr;
 
 #pragma endregion
 
@@ -234,18 +240,29 @@ void Cho::Initialize()
 
 #pragma endregion
 
+#pragma region JSON
+
+	// Json
+	jsonFileLoader = std::make_unique<JsonFileLoader>();
+	jsonFileLoader->Initialize();
+
+#pragma endregion
+
 	// 最初のシーンを作成
 	sceneManager->ChangeScene("MainScene");
 
 	// 新プロジェクトの時のみ
 	/*スターター*/
 	StartSetUp();
+
 	/*読み込み*/
 	Load();
 }
 
 void Cho::Finalize()
 {
+	// セーブ
+	Save();
 	// シーン解放
 	sceneManager->Finalize();
 	// ImGui解放
@@ -355,6 +372,9 @@ void Cho::PostDraw()
 
 void Cho::Load()
 {
+	/*ImGuiのスタイル読み込み*/
+	jsonFileLoader->LoadStyleFromProject();
+
 	/*テクスチャリソースの読み込み*/
 	textureLoader->Load();
 }
@@ -378,5 +398,6 @@ void Cho::StartSetUp()
 
 void Cho::Save()
 {
-
+	/*ImGuiのスタイルを保存*/
+	jsonFileLoader->SaveStyleToProject();
 }

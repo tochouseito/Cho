@@ -38,10 +38,6 @@ public:
 	void Draw();
 
 private:
-
-	void StyleSet();
-
-private:
 	D3DCommand* d3dCommand_ = nullptr;
 };
 

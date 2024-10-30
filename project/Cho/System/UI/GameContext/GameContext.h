@@ -23,7 +23,7 @@ private:
 #ifndef GAMECONTEXT_H
 #define GAMECONTEXT_H
 
-extern int value;
+//extern int value;
 
 #endif 
 

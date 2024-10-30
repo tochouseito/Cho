@@ -256,6 +256,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Cho\Resources\ImGuiStyle\style.json" />
     <None Include="Cho\Resources\Shader\header\Demo.hlsli" />
     <None Include="Cho\Resources\Shader\header\FullScreen.hlsli" />
   </ItemGroup>

@@ -402,5 +402,6 @@
   <ItemGroup>
     <None Include="Cho\Resources\Shader\header\Demo.hlsli" />
     <None Include="Cho\Resources\Shader\header\FullScreen.hlsli" />
+    <None Include="Cho\Resources\ImGuiStyle\style.json" />
   </ItemGroup>
 </Project>
