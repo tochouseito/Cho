@@ -44,6 +44,34 @@ void EditorManager::Initialize(
     sceneView = std::make_unique<SceneView>();
     sceneView->Initialize(drawExe->GetDebugRenTexInd(), rvManager);
 
+    // InfoView
+    infoView = std::make_unique<InfoView>();
+    infoView->Initialize(
+        rvManager,
+        rtvManager,
+        drawExe,
+        entityManager,
+        componentManager,
+        systemManager,
+        prefabManager,
+        sceneManager,
+        this
+    );
+
+    // ObjectsList
+    objectsList = std::make_unique<ObjectsList>();
+    objectsList->Initialize(
+        rvManager,
+        rtvManager,
+        drawExe,
+        entityManager,
+        componentManager,
+        systemManager,
+        prefabManager,
+        sceneManager,
+        this
+    );
+
     // D3D12
     rvManager_ = rvManager;
     rtvManager_ = rtvManager;
@@ -73,132 +101,13 @@ void EditorManager::Update()
     // SceneView
     sceneView->Update(drawExe_->GetRenderTexIndex());
 
-    
+    // InfoView
+    infoView->Update();
+
+    // ObjectsList
+    objectsList->Update();
 
     
-    ImGui::Begin("GameObjectList");
-    
-    for (auto& pair : sceneManager_->GetGameObjects()) {
-        const std::string& name = pair.first;  // マップのキーがオブジェクトの名前と仮定
-
-        if (ImGui::Selectable(name.c_str())) {
-            selectedGamaObjectName_ = name;
-            selectedGameObject_ = pair.second.get();  // 選択したオブジェクトを保持
-        }
-    }
-
-    for (auto& pair : sceneManager_->GetCameraObjects()) {
-        const std::string& name = pair.first;  // マップのキーがオブジェクトの名前と仮定
-
-        if (ImGui::Selectable(name.c_str())) {
-            selectedGamaObjectName_ = name;
-            selectedGameObject_ = pair.second.get();  // 選択したオブジェクトを保持
-        }
-    }
-
-    ImGui::End();
-
-    ImGui::Begin("ObjectInfo");
-    if (selectedGameObject_) {
-        // コンポーネント追加
-        static bool isAdd = false;
-        switch (selectedGameObject_->GetObjectType())
-        {
-        case Object:
-            // 名前と EntityID を表示
-            ImGui::Text("Name: %s EntityID: %d", selectedGamaObjectName_.c_str(), selectedGameObject_->GetEntityID());
-
-            // コンポーネントがあれば表示
-            if (componentManager_->GetTransform(selectedGameObject_->GetEntityID())) {
-                TransformComponent& TFCompo = *componentManager_->GetTransform(selectedGameObject_->GetEntityID());
-                // Transformを表示
-                if (ImGui::CollapsingHeader("Transform")) {
-                    ImGui::DragFloat3("Position", &TFCompo.position.x, 0.01f);
-                    ImGui::DragFloat3("Rotation", &TFCompo.rotation.x, 0.01f);
-                    ImGui::DragFloat3("Scale", &TFCompo.scale.x, 0.01f);
-                }
-            }
-
-            
-            if (isAdd) {
-                if (!selectedGameObject_->GetMesh()) {
-                    if (ImGui::Selectable("MeshComponent")) {
-                        isAdd = false;
-                        MeshComponent MeshCompo;
-
-                        selectedGameObject_->AddComponent(MeshCompo);
-                    }
-                }
-                if (!selectedGameObject_->GetTransform()) {
-                    if (ImGui::Selectable("TransformComponent")) {
-                        isAdd = false;
-                        TransformComponent TFCompo;
-                        TFCompo.Initialize();
-                        selectedGameObject_->AddComponent(TFCompo);
-                    }
-                }
-                if (!selectedGameObject_->GetRender()) {
-                    if (ImGui::Selectable("RenderComponent")) {
-                        isAdd = false;
-                        RenderComponent RenderCompo;
-
-                        selectedGameObject_->AddComponent(RenderCompo);
-                    }
-                }
-                if (!selectedGameObject_->GetCamera()) {
-                    if (ImGui::Selectable("CameraComponent")) {
-                        isAdd = false;
-                        CameraComponent cameraCompo;
-                        cameraCompo.Initialize();
-                        selectedGameObject_->AddComponent(cameraCompo);
-                    }
-                }
-            } else
-            {
-                if (ImGui::Button("AddComponent")) {
-                    isAdd = true;
-                }
-            }
-            break;
-        case Camera:
-            // 名前と EntityID を表示
-            ImGui::Text("Name: %s EntityID: %d", selectedGamaObjectName_.c_str(), selectedGameObject_->GetEntityID());
-
-            // コンポーネントがあれば表示
-            if (componentManager_->GetCamera(selectedGameObject_->GetEntityID())) {
-                CameraComponent& cameraCompo = *componentManager_->GetCamera(selectedGameObject_->GetEntityID());
-                // Transformを表示
-                if (ImGui::CollapsingHeader("Transform")) {
-                    ImGui::DragFloat3("Position", &cameraCompo.position.x, 0.01f);
-                    ImGui::DragFloat3("Rotation", &cameraCompo.rotation.x, 0.01f);
-                }
-            }
-
-            if (isAdd) {
-                if (!selectedGameObject_->GetCamera()) {
-                    if (ImGui::Selectable("CameraComponent")) {
-                        isAdd = false;
-                        CameraComponent cameraCompo;
-                        cameraCompo.Initialize();
-                        selectedGameObject_->AddComponent(cameraCompo);
-                    }
-                }
-            } else
-            {
-                if (ImGui::Button("AddComponent")) {
-                    isAdd = true;
-                }
-            }
-            break;
-        default:
-            break;
-        }
-    }
-    if (selectedGameObject_) {
-
-    }
-    ImGui::End();
-
     //// 個別のドッカブルウィンドウのセットアップ
     //ImGui::Begin("Memory Editor", nullptr, ImGuiWindowFlags_NoCollapse);
     //// メモリエディタのUI要素をここに追加

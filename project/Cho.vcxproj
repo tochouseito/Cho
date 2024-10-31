@@ -169,9 +169,11 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\Utility\ConvertString\ConvertString.cpp" />
     <ClCompile Include="Cho\Utility\MyMath\MyMath.cpp" />
     <ClCompile Include="Cho\System\Load\JsonFileLoader\JsonFileLoader.cpp" />
+    <ClCompile Include="Cho\System\Editor\InfoView\InfoView.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Cho\System\Editor\SceneView\SceneView.cpp" />
     <ClCompile Include="Cho\System\StartSetting\StartSetting.cpp" />
+    <ClCompile Include="Cho\System\Editor\ObjectsList\ObjectsList.cpp" />
     <ClInclude Include="Cho\Game\Assets\Scenes\MainScene.h" />
     <ClInclude Include="Cho\System\ECS\System\CameraSystem\CameraSystem.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\Components.h" />
@@ -224,6 +226,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\Editor\SceneView\SceneView.h" />
     <ClInclude Include="Cho\System\StartSetting\StartSetting.h" />
     <ClInclude Include="Cho\System\Load\JsonFileLoader\JsonFileLoader.h" />
+    <ClInclude Include="Cho\System\Editor\InfoView\InfoView.h" />
+    <ClInclude Include="Cho\System\Editor\ObjectsList\ObjectsList.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

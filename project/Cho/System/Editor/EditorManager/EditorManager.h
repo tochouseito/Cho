@@ -7,6 +7,8 @@
 #include"Editor/MainMenu/MainMenu.h"
 #include"Editor/FileView/FileView.h"
 #include"Editor/SceneView/SceneView.h"
+#include"Editor/InfoView/InfoView.h"
+#include"Editor/ObjectsList/ObjectsList.h"
 
 // D3D12
 class ResourceViewManager;
@@ -48,6 +50,12 @@ public:
 	/// </summary>
 	void Update();
 
+	void SetSelectedGO(GameObject* gameObject) { selectedGameObject_ = gameObject; }
+	void SetSelectedGOName(const std::string& name) { selectedGamaObjectName_ = name; }
+
+	GameObject* GetSelectedGO()const { return selectedGameObject_; }
+	std::string GetSelectedGOName()const { return selectedGamaObjectName_; }
+
 private:// メンバ関数
 
 	void UpdateMainWindow();
@@ -57,6 +65,8 @@ private:
 	std::unique_ptr<MainMenu> mainMenu = nullptr;
 	std::unique_ptr<FileView> fileView = nullptr;
 	std::unique_ptr<SceneView> sceneView = nullptr;
+	std::unique_ptr<InfoView> infoView = nullptr;
+	std::unique_ptr<ObjectsList> objectsList = nullptr;
 
 	/*D3D12*/
 	ResourceViewManager* rvManager_ = nullptr;
