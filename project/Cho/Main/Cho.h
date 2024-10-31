@@ -55,7 +55,7 @@ public:
 	/// </summary>
 	static void Operation();
 
-	static inline ResourceViewManager* GetResourceViewManagetPtr() { return resourceViewManager.get(); }
+	static inline ResourceViewManager* GetResourceViewManagerPtr() { return resourceViewManager.get(); }
 
 
 private:// メンバ関数
