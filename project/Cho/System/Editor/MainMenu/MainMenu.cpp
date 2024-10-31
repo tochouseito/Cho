@@ -105,23 +105,41 @@ void MainMenu::FileMenu()
 
 void MainMenu::EditMenu()
 {
-    if (ImGui::BeginMenu("Edit")) {
+    if (ImGui::BeginMenu("Edit"))
+    {
         // 編集アクションをここに追加
 
         // 「Add」メニュー項目の追加
         if (ImGui::BeginMenu("Add"))
         {
-            // Addメニューの横にリスト表示
-            if (ImGui::MenuItem("3DObject")) { 
-                popWindow = PopType::Add3DObject;
+            // 「3DObject」サブメニューを追加
+            if (ImGui::BeginMenu("3DObject"))
+            {
+                // 「3DObject」メニューの横にさらにリスト表示
+                if (ImGui::MenuItem("Cube")) {
+                    // Cubeの処理
+                    popWindow = PopType::Add3DObject;
+                }
+                if (ImGui::MenuItem("Sphere")) {
+                    // Sphereの処理
+                    popWindow = PopType::Add3DObject;
+                }
+                if (ImGui::MenuItem("Cylinder")) {
+                    // Cylinderの処理
+                    popWindow = PopType::Add3DObject;
+                }
+
+                ImGui::EndMenu(); // 「3DObject」サブメニューを終了
             }
+
+            // 他のメニュー項目の追加
             if (ImGui::MenuItem("Item 2")) { /* Item 2の処理 */ }
             if (ImGui::MenuItem("Item 3")) { /* Item 3の処理 */ }
 
-            ImGui::EndMenu(); // Addメニューを終了
+            ImGui::EndMenu(); // 「Add」メニューを終了
         }
 
-        ImGui::EndMenu();
+        ImGui::EndMenu(); // 「Edit」メニューを終了
     }
 }
 
