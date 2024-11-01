@@ -40,6 +40,10 @@ public:
 	void Update();
 
 private:
+
+	void AddComponent();
+
+private:
 	/*D3D12*/
 	ResourceViewManager* rvManager_ = nullptr;
 	RTVManager* rtvManager_ = nullptr;

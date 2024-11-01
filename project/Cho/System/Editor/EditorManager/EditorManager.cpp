@@ -106,7 +106,6 @@ void EditorManager::Update()
 
     // ObjectsList
     objectsList->Update();
-
     
     //// 個別のドッカブルウィンドウのセットアップ
     //ImGui::Begin("Memory Editor", nullptr, ImGuiWindowFlags_NoCollapse);
