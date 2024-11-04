@@ -116,18 +116,18 @@ void MainMenu::EditMenu()
             if (ImGui::BeginMenu("3DObject"))
             {
                 // 「3DObject」メニューの横にさらにリスト表示
-                if (ImGui::MenuItem("Cube")) {
+                if (ImGui::MenuItem("BaseObject")) {
                     // Cubeの処理
-                    popWindow = PopType::Add3DObject;
+                    popWindow = PopType::BaseObject;
                 }
-                if (ImGui::MenuItem("Sphere")) {
-                    // Sphereの処理
-                    popWindow = PopType::Add3DObject;
-                }
-                if (ImGui::MenuItem("Cylinder")) {
-                    // Cylinderの処理
-                    popWindow = PopType::Add3DObject;
-                }
+                //if (ImGui::MenuItem("Sphere")) {
+                //    // Sphereの処理
+                //    popWindow = PopType::Add3DObject;
+                //}
+                //if (ImGui::MenuItem("Cylinder")) {
+                //    // Cylinderの処理
+                //    popWindow = PopType::Add3DObject;
+                //}
 
                 ImGui::EndMenu(); // 「3DObject」サブメニューを終了
             }
@@ -181,7 +181,19 @@ void MainMenu::Add()
         if (ImGui::Button("OK")) {
             std::string name(nameBuffer);
             sceneManager_->AddGameObject(name);  // 入力された名前を使用してオブジェクトを追加
-            memset(nameBuffer, 0, sizeof(nameBuffer));// バッファクリア[
+            memset(nameBuffer, 0, sizeof(nameBuffer));// バッファクリア
+            switch (popWindow)
+            {
+            case None:
+                // ここに来るはずはない
+                break;
+            case BaseObject:
+                // 初期コンポーネントのトランスフォームコンポーネントを付与
+                TransformComponent TFComp;
+                TFComp.Initialize();
+                sceneManager_->GetGameObject(name)->AddComponent(TFComp);
+                break;
+            }
             popWindow = PopType::None;
             ImGui::CloseCurrentPopup();  // ポップアップを閉じる
         }
@@ -206,7 +218,7 @@ void MainMenu::PopUp()
         // 何もしない
         break;
 
-    case Add3DObject:
+    case BaseObject:
 
         Add();
 

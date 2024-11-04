@@ -26,7 +26,8 @@ void StartSetting::Initialize(
 	sceneManager->AddCameraObject(name);
 	Entity ent = sceneManager->GetCameraObjectData(name)->GetEntityID();
 	entityManager->SetCameraID(ent);
-	rvManager;
+	// デフォルトメッシュ生成
+	rvManager->CreateMeshPattern();
 	rtvManager;
 	drawExe;
 	componentManager;

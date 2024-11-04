@@ -41,7 +41,7 @@ public:
 
 private:
 
-	void AddComponent();
+	void AddComponents();
 
 private:
 	/*D3D12*/

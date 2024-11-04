@@ -6,8 +6,11 @@
 #include<wrl.h>
 #include<cstdint>
 #include<unordered_map>
+#include<array>
+#include<memory>
 #include"ECS/EntityManager/EntityManager.h"
 #include"Color.h"
+#include"ECS/ComponentManager/Components/Components.h"
 
 // ディスクリプタハンドル定数データ
 struct ConstantHandleData {
@@ -18,6 +21,14 @@ struct ConstantHandleData {
 struct VBVData {
 	Microsoft::WRL::ComPtr<ID3D12Resource> resource;
 	D3D12_VERTEX_BUFFER_VIEW vbv{};
+};
+struct IBVData {
+	Microsoft::WRL::ComPtr<ID3D12Resource> resource;
+	D3D12_INDEX_BUFFER_VIEW ibv{};
+};
+struct MeshView {
+	VBVData vbvData;
+	IBVData ibvData;
 };
 class D3DDevice;
 class D3DCommand;
@@ -54,9 +65,9 @@ public:// メンバ関数
 
 	ID3D12Resource* GetCBVResource(uint32_t& index);
 
-	uint32_t CreateVBV(const size_t& sizeInBytes, uint32_t& vertices);
+	uint32_t CreateMeshView(uint32_t& vertices,uint32_t& indices);
 
-	VBVData* GetVBVData(uint32_t& index);
+	MeshView* GetMeshViewData(uint32_t& index);
 
 	void CreateTextureResource(uint32_t& index,const DirectX::TexMetadata& metadata);
 
@@ -72,6 +83,14 @@ public:// メンバ関数
 		const Color& clearColor
 	);
 
+	// デフォルトメッシュパターン生成
+	void CreateMeshPattern();
+
+	// デフォルトメッシュ用の専用関数
+	void CreateMeshViewDMP(uint32_t index, uint32_t vertices,uint32_t indices);
+
+	Meshs* GetMeshs(uint32_t index)const { return meshContainer[index].get(); }
+
 private:
 
 	uint32_t Allocate();
@@ -84,10 +103,10 @@ private:
 	// CBVリソース作成
 	Microsoft::WRL::ComPtr < ID3D12Resource> CreateBufferResource(const size_t& sizeInBytes);
 
-	uint32_t VBVAllocate();
+	uint32_t MeshViewAllocate();
 
 	// VBVリソース作成
-	VBVData CreateVBVResource(const size_t& sizeInBytes, uint32_t& vertices);
+	MeshView CreateMeshViewResource(uint32_t& vertices,uint32_t& indices);
 
 private:// メンバ変数
 
@@ -120,10 +139,13 @@ private:// メンバ変数
 	std::unordered_map<uint32_t, Microsoft::WRL::ComPtr<ID3D12Resource>> CBVResources;
 
 	// 次に使用するVBVインデックス
-	uint32_t useVBVIndex_ = 0;
+	uint32_t useMeshViewIndex_ = 0;
 
-	// VBVコンテナ
-	std::unordered_map<uint32_t, VBVData> VBVResources;
+	// MeshViewコンテナ
+	std::unordered_map<uint32_t, MeshView> meshViews;
+
+	// メッシュコンテナ
+	std::vector<std::unique_ptr<Meshs>> meshContainer;
 
 	// アップロードリソース
 	std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> uploadResources;

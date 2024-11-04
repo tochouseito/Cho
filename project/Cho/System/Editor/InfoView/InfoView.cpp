@@ -53,29 +53,26 @@ void InfoView::Update()
         // 名前と EntityID を表示
         ImGui::Text("Name: %s EntityID: %d", editManager_->GetSelectedGOName().c_str(), selectGO->GetEntityID());
 
-        // コンポーネントがあれば表示
-        if (componentManager_->GetCamera(selectGO->GetEntityID()) && selectGO->GetObjectType() == Type::Camera) {
-            CameraComponent& cameraCompo = *componentManager_->GetCamera(selectGO->GetEntityID());
-
-            // Transformを表示
-            ImGui::SeparatorText("Transform");// ラインとテキスト表示
-            ImGui::DragFloat3("Position", &cameraCompo.position.x, 0.01f);
-            ImGui::DragFloat3("Rotation", &cameraCompo.rotation.x, 0.01f);
-        }
-        // コンポーネントがあれば表示
-        if (componentManager_->GetTransform(selectGO->GetEntityID()) && selectGO->GetObjectType() == Type::Object) {
-            TransformComponent& TFCompo = *componentManager_->GetTransform(selectGO->GetEntityID());
-
-            // Transformを表示
-            ImGui::SeparatorText("Transform");// ラインとテキスト表示
-            ImGui::DragFloat3("Position", &TFCompo.position.x, 0.01f);
-            ImGui::DragFloat3("Rotation", &TFCompo.rotation.x, 0.01f);
-            ImGui::DragFloat3("Scale", &TFCompo.scale.x, 0.01f);
-        }
-
         switch (selectGO->GetObjectType())
         {
         case Object:
+
+            // コンポーネントがあれば表示
+            if (componentManager_->GetTransform(selectGO->GetEntityID())) {
+                TransformComponent& TFCompo = *componentManager_->GetTransform(selectGO->GetEntityID());
+
+                // Transformを表示
+                ImGui::SeparatorText("Transform");// ラインとテキスト表示
+                ImGui::DragFloat3("Position", &TFCompo.position.x, 0.01f);
+                ImGui::DragFloat3("Rotation", &TFCompo.rotation.x, 0.01f);
+                ImGui::DragFloat3("Scale", &TFCompo.scale.x, 0.01f);
+            }
+            if (componentManager_->GetMesh(selectGO->GetEntityID())) {
+                MeshComponent& meshComp = *componentManager_->GetMesh(selectGO->GetEntityID());
+                meshComp;
+                // メッシュ情報を表示
+                ImGui::SeparatorText("MeshPattern");
+            }
             
             if (isAdd) {
                 if (!selectGO->GetMesh()) {
@@ -102,14 +99,6 @@ void InfoView::Update()
                         selectGO->AddComponent(RenderCompo);
                     }
                 }
-                if (!selectGO->GetCamera()) {
-                    if (ImGui::Selectable("CameraComponent")) {
-                        isAdd = false;
-                        CameraComponent cameraCompo;
-                        cameraCompo.Initialize();
-                        selectGO->AddComponent(cameraCompo);
-                    }
-                }
             } else
             {
                 if (ImGui::Button("AddComponent")) {
@@ -118,6 +107,16 @@ void InfoView::Update()
             }
             break;
         case Camera:
+
+            // コンポーネントがあれば表示
+            if (componentManager_->GetCamera(selectGO->GetEntityID())) {
+                CameraComponent& cameraCompo = *componentManager_->GetCamera(selectGO->GetEntityID());
+
+                // Transformを表示
+                ImGui::SeparatorText("Transform");// ラインとテキスト表示
+                ImGui::DragFloat3("Position", &cameraCompo.position.x, 0.01f);
+                ImGui::DragFloat3("Rotation", &cameraCompo.rotation.x, 0.01f);
+            }
 
             if (isAdd) {
                 if (!selectGO->GetCamera()) {
@@ -142,7 +141,7 @@ void InfoView::Update()
     ImGui::End();
 }
 
-void InfoView::AddComponent()
+void InfoView::AddComponents()
 {
 
 }

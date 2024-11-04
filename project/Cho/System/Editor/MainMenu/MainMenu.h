@@ -20,7 +20,7 @@ class SceneManager;
 enum PopType
 {
 	None,
-	Add3DObject,
+	BaseObject,
 };
 
 class MainMenu

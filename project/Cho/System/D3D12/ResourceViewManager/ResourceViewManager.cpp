@@ -71,23 +71,25 @@ ID3D12Resource* ResourceViewManager::GetCBVResource(uint32_t& index)
 	return CBVResources[index].Get();
 }
 
-uint32_t ResourceViewManager::CreateVBV(const size_t& sizeInBytes, uint32_t& vertices)
+uint32_t ResourceViewManager::CreateMeshView(uint32_t& vertices,uint32_t& indices)
 {
-	uint32_t index = VBVAllocate();
+	uint32_t index = MeshViewAllocate();
 
-	VBVData& vbvData = VBVResources[index];
+	MeshView& meshView = meshViews[index];
 
-	vbvData = CreateVBVResource(sizeInBytes, vertices);
+	//size_t sizeInBytes = sizeof(VertexData);
+
+	meshView = CreateMeshViewResource(vertices,indices);
 
 	return index;
 }
 
-VBVData* ResourceViewManager::GetVBVData(uint32_t& index)
+MeshView* ResourceViewManager::GetMeshViewData(uint32_t& index)
 {
-	if (VBVResources.find(index) == VBVResources.end()) {
+	if (meshViews.find(index) == meshViews.end()) {
 		return nullptr;
 	}
-	return &VBVResources[index];
+	return &meshViews[index];
 }
 
 void ResourceViewManager::CreateTextureResource(uint32_t& index, const DirectX::TexMetadata& metadata)
@@ -267,31 +269,63 @@ Microsoft::WRL::ComPtr<ID3D12Resource> ResourceViewManager::CreateBufferResource
 	return resource;
 }
 
-uint32_t ResourceViewManager::VBVAllocate()
+uint32_t ResourceViewManager::MeshViewAllocate()
 {
 	// returnする番号を一旦記録する
-	int index = useVBVIndex_;
+	int index = useMeshViewIndex_;
 	// 次回のため番号を1進める
-	useVBVIndex_++;
+	useMeshViewIndex_++;
 	// 上で記録した番号をreturn
 	return index;
 }
 
-VBVData ResourceViewManager::CreateVBVResource(const size_t& sizeInBytes, uint32_t& vertices)
+MeshView ResourceViewManager::CreateMeshViewResource(uint32_t& vertices, uint32_t& indices)
 {
-	VBVData vbvData;
+	MeshView meshView;
 
-	vbvData.resource = CreateBufferResource(sizeInBytes*static_cast<size_t>(vertices));
+	size_t sizeInBytes = sizeof(VertexData);
+
+	meshView.vbvData.resource = CreateBufferResource(sizeInBytes * static_cast<size_t>(vertices));
 
 	// 頂点バッファビューを作成する
 	// リソースの先頭のアドレスから使う
-	vbvData.vbv.BufferLocation = vbvData.resource->GetGPUVirtualAddress();
+	meshView.vbvData.vbv.BufferLocation = meshView.vbvData.resource->GetGPUVirtualAddress();
 
 	// 使用するリソースのサイズは頂点のサイズ
-	vbvData.vbv.SizeInBytes = static_cast<UINT>(sizeInBytes * vertices);
+	meshView.vbvData.vbv.SizeInBytes = static_cast<UINT>(sizeInBytes * vertices);
 
 	// 1頂点アタリのサイズ
-	vbvData.vbv.StrideInBytes = static_cast<UINT>(sizeInBytes);
+	meshView.vbvData.vbv.StrideInBytes = static_cast<UINT>(sizeInBytes);
 
-	return vbvData;
+	// インデックスバッファービューを作成する
+	meshView.ibvData.resource = CreateBufferResource(sizeInBytes * static_cast<size_t>(indices));
+	meshView.ibvData.ibv.BufferLocation = meshView.ibvData.resource->GetGPUVirtualAddress();
+	meshView.ibvData.ibv.SizeInBytes = static_cast<UINT>(sizeInBytes * indices);
+	meshView.ibvData.ibv.Format = DXGI_FORMAT_R32_UINT;
+
+	return meshView;
+}
+
+void ResourceViewManager::CreateMeshPattern()
+{
+	for (uint32_t index = 0; index < static_cast<uint32_t>(MeshPattern::CountPattern); index++) {
+		if (MeshViewAllocate() != index) {
+			assert(0);
+		}
+
+		// indexをMeshPattern型にキャストしてGeneratorMeshsに渡す
+		meshContainer.push_back(
+			std::make_unique<Meshs>(Mesh::GeneratorMeshs(static_cast<MeshPattern>(index), this))
+		);
+	}
+}
+
+void ResourceViewManager::CreateMeshViewDMP(uint32_t index, uint32_t vertices, uint32_t indices)
+{
+	//VBVData& vbvData = VBVResources[index];
+	MeshView& meshView = meshViews[index];
+
+	//size_t sizeInBytes = sizeof(VertexData);
+
+	meshView = CreateMeshViewResource(vertices,indices);
 }

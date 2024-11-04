@@ -55,6 +55,12 @@ public:
 		return gameObjects;
 	}
 
+	// ひとつのゲームオブジェクトを取得
+	GameObject* GetGameObject(const std::string& name) {
+		GameObject* result = gameObjects[name].get();
+		return result;
+	}
+
 	const std::unordered_map<std::string, std::unique_ptr<GameObject>>& GetCameraObjects() const {
 		return cameraObjects;
 	}

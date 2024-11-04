@@ -42,7 +42,7 @@ struct TransformComponent {
     }
     inline void UpdateMatrix() {
         matWorld = MyMath::MakeAffineMatrix(scale, rotation, position);
-        
+
         TransferMatrix();
     }
     inline void TransferMatrix() {
@@ -67,8 +67,7 @@ struct PhysicsComponent {
 };
 
 struct MeshComponent {
-    std::unordered_map <std::string, MeshData> meshData;
-    std::vector<std::string> names;
+    uint32_t MeshID = 0;
 };
 
 // 定数バッファ用データ構造体
@@ -102,10 +101,10 @@ struct CameraComponent {
         position.z = -50.0f;
         rotation.Initialize();
         matWorld = MyMath::MakeIdentity4x4();
-        
+
     }
     inline void UpdateMatrix() {
-        matWorld = MyMath::MakeAffineMatrix(Vector3(1.0f,1.0f,1.0f), rotation, position);
+        matWorld = MyMath::MakeAffineMatrix(Vector3(1.0f, 1.0f, 1.0f), rotation, position);
 
         TransferMatrix();
     }
