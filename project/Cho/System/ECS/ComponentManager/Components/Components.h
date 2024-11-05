@@ -67,7 +67,11 @@ struct PhysicsComponent {
 };
 
 struct MeshComponent {
-    uint32_t MeshID = 0;
+    uint32_t meshID = 0;
+
+    void SetMeshID(uint32_t id) {
+        meshID = id;
+    }
 };
 
 // 定数バッファ用データ構造体

@@ -236,19 +236,18 @@ VertexSize Mesh::CreatePlane(MeshData& data, ResourceViewManager* rvManager)
 	);
 
 #pragma region
-	data.vertexData[0] = { {1.0f,1.0f,0.0f,1.0f},{0.0f,0.0f},{0.0f,0.0f,1.0f} };
-	data.vertexData[1] = { {-1.0f,1.0f,0.0f,1.0f},{1.0f,0.0f},{0.0f,0.0f,1.0f} };
-	data.vertexData[2] = { {1.0f,-1.0f,0.0f,1.0f},{0.0f,1.0f},{0.0f,0.0f,1.0f} };
-	data.vertexData[3] = { {1.0f,-1.0f,0.0f,1.0f},{0.0f,1.0f},{0.0f,0.0f,1.0f} };
-	data.vertexData[4] = { {-1.0f,1.0f,0.0f,1.0f},{1.0f,0.0f},{0.0f,0.0f,1.0f} };
-	data.vertexData[5] = { {-1.0f,-1.0f,0.0f,1.0f},{1.0f,1.0f},{0.0f,0.0f,1.0f} };
+	// 頂点データ（重複なし）
+	data.vertexData[0] = { { 1.0f,  1.0f, 0.0f, 1.0f }, { 1.0f, 0.0f }, { 0.0f, 0.0f, 1.0f } };  // 右上
+	data.vertexData[1] = { {-1.0f,  1.0f, 0.0f, 1.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f, 1.0f } };  // 左上
+	data.vertexData[2] = { { 1.0f, -1.0f, 0.0f, 1.0f }, { 1.0f, 1.0f }, { 0.0f, 0.0f, 1.0f } };  // 右下
+	data.vertexData[3] = { {-1.0f, -1.0f, 0.0f, 1.0f }, { 0.0f, 1.0f }, { 0.0f, 0.0f, 1.0f } };  // 左下
 
-	data.indexData[0] = 1;
-	data.indexData[1] = 0;
+	data.indexData[0] = 0;
+	data.indexData[1] = 1;
 	data.indexData[2] = 2;
 	data.indexData[3] = 1;
-	data.indexData[4] = 2;
-	data.indexData[5] = 3;
+	data.indexData[4] = 3;
+	data.indexData[5] = 2;
 #pragma endregion
 	return result;
 }

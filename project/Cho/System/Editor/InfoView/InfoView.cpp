@@ -72,6 +72,17 @@ void InfoView::Update()
                 meshComp;
                 // メッシュ情報を表示
                 ImGui::SeparatorText("MeshPattern");
+
+                // 現在のメッシュ形状の初期選択用変数
+                static MeshPattern selectedMeshPattern =MeshPattern::Cube;
+
+                // コンボボックスでメッシュ形状を選択
+                const char* meshOptions[] = { "Cube", "Plane", "Sphere" };
+                if (ImGui::Combo("Mesh Type", (int*)&selectedMeshPattern, meshOptions, IM_ARRAYSIZE(meshOptions)))
+                {
+                    // 選択されたメッシュの形状をセット
+                    meshComp.SetMeshID(static_cast<uint32_t>(selectedMeshPattern));
+                }
             }
             
             if (isAdd) {

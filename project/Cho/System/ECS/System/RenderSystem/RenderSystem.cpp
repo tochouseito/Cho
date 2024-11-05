@@ -30,7 +30,7 @@ void RenderSystem::Render(
         TransformComponent* transComp = componentManager.GetTransform(entity);
         if (cameraComp&&renderComp && renderComp->visible&& meshComp) {
             // 頂点データ取得キー
-            uint32_t meshsIndex = meshComp->MeshID;
+            uint32_t meshsIndex = meshComp->meshID;
             // 描画処理: 描画コンポーネントに基づきリソースをバインドして描画
             
             commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(0).rootSignature.Get());
@@ -75,7 +75,7 @@ void RenderSystem::DebugRender(
         TransformComponent* transComp = componentManager.GetTransform(entity);
         if (debugCameraComp&&renderComp && renderComp->visible && meshComp) {
             // 頂点データ取得キー
-            uint32_t meshsIndex = meshComp->MeshID;
+            uint32_t meshsIndex = meshComp->meshID;
             // 描画処理: 描画コンポーネントに基づきリソースをバインドして描画
 
             commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(0).rootSignature.Get());
