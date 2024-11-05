@@ -11,7 +11,7 @@ void FrameRate::Initialize()
 void FrameRate::Update()
 {
 	// 現在のフレームレートの取得
-	float FPS = NowFrameRate();
+	float FPS = MaxFrameRate();
 
 	// フレームレートピッタリの時間
 	std::chrono::microseconds kMinTime(static_cast<uint64_t>(1000000.0f / FPS));
@@ -47,6 +47,24 @@ void FrameRate::Update()
 
 	//// フレームレートとデルタタイムをゲームコンテキストにセット
 	//gameContext_->SetFrameValue(frameRate, deltaTime);
+}
+
+void FrameRate::StartFrame() {
+	startTime_ = std::chrono::high_resolution_clock::now();
+}
+
+void FrameRate::EndFrame() {
+	float frameTime = 0.0f;
+	float fps = 0.0f;
+	auto endTime = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float> elapsed = endTime - startTime_;
+	frameTime = elapsed.count();
+
+	if (frameTime > 0.0f) {
+		fps = 1.0f / frameTime;
+	}
+	SystemState::GetInstance().SetNowFPS(fps);
+	SystemState::GetInstance().SetDeltaTime(frameTime);
 }
 
 

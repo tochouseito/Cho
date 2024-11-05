@@ -22,26 +22,33 @@ public:
 
    const float GetDeltaTime() const { return deltaTime; }
 
-   const float GetFrameRate() const { return framePerSecond; }
+   const float GetFrameRate() const { return MaxFramePerSecond; }
 
    const int32_t GetWindowWidth()const { return windowWidth; }
 
    const int32_t GetWindowHeight()const { return windowHeight; }
+
+   void SetNowFPS(float value) { nowFPS = value; }
+
+   const float GetNowFrameRate()const { return nowFPS; }
+
+   void SetDeltaTime(float value) { deltaTime = value; }
 
 private:
     int32_t windowWidth = 1280;// ウィンドウ横幅
     int32_t windowHeight = 720;// ウィンドウ縦幅
 
     float deltaTime = 0.0f;// デルタタイム
-    float framePerSecond = 60.0f;// FPS
+    float MaxFramePerSecond = 60.0f;// FPS
 
+    float nowFPS = 0.0f;
 };
 
 inline float DeltaTime() {
     return SystemState::GetInstance().GetDeltaTime();
 }
 
-inline float NowFrameRate() {
+inline float MaxFrameRate() {
     return SystemState::GetInstance().GetFrameRate();
 }
 
@@ -53,3 +60,6 @@ inline int32_t WindowHeight() {
     return SystemState::GetInstance().GetWindowHeight();
 }
 
+inline float NowFrameRate() {
+    return SystemState::GetInstance().GetNowFrameRate();
+}

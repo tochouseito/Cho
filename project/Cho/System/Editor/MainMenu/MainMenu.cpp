@@ -174,6 +174,8 @@ void MainMenu::EngineInfoMenu()
         // フレームレートを表示
         ImGuiIO& io = ImGui::GetIO();
         ImGui::Text("FPS: %.1f", io.Framerate);
+        ImGui::Text("fps: %.1f", NowFrameRate());
+        ImGui::Text("DeltaTime: %.5f", DeltaTime());
 
         ImGui::EndMenu();
     }

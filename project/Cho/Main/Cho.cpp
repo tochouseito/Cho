@@ -275,6 +275,7 @@ void Cho::Operation()
 	Initialize();
 	/*メインループ*/
 	while (true) {
+		frameRate->StartFrame();
 		/*ウィンドウ終了リクエスト*/
 		if (win->ProcessMessage()) {
 			break;
@@ -291,6 +292,7 @@ void Cho::Operation()
 			/*フレーム更新*/
 			frameRate->Update();
 		}
+		frameRate->EndFrame();
 	}
 	/*終了処理*/
 	Finalize();
