@@ -1,21 +1,24 @@
 #include "FrameRate.h"
-#include"UI/GameContext/GameContext.h"
 
-void FrameRate::Initialize(GameContext* gameContext)
+#include"SystemState/SystemState.h"
+
+void FrameRate::Initialize()
 {
 	// 現在時間を記録
 	reference_ = std::chrono::steady_clock::now();
 
-	gameContext_ = gameContext;
 }
 
 void FrameRate::Update()
 {
+	// 現在のフレームレートの取得
+	float FPS = NowFrameRate();
+
 	// フレームレートピッタリの時間
-	constexpr std::chrono::microseconds kMinTime(static_cast<uint64_t>(1000000.0f / 60.0f));
+	std::chrono::microseconds kMinTime(static_cast<uint64_t>(1000000.0f / FPS));
 
 	//// 1/60秒よりわずかに短い時間
-	constexpr std::chrono::microseconds kMinCheckTime(uint64_t(1000000.0f / 64.0f));
+	std::chrono::microseconds kMinCheckTime(uint64_t(1000000.0f / FPS + 4.0f));
 
 	// 現在時間を取得する
 	auto now = std::chrono::steady_clock::now();
@@ -37,14 +40,14 @@ void FrameRate::Update()
 	// スリープ後の正確な経過時間を計算
 	elapsed = std::chrono::duration_cast<std::chrono::microseconds>(reference_ - now);
 
-	// デルタタイムを秒単位に変換
-	float deltaTime = static_cast<float>(elapsed.count()) / 1000000.0f;
+	//// デルタタイムを秒単位に変換
+	//float deltaTime = static_cast<float>(elapsed.count()) / 1000000.0f;
 
-	// もし deltaTime が極端に小さすぎない場合にフレームレートを計算
-	float frameRate = (deltaTime > 0.0f) ? (1.0f / deltaTime) : 0.0f;
+	//// もし deltaTime が極端に小さすぎない場合にフレームレートを計算
+	//float frameRate = (deltaTime > 0.0f) ? (1.0f / deltaTime) : 0.0f;
 
-	// フレームレートとデルタタイムをゲームコンテキストにセット
-	gameContext_->SetFrameValue(frameRate, deltaTime);
+	//// フレームレートとデルタタイムをゲームコンテキストにセット
+	//gameContext_->SetFrameValue(frameRate, deltaTime);
 }
 
 

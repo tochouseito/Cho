@@ -20,9 +20,6 @@
 // Loader
 #include"Load/TextureLoader/TextureLoader.h"
 
-// Context
-#include"UI/GameContext/GameContext.h"
-
 // ECS
 #include"ECS/EntityManager/EntityManager.h"
 #include"ECS/ComponentManager/ComponentManager.h"
@@ -45,6 +42,8 @@
 #include"Load/JsonFileLoader/JsonFileLoader.h"
 
 #pragma region 静的メンバー変数の定義
+SystemState& Cho::systemState=SystemState::GetInstance();
+
 std::unique_ptr <WinApp> Cho::win = nullptr;
 std::unique_ptr <ResourceLeakChecker> Cho::resourceLeakChecker = nullptr;
 std::unique_ptr <FrameRate> Cho::frameRate = nullptr;
@@ -63,9 +62,6 @@ std::unique_ptr<GraphicsSystem> Cho::graphicsSystem = nullptr;
 
 // Loader
 std::unique_ptr<TextureLoader> Cho::textureLoader = nullptr;
-
-// GameContext
-std::unique_ptr<GameContext> Cho::gameContext = nullptr;
 
 // ECS
 std::unique_ptr<EntityManager>Cho::entityManager = nullptr;
@@ -95,17 +91,16 @@ void Cho::Initialize()
 	// リソースリークチェッカー
 	resourceLeakChecker = std::make_unique<ResourceLeakChecker>();
 
+	// 共有クラスの初期化
+	systemState.Initialize();
+
 	// ウィンドウの作成
 	win = std::make_unique<WinApp>();
 	win->CreateGameWindow();
 
-	// GameContext
-	gameContext = std::make_unique<GameContext>();
-	gameContext->Initialize();
-
 	// フレーム
 	frameRate = std::make_unique<FrameRate>();
-	frameRate->Initialize(gameContext.get());
+	frameRate->Initialize();
 
 #pragma region DirectX
 
@@ -313,9 +308,6 @@ void Cho::Update()
 	sceneManager->Update();
 
 	systemManager->Update(*entityManager.get(), *componentManager.get(),0.01f);
-
-	// SystemUIの更新
-	gameContext->Update();
 }
 
 void Cho::PreDraw()

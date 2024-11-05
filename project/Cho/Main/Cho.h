@@ -1,5 +1,8 @@
 #pragma once
 
+// 全体で共有するもの
+#include"SystemState/SystemState.h"
+
 // System
 class WinApp;
 class ResourceLeakChecker;
@@ -19,9 +22,6 @@ class GraphicsSystem;
 
 // Loader
 class TextureLoader;
-
-// Context
-class GameContext;
 
 // ECS
 class EntityManager;
@@ -107,6 +107,9 @@ private:// メンバ関数
 
 private:// メンバ変数
 
+	/*共有するもの（シングルトンクラス）*/
+	static SystemState& systemState;
+
 	/*ウィンドウズアプリケーション*/
 	static std::unique_ptr <WinApp> win;
 
@@ -130,9 +133,6 @@ private:// メンバ変数
 
 	/*Loader*/
 	static std::unique_ptr<TextureLoader> textureLoader;
-
-	/*Context*/
-	static std::unique_ptr<GameContext> gameContext;
 
 	/*ECS*/
 	static std::unique_ptr<EntityManager> entityManager;

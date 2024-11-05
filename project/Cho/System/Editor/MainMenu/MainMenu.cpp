@@ -170,7 +170,9 @@ void MainMenu::EngineInfoMenu()
 
         ImGui::Text("S.U.View : %d / %d", rvManager_->GetNowIndex(), ResourceViewManager::GetMaxIndex());
         ImGui::Text("RTV : %d / %d", rtvManager_->GetNowIndex(), RTVManager::GetMaxIndex());
-
+        // フレームレートを表示
+        ImGuiIO& io = ImGui::GetIO();
+        ImGui::Text("FPS: %.1f", io.Framerate);
 
         ImGui::EndMenu();
     }
