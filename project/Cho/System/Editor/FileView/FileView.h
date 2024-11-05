@@ -24,24 +24,10 @@ public:
 
 private:
     /// <summary>
-    /// ファイルブラウザ表示
-    /// </summary>
-    void ShowFileBrowser();
-
-    /// <summary>
     /// ディレクトリ内のファイルを取得
     /// </summary>
     std::vector<std::string> GetFilesInDirectory(const std::string& directory);
 
-    /// <summary>
-    /// ファイルの内容を読み込み
-    /// </summary>
-    std::string ReadFileContent(const std::string& filename);
-
-    /// <summary>
-    /// ファイルの内容表示
-    /// </summary>
-    void ShowFileContent();
 
     /// <summary>
     /// ファイルブラウザをディレクトリ対応で表示
