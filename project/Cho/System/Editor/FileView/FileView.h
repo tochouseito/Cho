@@ -9,13 +9,19 @@
 
 namespace fs = std::filesystem;
 
+// D3D12
+class ResourceViewManager;
+
+// Loader
+class TextureLoader;
+
 class FileView {
 public:
 
     /// <summary>
     /// 初期化
     /// </summary>
-    void Initialize();
+    void Initialize(ResourceViewManager* rvManager, TextureLoader* texLoader);
 
     /// <summary>
     /// 更新
@@ -34,7 +40,12 @@ private:
     /// </summary>
     void ShowFileBrowserWithDirectories();
 
-    // メンバ変数
+private:// メンバ変数
+    /*D3D12*/
+    ResourceViewManager* rvManager_ = nullptr;
+
+    TextureLoader* texLoader_ = nullptr;
+
     std::string currentDirectory;      // 現在のディレクトリ
     std::vector<std::string> files;    // ディレクトリ内のファイルリスト
     std::string selectedFile;          // 選択されたファイル

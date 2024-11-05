@@ -1,8 +1,13 @@
 #include"FileView.h"
+#include"D3D12/ResourceViewManager/ResourceViewManager.h"
+#include"Load/TextureLoader/TextureLoader.h"
 #include"imgui.h"
 
-void FileView::Initialize()
+void FileView::Initialize(ResourceViewManager* rvManager, TextureLoader* texLoader)
 {
+    rvManager_ = rvManager;
+    texLoader_ = texLoader;
+
     currentDirectory = fs::current_path().string();  // 現在のディレクトリに設定
     currentDirectory = currentDirectory + "\\Game\\Assets\\Texture";
     files = GetFilesInDirectory(currentDirectory);
@@ -29,10 +34,47 @@ std::vector<std::string> FileView::GetFilesInDirectory(const std::string& direct
 }
 // ディレクトリ対応のファイルブラウザを表示
 void FileView::ShowFileBrowserWithDirectories() {
+    //ImGui::Begin("File Browser");
+
+    //// 親ディレクトリに戻るボタン
+    //if (ImGui::Button("..") && currentDirectory != "/") {
+    //    currentDirectory = fs::path(currentDirectory).parent_path().string();
+    //    files = GetFilesInDirectory(currentDirectory);  // ディレクトリの内容を更新
+    //}
+
+    //std::string newDirectory;  // 新しいディレクトリの移動先
+    //bool shouldChangeDirectory = false;
+
+    //// ディレクトリとファイルをリスト表示
+    //for (const auto& file : files) {
+    //    fs::path filePath(file);  // fs::pathを使ってファイルパスを扱う
+    //    
+    //    if (fs::is_directory(filePath)) {
+    //        // ディレクトリの表示と選択処理
+    //        if (ImGui::Selectable((filePath.filename().string() + "/").c_str())) {
+    //            newDirectory = filePath.string();  // 新しいディレクトリパスを保存
+    //            shouldChangeDirectory = true;  // ディレクトリ変更フラグを設定
+    //        }
+    //    } else {
+    //        // ファイルの表示と選択処理
+    //        if (ImGui::Selectable(filePath.filename().string().c_str())) {
+    //            selectedFile = filePath.string();  // ファイルを選択
+    //        }
+    //    }
+    //}
+
+    //// ディレクトリ変更が必要なら処理を行う
+    //if (shouldChangeDirectory) {
+    //    currentDirectory = newDirectory;
+    //    files = GetFilesInDirectory(currentDirectory);  // ディレクトリの内容を更新
+    //}
+
+    //ImGui::End();
     ImGui::Begin("File Browser");
 
     // 親ディレクトリに戻るボタン
-    if (ImGui::Button("..") && currentDirectory != "/") {
+    if (ImGui::Button("..") && currentDirectory != fs::path(currentDirectory).root_path().string())
+    {
         currentDirectory = fs::path(currentDirectory).parent_path().string();
         files = GetFilesInDirectory(currentDirectory);  // ディレクトリの内容を更新
     }
@@ -40,26 +82,68 @@ void FileView::ShowFileBrowserWithDirectories() {
     std::string newDirectory;  // 新しいディレクトリの移動先
     bool shouldChangeDirectory = false;
 
-    // ディレクトリとファイルをリスト表示
-    for (const auto& file : files) {
-        fs::path filePath(file);  // fs::pathを使ってファイルパスを扱う
+    const float iconSize = 64.0f;   // アイコンのサイズ
+    int itemsPerRow = 4;            // 1行に表示するアイコンの数
+    int itemIndex = 0;              // アイテムのインデックス
 
-        if (fs::is_directory(filePath)) {
-            // ディレクトリの表示と選択処理
-            if (ImGui::Selectable((filePath.filename().string() + "/").c_str())) {
+    // ディレクトリとファイルをアイコンで表示
+    for (const auto& file : files)
+    {
+        fs::path filePath(file);
+        std::string fileName = filePath.filename().string();  // ファイル名のみを取得
+
+        // 1行に表示するアイコン数に合わせて配置
+        if (itemIndex > 0 && itemIndex % itemsPerRow != 0)
+        {
+            ImGui::SameLine();
+        }
+
+        ImGui::BeginGroup(); // アイコンとファイル名を一つのグループとしてまとめる
+
+        if (fs::is_directory(filePath))
+        {
+            // ディレクトリ用アイコン (単純にボタンとして表示)
+            if (ImGui::Button((fileName + "/").c_str(), ImVec2(iconSize, iconSize)))
+            {
                 newDirectory = filePath.string();  // 新しいディレクトリパスを保存
-                shouldChangeDirectory = true;  // ディレクトリ変更フラグを設定
+                shouldChangeDirectory = true;      // ディレクトリ変更フラグを設定
             }
-        } else {
-            // ファイルの表示と選択処理
-            if (ImGui::Selectable(filePath.filename().string().c_str())) {
-                selectedFile = filePath.string();  // ファイルを選択
+        } else
+        {
+            // ファイル用アイコンの表示
+            auto handle = rvManager_->GetHandle(texLoader_->GetTexture(fileName).rvIndex).GPUHandle;
+
+            if (handle.ptr != 0)
+            {
+                // テクスチャアイコンを表示
+                ImGui::Image((void*)(intptr_t)handle.ptr, ImVec2(iconSize, iconSize));
+
+                // アイコンをクリックした際の処理
+                if (ImGui::IsItemClicked())
+                {
+                    selectedFile = filePath.string();  // フルパスでファイルを選択
+                }
+            } else
+            {
+                // テクスチャがない場合はボタンを代替表示
+                if (ImGui::Button(fileName.c_str(), ImVec2(iconSize, iconSize)))
+                {
+                    selectedFile = filePath.string();  // ファイルを選択
+                }
             }
         }
+
+        // アイコンの下にファイル名を表示
+        ImGui::TextWrapped("%s", fileName.c_str());
+
+        ImGui::EndGroup(); // グループを終了
+
+        itemIndex++;
     }
 
     // ディレクトリ変更が必要なら処理を行う
-    if (shouldChangeDirectory) {
+    if (shouldChangeDirectory)
+    {
         currentDirectory = newDirectory;
         files = GetFilesInDirectory(currentDirectory);  // ディレクトリの内容を更新
     }

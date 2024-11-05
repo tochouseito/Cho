@@ -15,6 +15,9 @@ class ResourceViewManager;
 class RTVManager;
 class DrawExecution;
 
+// Loader
+class TextureLoader;
+
 // ECS
 class EntityManager;
 class ComponentManager;
@@ -38,6 +41,7 @@ public:
 		ResourceViewManager* rvManager,
 		RTVManager* rtvManager,
 		DrawExecution* drawExe,
+		TextureLoader* texLoader,
 		EntityManager* entityManager,
 		ComponentManager* componentManager,
 		SystemManager* systemManager,

@@ -129,7 +129,7 @@ private:// メンバ変数
 	static const D3D12_DESCRIPTOR_HEAP_TYPE HEAP_TYPE =
 		D3D12_DESCRIPTOR_HEAP_TYPE::D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 
-	// ハンドルコンテナ
+	// SRVコンテナ
 	std::unordered_map<uint32_t, ConstantHandleData> handles;
 
 	// 次に使用するCBVインデックス

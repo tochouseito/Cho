@@ -231,6 +231,7 @@ void Cho::Initialize()
 		resourceViewManager.get(),
 		rtvManager.get(),
 		drawExecution.get(),
+		textureLoader.get(),
 		entityManager.get(),
 		componentManager.get(),
 		systemManager.get(),
