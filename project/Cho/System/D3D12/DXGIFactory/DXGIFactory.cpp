@@ -1,5 +1,6 @@
 #include"PrecompiledHeader.h"
 #include "DXGIFactory.h"
+#include<assert.h>
 
 void DXGIFactory::Initialize([[maybe_unused]] bool enableDebugLayer)
 {

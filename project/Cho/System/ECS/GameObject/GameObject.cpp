@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.h"
 #include "GameObject.h"
 
 void GameObject::CreateEntity()

@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.h"
 #include "EntityManager.h"
 
 // 新しいエンティティを作成し、そのエンティティIDを返します。

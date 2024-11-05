@@ -1,5 +1,6 @@
 #include"PrecompiledHeader.h"
 #include "D3DDevice.h"
+#include<assert.h>
 
 void D3DDevice::Initialize(IDXGIFactory7& dxgiFactory)
 {

@@ -1,6 +1,7 @@
 #include "PrecompiledHeader.h"
 #include "D3DCommand.h"
 #include"D3D12/D3DFence/D3DFence.h"
+#include<assert.h>
 
 void D3DCommand::Initialize(ID3D12Device& device, D3DFence* d3dFence)
 {

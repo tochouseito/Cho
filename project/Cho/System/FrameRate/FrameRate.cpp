@@ -1,6 +1,5 @@
+#include "PrecompiledHeader.h"
 #include "FrameRate.h"
-
-#include"SystemState/SystemState.h"
 
 void FrameRate::Initialize()
 {

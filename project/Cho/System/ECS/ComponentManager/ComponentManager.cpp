@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.h"
 #include "ComponentManager.h"
 
 #include"D3D12/ResourceViewManager/ResourceViewManager.h"

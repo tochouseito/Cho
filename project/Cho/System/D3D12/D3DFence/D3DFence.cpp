@@ -1,5 +1,6 @@
 #include "PrecompiledHeader.h"
 #include "D3DFence.h"
+#include<assert.h>
 
 void D3DFence::Initialize(ID3D12Device& device)
 {

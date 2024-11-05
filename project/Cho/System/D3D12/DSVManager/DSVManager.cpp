@@ -2,6 +2,7 @@
 #include "DSVManager.h"
 #include"WinApp/WinApp.h"
 #include"D3D12/D3DDevice/D3DDevice.h"
+#include<assert.h>
 
 void DSVManager::Initialize(WinApp* win, D3DDevice* d3dDevice)
 {

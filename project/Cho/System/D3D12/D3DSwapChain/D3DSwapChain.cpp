@@ -1,6 +1,7 @@
 #include "PrecompiledHeader.h"
 #include "D3DSwapChain.h"
 #include"WinApp/WinApp.h"
+#include<assert.h>
 
 void D3DSwapChain::Initialize(WinApp* win, IDXGIFactory7& dxgiFactory, ID3D12CommandQueue& commandQueue)
 {

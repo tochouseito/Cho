@@ -1,6 +1,7 @@
 #include "PrecompiledHeader.h"
 #include "ShaderCompiler.h"
 #include"D3D12/D3DDevice/D3DDevice.h"
+#include<assert.h>
 
 ShaderCompiler::~ShaderCompiler()
 {

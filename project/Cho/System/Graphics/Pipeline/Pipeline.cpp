@@ -2,6 +2,7 @@
 #include "Pipeline.h"
 #include"D3D12/ShaderCompiler/ShaderCompiler.h"
 #include"D3D12/D3DDevice/D3DDevice.h"
+#include<assert.h>
 
 void Pipeline::Initialize(D3DDevice* d3dDevice, ShaderCompiler* shaderCompiler)
 {
