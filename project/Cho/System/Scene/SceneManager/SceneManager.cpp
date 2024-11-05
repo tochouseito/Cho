@@ -75,4 +75,7 @@ void SceneManager::AddCameraObject(const std::string& cameraName)
 	GameObject* cameraObject = cameraObjects[cameraName].get();
 	cameraObject->SetManager(entityManager_, componentManager_);
 	cameraObject->CreateCameraEntity();
+	CameraComponent cameraComp;
+	cameraComp.Initialize();
+	cameraObject->AddComponent(cameraComp);
 }
