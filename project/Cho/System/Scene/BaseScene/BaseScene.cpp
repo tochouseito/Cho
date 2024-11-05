@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.h"
 #include "BaseScene.h"
 #include"Scene/SceneManager/SceneManager.h"
 

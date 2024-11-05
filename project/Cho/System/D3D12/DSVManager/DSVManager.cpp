@@ -26,8 +26,8 @@ void DSVManager::Initialize(WinApp* win, D3DDevice* d3dDevice)
 void DSVManager::CreateDepthStencil()
 {
 	resource_ = CreateDepthStencilTextureResource(
-		win_->kClientWidth,
-		win_->kClientHeight
+		WindowWidth(),
+		WindowHeight()
 	);
 	// DSVの設定
 	D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc{};

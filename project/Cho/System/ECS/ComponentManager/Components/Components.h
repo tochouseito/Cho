@@ -115,8 +115,10 @@ struct CameraComponent {
     inline void TransferMatrix() {
         constData->matWorld = matWorld;
         constData->view = MyMath::Inverse(matWorld);
+        float width = static_cast<float>(WindowWidth());
+        float height = static_cast<float>(WindowHeight());
         constData->projection = MyMath::MakePerspectiveFovMatrix(
-            0.45f, 1280.0f / 720.0f, 0.1f, 100.0f
+            0.45f, width/height, 0.1f, 100.0f
         );
         constData->cameraPosition = position;
     }

@@ -8,8 +8,8 @@ void D3DSwapChain::Initialize(WinApp* win, IDXGIFactory7& dxgiFactory, ID3D12Com
 	HRESULT hr;
 
 	// スワップチェーンを生成する
-	desc_.Width = win->kClientWidth;                     // 画面の幅。ウィンドウのクライアント領域を同じものにしておく
-	desc_.Height = win->kClientHeight;                   // 画面の高さ。ウィンドウのクライアント領域を同じものにしておく
+	desc_.Width = WindowWidth();                     // 画面の幅。ウィンドウのクライアント領域を同じものにしておく
+	desc_.Height = WindowHeight();                   // 画面の高さ。ウィンドウのクライアント領域を同じものにしておく
 	desc_.Format = DXGI_FORMAT_R8G8B8A8_UNORM;          // 色の形式
 	desc_.SampleDesc.Count = 1;                         // マルチサンプルしない
 	desc_.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;// 描画のターゲットとして利用する

@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.h"
 #include "RenderSystem.h"
 
 #include"D3D12/D3DCommand/D3DCommand.h"

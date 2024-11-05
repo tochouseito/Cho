@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.h"
 #include "WinApp.h"
 #pragma comment(lib,"winmm.lib")
 //#ifdef _DEBUG
@@ -51,7 +52,7 @@ void WinApp::CreateGameWindow() {
 	RegisterClass(&wc_);
 
 	// ウィンドウサイズを表す構造体にクライアント領域を入れる
-	RECT wrc = { 0,0,kClientWidth,kClientHeight };
+	RECT wrc = { 0,0,WindowWidth(),WindowHeight()};
 
 	// クライアント領域を元に実際のサイズにwrcを変更してもらう
 	AdjustWindowRect(&wrc, WS_OVERLAPPEDWINDOW, false);

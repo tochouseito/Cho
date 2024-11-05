@@ -90,8 +90,8 @@ void DrawExecution::PreDraw()
 	D3D12_VIEWPORT viewport =
 		D3D12_VIEWPORT(
 			0.0f, 0.0f,
-			static_cast<float>((WinApp::kClientWidth)),
-			static_cast<float>((WinApp::kClientHeight)),
+			static_cast<float>((WindowWidth())),
+			static_cast<float>((WindowHeight())),
 			0.0f, 1.0f
 		);
 	commandList->RSSetViewports(1, &viewport);// Viewportを設定
@@ -99,8 +99,8 @@ void DrawExecution::PreDraw()
 	// シザリング矩形の設定
 	D3D12_RECT rect = D3D12_RECT(
 		0, 0,
-		WinApp::kClientWidth,
-		WinApp::kClientHeight
+		WindowWidth(),
+		WindowHeight()
 	);
 	commandList->RSSetScissorRects(1, &rect);// Scissorを設定
 
@@ -147,8 +147,8 @@ void DrawExecution::DebugPreDraw()
 	D3D12_VIEWPORT viewport =
 		D3D12_VIEWPORT(
 			0.0f, 0.0f,
-			static_cast<float>((WinApp::kClientWidth)),
-			static_cast<float>((WinApp::kClientHeight)),
+			static_cast<float>((WindowWidth())),
+			static_cast<float>((WindowHeight())),
 			0.0f, 1.0f
 		);
 	commandList->RSSetViewports(1, &viewport);// Viewportを設定
@@ -156,8 +156,8 @@ void DrawExecution::DebugPreDraw()
 	// シザリング矩形の設定
 	D3D12_RECT rect = D3D12_RECT(
 		0, 0,
-		WinApp::kClientWidth,
-		WinApp::kClientHeight
+		WindowWidth(),
+		WindowHeight()
 	);
 	commandList->RSSetScissorRects(1, &rect);// Scissorを設定
 
@@ -205,8 +205,8 @@ void DrawExecution::PostDraw()
 	D3D12_VIEWPORT viewport =
 		D3D12_VIEWPORT(
 			0.0f, 0.0f,
-			static_cast<float>((WinApp::kClientWidth)),
-			static_cast<float>((WinApp::kClientHeight)),
+			static_cast<float>((WindowWidth())),
+			static_cast<float>((WindowHeight())),
 			0.0f, 1.0f
 		);
 	commandList->RSSetViewports(1, &viewport);// Viewportを設定
@@ -214,8 +214,8 @@ void DrawExecution::PostDraw()
 	// シザリング矩形の設定
 	D3D12_RECT rect = D3D12_RECT(
 		0, 0,
-		WinApp::kClientWidth,
-		WinApp::kClientHeight
+		WindowWidth(),
+		WindowHeight()
 	);
 	commandList->RSSetScissorRects(1, &rect);// Scissorを設定
 

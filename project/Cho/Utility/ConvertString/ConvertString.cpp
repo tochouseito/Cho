@@ -1,3 +1,4 @@
+#include "PrecompiledHeader.h"
 #include"ConvertString.h"
 #include <Windows.h>
 void Log(const std::string& message) {
