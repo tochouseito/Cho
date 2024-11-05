@@ -102,7 +102,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Cho\Game\Assets\Scenes\MainScene.cpp">
+    <ClCompile Include="Game\Assets\Scenes\MainScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cho\Main\Cho.cpp">
@@ -389,7 +389,7 @@
     <ClInclude Include="Cho\System\ECS\System\CameraSystem\CameraSystem.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\Game\Assets\Scenes\MainScene.h">
+    <ClInclude Include="Game\Assets\Scenes\MainScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\StartSetting\StartSetting.h">
@@ -415,5 +415,10 @@
     <None Include="Cho\Resources\Shader\header\Demo.hlsli" />
     <None Include="Cho\Resources\Shader\header\FullScreen.hlsli" />
     <None Include="Cho\Resources\ImGuiStyle\style.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Game\Assets\Texture\uvChecker.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
   </ItemGroup>
 </Project>

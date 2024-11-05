@@ -376,7 +376,8 @@ void Cho::Load()
 	jsonFileLoader->LoadStyleFromProject();
 
 	/*テクスチャリソースの読み込み*/
-	textureLoader->Load();
+	textureLoader->FirstResourceLoad("Cho/Resources/Texture/");
+	textureLoader->FirstResourceLoad("Game/Assets/Texture/");
 }
 
 void Cho::StartSetUp()

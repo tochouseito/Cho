@@ -145,11 +145,19 @@ void MainMenu::EditMenu()
 
 void MainMenu::LayoutMenu()
 {
-    if (ImGui::BeginMenu("Layout")) {
-        // スタイルエディタを表示
-        ImGui::ShowStyleEditor();
+    static bool showStyleEditor = false;
 
+    if (ImGui::BeginMenu("Layout")) {
+        if (ImGui::MenuItem("Show Style Editor")) {
+            showStyleEditor = true;
+        }
         ImGui::EndMenu();
+    }
+
+    if (showStyleEditor) {
+        ImGui::Begin("Style Editor", &showStyleEditor);
+        ImGui::ShowStyleEditor();
+        ImGui::End();
     }
 }
 

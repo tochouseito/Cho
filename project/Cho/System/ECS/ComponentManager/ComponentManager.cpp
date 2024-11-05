@@ -26,7 +26,7 @@ void ComponentManager::AddComponent(Entity entity, const TransformComponent& com
 void ComponentManager::AddComponent(Entity entity, const RenderComponent& component) {
     renders[entity] = component;
 	renders[entity].visible = true;
-	renders[entity].textureID = "Cho/Resources/Texture/monsterBall.png";
+	renders[entity].textureID = "monsterBall.png";
 }
 
 // EntityにPhysicsComponentを追加します。

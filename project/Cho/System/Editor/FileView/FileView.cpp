@@ -4,6 +4,7 @@
 void FileView::Initialize()
 {
     currentDirectory = fs::current_path().string();  // 現在のディレクトリに設定
+    currentDirectory = currentDirectory + "\\Game\\Assets\\Texture";
     files = GetFilesInDirectory(currentDirectory);
     selectedFile = "";
 }

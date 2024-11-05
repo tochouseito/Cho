@@ -62,7 +62,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Utility\Mymath;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Cho\Game;$(ProjectDir)Cho\Externals\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Utility\Mymath;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Game;$(ProjectDir)Cho\Externals\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>PrecompiledHeader.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -101,7 +101,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Utility\Mymath;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Cho\Game;$(ProjectDir)Cho\Externals\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Utility\Mymath;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Game;$(ProjectDir)Cho\Externals\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>PrecompiledHeader.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -129,7 +129,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Cho\System\ECS\System\CameraSystem\CameraSystem.cpp" />
-    <ClCompile Include="Cho\Game\Assets\Scenes\MainScene.cpp" />
+    <ClCompile Include="Game\Assets\Scenes\MainScene.cpp" />
     <ClCompile Include="Cho\Main\Cho.cpp" />
     <ClCompile Include="Cho\System\D3D12\D3DCommand\D3DCommand.cpp" />
     <ClCompile Include="Cho\System\D3D12\D3DDevice\D3DDevice.cpp" />
@@ -174,7 +174,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\System\Editor\SceneView\SceneView.cpp" />
     <ClCompile Include="Cho\System\StartSetting\StartSetting.cpp" />
     <ClCompile Include="Cho\System\Editor\ObjectsList\ObjectsList.cpp" />
-    <ClInclude Include="Cho\Game\Assets\Scenes\MainScene.h" />
+    <ClInclude Include="Game\Assets\Scenes\MainScene.h" />
     <ClInclude Include="Cho\System\ECS\System\CameraSystem\CameraSystem.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\Components.h" />
     <ClInclude Include="Cho\System\Scene\SceneFactory\AbstractSceneFactory.h" />
@@ -263,6 +263,9 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <None Include="Cho\Resources\ImGuiStyle\style.json" />
     <None Include="Cho\Resources\Shader\header\Demo.hlsli" />
     <None Include="Cho\Resources\Shader\header\FullScreen.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Game\Assets\Texture\uvChecker.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
