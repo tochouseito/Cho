@@ -26,7 +26,11 @@ public:
 
    const int32_t GetWindowWidth()const { return windowWidth; }
 
+   void SetWindowWidth(int32_t value) { windowWidth = value; }
+
    const int32_t GetWindowHeight()const { return windowHeight; }
+
+   void SetWindowHeight(int32_t value) { windowHeight = value; }
 
    void SetNowFPS(float value) { nowFPS = value; }
 
@@ -34,14 +38,19 @@ public:
 
    void SetDeltaTime(float value) { deltaTime = value; }
 
+   bool WindowEvent();
+
 private:
     int32_t windowWidth = 1280;// ウィンドウ横幅
     int32_t windowHeight = 720;// ウィンドウ縦幅
 
-    float deltaTime = 0.0f;// デルタタイム
+    int32_t preWindowWidth = 0;// ウィンドウ横幅
+    int32_t preWindowHeight = 0;// ウィンドウ縦幅
+
+    float deltaTime = 1.0f/nowFPS;// デルタタイム
     float MaxFramePerSecond = 60.0f;// FPS
 
-    float nowFPS = 0.0f;
+    float nowFPS = MaxFramePerSecond;
 };
 
 inline float DeltaTime() {

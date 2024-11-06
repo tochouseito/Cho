@@ -7,6 +7,9 @@ extern IMGUI_IMPL_API LRESULT
 ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 //#endif
 
+#include"imgui.h"
+
+HWND WinApp::hwnd_ = nullptr;
 bool WinApp::isAppRunning = true;
 
 // ウィンドウプロシージャ
@@ -19,13 +22,25 @@ LRESULT CALLBACK WinApp::WindowProc(HWND hwnd, UINT msg,
 //#endif
 	// メッセージに応じてゲーム固有の処理を行う
 	switch (msg) {
-		// ウィンドウが破棄された
+	case WM_GETMINMAXINFO: {
+		MINMAXINFO* pMinMaxInfo = reinterpret_cast<MINMAXINFO*>(lparam);
+		pMinMaxInfo->ptMinTrackSize.x = 800; // 最小幅を設定（例：800）
+		pMinMaxInfo->ptMinTrackSize.y = 600; // 最小高さを設定（例：600）
+		break;
+	}
+
+	case WM_SIZE:
+		if (wparam != SIZE_MINIMIZED) {
+			int width = LOWORD(lparam);
+			int height = HIWORD(lparam);
+			OnWindowResize(width, height);
+		}
+		break;
+
 	case WM_DESTROY:
-		// OSに対して、アプリの終了を伝える
 		PostQuitMessage(0);
 		isAppRunning = false;
 		return 0;
-
 	}
 	// 標準のメッセージ処理を行う
 	return DefWindowProc(hwnd, msg, wparam, lparam);
@@ -42,7 +57,7 @@ void WinApp::CreateGameWindow() {
 	// ウィンドウプロシージャ
 	wc_.lpfnWndProc = WindowProc;
 	// ウィンドウクラス名
-	wc_.lpszClassName = L"CG2WindowClass";
+	wc_.lpszClassName = L"ChoWindowClass";
 	// インスタンスハンドル
 	wc_.hInstance = GetModuleHandle(nullptr);
 	// カーソル
@@ -112,4 +127,27 @@ void WinApp::TerminateWindow()
 
 	// COM 終了
 	CoUninitialize();
+}
+
+// ウィンドウサイズ変更時の処理
+void WinApp::OnWindowResize(int width, int height) {
+	if (width != 0 && height != 0) {
+		SystemState::GetInstance().SetWindowWidth(width);
+		SystemState::GetInstance().SetWindowHeight(height);
+		// 新しいクライアント領域のサイズを hwnd_ から取得
+		RECT rect;
+		GetClientRect(hwnd_, &rect);
+		int newWidth = rect.right - rect.left;
+		int newHeight = rect.bottom - rect.top;
+		newWidth;
+		newHeight;
+		static bool flag = false;
+		if (flag) {
+			// ImGuiのディスプレイサイズを更新
+			ImGuiIO& io = ImGui::GetIO();
+			io.DisplaySize = ImVec2(static_cast<float>(width), static_cast<float>(height));
+
+		}
+		flag = true;
+	}
 }

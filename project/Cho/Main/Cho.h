@@ -105,6 +105,8 @@ private:// メンバ関数
 	/// </summary>
 	static void Save();
 
+	static void SystemStateEvent();
+
 private:// メンバ変数
 
 	/*共有するもの（シングルトンクラス）*/

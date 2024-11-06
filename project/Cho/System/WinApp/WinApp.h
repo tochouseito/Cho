@@ -10,11 +10,6 @@
 
 class WinApp
 {
-public:// 静的メンバ変数
-	// クライアント領域サイズ
-	//static const int32_t kClientWidth = 1280;
-	//static const int32_t kClientHeight = 720;
-
 public:// 静的メンバ関数
 
 	/// <summary>
@@ -54,12 +49,12 @@ public:// メンバ関数
 
 	HINSTANCE GetHInstance() const { return wc_.hInstance; }
 
-	//int32_t GetWidth()const { return kClientWidth; }
-
-	//int32_t GetHeight() const { return kClientHeight; }
+private:
+	// ウィンドウサイズ変更時の処理
+	static void OnWindowResize(int width, int height);
 
 private:// メンバ変数
-	HWND hwnd_ = nullptr;
+	static HWND hwnd_;
 
 	WNDCLASS wc_{}; // ウィンドウクラス
 

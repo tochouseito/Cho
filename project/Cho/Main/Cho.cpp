@@ -280,6 +280,7 @@ void Cho::Operation()
 		if (win->ProcessMessage()) {
 			break;
 		}
+		SystemStateEvent();
 		if (!win->IsEndApp()) {
 			/*毎フレーム更新*/
 			Update();
@@ -396,4 +397,11 @@ void Cho::Save()
 {
 	/*ImGuiのスタイルを保存*/
 	jsonFileLoader->SaveStyleToProject();
+}
+
+void Cho::SystemStateEvent()
+{
+	if (SystemState::GetInstance().WindowEvent()) {
+				
+	}
 }
