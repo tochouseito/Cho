@@ -49,7 +49,7 @@ public:// メンバ関数
 
 	ID3D12DescriptorHeap* GetDescriptorHeap()const { return descriptorHeap_.Get(); }
 
-	uint32_t GetNowIndex()const { return useIndex_ ; }
+	uint32_t GetNowIndex()const { return useIndex_ + useCBVIndex_; }
 	static uint32_t GetMaxIndex() { return kMaxDescriptor; }
 
 	/// <summary>

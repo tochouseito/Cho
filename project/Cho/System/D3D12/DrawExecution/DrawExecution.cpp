@@ -26,8 +26,8 @@ void DrawExecution::Initialize(
 	dsvManager_ = dsvManager;
 	graphicsSystem_ = graphicsSystem;
 
-	uint32_t w = 1280;
-	uint32_t h = 720;
+	uint32_t w = WindowWidth();
+	uint32_t h = WindowHeight();
 	offscreenRenderTextureIndex = resourceViewManager_->GetNewHandle();
 	resourceViewManager_->CreateRenderTextureResource(offscreenRenderTextureIndex,
 		w, h, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
@@ -62,7 +62,7 @@ void DrawExecution::PreDraw()
 	);
 	// 描画先のRTVとDSVを設定する
 	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle = dsvManager_->GetDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
-	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = rtvManager_->GetHandle(offscreenRenderRTVHandleIndex);
+	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = rtvManager_->GetHandle(offscreenRenderRTVHandleIndex).CPUHandle;
 	commandList->OMSetRenderTargets(
 		1,
 		&rtvHandle,
@@ -119,7 +119,7 @@ void DrawExecution::DebugPreDraw()
 	);
 	// 描画先のRTVとDSVを設定する
 	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle = dsvManager_->GetDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
-	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = rtvManager_->GetHandle(debugRTVHandleIndex);
+	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = rtvManager_->GetHandle(debugRTVHandleIndex).CPUHandle;
 	commandList->OMSetRenderTargets(
 		1,
 		&rtvHandle,
@@ -176,7 +176,7 @@ void DrawExecution::PostDraw()
 	UINT backBufferIndex = d3dSwapChain_->GetSwapChain()->GetCurrentBackBufferIndex();
 
 	// スワップチェーンリソースの状態遷移
-	BarrierTransition(d3dSwapChain_->GetResource(backBufferIndex),
+	BarrierTransition(rtvManager_->GetHandle(backBufferIndex).resource.Get(),
 		D3D12_RESOURCE_STATE_PRESENT,
 		D3D12_RESOURCE_STATE_RENDER_TARGET
 	);
@@ -193,7 +193,7 @@ void DrawExecution::PostDraw()
 		D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE
 	);
 
-	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = rtvManager_->GetHandle(backBufferIndex);
+	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = rtvManager_->GetHandle(backBufferIndex).CPUHandle;
 
 	// 描画先のRTVを設定
 	commandList->OMSetRenderTargets(1, &rtvHandle, false, nullptr);
@@ -240,7 +240,7 @@ void DrawExecution::End()
 	//	)
 
 	// スワップチェーンリソースの状態遷移
-	BarrierTransition(d3dSwapChain_->GetResource(backBufferIndex),
+	BarrierTransition(rtvManager_->GetHandle(backBufferIndex).resource.Get(),
 		D3D12_RESOURCE_STATE_RENDER_TARGET,
 		D3D12_RESOURCE_STATE_PRESENT
 	);

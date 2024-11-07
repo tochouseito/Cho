@@ -206,6 +206,9 @@ void ResourceViewManager::CreateRenderTextureResource(uint32_t& index, uint32_t&
 
 uint32_t ResourceViewManager::Allocate()
 {
+	if (useIndex_+useCBVIndex_ >= kMaxDescriptor) {
+		assert(0);
+	}
 	// returnする番号を一旦記録する
 	int index = useIndex_;
 	// 次回のため番号を1進める
@@ -230,6 +233,9 @@ D3D12_GPU_DESCRIPTOR_HANDLE ResourceViewManager::GetGPUDescriptorHandle(uint32_t
 
 uint32_t ResourceViewManager::CBVAllocate()
 {
+	if (useIndex_ + useCBVIndex_ >= kMaxDescriptor) {
+		assert(0);
+	}
 	// returnする番号を一旦記録する
 	int index = useCBVIndex_;
 	// 次回のため番号を1進める

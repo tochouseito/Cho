@@ -5,6 +5,13 @@
 #include<cstdint>
 #include<unordered_map>
 
+// ディスクリプタハンドル定数データ
+struct RTVHandleData {
+	// 場合によってはRVManagerにリソースは管理してもらうためNULLもある
+	Microsoft::WRL::ComPtr<ID3D12Resource> resource;
+	D3D12_CPU_DESCRIPTOR_HANDLE CPUHandle;
+};
+
 class D3DDevice;
 class D3DSwapChain;
 class RTVManager
@@ -15,12 +22,16 @@ public:
 	/// </summary>
 	void Initialize(D3DDevice* d3dDevice,D3DSwapChain* d3dSwapChain);
 
-	D3D12_CPU_DESCRIPTOR_HANDLE GetHandle(uint32_t& index){return rtvHandles_[index]; }
+	RTVHandleData GetHandle(uint32_t& index){
+		return handles[index];
+	}
 
 	uint32_t CreateRTV(ID3D12Resource* textureResource);
 
 	uint32_t GetNowIndex()const { return useIndex_ ; }
 	static uint32_t GetMaxIndex() { return kMaxDescriptor; }
+
+	uint32_t GetNewHandle();
 
 private:// メンバ関数
 
@@ -28,6 +39,11 @@ private:// メンバ関数
 	/// レンダーターゲットビューの作成
 	/// </summary>
 	void CreateRenderTargetView();
+
+	/// <summary>
+	/// スワップチェーンの用のRTVを作成
+	/// </summary>
+	void CreateSwapChainRTV();
 
 	uint32_t Allocate();
 
@@ -52,10 +68,10 @@ private:
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descriptorHeap_;
 
 	/*ハンドル*/
-	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandles_[kMaxDescriptor];
+	//D3D12_CPU_DESCRIPTOR_HANDLE rtvHandles_[kMaxDescriptor];
 	// ハンドルコンテナ
 	//std::unordered_map<uint32_t, D3D12_CPU_DESCRIPTOR_HANDLE> handles;
-
+	std::unordered_map<uint32_t, RTVHandleData>handles;
 
 
 	// 次に使用するRTVインデックス。

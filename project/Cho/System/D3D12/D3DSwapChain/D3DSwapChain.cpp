@@ -35,14 +35,6 @@ void D3DSwapChain::Initialize(WinApp* win, IDXGIFactory7& dxgiFactory, ID3D12Com
 	// VSync共存型fps固定のためにレイテンシ1
 	swapChain_->SetMaximumFrameLatency(1);
 
-	// SwapChainからResourceを引っ張ってくる
-	hr = swapChain_->GetBuffer(0, IID_PPV_ARGS(&resources_[0]));
-	// うまく取得できなければ起動できない
-	assert(SUCCEEDED(hr));
-	hr = swapChain_->GetBuffer(1, IID_PPV_ARGS(&resources_[1]));
-	// うまく取得できなければ起動できない
-	assert(SUCCEEDED(hr));
-
 	// OSが行うAlt+Enterのフルスクリーンは制御不能なので禁止
 	dxgiFactory.MakeWindowAssociation(
 		win->GetHwnd(), DXGI_MWA_NO_WINDOW_CHANGES | DXGI_MWA_NO_ALT_ENTER);

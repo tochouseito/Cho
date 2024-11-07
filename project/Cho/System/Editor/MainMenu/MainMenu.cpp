@@ -169,7 +169,7 @@ void MainMenu::EngineInfoMenu()
         // Viewの使用数
         ImGui::SeparatorText("Descriptor");
 
-        ImGui::Text("S.U.View : %d / %d", rvManager_->GetNowIndex(), ResourceViewManager::GetMaxIndex());
+        ImGui::Text("C.S.U.View : %d / %d", rvManager_->GetNowIndex(), ResourceViewManager::GetMaxIndex());
         ImGui::Text("RTV : %d / %d", rtvManager_->GetNowIndex(), RTVManager::GetMaxIndex());
         // フレームレートを表示
         ImGuiIO& io = ImGui::GetIO();

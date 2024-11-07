@@ -2,6 +2,7 @@
 #include "RTVManager.h"
 #include"D3D12/D3DDevice/D3DDevice.h"
 #include"D3D12/D3DSwapChain/D3DSwapChain.h"
+#include"assert.h"
 
 void RTVManager::Initialize(D3DDevice* d3dDevice, D3DSwapChain* d3dSwapChain)
 {
@@ -20,15 +21,13 @@ void RTVManager::Initialize(D3DDevice* d3dDevice, D3DSwapChain* d3dSwapChain)
 			HEAP_TYPE
 		);
 
-	// RTVの作成
-	CreateRenderTargetView();
+	// スワップチェーン用のRTVを作成
+	CreateSwapChainRTV();
 }
 
 uint32_t RTVManager::CreateRTV(ID3D12Resource* textureResource)
 {
-	uint32_t index = Allocate();
-
-	rtvHandles_[index] = GetCPUDescriptorHandle(index);
+	uint32_t index = GetNewHandle();
 
 	D3D12_RENDER_TARGET_VIEW_DESC rtvDesc{};
 
@@ -39,14 +38,31 @@ uint32_t RTVManager::CreateRTV(ID3D12Resource* textureResource)
 	d3dDevice_->GetDevice()->CreateRenderTargetView(
 		textureResource,
 		&rtvDesc,
-		rtvHandles_[index]
+		handles[index].CPUHandle
 	);
+
+	return index;
+}
+
+uint32_t RTVManager::GetNewHandle()
+{
+	uint32_t index = Allocate();
+
+	RTVHandleData& descriptorData = handles[index];
+
+	descriptorData.CPUHandle = GetCPUDescriptorHandle(index);
 
 	return index;
 }
 
 void RTVManager::CreateRenderTargetView()
 {
+}
+
+void RTVManager::CreateSwapChainRTV()
+{
+	HRESULT hr;
+
 	D3D12_RENDER_TARGET_VIEW_DESC rtvDesc{};
 
 	// RTVの設定
@@ -59,27 +75,39 @@ void RTVManager::CreateRenderTargetView()
 
 	// RTVを２つ作るのでディスクリプタを２つ用意
 	// まず１つ目を作る。１つ目は最初のところに作る。作る場所をこちらで指定してあげる必要がある
-	uint32_t swpIndex = Allocate();
-	rtvHandles_[swpIndex] = GetCPUDescriptorHandle(swpIndex);
-	d3dDevice_->GetDevice()->CreateRenderTargetView(
-		d3dSwapChain_->GetResource(0),
-		&rtvDesc,
-		rtvHandles_[swpIndex]
-	);
-	uint32_t swpIndex2 = Allocate();
-	// ２つ目のディスクリプタハンドルを得る（自力で）
-	rtvHandles_[swpIndex2] = GetCPUDescriptorHandle(swpIndex2);
+	uint32_t swpIndex = GetNewHandle();
+	d3dSwapChain_->SetHandleIndex(swpIndex);
+	// SwapChainからResourceを引っ張ってくる
+	hr = d3dSwapChain_->GetSwapChain()->GetBuffer(swpIndex, IID_PPV_ARGS(&handles[swpIndex].resource));
+	// うまく取得できなければ起動できない
+	assert(SUCCEEDED(hr));
 
-	// ２つ目を作る
 	d3dDevice_->GetDevice()->CreateRenderTargetView(
-		d3dSwapChain_->GetResource(1),
+		handles[swpIndex].resource.Get(),
 		&rtvDesc,
-		rtvHandles_[1]
+		handles[swpIndex].CPUHandle
+	);
+
+	// ２つ目のディスクリプタハンドル
+	uint32_t swpIndex2 = GetNewHandle();
+	d3dSwapChain_->SetHandleIndex(swpIndex2);
+
+	hr = d3dSwapChain_->GetSwapChain()->GetBuffer(swpIndex2, IID_PPV_ARGS(&handles[swpIndex2].resource));
+	// うまく取得できなければ起動できない
+	assert(SUCCEEDED(hr));
+
+	d3dDevice_->GetDevice()->CreateRenderTargetView(
+		handles[swpIndex2].resource.Get(),
+		&rtvDesc,
+		handles[swpIndex2].CPUHandle
 	);
 }
 
 uint32_t RTVManager::Allocate()
 {
+	if (useIndex_ >= kMaxDescriptor) {
+		assert(0);
+	}
 	// returnする番号を一旦記録する
 	int index = useIndex_;
 	// 次回のため番号を1進める
