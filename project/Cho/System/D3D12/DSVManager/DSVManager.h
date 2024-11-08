@@ -17,6 +17,8 @@ public:
 
 	ID3D12DescriptorHeap* GetDescriptorHeap()const { return descriptorHeap_.Get(); }
 
+	void Resize();
+
 private:// メンバ関数
 
 	/// <summary>

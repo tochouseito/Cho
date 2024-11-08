@@ -401,7 +401,13 @@ void Cho::Save()
 
 void Cho::SystemStateEvent()
 {
+	// ウィンドウサイズ変更時スワップチェーン、RTVのリサイズ
 	if (SystemState::GetInstance().WindowEvent()) {
-				
+		d3dCommand->Signal();
+
+		// 既存のリソースの解放,再作成
+		dsvManager->Resize();
+		drawExecution->ResizeOffscreenRenderTex();
+		rtvManager->ResizeSwapChain();
 	}
 }

@@ -55,6 +55,8 @@ public:
 
 	uint32_t GetDebugRTVHandInd()const { return debugRTVHandleIndex; }
 
+	void ResizeOffscreenRenderTex();
+
 private:
 	/// <summary>
 	/// リソースバリア遷移

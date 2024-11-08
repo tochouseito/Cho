@@ -28,6 +28,8 @@ void DrawExecution::Initialize(
 
 	uint32_t w = WindowWidth();
 	uint32_t h = WindowHeight();
+
+	// オフスクリーンレンダーテクスチャの作成
 	offscreenRenderTextureIndex = resourceViewManager_->GetNewHandle();
 	resourceViewManager_->CreateRenderTextureResource(offscreenRenderTextureIndex,
 		w, h, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
@@ -39,6 +41,7 @@ void DrawExecution::Initialize(
 				offscreenRenderTextureIndex).resource.Get()
 		);
 
+	// デバッグオフスクリーンレンダーテクスチャの作成
 	debugRenderTexIndex = resourceViewManager_->GetNewHandle();
 	resourceViewManager_->CreateRenderTextureResource(debugRenderTexIndex,
 		w, h, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
@@ -250,6 +253,40 @@ void DrawExecution::End()
 	d3dSwapChain_->Present();
 
 	d3dCommand_->Signal();
+}
+
+void DrawExecution::ResizeOffscreenRenderTex()
+{
+	// オフスクリーンレンダリング用のTextureを解放
+	resourceViewManager_->GetHandle(offscreenRenderTextureIndex).resource.Reset();
+	resourceViewManager_->GetHandle(offscreenRenderTextureIndex).resource = nullptr;
+
+	// デバッグ用
+	resourceViewManager_->GetHandle(debugRenderTexIndex).resource.Reset();
+	resourceViewManager_->GetHandle(debugRenderTexIndex).resource = nullptr;
+
+	uint32_t w = WindowWidth();
+	uint32_t h = WindowHeight();
+
+	// オフスクリーンレンダーテクスチャの作成
+	resourceViewManager_->CreateRenderTextureResource(offscreenRenderTextureIndex,
+		w, h, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
+		Color(clearColor[0], clearColor[1], clearColor[2], clearColor[3])
+	);
+	rtvManager_->RemakeRTV(
+		offscreenRenderRTVHandleIndex,
+		resourceViewManager_->GetHandle(offscreenRenderTextureIndex).resource.Get()
+	);
+
+	// デバッグオフスクリーンレンダーテクスチャの作成
+	resourceViewManager_->CreateRenderTextureResource(debugRenderTexIndex,
+		w, h, DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
+		Color(clearColor[0], clearColor[1], clearColor[2], clearColor[3])
+	);
+	rtvManager_->RemakeRTV(
+		debugRTVHandleIndex,
+		resourceViewManager_->GetHandle(debugRenderTexIndex).resource.Get()
+	);
 }
 
 void DrawExecution::BarrierTransition(ID3D12Resource* pResource, D3D12_RESOURCE_STATES Before, D3D12_RESOURCE_STATES After)

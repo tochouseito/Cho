@@ -55,6 +55,50 @@ uint32_t RTVManager::GetNewHandle()
 	return index;
 }
 
+void RTVManager::ResizeSwapChain()
+{
+	// バッファリングの数だけ解放
+	for (uint32_t i = 0; i < d3dSwapChain_->GetBufferCount(); i++) {
+		handles[i].resource.Reset();
+		handles[i].resource = nullptr;
+	}
+	d3dSwapChain_->Resize();
+
+	HRESULT hr;
+
+	D3D12_RENDER_TARGET_VIEW_DESC rtvDesc{};
+
+	// RTVの設定
+	rtvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;// 出力結果をSRGBに変換して書き込む
+	rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;// 2dテクスチャとして書き込む
+
+	for (uint32_t i = 0; i < d3dSwapChain_->GetBufferCount(); i++) {
+		// SwapChainからResourceを引っ張ってくる
+		hr = d3dSwapChain_->GetSwapChain()->GetBuffer(i, IID_PPV_ARGS(&handles[i].resource));
+
+		d3dDevice_->GetDevice()->CreateRenderTargetView(
+			handles[i].resource.Get(),
+			&rtvDesc,
+			handles[i].CPUHandle
+		);
+	}
+}
+
+void RTVManager::RemakeRTV(uint32_t& index, ID3D12Resource* textureResource)
+{
+	D3D12_RENDER_TARGET_VIEW_DESC rtvDesc{};
+
+	// RTVの設定
+	rtvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;// 出力結果をSRGBに変換して書き込む
+	rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;// 2dテクスチャとして書き込む
+
+	d3dDevice_->GetDevice()->CreateRenderTargetView(
+		textureResource,
+		&rtvDesc,
+		handles[index].CPUHandle
+	);
+}
+
 void RTVManager::CreateRenderTargetView()
 {
 }

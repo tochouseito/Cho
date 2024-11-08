@@ -23,8 +23,13 @@ public:// メンバ関数
 
 	void SetHandleIndex(uint32_t index) { handleIndex_.push_back(index); }
 
+	uint32_t GetBufferCount()const { return buffers; }
+
+	void Resize();
+
 private:// メンバ変数
 	/*スワップチェーン*/
+	uint32_t buffers = 2;// ダブルバッファリング
 	Microsoft::WRL::ComPtr < IDXGISwapChain4>swapChain_;
 	DXGI_SWAP_CHAIN_DESC1 desc_{};
 	std::vector<uint32_t> handleIndex_;

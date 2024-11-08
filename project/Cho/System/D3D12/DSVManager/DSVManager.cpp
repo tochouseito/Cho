@@ -23,6 +23,15 @@ void DSVManager::Initialize(WinApp* win, D3DDevice* d3dDevice)
 	CreateDepthStencil();
 }
 
+void DSVManager::Resize()
+{
+	// まず解放
+	resource_.Reset();
+	resource_ = nullptr;
+
+	CreateDepthStencil();
+}
+
 void DSVManager::CreateDepthStencil()
 {
 	resource_ = CreateDepthStencilTextureResource(

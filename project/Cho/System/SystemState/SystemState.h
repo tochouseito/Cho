@@ -44,8 +44,8 @@ private:
     int32_t windowWidth = 1280;// ウィンドウ横幅
     int32_t windowHeight = 720;// ウィンドウ縦幅
 
-    int32_t preWindowWidth = 0;// ウィンドウ横幅
-    int32_t preWindowHeight = 0;// ウィンドウ縦幅
+    int32_t preWindowWidth = windowWidth;// ウィンドウ横幅
+    int32_t preWindowHeight = windowHeight;// ウィンドウ縦幅
 
     float deltaTime = 1.0f/nowFPS;// デルタタイム
     float MaxFramePerSecond = 60.0f;// FPS

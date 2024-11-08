@@ -33,6 +33,10 @@ public:
 
 	uint32_t GetNewHandle();
 
+	void ResizeSwapChain();
+
+	void RemakeRTV(uint32_t& index, ID3D12Resource* textureResource);
+
 private:// メンバ関数
 
 	/// <summary>
