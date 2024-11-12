@@ -24,6 +24,11 @@ int MyMath::Check(double mat[MatNum][MatNum], double inv[MatNum][MatNum])
 	return 1;
 }
 
+float MyMath::Clamp(float x, float min, float max)
+{
+	return (x < min) ? min : (x > max) ? max : x;
+}
+
 Matrix4 MyMath::Transpose(const Matrix4& m)
 {
 	Matrix4 result = { 0 };
@@ -265,4 +270,15 @@ Matrix4 MyMath::Inverse(const Matrix4& m)
 		//printf("invはmatの逆行列になってません...\n");
 	}
 	return result;
+}
+
+//// ベクトルの正規化
+float MyMath::Normalize(float x, float min, float max)
+{
+	if (max - min == 0)
+	{
+		return 0.0f;
+	}
+	float normalized = (x - min) / (max - min);
+	return Clamp(normalized, 0.0f, 1.0f); // 結果を [0, 1] にクランプ
 }

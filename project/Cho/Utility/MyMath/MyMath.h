@@ -18,6 +18,8 @@ public:
 	// 行列のチェック関数
 	static int Check(double mat[MatNum][MatNum], double inv[MatNum][MatNum]);
 
+	static float Clamp(float x, float min, float max);
+
 	//// 行列の加法
 	//static Matrix4 Add(const Matrix4& m1, const Matrix4& m2);
 
@@ -78,6 +80,7 @@ public:
 	//static float Length(const Vector3& v);
 
 	//// ベクトルの正規化
+	static float Normalize(float x, float min, float max);
 	//static Vector2 Normalize(const Vector2& v);
 	//static Vector3 Normalize(const Vector3& v);
 
