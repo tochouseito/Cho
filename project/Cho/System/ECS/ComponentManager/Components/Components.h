@@ -4,7 +4,7 @@
 #include"Vector2.h"
 #include"Vector3.h"
 #include"Vector4.h"
-#include"Matrix4x4.h"
+#include"Matrix4.h"
 #include"MyMath/MyMath.h"
 
 // C++
@@ -19,18 +19,18 @@
 // Transform
 // 定数バッファ用データ構造体
 struct ConstBufferDataWorldTransform {
-    Matrix4x4 matWorld; // ローカル → ワールド変換行列
-    Matrix4x4 worldInverse;
-    Matrix4x4 rootNode;// モデルのRootMatrix
+    Matrix4 matWorld; // ローカル → ワールド変換行列
+    Matrix4 worldInverse;
+    Matrix4 rootNode;// モデルのRootMatrix
 };
 struct TransformComponent {
     Vector3 position;
     Vector3 rotation;
     Vector3 scale;
 
-    Matrix4x4 matWorld;
+    Matrix4 matWorld;
 
-    Matrix4x4 rootMatrix;
+    Matrix4 rootMatrix;
 
     // 初期化
     inline void Initialize() {
@@ -76,16 +76,16 @@ struct MeshComponent {
 
 // 定数バッファ用データ構造体
 struct ConstBufferDataViewProjection {
-    Matrix4x4 view;
-    Matrix4x4 projection;
-    Matrix4x4 matWorld;
+    Matrix4 view;
+    Matrix4 projection;
+    Matrix4 matWorld;
     Vector3 cameraPosition;
 };
 struct CameraComponent {
     Vector3 position;
     Vector3 rotation;
 
-    Matrix4x4 matWorld;
+    Matrix4 matWorld;
 
     // 垂直方向視野角
     float fovAngleY = 45.0f * std::numbers::pi_v<float> / 180.0f;

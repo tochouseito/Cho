@@ -24,9 +24,9 @@ int MyMath::Check(double mat[MatNum][MatNum], double inv[MatNum][MatNum])
 	return 1;
 }
 
-Matrix4x4 MyMath::Transpose(const Matrix4x4& m)
+Matrix4 MyMath::Transpose(const Matrix4& m)
 {
-	Matrix4x4 result = { 0 };
+	Matrix4 result = { 0 };
 	for (int i = 0; i < MatNum; ++i) {
 		for (int j = 0; j < MatNum; ++j) {
 			result.m[j][i] = m.m[i][j];
@@ -35,18 +35,18 @@ Matrix4x4 MyMath::Transpose(const Matrix4x4& m)
 	return result;
 }
 
-Matrix4x4 MyMath::MakeIdentity4x4()
+Matrix4 MyMath::MakeIdentity4x4()
 {
-	Matrix4x4 result = { 0 };
+	Matrix4 result = { 0 };
 	for (int i = 0; i < MatNum; ++i) {
 		result.m[i][i] = 1.0;
 	}
 	return result;
 }
 
-Matrix4x4 MyMath::Multiply(const Matrix4x4& m1, const Matrix4x4& m2)
+Matrix4 MyMath::Multiply(const Matrix4& m1, const Matrix4& m2)
 {
-	Matrix4x4 result = { 0 };
+	Matrix4 result = { 0 };
 	for (int i = 0; i < MatNum; ++i) {
 		for (int j = 0; j < MatNum; ++j) {
 			for (int k = 0; k < MatNum; ++k) {
@@ -57,9 +57,9 @@ Matrix4x4 MyMath::Multiply(const Matrix4x4& m1, const Matrix4x4& m2)
 	return result;
 }
 
-Matrix4x4 MyMath::MakeTranslateMatrix(const Vector3& translate)
+Matrix4 MyMath::MakeTranslateMatrix(const Vector3& translate)
 {
-	Matrix4x4 translationMatrix = {
+	Matrix4 translationMatrix = {
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
@@ -68,9 +68,9 @@ Matrix4x4 MyMath::MakeTranslateMatrix(const Vector3& translate)
 	return translationMatrix;
 }
 
-Matrix4x4 MyMath::MakeScaleMatrix(const Vector3& scale)
+Matrix4 MyMath::MakeScaleMatrix(const Vector3& scale)
 {
-	Matrix4x4 scaleMatrix = {
+	Matrix4 scaleMatrix = {
 		scale.x, 0.0f,    0.0f,    0.0f,
 		0.0f,    scale.y, 0.0f,    0.0f,
 		0.0f,    0.0f,    scale.z, 0.0f,
@@ -79,11 +79,11 @@ Matrix4x4 MyMath::MakeScaleMatrix(const Vector3& scale)
 	return scaleMatrix;
 }
 
-Matrix4x4 MyMath::MakeRotateXMatrix(float radian)
+Matrix4 MyMath::MakeRotateXMatrix(float radian)
 {
 	float cosX = cosf(radian);
 	float sinX = sinf(radian);
-	Matrix4x4 result = {
+	Matrix4 result = {
 		1.0f, 0.0f,  0.0f,   0.0f,
 		0.0f, cosX,  sinX,   0.0f,
 		0.0f, -sinX, cosX,   0.0f,
@@ -92,11 +92,11 @@ Matrix4x4 MyMath::MakeRotateXMatrix(float radian)
 	return result;
 }
 
-Matrix4x4 MyMath::MakeRotateYMatrix(float radian)
+Matrix4 MyMath::MakeRotateYMatrix(float radian)
 {
 	float cosY = cosf(radian);
 	float sinY = sinf(radian);
-	Matrix4x4 result = {
+	Matrix4 result = {
 		cosY,  0.0f, -sinY,  0.0f,
 		0.0f,  1.0f, 0.0f,   0.0f,
 		sinY,  0.0f, cosY,   0.0f,
@@ -105,11 +105,11 @@ Matrix4x4 MyMath::MakeRotateYMatrix(float radian)
 	return result;
 }
 
-Matrix4x4 MyMath::MakeRotateZMatrix(float radian)
+Matrix4 MyMath::MakeRotateZMatrix(float radian)
 {
 	float cosZ = cosf(radian);
 	float sinZ = sinf(radian);
-	Matrix4x4 result = {
+	Matrix4 result = {
 		cosZ,  sinZ,  0.0f,  0.0f,
 		-sinZ, cosZ,  0.0f,  0.0f,
 		0.0f,  0.0f,  1.0f,  0.0f,
@@ -118,24 +118,24 @@ Matrix4x4 MyMath::MakeRotateZMatrix(float radian)
 	return result;
 }
 
-Matrix4x4 MyMath::MakeRotateXYZMatrix(const Vector3& rotate)
+Matrix4 MyMath::MakeRotateXYZMatrix(const Vector3& rotate)
 {
-	Matrix4x4 rotateXMatrix = MakeRotateXMatrix(rotate.x);
-	Matrix4x4 rotateYMatrix = MakeRotateYMatrix(rotate.y);
-	Matrix4x4 rotateZMatrix = MakeRotateZMatrix(rotate.z);
-	Matrix4x4 rotateXYZMatrix = Multiply(rotateXMatrix, Multiply(rotateYMatrix, rotateZMatrix));
+	Matrix4 rotateXMatrix = MakeRotateXMatrix(rotate.x);
+	Matrix4 rotateYMatrix = MakeRotateYMatrix(rotate.y);
+	Matrix4 rotateZMatrix = MakeRotateZMatrix(rotate.z);
+	Matrix4 rotateXYZMatrix = Multiply(rotateXMatrix, Multiply(rotateYMatrix, rotateZMatrix));
 	return rotateXYZMatrix;
 }
 
-Matrix4x4 MyMath::MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate)
+Matrix4 MyMath::MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate)
 {
-	Matrix4x4 result;
-	Matrix4x4 scaleMatrix = MakeScaleMatrix(scale);
-	Matrix4x4 rotateXMatrix = MakeRotateXMatrix(rotate.x);
-	Matrix4x4 rotateYMatrix = MakeRotateYMatrix(rotate.y);
-	Matrix4x4 rotateZMatrix = MakeRotateZMatrix(rotate.z);
-	Matrix4x4 rotateXYZMatrix = Multiply(rotateXMatrix, Multiply(rotateYMatrix, rotateZMatrix));
-	Matrix4x4 translateMatrix = MakeTranslateMatrix(translate);
+	Matrix4 result;
+	Matrix4 scaleMatrix = MakeScaleMatrix(scale);
+	Matrix4 rotateXMatrix = MakeRotateXMatrix(rotate.x);
+	Matrix4 rotateYMatrix = MakeRotateYMatrix(rotate.y);
+	Matrix4 rotateZMatrix = MakeRotateZMatrix(rotate.z);
+	Matrix4 rotateXYZMatrix = Multiply(rotateXMatrix, Multiply(rotateYMatrix, rotateZMatrix));
+	Matrix4 translateMatrix = MakeTranslateMatrix(translate);
 	//result = Multiply(rotateXYZMatrix, Multiply(scaleMatrix, translateMatrix));
 	result = Multiply(scaleMatrix, Multiply(rotateXYZMatrix, translateMatrix));
 	//result = Multiply(translateMatrix, Multiply(scaleMatrix, rotateXYZMatrix));
@@ -143,10 +143,10 @@ Matrix4x4 MyMath::MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, 
 	return result;
 }
 
-Matrix4x4 MyMath::MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip, float farClip)
+Matrix4 MyMath::MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip, float farClip)
 {
 	float tanHalfFovY = std::tanf(fovY / 2.0f);
-	return Matrix4x4{
+	return Matrix4{
 		1.0f / (aspectRatio * tanHalfFovY), 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f / tanHalfFovY, 0.0f, 0.0f,
 		0.0f, 0.0f, (farClip + nearClip) / (farClip - nearClip), 1.0f,
@@ -154,9 +154,9 @@ Matrix4x4 MyMath::MakePerspectiveFovMatrix(float fovY, float aspectRatio, float 
 	};
 }
 
-Matrix4x4 MyMath::Inverse(const Matrix4x4& m)
+Matrix4 MyMath::Inverse(const Matrix4& m)
 {
-	Matrix4x4 result = { 0 };
+	Matrix4 result = { 0 };
 	/* 逆行列を求める行列用の２次元配列 */
 	double mat[MatNum][MatNum];
 

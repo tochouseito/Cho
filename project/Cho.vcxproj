@@ -200,7 +200,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\PrecompiledHeader\PrecompiledHeader.h" />
     <ClInclude Include="Cho\Utility\Base\Color.h" />
     <ClInclude Include="Cho\Utility\Base\mathShapes.h" />
-    <ClInclude Include="Cho\Utility\Base\Matrix4x4.h" />
+    <ClInclude Include="Cho\Utility\Base\Matrix4.h" />
     <ClInclude Include="Cho\Utility\Base\Vector2.h" />
     <ClInclude Include="Cho\Utility\Base\Vector3.h" />
     <ClInclude Include="Cho\Utility\Base\Vector4.h" />

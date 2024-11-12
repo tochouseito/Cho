@@ -371,7 +371,7 @@
     <ClInclude Include="Cho\System\ECS\PrefabManager\PrefabManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\Utility\Base\Matrix4x4.h">
+    <ClInclude Include="Cho\Utility\Base\Matrix4.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\Utility\MyMath\MyMath.h">
