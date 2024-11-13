@@ -417,7 +417,7 @@
     <None Include="Cho\Resources\ImGuiStyle\style.json" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Game\Assets\Texture\uvChecker.png">
+    <Image Include="Cho\Resources\Texture\uvChecker.png">
       <Filter>リソース ファイル</Filter>
     </Image>
   </ItemGroup>

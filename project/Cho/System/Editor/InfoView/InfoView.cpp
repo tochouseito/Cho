@@ -68,6 +68,7 @@ void InfoView::Update()
                 ImGui::DragFloat3("Rotation", &TFCompo.rotation.x, 0.01f);
                 ImGui::DragFloat3("Scale", &TFCompo.scale.x, 0.01f);
             }
+
             if (componentManager_->GetMesh(selectGO->GetEntityID())) {
                 MeshComponent& meshComp = *componentManager_->GetMesh(selectGO->GetEntityID());
                 meshComp;
@@ -84,6 +85,15 @@ void InfoView::Update()
                     // 選択されたメッシュの形状をセット
                     meshComp.SetMeshID(static_cast<uint32_t>(selectedMeshPattern));
                 }
+            }
+
+            if (componentManager_->GetMaterial(selectGO->GetEntityID())) {
+                MaterialComponent& materialComp = *componentManager_->GetMaterial(selectGO->GetEntityID());
+
+                // マテリアル情報を表示
+                ImGui::SeparatorText("Material");
+
+                ImGui::Text("Texture : %s", materialComp.textureID.c_str());
             }
             
             if (isAdd) {
@@ -109,6 +119,14 @@ void InfoView::Update()
                         RenderComponent RenderCompo;
 
                         selectGO->AddComponent(RenderCompo);
+                    }
+                }
+                if (!selectGO->GetMaterial()) {
+                    if (ImGui::Selectable("MaterialComponent")) {
+                        isAdd = false;
+                        MaterialComponent MaterialComp;
+
+                        selectGO->AddComponent(MaterialComp);
                     }
                 }
             } else

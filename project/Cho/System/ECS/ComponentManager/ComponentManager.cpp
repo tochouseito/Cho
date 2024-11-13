@@ -12,7 +12,7 @@ void ComponentManager::SetRVManager(ResourceViewManager* RVManager)
 }
 
 // EntityにTransformComponentを追加します。
-// 指定されたentityにTransformComponentをtransformsマップに割り当てます。
+// 指定されたEntityにTransformComponentをTransformsマップに割り当てます。
 void ComponentManager::AddComponent(Entity entity, const TransformComponent& component) {
     transforms[entity] = component;
     transforms[entity].cbvIndex = RVManager_->CreateCBV(sizeof(ConstBufferDataWorldTransform));
@@ -23,22 +23,22 @@ void ComponentManager::AddComponent(Entity entity, const TransformComponent& com
 }
 
 // EntityにRenderComponentを追加します。
-// 指定されたentityにRenderComponentをrendersマップに割り当てます。
+// 指定されたEntityにRenderComponentをRendersマップに割り当てます。
 void ComponentManager::AddComponent(Entity entity, const RenderComponent& component) {
     renders[entity] = component;
 	renders[entity].visible = true;
-	renders[entity].textureID = "monsterBall.png";
+	//renders[entity].textureID = "monsterBall.png";
 }
 
 // EntityにPhysicsComponentを追加します。
-// 指定されたentityにPhysicsComponentをphysicsマップに割り当てます。
+// 指定されたEntityにPhysicsComponentをPhysicsマップに割り当てます。
 void ComponentManager::AddComponent(Entity entity, const PhysicsComponent& component) {
     physics[entity] = component;
 }
 
 void ComponentManager::AddComponent(Entity entity, const MeshComponent& component)
 {
-    meshs[entity] = component;
+    meshes[entity] = component;
 }
 
 void ComponentManager::AddComponent(Entity entity, const CameraComponent& component)
@@ -51,12 +51,19 @@ void ComponentManager::AddComponent(Entity entity, const CameraComponent& compon
 		);
 }
 
+void ComponentManager::AddComponent(Entity entity, const MaterialComponent& component)
+{
+    materials[entity] = component;
+    // デフォルト画像テクスチャマテリアル
+    materials[entity].textureID = "uvChecker.png";
+}
+
 // Entityに関連するすべてのコンポーネントを削除します。
-// 指定されたentityに対して、TransformComponent、RenderComponent、PhysicsComponentをそれぞれのマップから削除します。
+// 指定されたEntityに対して、TransformComponent、RenderComponent、PhysicsComponentをそれぞれのマップから削除します。
 void ComponentManager::RemoveComponent(Entity entity) {
     transforms.erase(entity);
     renders.erase(entity);
     physics.erase(entity);
-    meshs.erase(entity);
+    meshes.erase(entity);
 	cameras.erase(entity);
 }

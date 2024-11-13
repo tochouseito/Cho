@@ -59,6 +59,11 @@ void GameObject::AddComponent(const CameraComponent& component)
     componentManager->AddComponent(entity, component);
 }
 
+void GameObject::AddComponent(const MaterialComponent& component)
+{
+    componentManager->AddComponent(entity, component);
+}
+
 void GameObject::UpdateChildren(float deltaTime) {
     // 子オブジェクトの更新
     for (auto child : children) {

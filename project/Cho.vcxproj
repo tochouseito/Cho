@@ -277,7 +277,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <None Include="Cho\Resources\Shader\header\FullScreen.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Game\Assets\Texture\uvChecker.png" />
+    <Image Include="Cho\Resources\Texture\uvChecker.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

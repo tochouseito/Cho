@@ -57,7 +57,7 @@ struct TransformComponent {
 };
 
 struct RenderComponent {
-    std::string textureID = "";
+    //std::string textureID = "";
     bool visible;
 };
 
@@ -125,5 +125,5 @@ struct CameraComponent {
 };
 
 struct MaterialComponent {
-
+    std::string textureID = "";
 };

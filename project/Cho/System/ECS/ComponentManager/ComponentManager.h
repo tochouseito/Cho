@@ -28,6 +28,8 @@ public:
 
     void AddComponent(Entity entity, const CameraComponent& component);
 
+    void AddComponent(Entity entity, const MaterialComponent& component);
+
     // 指定されたエンティティのTransformコンポーネントを取得します。
     inline TransformComponent* GetTransform(Entity entity) {
         if (transforms.find(entity) == transforms.end()) {
@@ -53,10 +55,17 @@ public:
     }
 
     inline MeshComponent* GetMesh(Entity entity) {
-        if (meshs.find(entity) == meshs.end()) {
+        if (meshes.find(entity) == meshes.end()) {
             return nullptr;
         }
-        return &meshs[entity];
+        return &meshes[entity];
+    }
+
+    inline MaterialComponent* GetMaterial(Entity entity) {
+        if (materials.find(entity) == materials.end()) {
+            return nullptr;
+        }
+        return &materials[entity];
     }
 
     inline CameraComponent* GetCamera(Entity entity) {
@@ -80,8 +89,9 @@ private:
     std::unordered_map<Entity, TransformComponent> transforms;  // エンティティのTransformコンポーネントを管理します。
     std::unordered_map<Entity, RenderComponent> renders;        // エンティティのRenderコンポーネントを管理します。
     std::unordered_map<Entity, PhysicsComponent> physics;       // エンティティのPhysicsコンポーネントを管理します。
-    std::unordered_map<Entity, MeshComponent> meshs;
+    std::unordered_map<Entity, MeshComponent> meshes;
     std::unordered_map<Entity, CameraComponent> cameras;
+    std::unordered_map<Entity, MaterialComponent> materials;
 
     ResourceViewManager* RVManager_ = nullptr;
 };

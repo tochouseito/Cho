@@ -27,25 +27,29 @@ void RenderSystem::Render(
     for (Entity entity : entityManager.GetActiveEntities()) {
         RenderComponent* renderComp = componentManager.GetRender(entity);
         MeshComponent* meshComp = componentManager.GetMesh(entity);
+        MaterialComponent* materialComp = componentManager.GetMaterial(entity);
         // 後で消す
         TransformComponent* transComp = componentManager.GetTransform(entity);
         if (cameraComp&&renderComp && renderComp->visible&& meshComp) {
             // 頂点データ取得キー
-            uint32_t meshsIndex = meshComp->meshID;
+            uint32_t meshesIndex = meshComp->meshID;
             // 描画処理: 描画コンポーネントに基づきリソースをバインドして描画
             
             commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(0).rootSignature.Get());
             commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(0).Blend[kBlendModeNone].Get());
-            for (std::string name : rvManager->GetMeshs(meshsIndex)->names) {
-                commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(rvManager->GetMeshs(meshsIndex)->meshData[name].meshViewIndex)->vbvData.vbv);
-                commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMeshs(meshsIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
+            for (std::string name : rvManager->GetMeshs(meshesIndex)->names) {
+                commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->vbvData.vbv);
+                commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
 
                 commandList->SetGraphicsRootConstantBufferView(0, rvManager->GetCBVResource(transComp->cbvIndex)->GetGPUVirtualAddress());
                 commandList->SetGraphicsRootConstantBufferView(1, rvManager->GetCBVResource(cameraComp->cbvIndex)->GetGPUVirtualAddress());
-                commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetTexture(renderComp->textureID).rvIndex).GPUHandle);
-
-                //commandList->DrawInstanced(static_cast<UINT>(rvManager->GetMeshs(meshsIndex)->meshData[name].vertices), 1, 0, 0);
-                commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMeshs(meshsIndex)->meshData[name].size.indices), 1, 0, 0, 0);
+                if (materialComp) {
+                    commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetTexture(materialComp->textureID).rvIndex).GPUHandle);
+                } else {
+                    //commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetTexture(renderComp->textureID).rvIndex).GPUHandle);
+                }
+                //commandList->DrawInstanced(static_cast<UINT>(rvManager->GetMeshes(meshesIndex)->meshData[name].vertices), 1, 0, 0);
+                commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMeshs(meshesIndex)->meshData[name].size.indices), 1, 0, 0, 0);
             }
         }
     }
@@ -72,25 +76,29 @@ void RenderSystem::DebugRender(
     for (Entity entity : entityManager.GetActiveEntities()) {
         RenderComponent* renderComp = componentManager.GetRender(entity);
         MeshComponent* meshComp = componentManager.GetMesh(entity);
+        MaterialComponent* materialComp = componentManager.GetMaterial(entity);
         // 後で消す
         TransformComponent* transComp = componentManager.GetTransform(entity);
         if (debugCameraComp&&renderComp && renderComp->visible && meshComp) {
             // 頂点データ取得キー
-            uint32_t meshsIndex = meshComp->meshID;
+            uint32_t meshesIndex = meshComp->meshID;
             // 描画処理: 描画コンポーネントに基づきリソースをバインドして描画
 
             commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(0).rootSignature.Get());
             commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(0).Blend[kBlendModeNone].Get());
-            for (std::string name : rvManager->GetMeshs(meshsIndex)->names) {
-                commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(rvManager->GetMeshs(meshsIndex)->meshData[name].meshViewIndex)->vbvData.vbv);
-                commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMeshs(meshsIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
+            for (std::string name : rvManager->GetMeshs(meshesIndex)->names) {
+                commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->vbvData.vbv);
+                commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
 
                 commandList->SetGraphicsRootConstantBufferView(0, rvManager->GetCBVResource(transComp->cbvIndex)->GetGPUVirtualAddress());
                 commandList->SetGraphicsRootConstantBufferView(1, rvManager->GetCBVResource(debugCameraComp->cbvIndex)->GetGPUVirtualAddress());
-                commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetTexture(renderComp->textureID).rvIndex).GPUHandle);
-
-                //commandList->DrawInstanced(static_cast<UINT>(rvManager->GetMeshs(meshsIndex)->meshData[name].vertices), 1, 0, 0);
-                commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMeshs(meshsIndex)->meshData[name].size.indices), 1, 0, 0, 0);
+                if (materialComp) {
+                    commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetTexture(materialComp->textureID).rvIndex).GPUHandle);
+                } else {
+                    //commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetTexture(renderComp->textureID).rvIndex).GPUHandle);
+                }
+                //commandList->DrawInstanced(static_cast<UINT>(rvManager->GetMeshes(meshesIndex)->meshData[name].vertices), 1, 0, 0);
+                commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMeshs(meshesIndex)->meshData[name].size.indices), 1, 0, 0, 0);
             }
         }
     }

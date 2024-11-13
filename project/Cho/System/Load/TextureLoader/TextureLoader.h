@@ -38,7 +38,11 @@ public:
 	void FirstResourceLoad(const std::string& directoryPath);
 
 	// テクスチャの取得
-	Texture GetTexture(const std::string& TextureName) { return textureData[TextureName]; }
+	Texture GetTexture(const std::string& TextureName) {
+		return textureData[TextureName];
+	}
+
+	
 
 private:
 
