@@ -15,54 +15,91 @@ void SceneView::Initialize(uint32_t index, ResourceViewManager* rvManager)
 	rvManager_ = rvManager;
 }
 
-void SceneView::Update(uint32_t CameraIndex)
+void SceneView::Update(uint32_t cameraIndex)
 {
-    {
-        // ウィンドウの開始
-        ImGui::Begin("Scene View", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+    // シーンビュー（ゲームカメラ）のビュー
+    GameView(cameraIndex);
 
-        // ウィンドウ全体のサイズを取得
-        ImVec2 windowSize = ImGui::GetWindowSize();
+    // デバッグ用ビュー
+    DebugView();
+}
 
-        // 固定解像度のテクスチャサイズ
-        ImVec2 textureResolution = {
-            static_cast<float>(WindowWidth()),
-            static_cast<float>(WindowHeight())
-        };
+void SceneView::DebugView()
+{
+    // ウィンドウのパディングをゼロに設定
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
-        // ウィンドウの中心位置を計算
-        ImVec2 windowCenter = ImVec2(windowSize.x * 0.5f, windowSize.y * 0.5f);
+    // ウィンドウの開始
+    ImGui::Begin("Debug View", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
-        // テクスチャの描画開始位置を計算（テクスチャの中心がウィンドウの中心に来るように）
-        float offsetX = windowCenter.x - (textureResolution.x * 0.5f);
-        float offsetY = windowCenter.y - (textureResolution.y * 0.5f);
+    // ウィンドウ内で利用可能な領域のサイズを取得
+    ImVec2 availableSize = ImGui::GetContentRegionAvail();
 
-        // カーソル位置を設定し、テクスチャを中央に描画
-        ImGui::SetCursorPos(ImVec2(offsetX, offsetY));
+    // テクスチャを描画する大きさを、利用可能な領域に合わせて設定
+    ImVec2 textureSize = availableSize;
 
-        // テクスチャを描画（解像度は変更しない）
-        D3D12_GPU_DESCRIPTOR_HANDLE srvHandle = rvManager_->GetHandle(CameraIndex).GPUHandle;
-        ImTextureID textureID = (ImTextureID)srvHandle.ptr;
-        ImGui::Image(textureID, textureResolution);
+    // 固定解像度のテクスチャサイズ
+    ImVec2 textureResolution = {
+        static_cast<float>(WindowWidth()),
+        static_cast<float>(WindowHeight())
+    };
+    textureResolution;
 
-        ImGui::End();
-    }
+    // テクスチャを描画
+    D3D12_GPU_DESCRIPTOR_HANDLE srvHandle = rvManager_->GetHandle(sceneTextureIndex).GPUHandle;
+    ImTextureID textureID = (ImTextureID)srvHandle.ptr;
+    ImGui::Image(textureID, textureSize);
 
-    {
-        // ウィンドウの開始
-        ImGui::Begin("Debug View", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+    ImGui::End();
 
-        // ウィンドウ内で利用可能な領域のサイズを取得
-        ImVec2 availableSize = ImGui::GetContentRegionAvail();
+    // スタイルを元に戻す
+    ImGui::PopStyleVar();
+}
 
-		// テクスチャを描画する大きさを、利用可能な領域に合わせて設定
-		ImVec2 textureSize = availableSize;
+void SceneView::GameView(uint32_t cameraIndex)
+{
+    // ウィンドウのパディングをゼロに設定
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
-        // テクスチャを描画
-        D3D12_GPU_DESCRIPTOR_HANDLE srvHandle = rvManager_->GetHandle(sceneTextureIndex).GPUHandle;
-        ImTextureID textureID = (ImTextureID)srvHandle.ptr;
-		ImGui::Image(textureID, textureSize);
+    // ウィンドウの開始
+    ImGui::Begin("Scene View", nullptr,
+        ImGuiWindowFlags_NoScrollbar |
+        ImGuiWindowFlags_NoScrollWithMouse
+    );
 
-        ImGui::End();
-    }
+    // ウィンドウの位置とサイズを取得
+    ImVec2 windowPos = ImGui::GetWindowPos();
+    ImVec2 windowSize = ImGui::GetWindowSize();
+
+    // 固定解像度のテクスチャサイズ
+    ImVec2 textureResolution = {
+        static_cast<float>(WindowWidth()),
+        static_cast<float>(WindowHeight())
+    };
+
+    // アスペクト比を維持しつつ、ウィンドウ内に収まるようにスケーリング係数を計算
+    float scaleX = windowSize.x / textureResolution.x;
+    float scaleY = windowSize.y / textureResolution.y;
+    float scale = std::min(scaleX, scaleY);
+
+    // スケーリング後のテクスチャサイズを計算
+    ImVec2 scaledTextureSize = ImVec2(textureResolution.x * scale, textureResolution.y * scale);
+
+    // 描画位置のオフセットを計算（ウィンドウの中央に配置するため）
+    float offsetX = windowPos.x + (windowSize.x - scaledTextureSize.x) * 0.5f;
+    float offsetY = windowPos.y + (windowSize.y - scaledTextureSize.y) * 0.5f;
+
+    // カーソル位置を設定し、スクリーン上にテクスチャを中央に描画
+    ImGui::SetCursorScreenPos(ImVec2(offsetX, offsetY));
+
+    // テクスチャの描画
+    D3D12_GPU_DESCRIPTOR_HANDLE srvHandle = rvManager_->GetHandle(cameraIndex).GPUHandle;
+    ImTextureID textureID = (ImTextureID)srvHandle.ptr;
+    ImGui::Image(textureID, scaledTextureSize);
+
+    // ウィンドウの終了
+    ImGui::End();
+
+    // スタイルを元に戻す
+    ImGui::PopStyleVar();
 }
