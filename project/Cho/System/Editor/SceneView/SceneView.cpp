@@ -38,13 +38,6 @@ void SceneView::DebugView()
     // テクスチャを描画する大きさを、利用可能な領域に合わせて設定
     ImVec2 textureSize = availableSize;
 
-    // 固定解像度のテクスチャサイズ
-    ImVec2 textureResolution = {
-        static_cast<float>(WindowWidth()),
-        static_cast<float>(WindowHeight())
-    };
-    textureResolution;
-
     // テクスチャを描画
     D3D12_GPU_DESCRIPTOR_HANDLE srvHandle = rvManager_->GetHandle(sceneTextureIndex).GPUHandle;
     ImTextureID textureID = (ImTextureID)srvHandle.ptr;
