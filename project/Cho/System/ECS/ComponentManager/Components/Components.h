@@ -102,7 +102,7 @@ struct CameraComponent {
     // 初期化
     inline void Initialize() {
         position.Initialize();
-        position.z = -50.0f;
+        position.z = -30.0f;
         rotation.Initialize();
         matWorld = MyMath::MakeIdentity4x4();
 
