@@ -32,54 +32,54 @@ public:
 
     // 指定されたエンティティのTransformコンポーネントを取得します。
     inline TransformComponent* GetTransform(Entity entity) {
-        if (transforms.find(entity) == transforms.end()) {
-            return nullptr;
+        if (transforms.contains(entity)) {
+            return &transforms[entity];
         }
-        return &transforms[entity];
+        return nullptr;
     }
 
     // 指定されたエンティティのRenderコンポーネントを取得します。
     inline RenderComponent* GetRender(Entity entity) {
-        if (renders.find(entity) == renders.end()) {
-            return nullptr;
+        if (renders.contains(entity)) {
+            return &renders[entity];
         }
-        return &renders[entity];
+        return nullptr;
     }
 
     // 指定されたエンティティのPhysicsコンポーネントを取得します。
     inline PhysicsComponent* GetPhysics(Entity entity) {
-        if (physics.find(entity) == physics.end()) {
-            return nullptr;
+        if (physics.contains(entity)) {
+            return &physics[entity];
         }
-        return &physics[entity];
+        return nullptr;
     }
 
     inline MeshComponent* GetMesh(Entity entity) {
-        if (meshes.find(entity) == meshes.end()) {
-            return nullptr;
+        if (meshes.contains(entity)) {
+            return &meshes[entity];
         }
-        return &meshes[entity];
+        return nullptr;
     }
 
     inline MaterialComponent* GetMaterial(Entity entity) {
-        if (materials.find(entity) == materials.end()) {
-            return nullptr;
+        if (materials.contains(entity)) {
+            return &materials[entity];
         }
-        return &materials[entity];
+        return nullptr;
     }
 
     inline CameraComponent* GetCamera(Entity entity) {
-        if (cameras.find(entity) == cameras.end()) {
-            return nullptr;
+        if (cameras.contains(entity)) {
+            return &cameras[entity];
         }
-        return &cameras[entity];
+        return nullptr;
     }
     // デバッグ用
     inline CameraComponent* GetDebugCamera() {
-        if (cameras.find(0) == cameras.end()) {
-            return nullptr;
+        if (cameras.contains(0)) {
+            return &cameras[0];
         }
-        return &cameras[0];
+        return nullptr;
     }
 
     // 指定されたエンティティからコンポーネントを削除します。
