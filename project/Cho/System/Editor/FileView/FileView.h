@@ -43,8 +43,6 @@ private:
     /// </summary>
     void ShowFileBrowserWithDirectories();
 
-    void RightClickMenu();
-
 private:// メンバ変数
     /*D3D12*/
     ResourceViewManager* rvManager_ = nullptr;

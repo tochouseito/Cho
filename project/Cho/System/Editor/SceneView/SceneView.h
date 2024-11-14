@@ -10,6 +10,8 @@ public:
 
 	void Update(uint32_t cameraIndex);
 
+	bool IsWindowHovered()const { return excludeRightClickMenu; }
+
 private:
 
 	void DebugView();
@@ -19,6 +21,9 @@ private:
 	ResourceViewManager* rvManager_ = nullptr;
 
 	uint32_t sceneTextureIndex;
+
+	// このウィンドウの右クリックでのポップアップウィンドウを無効にするためのフラグ
+	bool excludeRightClickMenu = false;
 
 };
 

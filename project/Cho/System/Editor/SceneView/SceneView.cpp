@@ -43,6 +43,11 @@ void SceneView::DebugView()
     ImTextureID textureID = (ImTextureID)srvHandle.ptr;
     ImGui::Image(textureID, textureSize);
 
+    // "Debug View" 上にカーソルがあるとき、右クリックメニューを開かないようにする
+    if (ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup)&&!excludeRightClickMenu) {
+        excludeRightClickMenu = true;
+    }
+
     ImGui::End();
 
     // スタイルを元に戻す
@@ -89,6 +94,14 @@ void SceneView::GameView(uint32_t cameraIndex)
     D3D12_GPU_DESCRIPTOR_HANDLE srvHandle = rvManager_->GetHandle(cameraIndex).GPUHandle;
     ImTextureID textureID = (ImTextureID)srvHandle.ptr;
     ImGui::Image(textureID, scaledTextureSize);
+
+    // "Scene View" 上にカーソルがあるとき、右クリックメニューを開かないようにする
+    if (ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup)) {
+        excludeRightClickMenu = true;
+    } else
+    {
+        excludeRightClickMenu = false;
+    }
 
     // ウィンドウの終了
     ImGui::End();

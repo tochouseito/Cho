@@ -5,6 +5,7 @@
 
 // 
 #include"Editor/MainMenu/MainMenu.h"
+#include"Editor/PopupMenu/PopupMenu.h"
 #include"Editor/FileView/FileView.h"
 #include"Editor/SceneView/SceneView.h"
 #include"Editor/InfoView/InfoView.h"
@@ -60,8 +61,6 @@ public:
 	GameObject* GetSelectedGO()const { return selectedGameObject_; }
 	std::string GetSelectedGOName()const { return selectedGamaObjectName_; }
 
-	void CreateObject();
-
 private:// メンバ関数
 
 	void UpdateMainWindow();
@@ -69,6 +68,7 @@ private:// メンバ関数
 private:
 
 	std::unique_ptr<MainMenu> mainMenu = nullptr;
+	std::unique_ptr<PopupMenu> popupMenu = nullptr;
 	std::unique_ptr<FileView> fileView = nullptr;
 	std::unique_ptr<SceneView> sceneView = nullptr;
 	std::unique_ptr<InfoView> infoView = nullptr;

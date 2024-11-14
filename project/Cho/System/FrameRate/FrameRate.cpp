@@ -38,15 +38,6 @@ void FrameRate::Update()
 
 	// スリープ後の正確な経過時間を計算
 	elapsed = std::chrono::duration_cast<std::chrono::microseconds>(reference_ - now);
-
-	//// デルタタイムを秒単位に変換
-	//float deltaTime = static_cast<float>(elapsed.count()) / 1000000.0f;
-
-	//// もし deltaTime が極端に小さすぎない場合にフレームレートを計算
-	//float frameRate = (deltaTime > 0.0f) ? (1.0f / deltaTime) : 0.0f;
-
-	//// フレームレートとデルタタイムをゲームコンテキストにセット
-	//gameContext_->SetFrameValue(frameRate, deltaTime);
 }
 
 void FrameRate::StartFrame() {

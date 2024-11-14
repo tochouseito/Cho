@@ -19,9 +19,9 @@ void FileView::Initialize(EditorManager* editManager, ResourceViewManager* rvMan
 
 // 毎フレーム呼ばれる更新処理
 void FileView::Update() {
+
     ImGui::Begin("File Browser");
 
-    RightClickMenu();
     ShowFileBrowserWithDirectories();
     
     ImGui::End();
@@ -119,38 +119,4 @@ void FileView::ShowFileBrowserWithDirectories() {
         files = GetFilesInDirectory(currentDirectory);  // ディレクトリの内容を更新
     }
 
-}
-
-void FileView::RightClickMenu()
-{
-    // メニューを開く位置を右クリックで検出
-    if (ImGui::IsMouseReleased(ImGuiMouseButton_Right) && ImGui::IsWindowHovered())
-    {
-        ImGui::OpenPopup("PopupMenu");  // 右クリックでメニューを開く
-    }
-    // ポップアップメニューの定義
-    if (ImGui::BeginPopup("PopupMenu"))
-    {
-        // 「Add」メニュー項目の追加
-        if (ImGui::BeginMenu("Create"))
-        {
-            // 「3DObject」サブメニューを追加
-            if (ImGui::BeginMenu("3DObject"))
-            {
-                // 「3DObject」メニューの横にさらにリスト表示
-                if (ImGui::MenuItem("BaseObject")) {
-                    editManager_->CreateObject();
-                }
-
-                ImGui::EndMenu(); // 「3DObject」サブメニューを終了
-            }
-
-            // 他のメニュー項目の追加
-            if (ImGui::MenuItem("Item 2")) { /* Item 2の処理 */ }
-            if (ImGui::MenuItem("Item 3")) { /* Item 3の処理 */ }
-
-            ImGui::EndMenu(); // 「Add」メニューを終了
-        }
-        ImGui::EndPopup();
-    }
 }

@@ -38,13 +38,26 @@ void EditorManager::Initialize(
         sceneManager
         );
 
-	// FileView
-	fileView = std::make_unique<FileView>();
-    fileView->Initialize(this, rvManager, texLoader);
-
     // SceneView
     sceneView = std::make_unique<SceneView>();
     sceneView->Initialize(drawExe->GetDebugRenTexInd(), rvManager);
+
+    // PopupMenu
+    popupMenu = std::make_unique<PopupMenu>();
+    popupMenu->Initialize(
+        rvManager,
+        rtvManager,
+        drawExe,
+        entityManager,
+        componentManager,
+        systemManager,
+        prefabManager,
+        sceneManager
+    );
+
+	// FileView
+	fileView = std::make_unique<FileView>();
+    fileView->Initialize(this, rvManager, texLoader);
 
     // InfoView
     infoView = std::make_unique<InfoView>();
@@ -97,11 +110,14 @@ void EditorManager::Update()
     // MainMenu
     mainMenu->Update();
 
-    // FileView
-    fileView->Update();
-
     // SceneView
     sceneView->Update(drawExe_->GetRenderTexIndex());
+
+    // PopupMenu
+    popupMenu->Update(sceneView->IsWindowHovered());
+
+    // FileView
+    fileView->Update();
 
     // InfoView
     infoView->Update();
@@ -149,14 +165,4 @@ void EditorManager::UpdateMainWindow()
 	);
 	// ウィンドウの中に表示するUI要素
 	ImGui::End();
-}
-
-void EditorManager::CreateObject()
-{
-    std::string name = "NewObject";
-    name = sceneManager_->AddGameObject(name);  // 入力された名前を使用してオブジェクトを追加
-    // 初期コンポーネントのトランスフォームコンポーネントを付与
-    TransformComponent TFComp;
-    TFComp.Initialize();
-    sceneManager_->GetGameObject(name)->AddComponent(TFComp);
 }
