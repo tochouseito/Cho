@@ -40,7 +40,7 @@ void EditorManager::Initialize(
 
 	// FileView
 	fileView = std::make_unique<FileView>();
-	fileView->Initialize(rvManager,texLoader);
+    fileView->Initialize(this, rvManager, texLoader);
 
     // SceneView
     sceneView = std::make_unique<SceneView>();
@@ -149,4 +149,14 @@ void EditorManager::UpdateMainWindow()
 	);
 	// ウィンドウの中に表示するUI要素
 	ImGui::End();
+}
+
+void EditorManager::CreateObject()
+{
+    std::string name = "NewObject";
+    name = sceneManager_->AddGameObject(name);  // 入力された名前を使用してオブジェクトを追加
+    // 初期コンポーネントのトランスフォームコンポーネントを付与
+    TransformComponent TFComp;
+    TFComp.Initialize();
+    sceneManager_->GetGameObject(name)->AddComponent(TFComp);
 }

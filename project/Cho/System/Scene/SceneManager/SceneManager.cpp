@@ -60,23 +60,45 @@ void SceneManager::ChangeScene(const std::string& sceneName)
 	nextScene_ = sceneFactory_->CreateScene(sceneName);
 }
 
-void SceneManager::AddGameObject(const std::string& objectName)
+std::string SceneManager::AddGameObject(const std::string& objectName)
 {
+	std::string newName = GenerateUniqueName(gameObjects, objectName);
 	// 新しいGameObjectを作成してマップに追加
-	gameObjects[objectName] = std::make_unique<GameObject>();
-	GameObject* gameObject = gameObjects[objectName].get();
+	gameObjects[newName] = std::make_unique<GameObject>();
+	GameObject* gameObject = gameObjects[newName].get();
 	gameObject->SetManager(entityManager_, componentManager_);
 	gameObject->CreateEntity();
+
+	return newName;
 }
 
-void SceneManager::AddCameraObject(const std::string& cameraName)
+std::string SceneManager::AddCameraObject(const std::string& cameraName)
 {
+	std::string newName = GenerateUniqueName(gameObjects, cameraName);
 	// 新しいGameObjectを作成してマップに追加
-	cameraObjects[cameraName] = std::make_unique<GameObject>();
-	GameObject* cameraObject = cameraObjects[cameraName].get();
+	cameraObjects[newName] = std::make_unique<GameObject>();
+	GameObject* cameraObject = cameraObjects[newName].get();
 	cameraObject->SetManager(entityManager_, componentManager_);
 	cameraObject->CreateCameraEntity();
 	CameraComponent cameraComp;
 	cameraComp.Initialize();
 	cameraObject->AddComponent(cameraComp);
+
+	return newName;
+}
+
+// ユニークな名前を生成する関数
+std::string SceneManager::GenerateUniqueName(
+	const std::unordered_map<std::string, std::unique_ptr<GameObject>>& objects,
+	const std::string& baseName) {
+	std::string newName = baseName;
+	int counter = 1;
+
+	// 名前が重複している間、新しい名前に番号を追加してチェック
+	while (objects.contains(newName)) {
+		newName = baseName + " (" + std::to_string(counter) + ")";
+		counter++;
+	}
+
+	return newName;
 }

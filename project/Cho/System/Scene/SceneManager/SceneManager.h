@@ -47,9 +47,9 @@ public:
 	void ChangeScene(const std::string& sceneName);
 
 public:
-	void AddGameObject(const std::string& objectName);
+	std::string AddGameObject(const std::string& objectName);
 
-	void AddCameraObject(const std::string& cameraName);
+	std::string AddCameraObject(const std::string& cameraName);
 
 	const std::unordered_map<std::string, std::unique_ptr<GameObject>>& GetGameObjects() const {
 		return gameObjects;
@@ -76,6 +76,10 @@ public:
 		GameObject* result = cameraObjects[name].get();
 		return result;
 	}
+
+private:
+	// ユニークな名前を生成する関数
+	std::string GenerateUniqueName(const std::unordered_map<std::string, std::unique_ptr<GameObject>>& objects, const std::string& baseName);
 private:
 	/*今のシーン*/
 	BaseScene* scene_ = nullptr;

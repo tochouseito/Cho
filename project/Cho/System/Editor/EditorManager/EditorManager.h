@@ -60,6 +60,8 @@ public:
 	GameObject* GetSelectedGO()const { return selectedGameObject_; }
 	std::string GetSelectedGOName()const { return selectedGamaObjectName_; }
 
+	void CreateObject();
+
 private:// メンバ関数
 
 	void UpdateMainWindow();

@@ -15,13 +15,16 @@ class ResourceViewManager;
 // Loader
 class TextureLoader;
 
+// EditorManager
+class EditorManager;
+
 class FileView {
 public:
 
     /// <summary>
     /// 初期化
     /// </summary>
-    void Initialize(ResourceViewManager* rvManager, TextureLoader* texLoader);
+    void Initialize(EditorManager* editManager_,ResourceViewManager* rvManager, TextureLoader* texLoader);
 
     /// <summary>
     /// 更新
@@ -40,11 +43,16 @@ private:
     /// </summary>
     void ShowFileBrowserWithDirectories();
 
+    void RightClickMenu();
+
 private:// メンバ変数
     /*D3D12*/
     ResourceViewManager* rvManager_ = nullptr;
 
     TextureLoader* texLoader_ = nullptr;
+
+    /*エディタマネージャ*/
+    EditorManager* editManager_ = nullptr;
 
     std::string currentDirectory;      // 現在のディレクトリ
     std::vector<std::string> files;    // ディレクトリ内のファイルリスト

@@ -3,11 +3,13 @@
 #include"D3D12/ResourceViewManager/ResourceViewManager.h"
 #include"Load/TextureLoader/TextureLoader.h"
 #include"imgui.h"
+#include"Editor/EditorManager/EditorManager.h"
 
-void FileView::Initialize(ResourceViewManager* rvManager, TextureLoader* texLoader)
+void FileView::Initialize(EditorManager* editManager, ResourceViewManager* rvManager, TextureLoader* texLoader)
 {
     rvManager_ = rvManager;
     texLoader_ = texLoader;
+    editManager_ = editManager;
 
     currentDirectory = fs::current_path().string();  // 現在のディレクトリに設定
     currentDirectory = currentDirectory + "\\Game\\Assets\\Texture";
@@ -17,7 +19,12 @@ void FileView::Initialize(ResourceViewManager* rvManager, TextureLoader* texLoad
 
 // 毎フレーム呼ばれる更新処理
 void FileView::Update() {
+    ImGui::Begin("File Browser");
+
+    RightClickMenu();
     ShowFileBrowserWithDirectories();
+    
+    ImGui::End();
 }
 
 // 指定されたディレクトリ内のファイルを取得
@@ -35,43 +42,6 @@ std::vector<std::string> FileView::GetFilesInDirectory(const std::string& direct
 }
 // ディレクトリ対応のファイルブラウザを表示
 void FileView::ShowFileBrowserWithDirectories() {
-    //ImGui::Begin("File Browser");
-
-    //// 親ディレクトリに戻るボタン
-    //if (ImGui::Button("..") && currentDirectory != "/") {
-    //    currentDirectory = fs::path(currentDirectory).parent_path().string();
-    //    files = GetFilesInDirectory(currentDirectory);  // ディレクトリの内容を更新
-    //}
-
-    //std::string newDirectory;  // 新しいディレクトリの移動先
-    //bool shouldChangeDirectory = false;
-
-    //// ディレクトリとファイルをリスト表示
-    //for (const auto& file : files) {
-    //    fs::path filePath(file);  // fs::pathを使ってファイルパスを扱う
-    //    
-    //    if (fs::is_directory(filePath)) {
-    //        // ディレクトリの表示と選択処理
-    //        if (ImGui::Selectable((filePath.filename().string() + "/").c_str())) {
-    //            newDirectory = filePath.string();  // 新しいディレクトリパスを保存
-    //            shouldChangeDirectory = true;  // ディレクトリ変更フラグを設定
-    //        }
-    //    } else {
-    //        // ファイルの表示と選択処理
-    //        if (ImGui::Selectable(filePath.filename().string().c_str())) {
-    //            selectedFile = filePath.string();  // ファイルを選択
-    //        }
-    //    }
-    //}
-
-    //// ディレクトリ変更が必要なら処理を行う
-    //if (shouldChangeDirectory) {
-    //    currentDirectory = newDirectory;
-    //    files = GetFilesInDirectory(currentDirectory);  // ディレクトリの内容を更新
-    //}
-
-    //ImGui::End();
-    ImGui::Begin("File Browser");
 
     // 親ディレクトリに戻るボタン
     if (ImGui::Button("..") && currentDirectory != fs::path(currentDirectory).root_path().string())
@@ -149,5 +119,38 @@ void FileView::ShowFileBrowserWithDirectories() {
         files = GetFilesInDirectory(currentDirectory);  // ディレクトリの内容を更新
     }
 
-    ImGui::End();
+}
+
+void FileView::RightClickMenu()
+{
+    // メニューを開く位置を右クリックで検出
+    if (ImGui::IsMouseReleased(ImGuiMouseButton_Right) && ImGui::IsWindowHovered())
+    {
+        ImGui::OpenPopup("PopupMenu");  // 右クリックでメニューを開く
+    }
+    // ポップアップメニューの定義
+    if (ImGui::BeginPopup("PopupMenu"))
+    {
+        // 「Add」メニュー項目の追加
+        if (ImGui::BeginMenu("Create"))
+        {
+            // 「3DObject」サブメニューを追加
+            if (ImGui::BeginMenu("3DObject"))
+            {
+                // 「3DObject」メニューの横にさらにリスト表示
+                if (ImGui::MenuItem("BaseObject")) {
+                    editManager_->CreateObject();
+                }
+
+                ImGui::EndMenu(); // 「3DObject」サブメニューを終了
+            }
+
+            // 他のメニュー項目の追加
+            if (ImGui::MenuItem("Item 2")) { /* Item 2の処理 */ }
+            if (ImGui::MenuItem("Item 3")) { /* Item 3の処理 */ }
+
+            ImGui::EndMenu(); // 「Add」メニューを終了
+        }
+        ImGui::EndPopup();
+    }
 }

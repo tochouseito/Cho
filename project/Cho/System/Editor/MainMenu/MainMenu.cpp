@@ -90,7 +90,6 @@ void MainMenu::MenuBar()
 
         ImGui::EndMenuBar(); // メニューバーを終了
     }
-
     // ポップアップウィンドウ
     PopUp();
 }
@@ -139,7 +138,6 @@ void MainMenu::EditMenu()
 
             ImGui::EndMenu(); // 「Add」メニューを終了
         }
-
         ImGui::EndMenu(); // 「Edit」メニューを終了
     }
 }
