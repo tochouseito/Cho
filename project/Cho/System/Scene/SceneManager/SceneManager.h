@@ -66,9 +66,9 @@ public:
 	}
 
 	// デバッグ用
+	void CreateDebugCamera();
 	const GameObject* GetDebugCamera(){
-		std::string key = "DebugCamera";
-		GameObject* result = cameraObjects[key].get();
+		GameObject* result = debugCameraObject.get();
 		return result;
 	}
 
@@ -97,5 +97,7 @@ private:
 	std::unordered_map<std::string, std::unique_ptr<GameObject>> gameObjects;
 	std::unordered_map<std::string, std::unique_ptr<GameObject>> cameraObjects;
 	//std::unordered_map<std::string, std::unique_ptr<GameObject>> lightObjects;
+
+	std::unique_ptr<GameObject > debugCameraObject;// デバッグカメラ
 };
 

@@ -21,9 +21,10 @@ void StartSetting::Initialize(
 	SceneManager* sceneManager
 )
 {
-	std::string name = "DebugCamera";
-	sceneManager->AddCameraObject(name);
-	name = "SceneCamera";
+	/*std::string name = "DebugCamera";
+	sceneManager->AddCameraObject(name);*/
+	sceneManager->CreateDebugCamera();
+	std::string name = "SceneCamera";
 	sceneManager->AddCameraObject(name);
 	Entity ent = sceneManager->GetCameraObjectData(name)->GetEntityID();
 	entityManager->SetCameraID(ent);
