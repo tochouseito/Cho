@@ -1,5 +1,7 @@
 #pragma once
 
+#include<unordered_map>
+
 // D3D12
 class ResourceViewManager;
 class RTVManager;
@@ -38,6 +40,11 @@ public:
 	);
 
 	void Update();
+
+private:
+
+	void selectObject(const std::unordered_map<std::string, std::unique_ptr<GameObject>>& objectList);
+
 private:
 	/*D3D12*/
 	ResourceViewManager* rvManager_ = nullptr;

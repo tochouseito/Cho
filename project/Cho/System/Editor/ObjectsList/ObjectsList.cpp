@@ -47,23 +47,24 @@ void ObjectsList::Update()
 {
     ImGui::Begin("GameObjectList");
 
-    for (auto& pair : sceneManager_->GetGameObjects()) {
-        const std::string& name = pair.first;  // マップのキーがオブジェクトの名前と仮定
-
-        if (ImGui::Selectable(name.c_str())) {
-            editManager_->SetSelectedGOName(name);
-            editManager_->SetSelectedGO(pair.second.get());  // 選択したオブジェクトを保持
-        }
-    }
-
-    for (auto& pair : sceneManager_->GetCameraObjects()) {
-        const std::string& name = pair.first;  // マップのキーがオブジェクトの名前と仮定
-
-        if (ImGui::Selectable(name.c_str())) {
-            editManager_->SetSelectedGOName(name);
-            editManager_->SetSelectedGO(pair.second.get());  // 選択したオブジェクトを保持
-        }
-    }
+    selectObject(sceneManager_->GetGameObjects());// ベースオブジェクトを表示
+    selectObject(sceneManager_->GetCameraObjects());// カメラオブジェクトを表示
 
     ImGui::End();
 }
+
+void ObjectsList::selectObject(const std::unordered_map<std::string, std::unique_ptr<GameObject>>& objectList)
+{
+    static bool editing = false;
+
+    for (auto& pair : objectList) {
+        const std::string& name = pair.first;  // マップのキーがオブジェクトの名前と仮定
+
+        if (ImGui::Selectable(name.c_str())) {
+            
+            editManager_->SetSelectedGOName(name);
+            editManager_->SetSelectedGO(pair.second.get());  // 選択したオブジェクトを保持
+        }
+    }
+}
+

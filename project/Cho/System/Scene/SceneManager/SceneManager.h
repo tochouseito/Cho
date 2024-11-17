@@ -79,7 +79,10 @@ public:
 
 private:
 	// ユニークな名前を生成する関数
-	std::string GenerateUniqueName(const std::unordered_map<std::string, std::unique_ptr<GameObject>>& objects, const std::string& baseName);
+	std::string GenerateUniqueName(
+		const std::unordered_map<std::string, std::unique_ptr<GameObject>>& objects,
+		const std::string& baseName
+	);
 private:
 	/*今のシーン*/
 	BaseScene* scene_ = nullptr;
@@ -93,7 +96,7 @@ private:
 	ComponentManager* componentManager_ = nullptr;
 	SystemManager* systemManager_ = nullptr;
 	PrefabManager* prefabManager_ = nullptr;
-
+	
 	std::unordered_map<std::string, std::unique_ptr<GameObject>> gameObjects;
 	std::unordered_map<std::string, std::unique_ptr<GameObject>> cameraObjects;
 	//std::unordered_map<std::string, std::unique_ptr<GameObject>> lightObjects;
