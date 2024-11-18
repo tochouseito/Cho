@@ -20,6 +20,8 @@ class GameObject;
 // SceneManager
 class SceneManager;
 
+class EditorManager;
+
 class PopupMenu
 {
 public:
@@ -34,7 +36,8 @@ public:
 		ComponentManager* componentManager,
 		SystemManager* systemManager,
 		PrefabManager* prefabManager,
-		SceneManager* sceneManager
+		SceneManager* sceneManager,
+		EditorManager* editManager
 	);
 
 	void Update(bool excludeRightClick);
@@ -57,5 +60,7 @@ private:
 	SystemManager* systemManager_ = nullptr;
 	PrefabManager* prefabManager_ = nullptr;
 	SceneManager* sceneManager_ = nullptr;
+
+	EditorManager* editManager_ = nullptr;
 };
 

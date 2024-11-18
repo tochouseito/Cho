@@ -13,6 +13,8 @@
 
 #include"ECS/GameObject/GameObject.h"
 
+#include"Editor/EditorManager/EditorManager.h"
+
 void PopupMenu::Initialize(
 	ResourceViewManager* rvManager,
 	RTVManager* rtvManager,
@@ -21,7 +23,8 @@ void PopupMenu::Initialize(
 	ComponentManager* componentManager,
 	SystemManager* systemManager,
 	PrefabManager* prefabManager,
-	SceneManager* sceneManager
+	SceneManager* sceneManager,
+    EditorManager* editManager
 )
 {
 	// D3D12
@@ -37,6 +40,8 @@ void PopupMenu::Initialize(
 
 	// SceneManager
 	sceneManager_ = sceneManager;
+
+    editManager_ = editManager;
 }
 
 void PopupMenu::Update(bool excludeRightClick)
@@ -79,6 +84,8 @@ void PopupMenu::CreateObject()
 {
     std::string name = "NewObject";
     name = sceneManager_->AddGameObject(name);  // 入力された名前を使用してオブジェクトを追加
+    editManager_->SetSelectedGOName(name);
+    editManager_->SetSelectedGO(sceneManager_->GetGameObject(name));
     // 初期コンポーネントのトランスフォームコンポーネントを付与
     TransformComponent TFComp;
     TFComp.Initialize();
@@ -89,4 +96,6 @@ void PopupMenu::CreateCamera()
 {
     std::string name = "NewCamera";
     name = sceneManager_->AddCameraObject(name);
+    editManager_->SetSelectedGOName(name);
+    editManager_->SetSelectedGO(sceneManager_->GetGameObject(name));
 }

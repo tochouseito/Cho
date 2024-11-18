@@ -52,7 +52,8 @@ void EditorManager::Initialize(
         componentManager,
         systemManager,
         prefabManager,
-        sceneManager
+        sceneManager,
+        this
     );
 
 	// FileView
