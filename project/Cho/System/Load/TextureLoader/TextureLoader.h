@@ -39,10 +39,17 @@ public:
 
 	// テクスチャの取得
 	Texture GetTexture(const std::string& TextureName) {
-		return textureData[TextureName];
+		if (textureData.contains(TextureName)) {
+			return textureData[TextureName];
+		} else {
+			return GetDummy();
+		}
 	}
 
-	
+	Texture GetDummy() {
+		const std::string& dummyTex = "Dummy202411181622.png";
+		return textureData[dummyTex];
+	}
 
 private:
 
