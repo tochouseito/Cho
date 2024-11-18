@@ -28,9 +28,10 @@ void SceneView::DebugView()
 {
     // ウィンドウのパディングをゼロに設定
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-
+    // 移動を無効にするフラグ
+    ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse;
     // ウィンドウの開始
-    ImGui::Begin("Debug View", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+    ImGui::Begin("Debug View", nullptr, windowFlags);
 
     // ウィンドウ内で利用可能な領域のサイズを取得
     ImVec2 availableSize = ImGui::GetContentRegionAvail();
@@ -59,11 +60,10 @@ void SceneView::GameView(uint32_t cameraIndex)
     // ウィンドウのパディングをゼロに設定
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
+    // 移動を無効にするフラグ
+    ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse;
     // ウィンドウの開始
-    ImGui::Begin("Scene View", nullptr,
-        ImGuiWindowFlags_NoScrollbar |
-        ImGuiWindowFlags_NoScrollWithMouse
-    );
+    ImGui::Begin("Scene View", nullptr,windowFlags);
 
     // ウィンドウの位置とサイズを取得
     ImVec2 windowPos = ImGui::GetWindowPos();

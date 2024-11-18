@@ -45,7 +45,9 @@ void ObjectsList::Initialize(
 
 void ObjectsList::Update()
 {
-    ImGui::Begin("GameObjectList");
+    // 移動を無効にするフラグ
+    ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove;
+    ImGui::Begin("GameObjectList",nullptr,windowFlags);
 
     selectObject(sceneManager_->GetGameObjects());// ベースオブジェクトを表示
     selectObject(sceneManager_->GetCameraObjects());// カメラオブジェクトを表示

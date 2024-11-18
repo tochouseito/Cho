@@ -45,7 +45,9 @@ void InfoView::Initialize(
 
 void InfoView::Update()
 {
-    ImGui::Begin("ObjectInfo");
+    // 移動を無効にするフラグ
+    ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove;
+    ImGui::Begin("ObjectInfo",nullptr,windowFlags);
     GameObject* selectGO = editManager_->GetSelectedGO();
     if (selectGO) {
         // コンポーネント追加

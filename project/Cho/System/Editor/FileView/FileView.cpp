@@ -20,7 +20,9 @@ void FileView::Initialize(EditorManager* editManager, ResourceViewManager* rvMan
 // 毎フレーム呼ばれる更新処理
 void FileView::Update() {
 
-    ImGui::Begin("File Browser");
+    // 移動を無効にするフラグ
+    ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove;
+    ImGui::Begin("File Browser",nullptr,windowFlags);
 
     ShowFileBrowserWithDirectories();
     

@@ -154,7 +154,9 @@ void MainMenu::LayoutMenu()
     }
 
     if (showStyleEditor) {
-        ImGui::Begin("Style Editor", &showStyleEditor);
+        // ドッキング解除を無効にするフラグ
+        ImGuiWindowFlags windowFlags =ImGuiWindowFlags_NoDocking;
+        ImGui::Begin("Style Editor", &showStyleEditor,windowFlags);
         ImGui::ShowStyleEditor();
         ImGui::End();
     }
