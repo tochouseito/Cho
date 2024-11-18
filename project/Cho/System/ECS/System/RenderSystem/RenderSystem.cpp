@@ -46,7 +46,7 @@ void RenderSystem::Render(
                 if (materialComp) {
                     commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetTexture(materialComp->textureID).rvIndex).GPUHandle);
                 } else {
-                    commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetDummy().rvIndex).GPUHandle);
+                    commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetWhitePixel().rvIndex).GPUHandle);
                 }
                 //commandList->DrawInstanced(static_cast<UINT>(rvManager->GetMeshes(meshesIndex)->meshData[name].vertices), 1, 0, 0);
                 commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMeshs(meshesIndex)->meshData[name].size.indices), 1, 0, 0, 0);

@@ -51,6 +51,11 @@ public:
 		return textureData[dummyTex];
 	}
 
+	Texture GetWhitePixel() {
+		const std::string& whitePixel = "White1x1.png";
+		return textureData[whitePixel];
+	}
+
 private:
 
 
