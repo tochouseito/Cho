@@ -25,8 +25,8 @@ void StartSetting::Initialize(
 	sceneManager->AddCameraObject(name);*/
 	sceneManager->CreateDebugCamera();
 	std::string name = "SceneCamera";
-	sceneManager->AddCameraObject(name);
-	Entity ent = sceneManager->GetCameraObjectData(name)->GetEntityID();
+	name = sceneManager->AddCameraObject(name);
+	Entity ent = sceneManager->GetCameraObject(name)->GetEntityID();
 	entityManager->SetCameraID(ent);
 	// デフォルトメッシュ生成
 	rvManager->CreateMeshPattern();

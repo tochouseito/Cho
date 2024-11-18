@@ -6,6 +6,7 @@
 #include<string>
 #include<unordered_map>
 #include<memory>
+#include <regex>
 
 // ECS
 class EntityManager;
@@ -72,10 +73,13 @@ public:
 		return result;
 	}
 
-	GameObject* GetCameraObjectData(const std::string& name) {
+	GameObject* GetCameraObject(const std::string& name) {
 		GameObject* result = cameraObjects[name].get();
 		return result;
 	}
+
+	std::string GameObjectListRename(const std::string& newName, const std::string& deleteName);
+	std::string CameraObjectListRename(const std::string& newName, const std::string& deleteName);
 
 private:
 	// ユニークな名前を生成する関数
