@@ -187,6 +187,12 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Cho\System\Editor\PopupMenu\PopupMenu.cpp" />
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\CameraComponent\CameraComponent.h" />
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\MaterialComponent\MaterialComponent.h" />
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\MeshComponent\MeshComponenth.h" />
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\PhysicsComponent\PhysicsComponent.h" />
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\RenderComponent\RenderComponent.h" />
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\TransformComponent\TransformComponent.h" />
     <ClInclude Include="Game\Assets\Scenes\MainScene.h" />
     <ClInclude Include="Cho\System\ECS\System\CameraSystem\CameraSystem.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\Components.h" />

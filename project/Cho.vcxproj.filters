@@ -410,6 +410,24 @@
     <ClInclude Include="Cho\System\Editor\PopupMenu\PopupMenu.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\MaterialComponent\MaterialComponent.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\CameraComponent\CameraComponent.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\MeshComponent\MeshComponenth.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\PhysicsComponent\PhysicsComponent.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\RenderComponent\RenderComponent.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\TransformComponent\TransformComponent.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Cho\Resources\Shader\DemoOBJ.PS.hlsl" />
