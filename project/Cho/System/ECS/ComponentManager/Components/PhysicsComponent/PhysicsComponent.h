@@ -1,5 +1,5 @@
 #pragma once
-struct PhysicsComponent {
+struct PhysicsComponent final{
     Vector3 velocity;
     Vector3 acceleration;
 };

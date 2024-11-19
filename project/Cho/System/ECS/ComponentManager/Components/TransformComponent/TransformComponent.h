@@ -1,12 +1,12 @@
 #pragma once
 // Transform
 // 定数バッファ用データ構造体
-struct ConstBufferDataWorldTransform {
+struct ConstBufferDataWorldTransform final{
     Matrix4 matWorld; // ローカル → ワールド変換行列
     Matrix4 worldInverse;
     Matrix4 rootNode;// モデルのRootMatrix
 };
-struct TransformComponent {
+struct TransformComponent final {
     Vector3 position;
     Vector3 rotation;
     Vector3 scale;

@@ -163,6 +163,8 @@ void MainMenu::LayoutMenu()
         ImGuiWindowFlags windowFlags =ImGuiWindowFlags_NoDocking;
         ImGui::Begin("Style Editor", &showStyleEditor,windowFlags);
         ImGui::ShowStyleEditor();
+        //ImGui::ShowMetricsWindow();
+        //ImGui::ShowDemoWindow();
         ImGui::End();
     }
 }

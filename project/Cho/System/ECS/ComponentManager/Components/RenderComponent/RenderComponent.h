@@ -1,5 +1,4 @@
 #pragma once
-struct RenderComponent {
-    //std::string textureID = "";
+struct RenderComponent final{
     bool visible;
 };

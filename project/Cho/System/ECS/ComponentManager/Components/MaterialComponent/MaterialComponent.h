@@ -1,4 +1,4 @@
 #pragma once
-struct MaterialComponent {
+struct MaterialComponent final{
     std::string textureID = "";
 };

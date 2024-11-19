@@ -1,16 +1,16 @@
 #pragma once
 // 定数バッファ用データ構造体
-struct ConstBufferDataViewProjection {
+struct ConstBufferDataViewProjection final{
     Matrix4 view;
     Matrix4 projection;
     Matrix4 matWorld;
     Vector3 cameraPosition;
 };
-struct CameraComponent {
-    Vector3 position;
-    Vector3 rotation;
+struct CameraComponent final{
+    Vector3 position; // 座標
+    Vector3 rotation; // 回転
 
-    Matrix4 matWorld;
+    Matrix4 matWorld; // ワールド行列
 
     // 垂直方向視野角
     float fovAngleY = 45.0f * std::numbers::pi_v<float> / 180.0f;
