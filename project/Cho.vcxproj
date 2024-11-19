@@ -194,6 +194,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\RenderComponent\RenderComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\TransformComponent\TransformComponent.h" />
     <ClInclude Include="Cho\Utility\Base\Quaternion.h" />
+    <ClInclude Include="Cho\Utility\Base\Scale.h" />
     <ClInclude Include="Game\Assets\Scenes\MainScene.h" />
     <ClInclude Include="Cho\System\ECS\System\CameraSystem\CameraSystem.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\Components.h" />

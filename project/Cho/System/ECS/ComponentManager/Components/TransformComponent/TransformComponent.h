@@ -7,9 +7,9 @@ struct ConstBufferDataWorldTransform final{
     Matrix4 rootNode;// モデルのRootMatrix
 };
 struct TransformComponent final {
-    Vector3 position;
-    Vector3 rotation;
-    Vector3 scale;
+    Vector3 translation;
+    Quaternion rotation;
+    Scale scale;
 
     Matrix4 matWorld;
 
@@ -17,14 +17,14 @@ struct TransformComponent final {
 
     // 初期化
     inline void Initialize() {
-        position.Initialize();
+        translation.Initialize();
         rotation.Initialize();
         scale = { 1.0f,1.0f,1.0f };
         matWorld = ChoMath::MakeIdentity4x4();
         rootMatrix = ChoMath::MakeIdentity4x4();
     }
     inline void UpdateMatrix() {
-        matWorld = ChoMath::MakeAffineMatrix(scale, rotation, position);
+        matWorld = ChoMath::MakeAffineMatrix(scale, rotation, translation);
 
         TransferMatrix();
     }

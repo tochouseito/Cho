@@ -1,6 +1,9 @@
 #include "PrecompiledHeader.h"
 #include "ChoMath.h"
 
+
+// 行列のチェック関数
+
 int ChoMath::Check(double mat[MatNum][MatNum], double inv[MatNum][MatNum])
 {
 	double inner_product;
@@ -22,11 +25,6 @@ int ChoMath::Check(double mat[MatNum][MatNum], double inv[MatNum][MatNum])
 	}
 
 	return 1;
-}
-
-float ChoMath::Clamp(float x, float min, float max)
-{
-	return (x < min) ? min : (x > max) ? max : x;
 }
 
 Matrix4 ChoMath::Transpose(const Matrix4& m)
@@ -146,6 +144,11 @@ Matrix4 ChoMath::MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, c
 	//result = Multiply(translateMatrix, Multiply(scaleMatrix, rotateXYZMatrix));
 	result = Multiply(Multiply(scaleMatrix, rotateXYZMatrix), translateMatrix);
 	return result;
+}
+
+Matrix4 ChoMath::MakeAffineMatrix(const Scale& scale, const Quaternion& rotate, const Vector3& translate)
+{
+	return Matrix4();
 }
 
 Matrix4 ChoMath::MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip, float farClip)
@@ -281,4 +284,78 @@ float ChoMath::Normalize(float x, float min, float max)
 	}
 	float normalized = (x - min) / (max - min);
 	return Clamp(normalized, 0.0f, 1.0f); // 結果を [0, 1] にクランプ
+}
+
+
+float ChoMath::Norm(const Quaternion& quaternion)
+{
+	return std::sqrt(quaternion.x * quaternion.x +
+		quaternion.y * quaternion.y +
+		quaternion.z * quaternion.z +
+		quaternion.w * quaternion.w
+	);
+}
+
+
+
+
+Quaternion ChoMath::MakeRotateAxisAngleQuaternion(const Vector3& axis, float angle)
+{
+	Vector3 normAxis = axis;
+	normAxis.Normalize();
+	float sinHalfAngle = std::sin(angle / 2.0f);
+	float cosHalfAngle = std::cos(angle / 2.0f);
+	return { normAxis.x * sinHalfAngle, normAxis.y * sinHalfAngle, normAxis.z * sinHalfAngle, cosHalfAngle };
+}
+
+Vector3 ChoMath::RotateVector(const Vector3& vector, const Quaternion& quaternion)
+{
+	Quaternion qVector = { vector.x, vector.y, vector.z, 0.0f };
+	Quaternion qConjugate = { -quaternion.x, -quaternion.y, -quaternion.z, quaternion.w };
+	Quaternion qResult = Multiply(Multiply(quaternion, qVector), qConjugate);
+	return { qResult.x, qResult.y, qResult.z };
+}
+
+Matrix4 ChoMath::MakeRotateMatrix(const Quaternion& quaternion)
+{
+	Matrix4 matrix = {};
+
+	float xx = quaternion.x * quaternion.x;
+	float yy = quaternion.y * quaternion.y;
+	float zz = quaternion.z * quaternion.z;
+	float xy = quaternion.x * quaternion.y;
+	float xz = quaternion.x * quaternion.z;
+	float yz = quaternion.y * quaternion.z;
+	float wx = quaternion.w * quaternion.x;
+	float wy = quaternion.w * quaternion.y;
+	float wz = quaternion.w * quaternion.z;
+
+	matrix.m[0][0] = 1.0f - 2.0f * (yy + zz);
+	matrix.m[0][1] = 2.0f * (xy - wz);
+	matrix.m[0][2] = 2.0f * (xz + wy);
+	matrix.m[0][3] = 0.0f;
+
+	matrix.m[1][0] = 2.0f * (xy + wz);
+	matrix.m[1][1] = 1.0f - 2.0f * (xx + zz);
+	matrix.m[1][2] = 2.0f * (yz - wx);
+	matrix.m[1][3] = 0.0f;
+
+	matrix.m[2][0] = 2.0f * (xz - wy);
+	matrix.m[2][1] = 2.0f * (yz + wx);
+	matrix.m[2][2] = 1.0f - 2.0f * (xx + yy);
+	matrix.m[2][3] = 0.0f;
+
+	matrix.m[3][0] = 0.0f;
+	matrix.m[3][1] = 0.0f;
+	matrix.m[3][2] = 0.0f;
+	matrix.m[3][3] = 1.0f;
+
+	matrix = Transpose(matrix);
+
+	return matrix;
+}
+
+float ChoMath::Dot(const Quaternion& q0, const Quaternion& q1)
+{
+	return q0.x * q1.x + q0.y * q1.y + q0.z * q1.z + q0.w * q1.w;
 }

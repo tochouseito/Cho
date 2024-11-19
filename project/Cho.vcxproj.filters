@@ -431,6 +431,9 @@
     <ClInclude Include="Cho\Utility\Base\Quaternion.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Cho\Utility\Base\Scale.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Cho\Resources\Shader\DemoOBJ.PS.hlsl" />

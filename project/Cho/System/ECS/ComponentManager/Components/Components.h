@@ -3,7 +3,9 @@
 // Utility
 #include"Vector2.h"
 #include"Vector3.h"
+#include"Scale.h"
 #include"Vector4.h"
+#include"Quaternion.h"
 #include"Matrix4.h"
 #include"ChoMath.h"
 

@@ -1,17 +1,26 @@
 #pragma once
-#include <assert.h>
+
+//C++
 #include<cmath>
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <iostream>
 #include<algorithm>
+#include<numbers>
+
+#include <assert.h>
+
+// Utility
 #include"Vector2.h"
 #include"Vector3.h"
+#include"Scale.h"
 #include"Vector4.h"
 #include"Quaternion.h"
 #include"Matrix4.h"
 #include"mathShapes.h"
-#include<numbers>
+
+constexpr float PiF = std::numbers::pi_v<float>; // float型のπを定数として定義
+
 static const uint32_t MatNum = 4; //逆行列を求める行列の行数・列数
 class ChoMath
 {
@@ -19,7 +28,10 @@ public:
 	// 行列のチェック関数
 	static int Check(double mat[MatNum][MatNum], double inv[MatNum][MatNum]);
 
-	static float Clamp(float x, float min, float max);
+	static inline float Clamp(float x, float min, float max)
+	{
+		return (x < min) ? min : (x > max) ? max : x;
+	}
 
 	//// 行列の加法
 	//static Matrix4 Add(const Matrix4& m1, const Matrix4& m2);
@@ -62,7 +74,7 @@ public:
 
 	// 3次元アフィン変換行列の作成
 	static Matrix4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate);
-	//static Matrix4 MakeAffineMatrix(const Vector3& scale, const Quaternion& rotate, const Vector3& translate);
+	static Matrix4 MakeAffineMatrix(const Scale& scale, const Quaternion& rotate, const Vector3& translate);
 
 	// 透視投影行列の作成
 	static Matrix4 MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip, float farClip);
@@ -103,35 +115,19 @@ public:
 	//// 方向ベクトルの変換
 	//static Matrix4 DirectionToDirection(const Vector3& from, const Vector3& to);
 
-	//// クォータニオンの積
-	//static Quaternion Multiply(const Quaternion& lhs, const Quaternion& rhs);
+	
 
-	//// 単位クォータニオンの作成
-	//static Quaternion IdentityQuaternion();
+	// 任意軸回転を表すクォータニオンの作成
+	static Quaternion MakeRotateAxisAngleQuaternion(const Vector3& axis, float angle);
 
-	//// クォータニオンの共役を返す
-	//static Quaternion Conjugate(const Quaternion& quaternion);
+	// ベクトルをクォータニオンで回転させる
+	static Vector3 RotateVector(const Vector3& vector, const Quaternion& quaternion);
 
-	//// クォータニオンのノルムを返す
-	//static float Norm(const Quaternion& quaternion);
+	// クォータニオンから回転行列を求める
+	static Matrix4 MakeRotateMatrix(const Quaternion& quaternion);
 
-	//// クォータニオンの正規化
-	//static Quaternion Normalize(const Quaternion& quaternion);
-
-	//// クォータニオンの逆を返す
-	//static Quaternion Inverse(const Quaternion& quaternion);
-
-	//// 任意軸回転を表すクォータニオンの作成
-	//static Quaternion MakeRotateAxisAngleQuaternion(const Vector3& axis, float angle);
-
-	//// ベクトルをクォータニオンで回転させる
-	//static Vector3 RotateVector(const Vector3& vector, const Quaternion& quaternion);
-
-	//// クォータニオンから回転行列を求める
-	//static Matrix4 MakeRotateMatrix(const Quaternion& quaternion);
-
-	//// クォータニオンの内積
-	//static float Dot(const Quaternion& q0, const Quaternion& q1);
+	// クォータニオンの内積
+	static float Dot(const Quaternion& q0, const Quaternion& q1);
 
 	//// 球面線形補間
 	//static Quaternion Slerp(const Quaternion& q0, const Quaternion& q1, float t);
@@ -160,5 +156,12 @@ public:
 
 	//// 反射ベクトルの計算
 	//static Vector3 Reflect(const Vector3& input, const Vector3& normal);
+
+	// クォータニオンを利用してベクトルを回転
+	Vector3 Rotate(const Quaternion& rotation) const {
+		Quaternion vecQuat(x, y, z, 0.0f);
+		Quaternion result = rotation * vecQuat * rotation.Inverse();
+		return { result.x, result.y, result.z };
+	}
 };
 
