@@ -7,6 +7,7 @@
 #include <iostream>
 #include<algorithm>
 #include<numbers>
+#include<array>
 
 #include <assert.h>
 
@@ -55,6 +56,7 @@ public:
 	static Matrix4 MakeTranslateMatrix(const Vector3& translate);
 
 	// 拡大縮小行列の作成
+	static Matrix4 MakeScaleMatrix(const Scale& scale);
 	static Matrix4 MakeScaleMatrix(const Vector3& scale);
 
 	//// 座標変換
@@ -85,8 +87,6 @@ public:
 	//// ビューポート変換行列の作成
 	//static Matrix4 MakeViewportMatrix(float left, float top, float width, float height, float minDepth, float maxDepth);
 
-	// 逆行列の作成
-	static Matrix4 Inverse(const Matrix4& m);
 
 	//// ベクトルの長さ（ノルム）
 	//static float Length(const Vector2& v);
@@ -158,10 +158,16 @@ public:
 	//static Vector3 Reflect(const Vector3& input, const Vector3& normal);
 
 	// クォータニオンを利用してベクトルを回転
-	Vector3 Rotate(const Quaternion& rotation) const {
-		Quaternion vecQuat(x, y, z, 0.0f);
+	/*Vector3 Rotate(const Vector3& v,const Quaternion & rotation) const {
+		Quaternion vecQuat(v.x, v.y, v.z, 0.0f);
 		Quaternion result = rotation * vecQuat * rotation.Inverse();
 		return { result.x, result.y, result.z };
-	}
+	}*/
+
+	// オイラー角からクォータニオンを生成
+	static Quaternion FromEulerAngles(const Vector3& euler);
+
+	// クォータニオンからオイラー角を計算
+	static Vector3 ToEulerAngles(const Quaternion& q);
 };
 

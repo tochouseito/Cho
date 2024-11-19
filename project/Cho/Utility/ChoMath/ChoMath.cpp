@@ -71,6 +71,17 @@ Matrix4 ChoMath::MakeTranslateMatrix(const Vector3& translate)
 	return translationMatrix;
 }
 
+Matrix4 ChoMath::MakeScaleMatrix(const Scale& scale)
+{
+	Matrix4 scaleMatrix = {
+		scale.x, 0.0f,    0.0f,    0.0f,
+		0.0f,    scale.y, 0.0f,    0.0f,
+		0.0f,    0.0f,    scale.z, 0.0f,
+		0.0f,    0.0f,    0.0f,    1.0f
+	};
+	return scaleMatrix;
+}
+
 Matrix4 ChoMath::MakeScaleMatrix(const Vector3& scale)
 {
 	Matrix4 scaleMatrix = {
@@ -148,7 +159,12 @@ Matrix4 ChoMath::MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, c
 
 Matrix4 ChoMath::MakeAffineMatrix(const Scale& scale, const Quaternion& rotate, const Vector3& translate)
 {
-	return Matrix4();
+	Matrix4 result;
+	Matrix4 scaleMatrix = MakeScaleMatrix(scale);
+	Matrix4 rotateMatrix = MakeRotateMatrix(rotate);
+	Matrix4 translateMatrix = MakeTranslateMatrix(translate);
+	result = Multiply(Multiply(scaleMatrix, rotateMatrix), translateMatrix);
+	return result;
 }
 
 Matrix4 ChoMath::MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip, float farClip)
@@ -162,119 +178,6 @@ Matrix4 ChoMath::MakePerspectiveFovMatrix(float fovY, float aspectRatio, float n
 	};
 }
 
-Matrix4 ChoMath::Inverse(const Matrix4& m)
-{
-	Matrix4 result = { 0 };
-	/* 逆行列を求める行列用の２次元配列 */
-	double mat[MatNum][MatNum];
-
-	/* 逆行列用の２次元配列 */
-	double inv[MatNum][MatNum];
-
-	/* 掃き出し法を行う行列 */
-	double sweep[MatNum][MatNum * 2];
-
-	int i; /* 行 */
-	int j; /* 列 */
-	int k; /* 注目対角成分が存在する列 */
-
-	double a; /* 定数倍用 */
-
-	/* 正方行列の各成分をセット */
-	mat[0][0] = m.m[0][0]; mat[0][1] = m.m[0][1]; mat[0][2] = m.m[0][2]; mat[0][3] = m.m[0][3];
-	mat[1][0] = m.m[1][0]; mat[1][1] = m.m[1][1]; mat[1][2] = m.m[1][2]; mat[1][3] = m.m[1][3];
-	mat[2][0] = m.m[2][0]; mat[2][1] = m.m[2][1]; mat[2][2] = m.m[2][2]; mat[2][3] = m.m[2][3];
-	mat[3][0] = m.m[3][0]; mat[3][1] = m.m[3][1]; mat[3][2] = m.m[3][2]; mat[3][3] = m.m[3][3];
-
-	for (i = 0; i < MatNum; i++) {
-		for (j = 0; j < MatNum; j++) {
-			/* sweepの左側に逆行列を求める行列をセット */
-			sweep[i][j] = mat[i][j];
-
-			/* sweepの右側に単位行列をセット */
-			sweep[i][MatNum + j] = (i == j) ? 1 : 0;
-		}
-	}
-
-
-	/* 全ての列の対角成分に対する繰り返し */
-	for (k = 0; k < MatNum; k++) {
-
-		/* 最大の絶対値を注目対角成分の絶対値と仮定 */
-		double max = fabs(sweep[k][k]);
-		int max_i = k;
-
-		/* k列目が最大の絶対値となる行を探す */
-		for (i = k + 1; i < MatNum; i++) {
-			if (fabs(sweep[i][k]) > max) {
-				max = fabs(sweep[i][k]);
-				max_i = i;
-			}
-		}
-
-
-
-		/* 操作（１）：k行目とmax_i行目を入れ替える */
-		if (k != max_i) {
-			for (j = 0; j < MatNum * 2; j++) {
-				double tmp = sweep[max_i][j];
-				sweep[max_i][j] = sweep[k][j];
-				sweep[k][j] = tmp;
-			}
-		}
-
-		/* sweep[k][k]に掛けると1になる値を求める */
-		a = 1 / sweep[k][k];
-
-		/* 操作（２）：k行目をa倍する */
-		for (j = 0; j < MatNum * 2; j++) {
-			/* これによりsweep[k][k]が1になる */
-			sweep[k][j] *= a;
-		}
-
-		/* 操作（３）によりk行目以外の行のk列目を0にする */
-		for (i = 0; i < MatNum; i++) {
-			if (i == k) {
-				/* k行目はそのまま */
-				continue;
-			}
-
-			/* k行目に掛ける値を求める */
-			a = -sweep[i][k];
-
-			for (j = 0; j < MatNum * 2; j++) {
-				/* i行目にk行目をa倍した行を足す */
-				/* これによりsweep[i][k]が0になる */
-				sweep[i][j] += sweep[k][j] * a;
-			}
-		}
-	}
-
-	/* sweepの右半分がmatの逆行列 */
-	for (i = 0; i < MatNum; i++) {
-		for (j = 0; j < MatNum; j++) {
-			inv[i][j] = sweep[i][MatNum + j];
-		}
-	}
-
-	/* 逆行列invを表示 */
-	for (i = 0; i < MatNum; i++) {
-		for (j = 0; j < MatNum; j++) {
-			result.m[i][j] = float(inv[i][j]);
-			//printf("%0.2f, ", inv[i][j]);
-		}
-		//printf("\n");
-	}
-
-	/* 検算 */
-	if (Check(mat, inv)) {
-		//printf("invはmatの逆行列です！！\n");
-	} else {
-		//printf("invはmatの逆行列になってません...\n");
-	}
-	return result;
-}
-
 //// ベクトルの正規化
 float ChoMath::Normalize(float x, float min, float max)
 {
@@ -285,19 +188,6 @@ float ChoMath::Normalize(float x, float min, float max)
 	float normalized = (x - min) / (max - min);
 	return Clamp(normalized, 0.0f, 1.0f); // 結果を [0, 1] にクランプ
 }
-
-
-float ChoMath::Norm(const Quaternion& quaternion)
-{
-	return std::sqrt(quaternion.x * quaternion.x +
-		quaternion.y * quaternion.y +
-		quaternion.z * quaternion.z +
-		quaternion.w * quaternion.w
-	);
-}
-
-
-
 
 Quaternion ChoMath::MakeRotateAxisAngleQuaternion(const Vector3& axis, float angle)
 {
@@ -310,10 +200,12 @@ Quaternion ChoMath::MakeRotateAxisAngleQuaternion(const Vector3& axis, float ang
 
 Vector3 ChoMath::RotateVector(const Vector3& vector, const Quaternion& quaternion)
 {
-	Quaternion qVector = { vector.x, vector.y, vector.z, 0.0f };
+	vector, quaternion;
+	/*Quaternion qVector = { vector.x, vector.y, vector.z, 0.0f };
 	Quaternion qConjugate = { -quaternion.x, -quaternion.y, -quaternion.z, quaternion.w };
 	Quaternion qResult = Multiply(Multiply(quaternion, qVector), qConjugate);
-	return { qResult.x, qResult.y, qResult.z };
+	return { qResult.x, qResult.y, qResult.z };*/
+	return vector;
 }
 
 Matrix4 ChoMath::MakeRotateMatrix(const Quaternion& quaternion)
@@ -359,3 +251,50 @@ float ChoMath::Dot(const Quaternion& q0, const Quaternion& q1)
 {
 	return q0.x * q1.x + q0.y * q1.y + q0.z * q1.z + q0.w * q1.w;
 }
+
+
+
+
+// オイラー角からクォータニオンを生成
+
+Quaternion ChoMath::FromEulerAngles(const Vector3& euler) {
+	float cy = std::cos(euler.y * 0.5f);
+	float sy = std::sin(euler.y * 0.5f);
+	float cp = std::cos(euler.x * 0.5f);
+	float sp = std::sin(euler.x * 0.5f);
+	float cr = std::cos(euler.z * 0.5f);
+	float sr = std::sin(euler.z * 0.5f);
+
+	return Quaternion{
+		sr * cp * cy - cr * sp * sy,
+		cr * sp * cy + sr * cp * sy,
+		cr * cp * sy - sr * sp * cy,
+		cr * cp * cy + sr * sp * sy
+	};
+}
+
+// クォータニオンからオイラー角を計算
+Vector3 ChoMath::ToEulerAngles(const Quaternion& q) {
+	Vector3 angles;
+
+	// ピッチ
+	float sinp = 2 * (q.w * q.x + q.y * q.z);
+	if (std::abs(sinp) >= 1)
+		angles.x = std::copysign(PiF / 2, sinp); // クランプ
+	else
+		angles.x = std::asin(sinp);
+
+	// ヨー
+	float siny_cosp = 2 * (q.w * q.y - q.z * q.x);
+	float cosy_cosp = 1 - 2 * (q.x * q.x + q.y * q.y);
+	angles.y = std::atan2(siny_cosp, cosy_cosp);
+
+	// ロール
+	float sinr_cosp = 2 * (q.w * q.z + q.x * q.y);
+	float cosr_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
+	angles.z = std::atan2(sinr_cosp, cosr_cosp);
+
+	return angles;
+}
+
+

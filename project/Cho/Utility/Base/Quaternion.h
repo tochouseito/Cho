@@ -67,18 +67,24 @@ struct Quaternion final {
         return std::sqrt(x * x + y * y + z * z + w * w);
     }
 
+    // 内積
+    float Dot(const Quaternion& other) const {
+        return x * other.x + y * other.y + z * other.z + w * other.w;
+    }
+
     // 正規化
-    void Normalize() {
+    Quaternion Normalize() {
         float norm = Norm();
         if (norm == 0.0f) {
             x = 0.0f;y = 0.0f;z = 0.0f;w = 1.0f;
         } else {
             x /= norm;y /= norm;z /= norm;w /= norm;
         }
+        return { x,y,z,w };
     }
 
     // 逆クォータニオン
-    void Inverse() {
+    Quaternion Inverse() {
         Quaternion conjugate = Conjugate();
         float norm = Norm();
         float normSq = norm * norm;
@@ -88,6 +94,7 @@ struct Quaternion final {
             x = conjugate.x / normSq;y = conjugate.y / normSq;
             z = conjugate.z / normSq; w = conjugate.w / normSq;
         }
+        return{ x,y,z,w };
     }
 public:// 静的メンバ
 

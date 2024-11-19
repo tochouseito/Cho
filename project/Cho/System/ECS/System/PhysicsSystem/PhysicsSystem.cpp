@@ -11,7 +11,7 @@ void PhysicsSystem::Update(EntityManager& entityManager, ComponentManager& compo
         if (physics && transform) {
             // 物理計算: 位置の更新
             physics->velocity.x += physics->acceleration.x * deltaTime;
-            transform->position.x += physics->velocity.x * deltaTime;
+            transform->translation.x += physics->velocity.x * deltaTime;
             // 他の軸も同様に処理
         } else if(!physics&&transform)
         {

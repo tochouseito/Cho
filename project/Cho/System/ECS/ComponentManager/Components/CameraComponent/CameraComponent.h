@@ -1,4 +1,5 @@
 #pragma once
+#include"ChoMath.h"
 // 定数バッファ用データ構造体
 struct ConstBufferDataViewProjection final{
     Matrix4 view;
@@ -7,7 +8,7 @@ struct ConstBufferDataViewProjection final{
     Vector3 cameraPosition;
 };
 struct CameraComponent final{
-    Vector3 position; // 座標
+    Vector3 translation; // 座標
     Vector3 rotation; // 回転
 
     Matrix4 matWorld; // ワールド行列
@@ -26,25 +27,26 @@ struct CameraComponent final{
 
     // 初期化
     inline void Initialize() {
-        position.Initialize();
-        position.z = -30.0f;
+        translation.Initialize();
+        translation.z = -30.0f;
         rotation.Initialize();
         matWorld = ChoMath::MakeIdentity4x4();
 
     }
     inline void UpdateMatrix() {
-        matWorld = ChoMath::MakeAffineMatrix(Vector3(1.0f, 1.0f, 1.0f), rotation, position);
+        Quaternion rotate = ChoMath::FromEulerAngles(rotation);
+        matWorld = ChoMath::MakeAffineMatrix(Scale(1.0f, 1.0f, 1.0f), rotate, translation);
 
         TransferMatrix();
     }
     inline void TransferMatrix() {
         constData->matWorld = matWorld;
-        constData->view = ChoMath::Inverse(matWorld);
+        constData->view = Matrix4::Inverse(matWorld);
         float width = static_cast<float>(WindowWidth());
         float height = static_cast<float>(WindowHeight());
         constData->projection = ChoMath::MakePerspectiveFovMatrix(
             0.45f, width / height, 0.1f, 100.0f
         );
-        constData->cameraPosition = position;
+        constData->cameraPosition = translation;
     }
 };

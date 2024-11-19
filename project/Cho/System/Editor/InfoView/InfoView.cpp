@@ -66,7 +66,7 @@ void InfoView::Update()
 
                 // Transformを表示
                 ImGui::SeparatorText("Transform");// ラインとテキスト表示
-                ImGui::DragFloat3("Position", &TFCompo.position.x, 0.01f);
+                ImGui::DragFloat3("translation", &TFCompo.translation.x, 0.01f);
                 ImGui::DragFloat3("Rotation", &TFCompo.rotation.x, 0.01f);
                 ImGui::DragFloat3("Scale", &TFCompo.scale.x, 0.01f);
             }
@@ -146,7 +146,7 @@ void InfoView::Update()
 
                 // Transformを表示
                 ImGui::SeparatorText("Transform");// ラインとテキスト表示
-                ImGui::DragFloat3("Position", &cameraCompo.position.x, 0.01f);
+                ImGui::DragFloat3("translation", &cameraCompo.translation.x, 0.01f);
                 ImGui::DragFloat3("Rotation", &cameraCompo.rotation.x, 0.01f);
             }
 
