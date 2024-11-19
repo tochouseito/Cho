@@ -43,12 +43,6 @@ public:
 	void Update(bool excludeRightClick);
 
 private:
-
-	void CreateObject();
-
-	void CreateCamera();
-
-private:
 	/*D3D12*/
 	ResourceViewManager* rvManager_ = nullptr;
 	RTVManager* rtvManager_ = nullptr;

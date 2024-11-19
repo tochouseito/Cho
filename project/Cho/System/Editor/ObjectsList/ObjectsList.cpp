@@ -80,10 +80,9 @@ void ObjectsList::selectObject(const std::unordered_map<std::string, std::unique
                 }
             }
 
-            // フォーカスが外れた場合も編集終了
-            /*if (!ImGui::IsItemActive() && !ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
+            if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
                 editing = false;
-            }*/
+            }
         } else {
             // 通常モード: Selectableを表示
             if (ImGui::Selectable(name.c_str())) {

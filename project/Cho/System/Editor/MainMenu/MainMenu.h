@@ -17,11 +17,7 @@ class GameObject;
 // SceneManager
 class SceneManager;
 
-enum PopType
-{
-	None,
-	BaseObject,
-};
+class EditorManager;
 
 class MainMenu
 {
@@ -38,7 +34,8 @@ public:
 		ComponentManager* componentManager,
 		SystemManager* systemManager,
 		PrefabManager* prefabManager,
-		SceneManager* sceneManager
+		SceneManager* sceneManager,
+		EditorManager* editManager
 	);
 
 	/// <summary>
@@ -60,10 +57,6 @@ private:
 
 	void EngineInfoMenu();
 
-	void Add();
-
-	void PopUp();
-
 private:
 	/*D3D12*/
 	ResourceViewManager* rvManager_ = nullptr;
@@ -77,6 +70,6 @@ private:
 	PrefabManager* prefabManager_ = nullptr;
 	SceneManager* sceneManager_ = nullptr;
 
-	PopType popWindow = PopType::None;
+	EditorManager* editManager_ = nullptr;
 };
 

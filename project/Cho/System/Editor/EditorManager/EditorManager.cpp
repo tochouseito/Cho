@@ -35,7 +35,8 @@ void EditorManager::Initialize(
         componentManager,
         systemManager,
         prefabManager,
-        sceneManager
+        sceneManager,
+        this
         );
 
     // SceneView
@@ -149,6 +150,26 @@ void EditorManager::Update()
     //ImGui::Begin("Tools Item Picker", nullptr, ImGuiWindowFlags_NoCollapse);
     //// 「Show windows」や「Show mesh wh」などのオプションを追加
     //ImGui::End(); // ツールアイテムピッカーウィンドウを終了
+}
+
+void EditorManager::CreateObject()
+{
+    std::string name = "NewObject";
+    name = sceneManager_->AddGameObject(name);  // 入力された名前を使用してオブジェクトを追加
+    SetSelectedGOName(name);
+    SetSelectedGO(sceneManager_->GetGameObject(name));
+    // 初期コンポーネントのトランスフォームコンポーネントを付与
+    TransformComponent TFComp;
+    TFComp.Initialize();
+    sceneManager_->GetGameObject(name)->AddComponent(TFComp);
+}
+
+void EditorManager::CreateCamera()
+{
+    std::string name = "NewCamera";
+    name = sceneManager_->AddCameraObject(name);
+    SetSelectedGOName(name);
+    SetSelectedGO(sceneManager_->GetCameraObject(name));
 }
 
 void EditorManager::UpdateMainWindow()

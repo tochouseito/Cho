@@ -62,7 +62,7 @@ void PopupMenu::Update(bool excludeRightClick)
             {
                 // 「3DObject」メニューの横にさらにリスト表示
                 if (ImGui::MenuItem("BaseObject")) {
-                    CreateObject();
+                    editManager_->CreateObject();
                 }
 
                 ImGui::EndMenu(); // 「3DObject」サブメニューを終了
@@ -70,7 +70,7 @@ void PopupMenu::Update(bool excludeRightClick)
 
             // 他のメニュー項目の追加
             if (ImGui::MenuItem("Camera")) { 
-                CreateCamera();
+                editManager_->CreateCamera();
             }
             if (ImGui::MenuItem("Item 3")) { /* Item 3の処理 */ }
 
@@ -78,24 +78,4 @@ void PopupMenu::Update(bool excludeRightClick)
         }
         ImGui::EndPopup();
     }
-}
-
-void PopupMenu::CreateObject()
-{
-    std::string name = "NewObject";
-    name = sceneManager_->AddGameObject(name);  // 入力された名前を使用してオブジェクトを追加
-    editManager_->SetSelectedGOName(name);
-    editManager_->SetSelectedGO(sceneManager_->GetGameObject(name));
-    // 初期コンポーネントのトランスフォームコンポーネントを付与
-    TransformComponent TFComp;
-    TFComp.Initialize();
-    sceneManager_->GetGameObject(name)->AddComponent(TFComp);
-}
-
-void PopupMenu::CreateCamera()
-{
-    std::string name = "NewCamera";
-    name = sceneManager_->AddCameraObject(name);
-    editManager_->SetSelectedGOName(name);
-    editManager_->SetSelectedGO(sceneManager_->GetGameObject(name));
 }

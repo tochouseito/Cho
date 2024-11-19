@@ -11,7 +11,19 @@
 
 #include"ECS/GameObject/GameObject.h"
 
-void MainMenu::Initialize(ResourceViewManager* rvManager, RTVManager* rtvManager, DrawExecution* drawExe, EntityManager* entityManager, ComponentManager* componentManager, SystemManager* systemManager, PrefabManager* prefabManager, SceneManager* sceneManager)
+#include"Editor/EditorManager/EditorManager.h"
+
+void MainMenu::Initialize(
+    ResourceViewManager* rvManager,
+    RTVManager* rtvManager,
+    DrawExecution* drawExe,
+    EntityManager* entityManager,
+    ComponentManager* componentManager,
+    SystemManager* systemManager,
+    PrefabManager* prefabManager,
+    SceneManager* sceneManager,
+    EditorManager* editManager
+)
 {
     // D3D12
     rvManager_ = rvManager;
@@ -26,6 +38,8 @@ void MainMenu::Initialize(ResourceViewManager* rvManager, RTVManager* rtvManager
 
     // SceneManager
     sceneManager_ = sceneManager;
+
+    editManager_ = editManager;
 }
 
 void MainMenu::Update()
@@ -90,8 +104,6 @@ void MainMenu::MenuBar()
 
         ImGui::EndMenuBar(); // メニューバーを終了
     }
-    // ポップアップウィンドウ
-    PopUp();
 }
 
 void MainMenu::FileMenu()
@@ -117,23 +129,16 @@ void MainMenu::EditMenu()
             {
                 // 「3DObject」メニューの横にさらにリスト表示
                 if (ImGui::MenuItem("BaseObject")) {
-                    // Cubeの処理
-                    popWindow = PopType::BaseObject;
+                    editManager_->CreateObject();
                 }
-                //if (ImGui::MenuItem("Sphere")) {
-                //    // Sphereの処理
-                //    popWindow = PopType::Add3DObject;
-                //}
-                //if (ImGui::MenuItem("Cylinder")) {
-                //    // Cylinderの処理
-                //    popWindow = PopType::Add3DObject;
-                //}
 
                 ImGui::EndMenu(); // 「3DObject」サブメニューを終了
             }
 
             // 他のメニュー項目の追加
-            if (ImGui::MenuItem("Item 2")) { /* Item 2の処理 */ }
+            if (ImGui::MenuItem("CameraObject")) {
+                editManager_->CreateCamera();
+            }
             if (ImGui::MenuItem("Item 3")) { /* Item 3の処理 */ }
 
             ImGui::EndMenu(); // 「Add」メニューを終了
@@ -178,65 +183,5 @@ void MainMenu::EngineInfoMenu()
         ImGui::Text("DeltaTime: %.5f", DeltaTime());
 
         ImGui::EndMenu();
-    }
-}
-
-void MainMenu::Add()
-{
-    ImGui::OpenPopup("Input Name");
-    static char nameBuffer[128] = "";  // 名前を入力するバッファ
-
-    // モーダルウィンドウの表示処理
-    if (ImGui::BeginPopupModal("Input Name", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-    {
-        ImGui::InputText("Name", nameBuffer, IM_ARRAYSIZE(nameBuffer));  // 名前を入力するフィールド
-
-        if (ImGui::Button("OK")) {
-            std::string name(nameBuffer);
-            sceneManager_->AddGameObject(name);  // 入力された名前を使用してオブジェクトを追加
-            memset(nameBuffer, 0, sizeof(nameBuffer));// バッファクリア
-            switch (popWindow)
-            {
-            case None:
-                // ここに来るはずはない
-                break;
-            case BaseObject:
-                // 初期コンポーネントのトランスフォームコンポーネントを付与
-                TransformComponent TFComp;
-                TFComp.Initialize();
-                sceneManager_->GetGameObject(name)->AddComponent(TFComp);
-                break;
-            }
-            popWindow = PopType::None;
-            ImGui::CloseCurrentPopup();  // ポップアップを閉じる
-        }
-
-        ImGui::SameLine();  // 次のボタンを同じ行に配置する
-
-        if (ImGui::Button("Cancel")) {
-            popWindow = PopType::None;
-            ImGui::CloseCurrentPopup();  // ポップアップを閉じる
-        }
-
-        ImGui::EndPopup(); // モーダルポップアップを終了
-    }
-}
-
-void MainMenu::PopUp()
-{
-    switch (popWindow)
-    {
-    case None:
-
-        // 何もしない
-        break;
-
-    case BaseObject:
-
-        Add();
-
-        break;
-    default:
-        break;
     }
 }
