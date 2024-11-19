@@ -29,20 +29,20 @@ struct CameraComponent final{
         position.Initialize();
         position.z = -30.0f;
         rotation.Initialize();
-        matWorld = MyMath::MakeIdentity4x4();
+        matWorld = ChoMath::MakeIdentity4x4();
 
     }
     inline void UpdateMatrix() {
-        matWorld = MyMath::MakeAffineMatrix(Vector3(1.0f, 1.0f, 1.0f), rotation, position);
+        matWorld = ChoMath::MakeAffineMatrix(Vector3(1.0f, 1.0f, 1.0f), rotation, position);
 
         TransferMatrix();
     }
     inline void TransferMatrix() {
         constData->matWorld = matWorld;
-        constData->view = MyMath::Inverse(matWorld);
+        constData->view = ChoMath::Inverse(matWorld);
         float width = static_cast<float>(WindowWidth());
         float height = static_cast<float>(WindowHeight());
-        constData->projection = MyMath::MakePerspectiveFovMatrix(
+        constData->projection = ChoMath::MakePerspectiveFovMatrix(
             0.45f, width / height, 0.1f, 100.0f
         );
         constData->cameraPosition = position;

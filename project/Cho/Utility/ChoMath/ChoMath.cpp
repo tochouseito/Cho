@@ -1,7 +1,7 @@
 #include "PrecompiledHeader.h"
-#include "MyMath.h"
+#include "ChoMath.h"
 
-int MyMath::Check(double mat[MatNum][MatNum], double inv[MatNum][MatNum])
+int ChoMath::Check(double mat[MatNum][MatNum], double inv[MatNum][MatNum])
 {
 	double inner_product;
 	int i, j, k;
@@ -24,12 +24,12 @@ int MyMath::Check(double mat[MatNum][MatNum], double inv[MatNum][MatNum])
 	return 1;
 }
 
-float MyMath::Clamp(float x, float min, float max)
+float ChoMath::Clamp(float x, float min, float max)
 {
 	return (x < min) ? min : (x > max) ? max : x;
 }
 
-Matrix4 MyMath::Transpose(const Matrix4& m)
+Matrix4 ChoMath::Transpose(const Matrix4& m)
 {
 	Matrix4 result = { 0 };
 	for (int i = 0; i < MatNum; ++i) {
@@ -40,7 +40,7 @@ Matrix4 MyMath::Transpose(const Matrix4& m)
 	return result;
 }
 
-Matrix4 MyMath::MakeIdentity4x4()
+Matrix4 ChoMath::MakeIdentity4x4()
 {
 	Matrix4 result = { 0 };
 	for (int i = 0; i < MatNum; ++i) {
@@ -49,7 +49,7 @@ Matrix4 MyMath::MakeIdentity4x4()
 	return result;
 }
 
-Matrix4 MyMath::Multiply(const Matrix4& m1, const Matrix4& m2)
+Matrix4 ChoMath::Multiply(const Matrix4& m1, const Matrix4& m2)
 {
 	Matrix4 result = { 0 };
 	for (int i = 0; i < MatNum; ++i) {
@@ -62,7 +62,7 @@ Matrix4 MyMath::Multiply(const Matrix4& m1, const Matrix4& m2)
 	return result;
 }
 
-Matrix4 MyMath::MakeTranslateMatrix(const Vector3& translate)
+Matrix4 ChoMath::MakeTranslateMatrix(const Vector3& translate)
 {
 	Matrix4 translationMatrix = {
 		1.0f, 0.0f, 0.0f, 0.0f,
@@ -73,7 +73,7 @@ Matrix4 MyMath::MakeTranslateMatrix(const Vector3& translate)
 	return translationMatrix;
 }
 
-Matrix4 MyMath::MakeScaleMatrix(const Vector3& scale)
+Matrix4 ChoMath::MakeScaleMatrix(const Vector3& scale)
 {
 	Matrix4 scaleMatrix = {
 		scale.x, 0.0f,    0.0f,    0.0f,
@@ -84,7 +84,7 @@ Matrix4 MyMath::MakeScaleMatrix(const Vector3& scale)
 	return scaleMatrix;
 }
 
-Matrix4 MyMath::MakeRotateXMatrix(float radian)
+Matrix4 ChoMath::MakeRotateXMatrix(float radian)
 {
 	float cosX = cosf(radian);
 	float sinX = sinf(radian);
@@ -97,7 +97,7 @@ Matrix4 MyMath::MakeRotateXMatrix(float radian)
 	return result;
 }
 
-Matrix4 MyMath::MakeRotateYMatrix(float radian)
+Matrix4 ChoMath::MakeRotateYMatrix(float radian)
 {
 	float cosY = cosf(radian);
 	float sinY = sinf(radian);
@@ -110,7 +110,7 @@ Matrix4 MyMath::MakeRotateYMatrix(float radian)
 	return result;
 }
 
-Matrix4 MyMath::MakeRotateZMatrix(float radian)
+Matrix4 ChoMath::MakeRotateZMatrix(float radian)
 {
 	float cosZ = cosf(radian);
 	float sinZ = sinf(radian);
@@ -123,7 +123,7 @@ Matrix4 MyMath::MakeRotateZMatrix(float radian)
 	return result;
 }
 
-Matrix4 MyMath::MakeRotateXYZMatrix(const Vector3& rotate)
+Matrix4 ChoMath::MakeRotateXYZMatrix(const Vector3& rotate)
 {
 	Matrix4 rotateXMatrix = MakeRotateXMatrix(rotate.x);
 	Matrix4 rotateYMatrix = MakeRotateYMatrix(rotate.y);
@@ -132,7 +132,7 @@ Matrix4 MyMath::MakeRotateXYZMatrix(const Vector3& rotate)
 	return rotateXYZMatrix;
 }
 
-Matrix4 MyMath::MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate)
+Matrix4 ChoMath::MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate)
 {
 	Matrix4 result;
 	Matrix4 scaleMatrix = MakeScaleMatrix(scale);
@@ -148,7 +148,7 @@ Matrix4 MyMath::MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, co
 	return result;
 }
 
-Matrix4 MyMath::MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip, float farClip)
+Matrix4 ChoMath::MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip, float farClip)
 {
 	float tanHalfFovY = std::tanf(fovY / 2.0f);
 	return Matrix4{
@@ -159,7 +159,7 @@ Matrix4 MyMath::MakePerspectiveFovMatrix(float fovY, float aspectRatio, float ne
 	};
 }
 
-Matrix4 MyMath::Inverse(const Matrix4& m)
+Matrix4 ChoMath::Inverse(const Matrix4& m)
 {
 	Matrix4 result = { 0 };
 	/* 逆行列を求める行列用の２次元配列 */
@@ -273,7 +273,7 @@ Matrix4 MyMath::Inverse(const Matrix4& m)
 }
 
 //// ベクトルの正規化
-float MyMath::Normalize(float x, float min, float max)
+float ChoMath::Normalize(float x, float min, float max)
 {
 	if (max - min == 0)
 	{

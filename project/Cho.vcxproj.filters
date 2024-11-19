@@ -111,7 +111,7 @@
     <ClCompile Include="Cho\System\D3D12\D3DCommand\D3DCommand.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\Utility\MyMath\MyMath.cpp">
+    <ClCompile Include="Cho\Utility\ChoMath\ChoMath.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cho\Utility\ConvertString\ConvertString.cpp">
@@ -377,7 +377,7 @@
     <ClInclude Include="Cho\Utility\Base\Matrix4.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\Utility\MyMath\MyMath.h">
+    <ClInclude Include="Cho\Utility\ChoMath\ChoMath.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\Utility\Base\mathShapes.h">

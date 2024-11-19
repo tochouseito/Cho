@@ -20,17 +20,17 @@ struct TransformComponent final {
         position.Initialize();
         rotation.Initialize();
         scale = { 1.0f,1.0f,1.0f };
-        matWorld = MyMath::MakeIdentity4x4();
-        rootMatrix = MyMath::MakeIdentity4x4();
+        matWorld = ChoMath::MakeIdentity4x4();
+        rootMatrix = ChoMath::MakeIdentity4x4();
     }
     inline void UpdateMatrix() {
-        matWorld = MyMath::MakeAffineMatrix(scale, rotation, position);
+        matWorld = ChoMath::MakeAffineMatrix(scale, rotation, position);
 
         TransferMatrix();
     }
     inline void TransferMatrix() {
         constData->matWorld = matWorld;
-        constData->worldInverse = MyMath::Transpose(MyMath::Inverse(matWorld));
+        constData->worldInverse = ChoMath::Transpose(ChoMath::Inverse(matWorld));
         constData->rootNode = rootMatrix;
     }
 

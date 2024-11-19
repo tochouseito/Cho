@@ -7,7 +7,6 @@
 
 // C++
 #include<algorithm>
-#include"MyMath/MyMath.h"
 
 void SceneView::Initialize(uint32_t index, ResourceViewManager* rvManager)
 {

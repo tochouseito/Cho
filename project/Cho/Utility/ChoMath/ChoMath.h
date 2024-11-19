@@ -13,7 +13,7 @@
 #include"mathShapes.h"
 #include<numbers>
 static const uint32_t MatNum = 4; //逆行列を求める行列の行数・列数
-class MyMath
+class ChoMath
 {
 public:
 	// 行列のチェック関数

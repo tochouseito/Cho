@@ -113,7 +113,7 @@ void ResourceViewManager::CreateTextureResource(uint32_t& index, const DirectX::
 	//heapProperties.MemoryPoolPreference = D3D12_MEMORY_POOL_L0;// プロセッサの近くに配置
 	// 3.Resourceを生成する
 	Microsoft::WRL::ComPtr < ID3D12Resource> resource = nullptr;
-	HRESULT hr = d3dDevice_->GetDevice()->CreateCommittedResource(
+	HRESULT hr;hr = d3dDevice_->GetDevice()->CreateCommittedResource(
 		&heapProperties,// Heapの設定
 		D3D12_HEAP_FLAG_NONE,// Heapの特殊な設定。特になし
 		&resourceDesc,// Resourceの設定
@@ -189,7 +189,7 @@ void ResourceViewManager::CreateRenderTextureResource(uint32_t& index, uint32_t&
 
 	// Resourceの生成
 	Microsoft::WRL::ComPtr < ID3D12Resource> resource = nullptr;
-	HRESULT hr = d3dDevice_->GetDevice()->CreateCommittedResource(
+	HRESULT hr;hr = d3dDevice_->GetDevice()->CreateCommittedResource(
 		&heapProperties,
 		D3D12_HEAP_FLAG_NONE,
 		&resourceDesc,
@@ -263,7 +263,7 @@ Microsoft::WRL::ComPtr<ID3D12Resource> ResourceViewManager::CreateBufferResource
 	resourceDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 	// 実際にリソースを作る
 	Microsoft::WRL::ComPtr<ID3D12Resource> resource = nullptr;
-	HRESULT hr = d3dDevice_->GetDevice()->CreateCommittedResource(
+	HRESULT hr;hr = d3dDevice_->GetDevice()->CreateCommittedResource(
 		&uploadHeapProperties,
 		D3D12_HEAP_FLAG_NONE,
 		&resourceDesc,
