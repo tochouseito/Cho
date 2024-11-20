@@ -137,7 +137,8 @@ Matrix4 ChoMath::MakeRotateXYZMatrix(const Vector3& rotate)
 	Matrix4 rotateXMatrix = MakeRotateXMatrix(rotate.x);
 	Matrix4 rotateYMatrix = MakeRotateYMatrix(rotate.y);
 	Matrix4 rotateZMatrix = MakeRotateZMatrix(rotate.z);
-	Matrix4 rotateXYZMatrix = Multiply(rotateXMatrix, Multiply(rotateYMatrix, rotateZMatrix));
+	Matrix4 rotateXYZMatrix = Multiply(Multiply(rotateZMatrix, rotateYMatrix), rotateXMatrix);
+
 	return rotateXYZMatrix;
 }
 
@@ -148,7 +149,8 @@ Matrix4 ChoMath::MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, c
 	Matrix4 rotateXMatrix = MakeRotateXMatrix(rotate.x);
 	Matrix4 rotateYMatrix = MakeRotateYMatrix(rotate.y);
 	Matrix4 rotateZMatrix = MakeRotateZMatrix(rotate.z);
-	Matrix4 rotateXYZMatrix = Multiply(rotateXMatrix, Multiply(rotateYMatrix, rotateZMatrix));
+	Matrix4 rotateXYZMatrix = Multiply(Multiply(rotateZMatrix, rotateYMatrix), rotateXMatrix);
+
 	Matrix4 translateMatrix = MakeTranslateMatrix(translate);
 	//result = Multiply(rotateXYZMatrix, Multiply(scaleMatrix, translateMatrix));
 	result = Multiply(scaleMatrix, Multiply(rotateXYZMatrix, translateMatrix));
@@ -364,30 +366,113 @@ Vector3 ChoMath::ToEulerAngles(const Quaternion& q, RotationOrder order) {
 
 	switch (order) {
 	case RotationOrder::XYZ: {
-		// ピッチ
 		float sinp = 2 * (q.w * q.x + q.y * q.z);
 		if (std::abs(sinp) >= 1)
 			angles.x = std::copysign(PiF / 2, sinp);
 		else
 			angles.x = std::asin(sinp);
 
-		// ヨー
 		float siny_cosp = 2 * (q.w * q.y - q.z * q.x);
 		float cosy_cosp = 1 - 2 * (q.x * q.x + q.y * q.y);
 		angles.y = std::atan2(siny_cosp, cosy_cosp);
 
-		// ロール
 		float sinr_cosp = 2 * (q.w * q.z + q.x * q.y);
 		float cosr_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
 		angles.z = std::atan2(sinr_cosp, cosr_cosp);
 		break;
 	}
-						   // 他の回転順序も同様に実装
+
+	case RotationOrder::YXZ: {
+		float sinp = -2 * (q.w * q.y - q.x * q.z);
+		if (std::abs(sinp) >= 1)
+			angles.x = std::copysign(PiF / 2, sinp);
+		else
+			angles.x = std::asin(sinp);
+
+		float siny_cosp = 2 * (q.w * q.x + q.z * q.y);
+		float cosy_cosp = 1 - 2 * (q.y * q.y + q.x * q.x);
+		angles.y = std::atan2(siny_cosp, cosy_cosp);
+
+		float sinr_cosp = 2 * (q.w * q.z - q.x * q.y);
+		float cosr_cosp = 1 - 2 * (q.z * q.z + q.x * q.x);
+		angles.z = std::atan2(sinr_cosp, cosr_cosp);
+		break;
+	}
+
+	case RotationOrder::ZXY: {
+		float sinp = 2 * (q.w * q.z - q.x * q.y);
+		if (std::abs(sinp) >= 1)
+			angles.x = std::copysign(PiF / 2, sinp);
+		else
+			angles.x = std::asin(sinp);
+
+		float siny_cosp = 2 * (q.w * q.x + q.y * q.z);
+		float cosy_cosp = 1 - 2 * (q.z * q.z + q.x * q.x);
+		angles.y = std::atan2(siny_cosp, cosy_cosp);
+
+		float sinr_cosp = 2 * (q.w * q.y - q.z * q.x);
+		float cosr_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
+		angles.z = std::atan2(sinr_cosp, cosr_cosp);
+		break;
+	}
+
+	case RotationOrder::ZYX: {
+		float sinp = 2 * (q.w * q.y + q.z * q.x);
+		if (std::abs(sinp) >= 1)
+			angles.x = std::copysign(PiF / 2, sinp);
+		else
+			angles.x = std::asin(sinp);
+
+		float siny_cosp = 2 * (q.w * q.x - q.y * q.z);
+		float cosy_cosp = 1 - 2 * (q.z * q.z + q.x * q.x);
+		angles.y = std::atan2(siny_cosp, cosy_cosp);
+
+		float sinr_cosp = 2 * (q.w * q.z - q.x * q.y);
+		float cosr_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
+		angles.z = std::atan2(sinr_cosp, cosr_cosp);
+		break;
+	}
+
+	case RotationOrder::YZX: {
+		float sinp = 2 * (q.w * q.y - q.x * q.z);
+		if (std::abs(sinp) >= 1)
+			angles.x = std::copysign(PiF / 2, sinp);
+		else
+			angles.x = std::asin(sinp);
+
+		float siny_cosp = 2 * (q.w * q.z + q.x * q.y);
+		float cosy_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
+		angles.y = std::atan2(siny_cosp, cosy_cosp);
+
+		float sinr_cosp = 2 * (q.w * q.x - q.z * q.y);
+		float cosr_cosp = 1 - 2 * (q.z * q.z + q.x * q.x);
+		angles.z = std::atan2(sinr_cosp, cosr_cosp);
+		break;
+	}
+
+	case RotationOrder::XZY: {
+		float sinp = -2 * (q.w * q.x - q.y * q.z);
+		if (std::abs(sinp) >= 1)
+			angles.x = std::copysign(PiF / 2, sinp);
+		else
+			angles.x = std::asin(sinp);
+
+		float siny_cosp = 2 * (q.w * q.z + q.x * q.y);
+		float cosy_cosp = 1 - 2 * (q.z * q.z + q.x * q.x);
+		angles.y = std::atan2(siny_cosp, cosy_cosp);
+
+		float sinr_cosp = 2 * (q.w * q.y - q.x * q.z);
+		float cosr_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
+		angles.z = std::atan2(sinr_cosp, cosr_cosp);
+		break;
+	}
+
 	default:
 		break;
 	}
 
 	return angles;
 }
+
 
 

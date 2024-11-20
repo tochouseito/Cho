@@ -179,6 +179,6 @@ public:
 	static Quaternion FromEulerAngles(const Vector3& eulerAngles);
 
 	// クォータニオンからオイラー角を計算（回転順序を指定）
-	static Vector3 ToEulerAngles(const Quaternion& q, RotationOrder order = RotationOrder::YXZ);
+	static Vector3 ToEulerAngles(const Quaternion& q, RotationOrder order = RotationOrder::XYZ);
 };
 
