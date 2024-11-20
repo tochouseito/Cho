@@ -24,12 +24,8 @@ struct TransformComponent final {
         rootMatrix = ChoMath::MakeIdentity4x4();
     }
     inline void UpdateMatrix() {
-        //Quaternion rotate = ChoMath::FromEulerAngles(rotation);
-        //Vector3 rotate = ChoMath::ToEulerAngles(rotation);
         rotation.Normalize();
         matWorld = ChoMath::MakeAffineMatrix(scale, rotation, translation);
-        //Vector3 ro = ChoMath::ToEulerAngles(rotate);
-        //Quaternion ro = ChoMath::FromEulerAngles(rotate);
 
         TransferMatrix();
     }

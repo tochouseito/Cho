@@ -64,12 +64,23 @@ void InfoView::Update()
             if (componentManager_->GetTransform(selectGO->GetEntityID())) {
                 TransformComponent& TFCompo = *componentManager_->GetTransform(selectGO->GetEntityID());
                 Quaternion q;
+
                 // Transformを表示
-                ImGui::SeparatorText("Transform");// ラインとテキスト表示
-                ImGui::DragFloat3("translation", &TFCompo.translation.x, 0.01f);
-                ImGui::DragFloat3("Rotation", &q.x, 0.01f);
+                ImGui::SeparatorText("Transform"); // ラインとテキスト表示
+
+                // 平行移動の操作
+                ImGui::DragFloat3("Translation", &TFCompo.translation.x, 0.01f);
+
+                // 回転の操作
+                Vector3 eulerAngles = ChoMath::ToEulerAngles(TFCompo.rotation);
+                if (ImGui::DragFloat3("Rotation", &eulerAngles.x, 0.01f)) {
+                    // オイラー角からクォータニオンを生成し、絶対回転として設定
+                    q = ChoMath::FromEulerAngles(eulerAngles);
+                    TFCompo.rotation = q;
+                }
+
+                // スケールの操作
                 ImGui::DragFloat3("Scale", &TFCompo.scale.x, 0.01f);
-                TFCompo.rotation = q * TFCompo.rotation;
             }
 
             if (componentManager_->GetMesh(selectGO->GetEntityID())) {
