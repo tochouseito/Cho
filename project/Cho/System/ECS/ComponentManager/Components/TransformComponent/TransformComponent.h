@@ -9,7 +9,7 @@ struct ConstBufferDataWorldTransform final{
 };
 struct TransformComponent final {
     Vector3 translation = { 0.0f, 0.0f, 0.0f };
-    Vector3 rotation = { 0.0f, 0.0f, 0.0f };
+    Quaternion rotation = { 0.0f, 0.0f, 0.0f ,1.0f};
     Scale scale = { 1.0f, 1.0f, 1.0f };
 
     Matrix4 matWorld = ChoMath::MakeIdentity4x4();
@@ -24,8 +24,9 @@ struct TransformComponent final {
         rootMatrix = ChoMath::MakeIdentity4x4();
     }
     inline void UpdateMatrix() {
-        Quaternion rotate = ChoMath::FromEulerAngles(rotation);
-        matWorld = ChoMath::MakeAffineMatrix(scale, rotate, translation);
+        //Quaternion rotate = ChoMath::FromEulerAngles(rotation);
+        matWorld = ChoMath::MakeAffineMatrix(scale, rotation, translation);
+        //Vector3 ro = ChoMath::ToEulerAngles(rotate);
 
         TransferMatrix();
     }

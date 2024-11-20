@@ -42,10 +42,10 @@ struct Quaternion final {
     // クォータニオンの積 (this * other)
     Quaternion Multiply(const Quaternion& other) const {
         return {
-            w * other.x + x * other.w + y * other.z - z * other.y,
-            w * other.y - x * other.z + y * other.w + z * other.x,
-            w * other.z + x * other.y - y * other.x + z * other.w,
-            w * other.w - x * other.x - y * other.y - z * other.z
+            other.w * x + other.x * w + other.y * z - other.z * y,
+            other.w * y - other.x * z + other.y * w + other.z * x,
+            other.w * z + other.x * y - other.y * x + other.z * w,
+            other.w * w - other.x * x - other.y * y - other.z * z
         };
     }
 

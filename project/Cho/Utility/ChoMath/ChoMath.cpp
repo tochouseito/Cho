@@ -208,9 +208,8 @@ Vector3 ChoMath::RotateVector(const Vector3& vector, const Quaternion& quaternio
 	return vector;
 }
 
-Matrix4 ChoMath::MakeRotateMatrix(const Quaternion& quaternion)
-{
-	Matrix4 matrix = {};
+Matrix4 ChoMath::MakeRotateMatrix(const Quaternion& quaternion) {
+	Matrix4 matrix;
 
 	float xx = quaternion.x * quaternion.x;
 	float yy = quaternion.y * quaternion.y;
@@ -222,18 +221,19 @@ Matrix4 ChoMath::MakeRotateMatrix(const Quaternion& quaternion)
 	float wy = quaternion.w * quaternion.y;
 	float wz = quaternion.w * quaternion.z;
 
+	// 左手座標系に合わせて z に符号を反転
 	matrix.m[0][0] = 1.0f - 2.0f * (yy + zz);
-	matrix.m[0][1] = 2.0f * (xy - wz);
-	matrix.m[0][2] = 2.0f * (xz + wy);
+	matrix.m[0][1] = 2.0f * (xy + wz); // 符号を反転
+	matrix.m[0][2] = 2.0f * (xz - wy); // 符号を反転
 	matrix.m[0][3] = 0.0f;
 
-	matrix.m[1][0] = 2.0f * (xy + wz);
+	matrix.m[1][0] = 2.0f * (xy - wz); // 符号を反転
 	matrix.m[1][1] = 1.0f - 2.0f * (xx + zz);
-	matrix.m[1][2] = 2.0f * (yz - wx);
+	matrix.m[1][2] = 2.0f * (yz + wx); // 符号を反転
 	matrix.m[1][3] = 0.0f;
 
-	matrix.m[2][0] = 2.0f * (xz - wy);
-	matrix.m[2][1] = 2.0f * (yz + wx);
+	matrix.m[2][0] = 2.0f * (xz + wy); // 符号を反転
+	matrix.m[2][1] = 2.0f * (yz - wx); // 符号を反転
 	matrix.m[2][2] = 1.0f - 2.0f * (xx + yy);
 	matrix.m[2][3] = 0.0f;
 
@@ -241,8 +241,6 @@ Matrix4 ChoMath::MakeRotateMatrix(const Quaternion& quaternion)
 	matrix.m[3][1] = 0.0f;
 	matrix.m[3][2] = 0.0f;
 	matrix.m[3][3] = 1.0f;
-
-	matrix = Transpose(matrix);
 
 	return matrix;
 }
@@ -257,14 +255,15 @@ float ChoMath::Dot(const Quaternion& q0, const Quaternion& q1)
 
 // オイラー角からクォータニオンを生成
 
-Quaternion ChoMath::FromEulerAngles(const Vector3& euler) {
-	float cy = std::cos(euler.y * 0.5f);
-	float sy = std::sin(euler.y * 0.5f);
-	float cp = std::cos(euler.x * 0.5f);
-	float sp = std::sin(euler.x * 0.5f);
-	float cr = std::cos(euler.z * 0.5f);
-	float sr = std::sin(euler.z * 0.5f);
+Quaternion ChoMath::FromEulerAngles(const Vector3& eulerAngles) {
+	float cy = std::cos(eulerAngles.y * 0.5f);
+	float sy = std::sin(eulerAngles.y * 0.5f);
+	float cp = std::cos(eulerAngles.x * 0.5f);
+	float sp = std::sin(eulerAngles.x * 0.5f);
+	float cr = std::cos(eulerAngles.z * 0.5f);
+	float sr = std::sin(eulerAngles.z * 0.5f);
 
+	// 左手座標系の場合、y と z に符号を反転
 	return Quaternion{
 		sr * cp * cy - cr * sp * sy,
 		cr * sp * cy + sr * cp * sy,
@@ -273,26 +272,35 @@ Quaternion ChoMath::FromEulerAngles(const Vector3& euler) {
 	};
 }
 
-// クォータニオンからオイラー角を計算
-Vector3 ChoMath::ToEulerAngles(const Quaternion& q) {
+// クォータニオンからオイラー角を計算（回転順序を指定）
+
+Vector3 ChoMath::ToEulerAngles(const Quaternion& q, RotationOrder order) {
 	Vector3 angles;
 
-	// ピッチ
-	float sinp = 2 * (q.w * q.x + q.y * q.z);
-	if (std::abs(sinp) >= 1)
-		angles.x = std::copysign(PiF / 2, sinp); // クランプ
-	else
-		angles.x = std::asin(sinp);
+	switch (order) {
+	case RotationOrder::XYZ: {
+		// ピッチ
+		float sinp = 2 * (q.w * q.x + q.y * q.z);
+		if (std::abs(sinp) >= 1)
+			angles.x = std::copysign(PiF / 2, sinp);
+		else
+			angles.x = std::asin(sinp);
 
-	// ヨー
-	float siny_cosp = 2 * (q.w * q.y - q.z * q.x);
-	float cosy_cosp = 1 - 2 * (q.x * q.x + q.y * q.y);
-	angles.y = std::atan2(siny_cosp, cosy_cosp);
+		// ヨー
+		float siny_cosp = 2 * (q.w * q.y - q.z * q.x);
+		float cosy_cosp = 1 - 2 * (q.x * q.x + q.y * q.y);
+		angles.y = std::atan2(siny_cosp, cosy_cosp);
 
-	// ロール
-	float sinr_cosp = 2 * (q.w * q.z + q.x * q.y);
-	float cosr_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
-	angles.z = std::atan2(sinr_cosp, cosr_cosp);
+		// ロール
+		float sinr_cosp = 2 * (q.w * q.z + q.x * q.y);
+		float cosr_cosp = 1 - 2 * (q.y * q.y + q.z * q.z);
+		angles.z = std::atan2(sinr_cosp, cosr_cosp);
+		break;
+	}
+						   // 他の回転順序も同様に実装
+	default:
+		break;
+	}
 
 	return angles;
 }

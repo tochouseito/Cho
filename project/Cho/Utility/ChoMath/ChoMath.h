@@ -22,6 +22,15 @@
 
 constexpr float PiF = std::numbers::pi_v<float>; // float型のπを定数として定義
 
+enum class RotationOrder {
+	XYZ,
+	YXZ,
+	ZXY,
+	ZYX,
+	YZX,
+	XZY
+};
+
 static const uint32_t MatNum = 4; //逆行列を求める行列の行数・列数
 class ChoMath
 {
@@ -165,9 +174,9 @@ public:
 	}*/
 
 	// オイラー角からクォータニオンを生成
-	static Quaternion FromEulerAngles(const Vector3& euler);
+	static Quaternion FromEulerAngles(const Vector3& eulerAngles);
 
-	// クォータニオンからオイラー角を計算
-	static Vector3 ToEulerAngles(const Quaternion& q);
+	// クォータニオンからオイラー角を計算（回転順序を指定）
+	static Vector3 ToEulerAngles(const Quaternion& q, RotationOrder order = RotationOrder::YXZ);
 };
 
