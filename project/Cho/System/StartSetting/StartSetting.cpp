@@ -10,6 +10,8 @@
 
 #include"ECS/GameObject/GameObject.h"
 
+#include"Editor/EditorManager/EditorManager.h"
+
 void StartSetting::Initialize(
 	ResourceViewManager* rvManager,
 	RTVManager* rtvManager,
@@ -18,7 +20,8 @@ void StartSetting::Initialize(
 	ComponentManager* componentManager,
 	SystemManager* systemManager,
 	PrefabManager* prefabManager,
-	SceneManager* sceneManager
+	SceneManager* sceneManager,
+	EditorManager* editorManager
 )
 {
 	/*std::string name = "DebugCamera";
@@ -30,6 +33,21 @@ void StartSetting::Initialize(
 	entityManager->SetCameraID(ent);
 	// デフォルトメッシュ生成
 	rvManager->CreateMeshPattern();
+	// デフォルトオブジェクト生成
+	name = "Cube";
+	name = sceneManager->AddGameObject(name);
+	TransformComponent TFComp;
+	TFComp.Initialize();
+	MeshComponent MeshComp;
+	MeshComp.meshID = static_cast<uint32_t>(MeshPattern::Cube);
+	MaterialComponent MaterialComp;
+	RenderComponent renderComp;
+	sceneManager->GetGameObject(name)->AddComponent(TFComp);
+	sceneManager->GetGameObject(name)->AddComponent(MeshComp);
+	sceneManager->GetGameObject(name)->AddComponent(MaterialComp);
+	sceneManager->GetGameObject(name)->AddComponent(renderComp);
+	editorManager->SetSelectedGOName(name);
+	editorManager->SetSelectedGO(sceneManager->GetGameObject(name));
 	rtvManager;
 	drawExe;
 	componentManager;

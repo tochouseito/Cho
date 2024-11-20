@@ -55,7 +55,7 @@ struct Quaternion final {
     }
 
     // 共役クォータニオン
-    Quaternion Conjugate() {
+    void Conjugate() {
         x = -x;
         y = -y;
         z = -z;
@@ -73,19 +73,19 @@ struct Quaternion final {
     }
 
     // 正規化
-    Quaternion Normalize() {
+    void Normalize() {
         float norm = Norm();
         if (norm == 0.0f) {
             x = 0.0f;y = 0.0f;z = 0.0f;w = 1.0f;
         } else {
             x /= norm;y /= norm;z /= norm;w /= norm;
         }
-        return { x,y,z,w };
     }
 
     // 逆クォータニオン
-    Quaternion Inverse() {
-        Quaternion conjugate = Conjugate();
+    void Inverse() {
+        Quaternion q = { x,y,z,w };
+        Quaternion conjugate = Quaternion::Conjugate(q);
         float norm = Norm();
         float normSq = norm * norm;
         if (normSq == 0.0f) {
@@ -94,7 +94,6 @@ struct Quaternion final {
             x = conjugate.x / normSq;y = conjugate.y / normSq;
             z = conjugate.z / normSq; w = conjugate.w / normSq;
         }
-        return{ x,y,z,w };
     }
 public:// 静的メンバ
 
@@ -127,5 +126,42 @@ public:// 静的メンバ
     // 単位クォータニオン
     static Quaternion Identity() {
         return { 0.0f, 0.0f, 0.0f, 1.0f };
+    }
+
+    // 共役クォータニオン
+    static Quaternion Conjugate(const Quaternion& q) {
+        Quaternion result;
+        result.x = -q.x;
+        result.y = -q.y;
+        result.z = -q.z;
+        result.w = q.w;
+        return result;
+    }
+
+    // 正規化
+    static Quaternion Normalize(const Quaternion& q) {
+        Quaternion result;
+        float norm = q.Norm();
+        if (norm == 0.0f) {
+            result.x = 0.0f; result.y = 0.0f; result.z = 0.0f; result.w = 1.0f;
+        } else {
+            result.x /= norm; result.y /= norm; result.z /= norm; result.w /= norm;
+        }
+        return result;
+    }
+
+    // 逆クォータニオン
+    static Quaternion Inverse(const Quaternion& q) {
+        Quaternion result;
+        Quaternion conjugate = Quaternion::Conjugate(q);
+        float norm = q.Norm();
+        float normSq = norm * norm;
+        if (normSq == 0.0f) {
+            result.x = 0.0f; result.y = 0.0f; result.z = 0.0f; result.w = 1.0f;
+        } else {
+            result.x = conjugate.x / normSq; result.y = conjugate.y / normSq;
+            result.z = conjugate.z / normSq; result.w = conjugate.w / normSq;
+        }
+        return result;
     }
 };

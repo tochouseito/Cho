@@ -63,12 +63,13 @@ void InfoView::Update()
             // コンポーネントがあれば表示
             if (componentManager_->GetTransform(selectGO->GetEntityID())) {
                 TransformComponent& TFCompo = *componentManager_->GetTransform(selectGO->GetEntityID());
-
+                Quaternion q;
                 // Transformを表示
                 ImGui::SeparatorText("Transform");// ラインとテキスト表示
                 ImGui::DragFloat3("translation", &TFCompo.translation.x, 0.01f);
-                ImGui::DragFloat3("Rotation", &TFCompo.rotation.x, 0.01f);
+                ImGui::DragFloat3("Rotation", &q.x, 0.01f);
                 ImGui::DragFloat3("Scale", &TFCompo.scale.x, 0.01f);
+                TFCompo.rotation = q * TFCompo.rotation;
             }
 
             if (componentManager_->GetMesh(selectGO->GetEntityID())) {

@@ -109,8 +109,8 @@ public:
 	//// ベクトルの外積
 	//static Vector3 Cross(const Vector3& v1, const Vector3& v2);
 
-	//// ベクトルの内積
-	//static float Dot(const Vector3& v1, const Vector3& v2);
+	// ベクトルの内積
+	static float Dot(const Vector3& v1, const Vector3& v2);
 
 	//// 衝突判定
 	//static bool IsCollision(const Vector3& center, const AABB& aabb);
@@ -124,7 +124,9 @@ public:
 	//// 方向ベクトルの変換
 	//static Matrix4 DirectionToDirection(const Vector3& from, const Vector3& to);
 
-	
+	static Matrix4 MakeRotateAxisAngle(const Vector3& axis, float angle);
+
+	static Matrix4 DirectionToDirection(const Vector3& from, const Vector3& to);
 
 	// 任意軸回転を表すクォータニオンの作成
 	static Quaternion MakeRotateAxisAngleQuaternion(const Vector3& axis, float angle);

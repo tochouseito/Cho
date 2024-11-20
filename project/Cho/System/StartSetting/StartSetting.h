@@ -19,6 +19,9 @@ class GameObject;
 // SceneManager
 class SceneManager;
 
+// EditorManager
+class EditorManager;
+
 class StartSetting
 {
 public:
@@ -33,7 +36,8 @@ public:
 		ComponentManager* componentManager,
 		SystemManager* systemManager,
 		PrefabManager* prefabManager,
-		SceneManager* sceneManager
+		SceneManager* sceneManager,
+		EditorManager* editorManager
 	);
 
 private:

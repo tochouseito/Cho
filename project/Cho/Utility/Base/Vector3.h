@@ -16,6 +16,20 @@ struct Vector3 final {
         x = 0.0f; y = 0.0f; z = 0.0f;
     }
 
+    // 等号演算子
+    bool operator==(const Vector3& other) const { return x == other.x && y == other.y && z == other.z; }
+
+    // 不等号演算子
+    bool operator!=(const Vector3& other) const { return !(*this == other); }
+
+    // 小なりイコール演算子 (<=)
+    bool operator<=(const Vector3& other) const {
+        return (this->x <= other.x && this->y <= other.y && this->z <= other.z);
+    }
+
+    // 負号演算子のオーバーロード
+    Vector3 operator-() const { return { -x, -y, -z }; }
+
     // ベクトル加算
     Vector3 operator+(const Vector3& other) const {
         return { x + other.x, y + other.y, z + other.z };
@@ -41,6 +55,7 @@ struct Vector3 final {
         float len = Length();
         if (len == 0.0f) {
             Initialize();
+            return;
         }
         x = x / len;
         y = y / len;
@@ -53,12 +68,10 @@ struct Vector3 final {
     }
 
     // 外積
-    Vector3 Cross(const Vector3& other) const {
-        return {
-            y * other.z - z * other.y,
-            z * other.x - x * other.z,
-            x * other.y - y * other.x
-        };
+    void Cross(const Vector3& other) {
+        x = y * other.z - z * other.y;
+        y = z * other.x - x * other.z;
+        z = x * other.y - y * other.x;
     }
 
     // 距離計算
@@ -76,5 +89,26 @@ struct Vector3 final {
         float otherLengthSq = other.Length() * other.Length();
         if (otherLengthSq == 0.0f) return { 0.0f, 0.0f, 0.0f }; // 長さがゼロの場合
         return other * (dot / otherLengthSq);
+    }
+
+public:// 静的メンバ
+    static Vector3 Normalize(const Vector3& v) {
+        Vector3 result=v;
+        float len = result.Length();
+        if (len == 0.0f) {
+            result.Initialize();
+        }
+        result.x = result.x / len;
+        result.y = result.y / len;
+        result.z = result.z / len;
+        return result;
+    }
+    // 外積
+    static Vector3 Cross(const Vector3& v, const Vector3& other) {
+        return {
+            v.y * other.z - v.z * other.y,
+            v.z * other.x - v.x * other.z,
+            v.x * other.y - v.y * other.x
+        };
     }
 };

@@ -387,7 +387,8 @@ void Cho::StartSetUp()
 		componentManager.get(),
 		systemManager.get(),
 		prefabManager.get(),
-		sceneManager.get()
+		sceneManager.get(),
+		editorManager.get()
 	);
 	// 解放
 	startSetting.reset();

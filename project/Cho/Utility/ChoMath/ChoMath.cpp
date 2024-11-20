@@ -163,7 +163,9 @@ Matrix4 ChoMath::MakeAffineMatrix(const Scale& scale, const Quaternion& rotate, 
 	Matrix4 scaleMatrix = MakeScaleMatrix(scale);
 	Matrix4 rotateMatrix = MakeRotateMatrix(rotate);
 	Matrix4 translateMatrix = MakeTranslateMatrix(translate);
-	result = Multiply(Multiply(scaleMatrix, rotateMatrix), translateMatrix);
+	// 回転 → スケール → 平行移動
+	//result = Multiply(Multiply(rotateMatrix, scaleMatrix), translateMatrix);
+	result = scaleMatrix * rotateMatrix * translateMatrix;
 	return result;
 }
 
@@ -188,6 +190,89 @@ float ChoMath::Normalize(float x, float min, float max)
 	float normalized = (x - min) / (max - min);
 	return Clamp(normalized, 0.0f, 1.0f); // 結果を [0, 1] にクランプ
 }
+
+float ChoMath::Dot(const Vector3& v1, const Vector3& v2)
+{
+	float result;
+	result = (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
+	return result;
+}
+
+Matrix4 ChoMath::MakeRotateAxisAngle(const Vector3& axis, float angle)
+{
+	Vector3 normAxis = axis;
+	float axisLength = std::sqrt(axis.x * axis.x + axis.y * axis.y + axis.z * axis.z);
+	if (axisLength != 0.0f) {
+		normAxis.x /= axisLength;
+		normAxis.y /= axisLength;
+		normAxis.z /= axisLength;
+	}
+
+	float cosTheta = std::cos(angle);
+	float sinTheta = std::sin(angle);
+	float oneMinusCosTheta = 1.0f - cosTheta;
+
+	Matrix4 rotateMatrix;
+
+	rotateMatrix.m[0][0] = cosTheta + normAxis.x * normAxis.x * oneMinusCosTheta;
+	rotateMatrix.m[0][1] = normAxis.x * normAxis.y * oneMinusCosTheta - normAxis.z * sinTheta;
+	rotateMatrix.m[0][2] = normAxis.x * normAxis.z * oneMinusCosTheta + normAxis.y * sinTheta;
+	rotateMatrix.m[0][3] = 0.0f;
+
+	rotateMatrix.m[1][0] = normAxis.y * normAxis.x * oneMinusCosTheta + normAxis.z * sinTheta;
+	rotateMatrix.m[1][1] = cosTheta + normAxis.y * normAxis.y * oneMinusCosTheta;
+	rotateMatrix.m[1][2] = normAxis.y * normAxis.z * oneMinusCosTheta - normAxis.x * sinTheta;
+	rotateMatrix.m[1][3] = 0.0f;
+
+	rotateMatrix.m[2][0] = normAxis.z * normAxis.x * oneMinusCosTheta - normAxis.y * sinTheta;
+	rotateMatrix.m[2][1] = normAxis.z * normAxis.y * oneMinusCosTheta + normAxis.x * sinTheta;
+	rotateMatrix.m[2][2] = cosTheta + normAxis.z * normAxis.z * oneMinusCosTheta;
+	rotateMatrix.m[2][3] = 0.0f;
+
+	rotateMatrix.m[3][0] = 0.0f;
+	rotateMatrix.m[3][1] = 0.0f;
+	rotateMatrix.m[3][2] = 0.0f;
+	rotateMatrix.m[3][3] = 1.0f;
+
+	rotateMatrix = Transpose(rotateMatrix);
+
+	return rotateMatrix;
+}
+
+Matrix4 ChoMath::DirectionToDirection(const Vector3& from, const Vector3& to) {
+	// 入力ベクトルを正規化
+	Vector3 normalizedFrom = Vector3::Normalize(from);
+	Vector3 normalizedTo = Vector3::Normalize(to);
+
+	// 回転軸を計算
+	Vector3 axis = Vector3::Cross(normalizedFrom, normalizedTo);
+	axis.Normalize();
+
+	// 特殊ケース: from と -to が一致する場合
+	if (normalizedFrom == -normalizedTo) {
+		// 任意の直交軸を選択
+		if (std::abs(normalizedFrom.x) < std::abs(normalizedFrom.y)) {
+			axis = Vector3::Normalize(Vector3{ 0.0f, -normalizedFrom.z, normalizedFrom.y });
+		} else {
+			axis = Vector3::Normalize(Vector3{ -normalizedFrom.y, normalizedFrom.x, 0.0f });
+		}
+	}
+
+	// cosTheta と sinTheta を計算
+	float cosTheta = normalizedFrom.Dot(normalizedTo);
+	float sinTheta = std::sqrt(1.0f - cosTheta * cosTheta);
+
+	// 最初から転置された形で回転行列を作成
+	Matrix4 rotateMatrix = {
+		(axis.x * axis.x) * (1 - cosTheta) + cosTheta,        (axis.x * axis.y) * (1 - cosTheta) + (axis.z * sinTheta), (axis.x * axis.z) * (1 - cosTheta) - (axis.y * sinTheta), 0.0f,
+		(axis.x * axis.y) * (1 - cosTheta) - (axis.z * sinTheta), (axis.y * axis.y) * (1 - cosTheta) + cosTheta,        (axis.y * axis.z) * (1 - cosTheta) + (axis.x * sinTheta), 0.0f,
+		(axis.x * axis.z) * (1 - cosTheta) + (axis.y * sinTheta), (axis.y * axis.z) * (1 - cosTheta) - (axis.x * sinTheta), (axis.z * axis.z) * (1 - cosTheta) + cosTheta,        0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
+	};
+
+	return rotateMatrix;
+}
+
 
 Quaternion ChoMath::MakeRotateAxisAngleQuaternion(const Vector3& axis, float angle)
 {
