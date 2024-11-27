@@ -80,7 +80,7 @@ void ObjectsList::selectObject(const std::unordered_map<std::string, std::unique
                 }
             }
 
-            if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
+            if (ImGui::IsMouseClicked(ImGuiMouseButton_Left) && !ImGui::IsItemActive()) {
                 editing = false;
             }
         } else {
@@ -95,6 +95,7 @@ void ObjectsList::selectObject(const std::unordered_map<std::string, std::unique
                 editing = true;
                 editingName = name;                       // 編集中の名前を設定
                 strncpy_s(inputBuffer, IM_ARRAYSIZE(inputBuffer), name.c_str(), _TRUNCATE); // 現在の名前をバッファにコピー
+
             }
         }
     }
