@@ -184,41 +184,6 @@ void MainMenu::EngineInfoMenu()
         ImGui::Text("FPS: %.1f", io.Framerate);
         ImGui::Text("fps: %.1f", NowFrameRate());
         ImGui::Text("DeltaTime: %.5f", DeltaTime());
-        Vector3 from0 = { 1.0f,0.7f,0.5f };
-        from0.Normalize();
-        Vector3 to0 = -from0;
-        Vector3 from1 = { -0.6f,0.9f,0.2f };
-        from1.Normalize();
-        Vector3 to1 = { 0.4f,0.7f,-0.5f };
-        to1.Normalize();
-        Matrix4 rotateMatrix0 = ChoMath::DirectionToDirection(
-            Vector3::Normalize(Vector3(1.0f, 0.0f, 0.0f)), Vector3::Normalize(Vector3(-1.0f, 0.0f, 0.0f)));
-        Matrix4 rotateMatrix1 = ChoMath::DirectionToDirection(from0, to0);
-        Matrix4 rotateMatrix2 = ChoMath::DirectionToDirection(from1, to1);
-        // 行ごとに表示
-        for (int row = 0; row < 4; ++row) {
-            ImGui::Text("[%.3f, %.3f, %.3f, %.3f]",
-                rotateMatrix0.m[row][0],
-                rotateMatrix0.m[row][1],
-                rotateMatrix0.m[row][2],
-                rotateMatrix0.m[row][3]);
-        }
-        ImGui::Separator();
-        for (int row = 0; row < 4; ++row) {
-            ImGui::Text("[%.3f, %.3f, %.3f, %.3f]",
-                rotateMatrix1.m[row][0],
-                rotateMatrix1.m[row][1],
-                rotateMatrix1.m[row][2],
-                rotateMatrix1.m[row][3]);
-        }
-        ImGui::Separator();
-        for (int row = 0; row < 4; ++row) {
-            ImGui::Text("[%.3f, %.3f, %.3f, %.3f]",
-                rotateMatrix2.m[row][0],
-                rotateMatrix2.m[row][1],
-                rotateMatrix2.m[row][2],
-                rotateMatrix2.m[row][3]);
-        }
 
         ImGui::EndMenu();
     }
