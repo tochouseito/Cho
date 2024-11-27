@@ -64,6 +64,8 @@ void InfoView::Update()
             if (componentManager_->GetTransform(selectGO->GetEntityID())) {
                 TransformComponent& TFCompo = *componentManager_->GetTransform(selectGO->GetEntityID());
                 Quaternion q;
+                // 差分計算用
+                Vector3 r = TFCompo.rot;
                 // Transformを表示
                 ImGui::SeparatorText("Transform"); // ラインとテキスト表示
 
@@ -72,12 +74,12 @@ void InfoView::Update()
 
                 // 回転の操作
                 //Vector3 eulerAngles = ChoMath::ToEulerAngles(TFCompo.rotation);
-                if (ImGui::DragFloat3("Rotation", &q.x, 0.01f)) {
+                if (ImGui::DragFloat3("Rotation", &TFCompo.rot.x, 0.01f)) {
                     // オイラー角からクォータニオンを生成し、絶対回転として設定
                     //TFCompo.rotation = ChoMath::FromEulerAngles(eulerAngles);
+                    q.x = TFCompo.rot.x-r.x; q.y = TFCompo.rot.y-r.y; q.z = TFCompo.rot.z-r.z;
                     TFCompo.rotation = q * TFCompo.rotation;
                 }
-
                 // スケールの操作
                 ImGui::DragFloat3("Scale", &TFCompo.scale.x, 0.01f);
             }

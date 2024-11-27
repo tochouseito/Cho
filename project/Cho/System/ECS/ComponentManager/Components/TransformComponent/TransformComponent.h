@@ -15,6 +15,9 @@ struct TransformComponent final {
     Matrix4 matWorld = ChoMath::MakeIdentity4x4();
     Matrix4 rootMatrix = ChoMath::MakeIdentity4x4();
 
+    // 操作用のクオータニオンの3要素
+    Vector3 rot= { 0.0f, 0.0f, 0.0f };
+
     // 初期化
     inline void Initialize() {
         translation.Initialize();
