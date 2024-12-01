@@ -17,6 +17,9 @@ struct TransformComponent final {
 
     // 操作用のクオータニオンの3要素
     Vector3 rot= { 0.0f, 0.0f, 0.0f };
+    // 差分計算用
+    Quaternion diffQ = { 0.0f, 0.0f, 0.0f,1.0f };
+    Vector3 diffRot= { 0.0f, 0.0f, 0.0f };
 
     // 初期化
     inline void Initialize() {
@@ -27,8 +30,17 @@ struct TransformComponent final {
         rootMatrix = ChoMath::MakeIdentity4x4();
     }
     inline void UpdateMatrix() {
+        diffQ.x = rot.x - diffRot.x;
+        diffQ.y = rot.y - diffRot.y;
+        diffQ.z = rot.z - diffRot.z;
+
+        rotation = diffQ * rotation;
+
         rotation.Normalize();
         matWorld = ChoMath::MakeAffineMatrix(scale, rotation, translation);
+        
+        diffQ.Initialize();
+        diffRot = rot;
 
         TransferMatrix();
     }

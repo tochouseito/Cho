@@ -64,22 +64,15 @@ void InfoView::Update()
             if (componentManager_->GetTransform(selectGO->GetEntityID())) {
                 TransformComponent& TFCompo = *componentManager_->GetTransform(selectGO->GetEntityID());
 
-                // 差分計算用
-                Quaternion q;
-                Vector3 r = TFCompo.rot;
-
                 // Transformを表示
                 ImGui::SeparatorText("Transform"); // ラインとテキスト表示
 
                 // 平行移動の操作
                 ImGui::DragFloat3("Translation", &TFCompo.translation.x, 0.01f);
 
-                if (ImGui::DragFloat3("Rotation", &TFCompo.rot.x, 0.01f)) {
-                    q.x = TFCompo.rot.x-r.x;// X
-                    q.y = TFCompo.rot.y-r.y;// Y
-                    q.z = TFCompo.rot.z-r.z;// Z
-                    TFCompo.rotation = q * TFCompo.rotation;
-                }
+                // 回転の操作
+                ImGui::DragFloat3("Rotation", &TFCompo.rot.x, 0.01f);
+
                 // スケールの操作
                 ImGui::DragFloat3("Scale", &TFCompo.scale.x, 0.01f);
             }
