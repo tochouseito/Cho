@@ -8,7 +8,7 @@ void ScriptProject::GenerateScriptProject(const std::string& projectName, const 
     std::string filtersPath = vcxprojPath + ".filters";
 
     // スクリプト用ディレクトリを作成
-    fs::create_directories(outputPath + "/Scripts");
+    //fs::create_directories(outputPath + "/Scripts");
 
     // .sln ファイルの生成または更新
     if (!fs::exists(slnPath)) {
@@ -144,6 +144,9 @@ void ScriptProject::SyncScriptsWithProject(const std::string& projectName, const
             }
         }
     }
+
+    vcxprojPath = outputPath + "/" + projectName + ".vcxproj";
+    filtersPath = vcxprojPath + ".filters";
 
     // プロジェクトファイルを更新
     UpdateVcxproj(vcxprojPath, cppFiles, hFiles);
