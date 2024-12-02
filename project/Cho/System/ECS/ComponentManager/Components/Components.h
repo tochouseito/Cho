@@ -25,3 +25,4 @@
 #include"ECS/ComponentManager/Components/PhysicsComponent/PhysicsComponent.h"
 #include"ECS/ComponentManager/Components/RenderComponent/RenderComponent.h"
 #include"ECS/ComponentManager/Components/TransformComponent/TransformComponent.h"
+#include"ECS/ComponentManager/Components/ScriptComponent/ScriptComponent.h"
