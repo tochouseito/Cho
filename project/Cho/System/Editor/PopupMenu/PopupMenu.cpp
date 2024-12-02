@@ -15,6 +15,9 @@
 
 #include"Editor/EditorManager/EditorManager.h"
 
+// Generator
+#include"Generator/ScriptProject/ScriptProject.h"
+
 void PopupMenu::Initialize(
 	ResourceViewManager* rvManager,
 	RTVManager* rtvManager,
@@ -73,6 +76,15 @@ void PopupMenu::Update(bool excludeRightClick)
                 editManager_->CreateCamera();
             }
             if (ImGui::MenuItem("Item 3")) { /* Item 3の処理 */ }
+
+            if (ImGui::MenuItem("C++ Script")) {
+                ScriptProject::GenerateScriptProject("Test", "./Game");
+                ScriptProject::GenerateScriptTemplate("TestScript", "./Game/Assets");
+                ScriptProject::SyncScriptsWithProject("Test", "./Game");
+            }
+            if (ImGui::MenuItem("OpenVS:Test")) {
+                ScriptProject::OpenVisualStudio();
+            }
 
             ImGui::EndMenu(); // 「Add」メニューを終了
         }
