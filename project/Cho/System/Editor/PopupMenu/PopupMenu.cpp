@@ -77,10 +77,13 @@ void PopupMenu::Update(bool excludeRightClick)
             }
             if (ImGui::MenuItem("Item 3")) { /* Item 3の処理 */ }
 
-            if (ImGui::MenuItem("C++ Script")) {
-                ScriptProject::GenerateScriptProject("Test", "./Game");
-                ScriptProject::GenerateScriptTemplate("TestScript", "./Game/Assets");
-                ScriptProject::SyncScriptsWithProject("Test", "./Game");
+            if (ImGui::MenuItem("AddC++Script")) {
+            }
+            if (ImGui::MenuItem("GenerateScriptProject")) {
+                ScriptProject::GenerateSolutionAndProject("Test", "Game");
+            }
+            if (ImGui::MenuItem("Update")) {
+                ScriptProject::Update("Game/Assets/Scripts");
             }
             if (ImGui::MenuItem("OpenVS:Test")) {
                 ScriptProject::OpenVisualStudio();
