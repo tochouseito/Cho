@@ -6,6 +6,7 @@
 #include"ECS/System/PhysicsSystem/PhysicsSystem.h"
 #include"ECS/System/RenderSystem/RenderSystem.h"
 #include"ECS/System/CameraSystem/CameraSystem.h"
+#include"ECS/System/ScriptSystem/ScriptSystem.h"
 
 class D3DCommand;
 class ResourceViewManager;
@@ -37,5 +38,6 @@ private:
     PhysicsSystem physicsSystem;
     RenderSystem renderSystem;
     CameraSystem cameraSystem;
+    ScriptSystem scriptSystem;
 };
 
