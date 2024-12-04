@@ -186,6 +186,10 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     scriptFiles.insert(scriptFiles.end(), scripts["cpp"].begin(), scripts["cpp"].end());
     scriptFiles.insert(scriptFiles.end(), scripts["h"].begin(), scripts["h"].end());
 
+    fs::path currentPath = fs::current_path();
+    fs::path mathPath = "Cho/Utility/ChoMath";
+    fs::path fullMathPath = currentPath / mathPath;
+
     std::ofstream vcxFile(vcxprojPath, std::ios::trunc);
     vcxFile << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
     vcxFile << "<Project DefaultTargets=\"Build\" ToolsVersion=\"17.0\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">\n";
@@ -206,7 +210,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "  <PropertyGroup Label=\"Globals\">\n";
     vcxFile << "    <ProjectGuid>" << projectGuid << "</ProjectGuid>\n";
     vcxFile << "    <Keyword>Win32Proj</Keyword>\n";
-    vcxFile << "    <RootNamespace>" << projectName << "</RootNamespace>\n"; // プロジェクト名を設定
+    vcxFile << "    <RootNamespace>" << projectName << "</RootNamespace>\n";
     vcxFile << "  </PropertyGroup>\n";
 
     vcxFile << "  <Import Project=\"$(VCTargetsPath)\\Microsoft.Cpp.Default.props\" />\n";
@@ -223,7 +227,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "  <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='Release|x64'\" Label=\"Configuration\">\n";
     vcxFile << "    <ConfigurationType>DynamicLibrary</ConfigurationType>\n";
     vcxFile << "    <UseDebugLibraries>false</UseDebugLibraries>\n";
-    vcxFile << "    <PlatformToolset>v143</PlatformToolset>\n"; // Visual Studio 2022 のツールセット
+    vcxFile << "    <PlatformToolset>v143</PlatformToolset>\n";
     vcxFile << "    <WholeProgramOptimization>true</WholeProgramOptimization>\n";
     vcxFile << "    <CharacterSet>Unicode</CharacterSet>\n";
     vcxFile << "  </PropertyGroup>\n";
@@ -242,7 +246,8 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "    <ClCompile>\n";
     vcxFile << "      <WarningLevel>Level3</WarningLevel>\n";
     vcxFile << "      <Optimization>Disabled</Optimization>\n";
-    vcxFile << "      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
+    vcxFile << "      <PreprocessorDefinitions>_DEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << fullMathPath << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
     vcxFile << "    </ClCompile>\n";
     vcxFile << "    <Link>\n";
     vcxFile << "      <SubSystem>Windows</SubSystem>\n";
@@ -255,9 +260,8 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "    <ClCompile>\n";
     vcxFile << "      <WarningLevel>Level3</WarningLevel>\n";
     vcxFile << "      <Optimization>MaxSpeed</Optimization>\n";
-    vcxFile << "      <FunctionLevelLinking>true</FunctionLevelLinking>\n";
-    vcxFile << "      <IntrinsicFunctions>true</IntrinsicFunctions>\n";
-    vcxFile << "      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
+    vcxFile << "      <PreprocessorDefinitions>NDEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << fullMathPath << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
     vcxFile << "    </ClCompile>\n";
     vcxFile << "    <Link>\n";
     vcxFile << "      <SubSystem>Windows</SubSystem>\n";
