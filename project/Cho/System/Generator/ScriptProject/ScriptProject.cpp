@@ -5,11 +5,14 @@
 std::unordered_map<std::string, std::vector<std::string>> ScriptProject::scripts;
 
 void ScriptProject::Update(const std::string& scriptsPath) {
+
+    std::string fullScriptsPath = fs::absolute(scriptsPath).string();
+
     // Scripts フォルダをスキャンしてリストを更新
     scripts["cpp"] = {};
     scripts["h"] = {};
 
-    for (const auto& entry : fs::directory_iterator(scriptsPath)) {
+    for (const auto& entry : fs::directory_iterator(fullScriptsPath)) {
         if (entry.is_regular_file()) {
             const auto& path = entry.path();
             if (path.extension() == ".cpp") {
@@ -33,6 +36,10 @@ void ScriptProject::GenerateSolutionAndProject(const std::string& projectName, c
     std::string slnPath = outputPath + "/" + projectName + ".sln";
     std::string vcxprojPath = outputPath + "/" + projectName + ".vcxproj";
     std::string filtersPath = vcxprojPath + ".filters";
+
+    slnPath = fs::absolute(slnPath).string();
+    vcxprojPath = fs::absolute(vcxprojPath).string();
+    filtersPath = fs::absolute(filtersPath).string();
 
     std::string slnGUID = GenerateGUID();
     std::string projectGUID = GenerateGUID();
@@ -93,6 +100,10 @@ void ScriptProject::OpenVisualStudio() {
 void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const std::string& outputPath) {
     std::string cppPath = outputPath + "/Scripts/" + scriptName + ".cpp";
     std::string hPath = outputPath + "/Scripts/" + scriptName + ".h";
+
+    // フルパスに変換
+    cppPath = fs::absolute(cppPath).string();
+    hPath = fs::absolute(hPath).string();
 
     // すでにスクリプトファイルが存在する場合はスキップ
     if (fs::exists(cppPath)) {
@@ -307,8 +318,10 @@ void ScriptProject::UpdateFilters(const std::string& filtersPath) {
 std::string ScriptProject::FindSolutionPath()
 {
     // 現在の作業ディレクトリを取得
-    std::string currentPath = fs::current_path().string();
-    std::string gameFolder = currentPath + "\\Game";
+    //std::string currentPath = fs::current_path().string();
+    //std::string gameFolder = currentPath + "\\Game";
+    std::string gameFolder = "C:/ChoGame";
+    gameFolder = fs::absolute(gameFolder).string();
 
     // Gameフォルダ内を検索
     for (const auto& entry : fs::directory_iterator(gameFolder)) {
