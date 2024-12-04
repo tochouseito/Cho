@@ -14,6 +14,9 @@
 
 #include"Editor/EditorManager/EditorManager.h"
 
+// C++
+#include<string>
+
 void MainMenu::Initialize(
     ResourceViewManager* rvManager,
     RTVManager* rtvManager,
@@ -175,14 +178,10 @@ void MainMenu::LayoutMenu()
         ImGui::End();
     }
     if (showMetricsWindow) {
-        ImGui::Begin("Metrics",&showMetricsWindow,windowFlags);
-        ImGui::ShowMetricsWindow();
-        ImGui::End();
+        ImGui::ShowMetricsWindow(&showMetricsWindow);
     }
     if (showDemoImGui) {
-        ImGui::Begin("Demo",&showDemoImGui,windowFlags);
-        ImGui::ShowDemoWindow();
-        ImGui::End();
+        ImGui::ShowDemoWindow(&showDemoImGui);
     }
 }
 
@@ -193,8 +192,26 @@ void MainMenu::EngineInfoMenu()
         // Viewの使用数
         ImGui::SeparatorText("Descriptor");
 
-        ImGui::Text("C.S.U.View : %d / %d", rvManager_->GetNowIndex(), ResourceViewManager::GetMaxIndex());
-        ImGui::Text("RTV : %d / %d", rtvManager_->GetNowIndex(), RTVManager::GetMaxIndex());
+        {
+            std::string overlay = "C.S.U.View:" + std::to_string(rvManager_->GetNowIndex()) + " / " + std::to_string(ResourceViewManager::GetMaxIndex());
+
+            ImGui::ProgressBar(
+                static_cast<float>(rvManager_->GetNowIndex()) / static_cast<float>(ResourceViewManager::GetMaxIndex()),
+                ImVec2(-1.0f, 0.0f),
+                overlay.c_str()
+            );
+        }
+
+        {
+            std::string overlay = "RTV:" + std::to_string(rtvManager_->GetNowIndex()) + " / " + std::to_string(RTVManager::GetMaxIndex());
+
+            ImGui::ProgressBar(
+                static_cast<float>(rtvManager_->GetNowIndex()) / static_cast<float>(RTVManager::GetMaxIndex()),
+                ImVec2(-1.0f, 0.0f),
+                overlay.c_str()
+            );
+        }
+
         // フレームレートを表示
         ImGuiIO& io = ImGui::GetIO();
         ImGui::Text("FPS: %.1f", io.Framerate);
