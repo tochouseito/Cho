@@ -49,6 +49,8 @@ public:
 
     void AddComponent(const MaterialComponent& component);
 
+    void AddComponent(const ScriptComponent& component);
+
     // TransformComponentを取得します。
     inline TransformComponent* GetTransform() {
         return componentManager->GetTransform(entity);

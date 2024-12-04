@@ -30,6 +30,8 @@ public:
 
     void AddComponent(Entity entity, const MaterialComponent& component);
 
+    void AddComponent(Entity entity, const ScriptComponent& component);
+
     // 指定されたエンティティのTransformコンポーネントを取得します。
     inline TransformComponent* GetTransform(Entity entity) {
         if (transforms.contains(entity)) {
@@ -74,6 +76,13 @@ public:
         }
         return nullptr;
     }
+
+    inline ScriptComponent* GetScript(Entity entity) {
+        if (scripts.contains(entity)) {
+            return &scripts[entity];
+        }
+        return nullptr;
+    }
     // デバッグ用
     inline CameraComponent* GetDebugCamera() {
         if (cameras.contains(0)) {
@@ -92,6 +101,7 @@ private:
     std::unordered_map<Entity, MeshComponent> meshes;
     std::unordered_map<Entity, CameraComponent> cameras;
     std::unordered_map<Entity, MaterialComponent> materials;
+    std::unordered_map<Entity, ScriptComponent> scripts;
 
     ResourceViewManager* RVManager_ = nullptr;
 };

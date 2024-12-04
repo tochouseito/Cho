@@ -190,6 +190,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </ClCompile>
     <ClCompile Include="Cho\System\Editor\PopupMenu\PopupMenu.cpp" />
     <ClCompile Include="Cho\System\Generator\ScriptProject\ScriptProject.cpp" />
+    <ClCompile Include="Cho\System\ECS\System\ScriptSystem\ScriptSystem.cpp" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\CameraComponent\CameraComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\MaterialComponent\MaterialComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\MeshComponent\MeshComponenth.h" />
@@ -257,6 +258,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\Generator\ScriptProject\ScriptProject.h" />
     <ClInclude Include="Cho\System\Scene\MainScene.h" />
     <ClInclude Include="Cho\System\Editor\FileController\FileController.h" />
+    <ClInclude Include="Cho\System\ECS\System\ScriptSystem\ScriptSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

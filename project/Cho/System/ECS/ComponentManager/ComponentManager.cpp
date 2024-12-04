@@ -58,6 +58,11 @@ void ComponentManager::AddComponent(Entity entity, const MaterialComponent& comp
     materials[entity].textureID = "uvChecker.png";
 }
 
+void ComponentManager::AddComponent(Entity entity, const ScriptComponent& component)
+{
+    scripts[entity] = component;
+}
+
 // Entityに関連するすべてのコンポーネントを削除します。
 // 指定されたEntityに対して、TransformComponent、RenderComponent、PhysicsComponentをそれぞれのマップから削除します。
 void ComponentManager::RemoveComponent(Entity entity) {
