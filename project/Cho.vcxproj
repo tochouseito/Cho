@@ -62,7 +62,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Utility\ChoMath;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Game;$(ProjectDir)Cho\Externals\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Utility\ChoMath;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Cho\Externals\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PrecompiledHeader.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -101,7 +101,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Utility\ChoMath;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Game;$(ProjectDir)Cho\Externals\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Utility\ChoMath;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Cho\Externals\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PrecompiledHeader.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -129,7 +129,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Cho\System\ECS\System\CameraSystem\CameraSystem.cpp" />
-    <ClCompile Include="Game\Assets\Scenes\MainScene.cpp" />
+    <ClCompile Include="Cho\System\Generator\GameProject\GameProject.cpp" />
     <ClCompile Include="Cho\Main\Cho.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -175,10 +175,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\Utility\ChoMath\ChoMath.cpp" />
     <ClCompile Include="Cho\System\Load\JsonFileLoader\JsonFileLoader.cpp" />
     <ClCompile Include="Cho\System\Editor\InfoView\InfoView.cpp" />
-    <ClCompile Include="Game\Assets\Scripts\Test.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="Cho\System\Scene\MainScene.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -200,7 +197,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\TransformComponent\TransformComponent.h" />
     <ClInclude Include="Cho\Utility\Base\Quaternion.h" />
     <ClInclude Include="Cho\Utility\Base\Scale.h" />
-    <ClInclude Include="Game\Assets\Scenes\MainScene.h" />
+    <ClInclude Include="Cho\System\Generator\GameProject\GameProject.h" />
     <ClInclude Include="Cho\System\ECS\System\CameraSystem\CameraSystem.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\Components.h" />
     <ClInclude Include="Cho\System\Scene\SceneFactory\AbstractSceneFactory.h" />
@@ -257,7 +254,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\Editor\PopupMenu\PopupMenu.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\ScriptComponent\ScriptComponent.h" />
     <ClInclude Include="Cho\System\Generator\ScriptProject\ScriptProject.h" />
-    <ClInclude Include="Game\Assets\Scripts\Test.h" />
+    <ClInclude Include="Cho\System\Scene\MainScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

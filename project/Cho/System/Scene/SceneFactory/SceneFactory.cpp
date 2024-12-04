@@ -1,6 +1,6 @@
 #include "PrecompiledHeader.h"
 #include "SceneFactory.h"
-#include"Assets/Scenes/MainScene.h"
+#include"Scene/MainScene.h"
 
 BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
 {

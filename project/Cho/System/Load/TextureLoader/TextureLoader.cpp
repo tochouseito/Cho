@@ -84,6 +84,9 @@ void TextureLoader::Load()
 
 void TextureLoader::FirstResourceLoad(const std::string& directoryPath)
 {
+    // directoryPath をフルパスに変換
+    std::string fullDirectoryPath = fs::absolute(directoryPath).string();
+
     // ファイルパスのリストを取得
     for (const auto& entry : fs::directory_iterator(directoryPath))
     {

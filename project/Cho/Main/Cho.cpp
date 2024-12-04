@@ -373,7 +373,7 @@ void Cho::Load()
 
 	/*テクスチャリソースの読み込み*/
 	textureLoader->FirstResourceLoad("Cho/Resources/Texture/");
-	textureLoader->FirstResourceLoad("Game/Assets/Texture/");
+	textureLoader->FirstResourceLoad("C:/ChoGame/Assets/Texture/");
 }
 
 void Cho::StartSetUp()

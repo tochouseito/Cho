@@ -102,9 +102,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game\Assets\Scenes\MainScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Cho\Main\Cho.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -246,7 +243,10 @@
     <ClCompile Include="Cho\System\Generator\ScriptProject\ScriptProject.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Assets\Scripts\Test.cpp">
+    <ClCompile Include="Cho\System\Generator\GameProject\GameProject.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\Scene\MainScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -395,9 +395,6 @@
     <ClInclude Include="Cho\System\ECS\System\CameraSystem\CameraSystem.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Assets\Scenes\MainScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Cho\System\StartSetting\StartSetting.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -446,7 +443,10 @@
     <ClInclude Include="Cho\System\Generator\ScriptProject\ScriptProject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Assets\Scripts\Test.h">
+    <ClInclude Include="Cho\System\Generator\GameProject\GameProject.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\Scene\MainScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

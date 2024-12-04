@@ -12,6 +12,9 @@
 
 #include"Editor/EditorManager/EditorManager.h"
 
+#include"Generator/GameProject/GameProject.h"
+#include"Generator/ScriptProject/ScriptProject.h"
+
 void StartSetting::Initialize(
 	ResourceViewManager* rvManager,
 	RTVManager* rtvManager,
@@ -24,8 +27,9 @@ void StartSetting::Initialize(
 	EditorManager* editorManager
 )
 {
-	/*std::string name = "DebugCamera";
-	sceneManager->AddCameraObject(name);*/
+	// ひとまず開発用プロジェクトの作成
+	GameProject::CreateGameFolder();
+
 	sceneManager->CreateDebugCamera();
 	std::string name = "SceneCamera";
 	name = sceneManager->AddCameraObject(name);
