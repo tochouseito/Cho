@@ -30,17 +30,18 @@ struct TransformComponent final {
         rootMatrix = ChoMath::MakeIdentity4x4();
     }
     inline void UpdateMatrix() {
-        diffQ.x = rot.x - diffRot.x;
-        diffQ.y = rot.y - diffRot.y;
-        diffQ.z = rot.z - diffRot.z;
+        //diffQ.x = rot.x - diffRot.x;
+        //diffQ.y = rot.y - diffRot.y;
+        //diffQ.z = rot.z - diffRot.z;
 
-        rotation = diffQ * rotation;
+        //rotation = diffQ * rotation;
 
+        rotation = ChoMath::FromEulerAngles(rot);
         rotation.Normalize();
         matWorld = ChoMath::MakeAffineMatrix(scale, rotation, translation);
         
-        diffQ.Initialize();
-        diffRot = rot;
+        //diffQ.Initialize();
+        //diffRot = rot;
 
         TransferMatrix();
     }
