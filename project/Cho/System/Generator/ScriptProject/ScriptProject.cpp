@@ -90,6 +90,37 @@ void ScriptProject::OpenVisualStudio() {
     }
 }
 
+void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const std::string& outputPath) {
+    std::string cppPath = outputPath + "/Scripts/" + scriptName + ".cpp";
+    std::string hPath = outputPath + "/Scripts/" + scriptName + ".h";
+
+    // すでにスクリプトファイルが存在する場合はスキップ
+    if (fs::exists(cppPath)) {
+        std::cout << "CPP file already exists: " << cppPath << "\n";
+    } else {
+        std::ofstream cppFile(cppPath);
+        cppFile << "#include \"" << scriptName << ".h\"\n\n";
+        cppFile << "void " << scriptName << "::Start() {\n    // Initialization\n}\n\n";
+        cppFile << "void " << scriptName << "::Update() {\n    // Update logic\n}\n";
+        cppFile.close();
+        std::cout << "Generated CPP file: " << cppPath << "\n";
+    }
+
+    if (fs::exists(hPath)) {
+        std::cout << "Header file already exists: " << hPath << "\n";
+    } else {
+        std::ofstream hFile(hPath);
+        hFile << "#pragma once\n\n";
+        hFile << "class " << scriptName << " {\n";
+        hFile << "public:\n";
+        hFile << "    void Start();\n";
+        hFile << "    void Update();\n";
+        hFile << "};\n";
+        hFile.close();
+        std::cout << "Generated header file: " << hPath << "\n";
+    }
+}
+
 void ScriptProject::LoadScriptAssembly(const std::string& dllPath)
 {
     // std::string を std::wstring に変換

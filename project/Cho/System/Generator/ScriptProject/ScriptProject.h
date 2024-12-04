@@ -17,6 +17,7 @@ public:
     static void Update(const std::string& scriptsPath);                     // スクリプトの更新
     static void GenerateSolutionAndProject(const std::string& projectName, const std::string& outputPath);
     static void OpenVisualStudio();                                        // Visual Studio を開く
+    static void GenerateScriptTemplate(const std::string& scriptName, const std::string& outputPath);
     static void LoadScriptAssembly(const std::string& dllPath);            // スクリプト DLL のロード
 
 private:
