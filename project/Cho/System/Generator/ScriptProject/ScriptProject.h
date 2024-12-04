@@ -9,6 +9,7 @@
 #include <set>
 #include <unordered_map>
 #include <filesystem>
+#include <windows.h>
 
 namespace fs = std::filesystem;
 
@@ -18,7 +19,7 @@ public:
     static void GenerateSolutionAndProject(const std::string& projectName, const std::string& outputPath);
     static void OpenVisualStudio();                                        // Visual Studio を開く
     static void GenerateScriptTemplate(const std::string& scriptName, const std::string& outputPath);
-    static void LoadScriptAssembly(const std::string& dllPath);            // スクリプト DLL のロード
+    static void LoadScriptDLL(const std::string& dllPath);
 
 private:
     static std::string GenerateGUID();                                     // GUID 生成
@@ -27,5 +28,6 @@ private:
     static std::string FindSolutionPath();
 
     static std::unordered_map<std::string, std::vector<std::string>> scripts;  // 更新されたスクリプトのリスト
+    static HMODULE scriptLibrary;
 };
 

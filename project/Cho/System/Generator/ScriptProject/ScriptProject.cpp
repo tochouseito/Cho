@@ -1,8 +1,8 @@
 #include "PrecompiledHeader.h"
 #include "ScriptProject.h"
-#include <windows.h>
 
 std::unordered_map<std::string, std::vector<std::string>> ScriptProject::scripts;
+HMODULE ScriptProject::scriptLibrary = nullptr;
 
 void ScriptProject::Update(const std::string& scriptsPath) {
 
@@ -132,25 +132,24 @@ void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const 
     }
 }
 
-void ScriptProject::LoadScriptAssembly(const std::string& dllPath)
-{
-    // std::string を std::wstring に変換
-    std::wstring wideDllPath(dllPath.begin(), dllPath.end());
+void ScriptProject::LoadScriptDLL(const std::string& dllPath) {
+    if (scriptLibrary) {
+        FreeLibrary(scriptLibrary);  // 既存のDLLをアンロード
+    }
 
-    // DLL をロード
-    HMODULE scriptLibrary = LoadLibraryW(wideDllPath.c_str());
+    scriptLibrary = LoadLibraryA(dllPath.c_str());
     if (!scriptLibrary) {
-        std::cerr << "Failed to load script assembly: " << dllPath << "\n";
+        std::cerr << "Failed to load DLL: " << dllPath << "\n";
         return;
     }
 
-    // 関数ポインタを取得
-    typedef void (*InitFunc)();
-    InitFunc init = (InitFunc)GetProcAddress(scriptLibrary, "Init");
-    if (init) {
-        init();
+    // DLL内の関数を取得して実行
+    typedef void (*ScriptInitFunc)();
+    ScriptInitFunc initFunc = (ScriptInitFunc)GetProcAddress(scriptLibrary, "Init");
+    if (initFunc) {
+        initFunc();
     } else {
-        std::cerr << "Init function not found in: " << dllPath << "\n";
+        std::cerr << "Init function not found in DLL: " << dllPath << "\n";
     }
 }
 
