@@ -11,8 +11,10 @@ void FileView::Initialize(EditorManager* editManager, ResourceViewManager* rvMan
     texLoader_ = texLoader;
     editManager_ = editManager;
 
-    currentDirectory = fs::current_path().string();  // 現在のディレクトリに設定
-    currentDirectory = currentDirectory + "\\Game\\Assets\\Texture";
+    //currentDirectory = fs::current_path().string();  // 現在のディレクトリに設定
+    //currentDirectory = currentDirectory + "\\Game\\Assets\\Texture";
+    currentDirectory = "C:/ChoGame/Assets/Texture";
+    currentDirectory= fs::absolute(currentDirectory).string();
     files = GetFilesInDirectory(currentDirectory);
     selectedFile = "";
 }
