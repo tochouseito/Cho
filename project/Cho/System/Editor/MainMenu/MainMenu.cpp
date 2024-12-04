@@ -151,21 +151,37 @@ void MainMenu::EditMenu()
 void MainMenu::LayoutMenu()
 {
     static bool showStyleEditor = false;
+    static bool showMetricsWindow = false;
+    static bool showDemoImGui = false;
+    // ドッキング解除を無効にするフラグ
+    ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoDocking;
 
     if (ImGui::BeginMenu("Layout")) {
         if (ImGui::MenuItem("Show Style Editor")) {
             showStyleEditor = true;
         }
+        if (ImGui::MenuItem("Show Metrics")) {
+            showMetricsWindow = true;
+        }
+        if (ImGui::MenuItem("Show DemoWindow")) {
+            showDemoImGui = true;
+        }
         ImGui::EndMenu();
     }
 
     if (showStyleEditor) {
-        // ドッキング解除を無効にするフラグ
-        ImGuiWindowFlags windowFlags =ImGuiWindowFlags_NoDocking;
         ImGui::Begin("Style Editor", &showStyleEditor,windowFlags);
         ImGui::ShowStyleEditor();
-        //ImGui::ShowMetricsWindow();
-        //ImGui::ShowDemoWindow();
+        ImGui::End();
+    }
+    if (showMetricsWindow) {
+        ImGui::Begin("Metrics",&showMetricsWindow,windowFlags);
+        ImGui::ShowMetricsWindow();
+        ImGui::End();
+    }
+    if (showDemoImGui) {
+        ImGui::Begin("Demo",&showDemoImGui,windowFlags);
+        ImGui::ShowDemoWindow();
         ImGui::End();
     }
 }
