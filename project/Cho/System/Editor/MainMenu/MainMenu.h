@@ -1,5 +1,7 @@
 #pragma once
 
+#include"Editor/FileController/FileController.h"
+
 // D3D12
 class ResourceViewManager;
 class RTVManager;
@@ -71,5 +73,7 @@ private:
 	SceneManager* sceneManager_ = nullptr;
 
 	EditorManager* editManager_ = nullptr;
+
+	std::unique_ptr<FileController> fileController = nullptr;
 };
 

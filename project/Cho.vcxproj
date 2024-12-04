@@ -176,6 +176,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\System\Load\JsonFileLoader\JsonFileLoader.cpp" />
     <ClCompile Include="Cho\System\Editor\InfoView\InfoView.cpp" />
     <ClCompile Include="Cho\System\Scene\MainScene.cpp" />
+    <ClCompile Include="Cho\System\Editor\FileController\FileController.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -255,6 +256,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\ScriptComponent\ScriptComponent.h" />
     <ClInclude Include="Cho\System\Generator\ScriptProject\ScriptProject.h" />
     <ClInclude Include="Cho\System\Scene\MainScene.h" />
+    <ClInclude Include="Cho\System\Editor\FileController\FileController.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

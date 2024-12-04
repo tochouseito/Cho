@@ -44,6 +44,9 @@ void MainMenu::Initialize(
     sceneManager_ = sceneManager;
 
     editManager_ = editManager;
+
+    fileController = std::make_unique<FileController>();
+    fileController->Initialize();
 }
 
 void MainMenu::Update()
@@ -113,8 +116,7 @@ void MainMenu::MenuBar()
 void MainMenu::FileMenu()
 {
     if (ImGui::BeginMenu("File")) {
-        if (ImGui::MenuItem("Open", "Ctrl+O")) { /* Open action */ }
-        if (ImGui::MenuItem("Save", "Ctrl+S")) { /* Save action */ }
+        fileController->Update();
         ImGui::EndMenu();
     }
 }
