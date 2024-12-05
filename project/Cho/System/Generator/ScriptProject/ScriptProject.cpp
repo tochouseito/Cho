@@ -189,6 +189,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     fs::path currentPath = fs::current_path();
     fs::path mathPath = "Cho/Utility/ChoMath";
     fs::path fullMathPath = currentPath / mathPath;
+    fullMathPath.make_preferred();
 
     std::ofstream vcxFile(vcxprojPath, std::ios::trunc);
     vcxFile << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
@@ -247,7 +248,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "      <WarningLevel>Level3</WarningLevel>\n";
     vcxFile << "      <Optimization>Disabled</Optimization>\n";
     vcxFile << "      <PreprocessorDefinitions>_DEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << fullMathPath << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << fullMathPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
     vcxFile << "    </ClCompile>\n";
     vcxFile << "    <Link>\n";
     vcxFile << "      <SubSystem>Windows</SubSystem>\n";
@@ -261,7 +262,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "      <WarningLevel>Level3</WarningLevel>\n";
     vcxFile << "      <Optimization>MaxSpeed</Optimization>\n";
     vcxFile << "      <PreprocessorDefinitions>NDEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << fullMathPath << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << fullMathPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
     vcxFile << "    </ClCompile>\n";
     vcxFile << "    <Link>\n";
     vcxFile << "      <SubSystem>Windows</SubSystem>\n";
@@ -335,4 +336,9 @@ std::string ScriptProject::FindSolutionPath()
 
     // 見つからなかった場合
     return "";
+}
+
+std::string ScriptProject::ConvertToWindowsPath(const std::string& path) {
+    fs::path p = path;
+    return p.make_preferred().string();
 }

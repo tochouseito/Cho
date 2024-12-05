@@ -29,5 +29,6 @@ private:
 
     static std::unordered_map<std::string, std::vector<std::string>> scripts;  // 更新されたスクリプトのリスト
     static HMODULE scriptLibrary;
+    static std::string ConvertToWindowsPath(const std::string& path);
 };
 
