@@ -6,12 +6,6 @@
 // C++
 #include <string>
 
-enum Type {
-    Object,
-    Camera,
-    Light
-};
-
 class GameObject {
 
 public:
@@ -72,6 +66,10 @@ public:
 
     inline MaterialComponent* GetMaterial() {
         return componentManager->GetMaterial(entity);
+    }
+
+    inline ScriptComponent* GetScript() {
+        return componentManager->GetScript(entity,type);
     }
 
     inline CameraComponent* GetCamera() {

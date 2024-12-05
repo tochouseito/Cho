@@ -1,4 +1,7 @@
 #pragma once
+
+#include<cstdint>
+
 class IScript {
 public:
     virtual ~IScript() = default;
@@ -8,8 +11,7 @@ public:
 
     // スクリプトの毎フレーム処理
     virtual void Update() = 0;
+
+    // エンティティ情報の設定
+    virtual void SetEntityInfo(uint32_t id, uint32_t type) = 0;
 };
-
-// ファクトリ関数のシンボル名
-extern "C" __declspec(dllexport) IScript* CreateScript();
-

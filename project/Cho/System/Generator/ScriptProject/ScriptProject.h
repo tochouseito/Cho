@@ -20,6 +20,7 @@ public:
     static void OpenVisualStudio();                                        // Visual Studio を開く
     static void GenerateScriptTemplate(const std::string& scriptName, const std::string& outputPath);
     static void LoadScriptDLL(const std::string& dllPath);
+    static HMODULE GetDLL() { return scriptLibrary; }
 
 private:
     static std::string GenerateGUID();                                     // GUID 生成

@@ -77,11 +77,31 @@ public:
         return nullptr;
     }
 
-    inline ScriptComponent* GetScript(Entity entity) {
-        if (scripts.contains(entity)) {
-            return &scripts[entity];
+    inline ScriptComponent* GetScript(Entity entity,Type type) {
+        switch (type)
+        {
+        case Type::Object:
+            if (objectScripts.contains(entity)) {
+                return &objectScripts[entity];
+            }
+            return nullptr;
+            break;
+        case Type::Camera:
+            if (cameraScripts.contains(entity)) {
+                return &cameraScripts[entity];
+            }
+            return nullptr;
+            break;
+        case Type::Light:
+            if (lightScripts.contains(entity)) {
+                return &lightScripts[entity];
+            }
+            return nullptr;
+            break;
+        default:
+            return nullptr;
+            break;
         }
-        return nullptr;
     }
     // デバッグ用
     inline CameraComponent* GetDebugCamera() {
@@ -101,7 +121,9 @@ private:
     std::unordered_map<Entity, MeshComponent> meshes;
     std::unordered_map<Entity, CameraComponent> cameras;
     std::unordered_map<Entity, MaterialComponent> materials;
-    std::unordered_map<Entity, ScriptComponent> scripts;
+    std::unordered_map<Entity, ScriptComponent> objectScripts;
+    std::unordered_map<Entity, ScriptComponent> cameraScripts;
+    std::unordered_map<Entity, ScriptComponent> lightScripts;
 
     ResourceViewManager* RVManager_ = nullptr;
 };

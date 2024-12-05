@@ -14,6 +14,8 @@
 
 #include"Editor/EditorManager/EditorManager.h"
 
+#include"Generator/ScriptProject/ScriptProject.h"
+
 void InfoView::Initialize(
 	ResourceViewManager* rvManager,
 	RTVManager* rtvManager,
@@ -58,7 +60,7 @@ void InfoView::Update()
 
         switch (selectGO->GetObjectType())
         {
-        case Object:
+        case Type::Object:
 
             // コンポーネントがあれば表示
             if (componentManager_->GetTransform(selectGO->GetEntityID())) {
@@ -103,6 +105,23 @@ void InfoView::Update()
 
                 ImGui::Text("Texture : %s", materialComp.textureID.c_str());
             }
+
+            if (componentManager_->GetScript(selectGO->GetEntityID(),selectGO->GetObjectType())) {
+                ScriptComponent& scriptComp = *componentManager_->GetScript(selectGO->GetEntityID(),selectGO->GetObjectType());
+                
+                static bool isScript = false;
+                if (isScript) {
+                    if (ImGui::Button("LoadFunc")) {
+                        scriptComp.LoadDLLFunc();
+                    }
+                } else {
+                    if (ImGui::Button("AddScript")){
+                        ScriptProject::GenerateScriptTemplate(editManager_->GetSelectedGOName(), "C:/ChoGame/Assets");
+                        
+                        isScript = true;
+                    }
+                }
+            }
             
             if (isAdd) {
                 if (!selectGO->GetMesh()) {
@@ -137,6 +156,14 @@ void InfoView::Update()
                         selectGO->AddComponent(MaterialComp);
                     }
                 }
+                if (!selectGO->GetScript()) {
+                    if (ImGui::Selectable("ScriptComponent")) {
+                        isAdd = false;
+                        ScriptComponent scriptComp;
+                        scriptComp.SetGOInfo(selectGO->GetEntityID(), static_cast<uint32_t>(selectGO->GetObjectType()));
+                        selectGO->AddComponent(scriptComp);
+                    }
+                }
             } else
             {
                 if (ImGui::Button("AddComponent")) {
@@ -144,7 +171,7 @@ void InfoView::Update()
                 }
             }
             break;
-        case Camera:
+        case Type::Camera:
 
             // コンポーネントがあれば表示
             if (componentManager_->GetCamera(selectGO->GetEntityID())) {

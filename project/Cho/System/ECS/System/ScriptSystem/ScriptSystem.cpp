@@ -4,7 +4,7 @@
 void ScriptSystem::Start(EntityManager& entityManager, ComponentManager& componentManager)
 {
     for (Entity entity : entityManager.GetActiveEntities()) {
-        ScriptComponent* script = componentManager.GetScript(entity);
+        ScriptComponent* script = componentManager.GetScript(entity,Type::Object);
         script;
     }
 }
@@ -12,7 +12,10 @@ void ScriptSystem::Start(EntityManager& entityManager, ComponentManager& compone
 void ScriptSystem::Update(EntityManager& entityManager, ComponentManager& componentManager)
 {
     for (Entity entity : entityManager.GetActiveEntities()) {
-        ScriptComponent* script = componentManager.GetScript(entity);
-        script;
+        ScriptComponent* script = componentManager.GetScript(entity, Type::Object);
+        if (script) {
+            script->Update();
+        }
     }
+   
 }

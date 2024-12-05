@@ -109,17 +109,17 @@ void ObjectsList::selectObject(const std::unordered_map<std::string, std::unique
         // 名前の変更処理
         switch (renameType)
         {
-        case Object:
+        case Type::Object:
             name = sceneManager_->GameObjectListRename(newName, oldName);  // 名前変更
             editManager_->SetSelectedGOName(name);
             editManager_->SetSelectedGO(sceneManager_->GetGameObject(name));  // 選択したオブジェクトを保持
             break;
-        case Camera:
+        case Type::Camera:
             name = sceneManager_->CameraObjectListRename(newName, oldName);
             editManager_->SetSelectedGOName(name);
             editManager_->SetSelectedGO(sceneManager_->GetCameraObject(name));  // 選択したオブジェクトを保持
             break;
-        case Light:
+        case Type::Light:
             break;
         default:
             break;

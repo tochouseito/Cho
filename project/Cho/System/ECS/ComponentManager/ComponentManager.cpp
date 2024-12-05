@@ -60,7 +60,21 @@ void ComponentManager::AddComponent(Entity entity, const MaterialComponent& comp
 
 void ComponentManager::AddComponent(Entity entity, const ScriptComponent& component)
 {
-    scripts[entity] = component;
+    Type type = static_cast<Type>(component.type);
+    switch (type)
+    {
+    case Type::Object:
+        objectScripts[entity] = component;
+        break;
+    case Type::Camera:
+        cameraScripts[entity] = component;
+        break;
+    case Type::Light:
+        lightScripts[entity] = component;
+        break;
+    default:
+        break;
+    }
 }
 
 // Entityに関連するすべてのコンポーネントを削除します。

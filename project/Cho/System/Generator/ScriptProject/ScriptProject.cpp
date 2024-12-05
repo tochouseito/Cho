@@ -101,7 +101,6 @@ void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const 
     std::string cppPath = outputPath + "/Scripts/" + scriptName + ".cpp";
     std::string hPath = outputPath + "/Scripts/" + scriptName + ".h";
 
-    // フルパスに変換
     cppPath = fs::absolute(cppPath).string();
     hPath = fs::absolute(hPath).string();
 
@@ -113,11 +112,15 @@ void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const 
         hFile << "#pragma once\n\n";
         hFile << "#include \"IScript.h\"\n\n";
         hFile << "class " << scriptName << " : public IScript {\n";
+        hFile << "private:\n";
+        hFile << "    uint32_t entityId = 0;\n";
+        hFile << "    uint32_t entityType = 0;\n\n";
         hFile << "public:\n";
         hFile << "    " << scriptName << "() = default;\n";
         hFile << "    ~" << scriptName << "() override = default;\n\n";
         hFile << "    void Start() override;\n";
         hFile << "    void Update() override;\n";
+        hFile << "    void SetEntityInfo(uint32_t id, uint32_t type) override;\n";
         hFile << "};\n";
         hFile.close();
         std::cout << "Generated header file: " << hPath << "\n";
@@ -130,10 +133,14 @@ void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const 
         std::ofstream cppFile(cppPath);
         cppFile << "#include \"" << scriptName << ".h\"\n\n";
         cppFile << "void " << scriptName << "::Start() {\n";
-        cppFile << "    // Initialization\n";
+        cppFile << "    // Initialization logic\n";
         cppFile << "}\n\n";
         cppFile << "void " << scriptName << "::Update() {\n";
         cppFile << "    // Update logic\n";
+        cppFile << "}\n\n";
+        cppFile << "void " << scriptName << "::SetEntityInfo(uint32_t id, uint32_t type) {\n";
+        cppFile << "    entityId = id;\n";
+        cppFile << "    entityType = type;\n";
         cppFile << "}\n\n";
         cppFile << "extern \"C\" __declspec(dllexport) IScript* CreateScript() {\n";
         cppFile << "    return new " << scriptName << "();\n";
@@ -152,15 +159,6 @@ void ScriptProject::LoadScriptDLL(const std::string& dllPath) {
     if (!scriptLibrary) {
         std::cerr << "Failed to load DLL: " << dllPath << "\n";
         return;
-    }
-
-    // DLL内の関数を取得して実行
-    typedef void (*ScriptStartFunc)();
-    ScriptStartFunc StartFunc = (ScriptStartFunc)GetProcAddress(scriptLibrary, "Start");
-    if (StartFunc) {
-        StartFunc();
-    } else {
-        std::cerr << "Start function not found in DLL: " << dllPath << "\n";
     }
 }
 
