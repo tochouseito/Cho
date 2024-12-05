@@ -1,5 +1,14 @@
 #pragma once
-struct ScriptComponent {
 
+#include<Windows.h>
+
+struct ScriptComponent {
+public:
+	HMODULE dllHandle;
+
+public:
+	void LoadDLLFunc() {
+
+	}
 };
 

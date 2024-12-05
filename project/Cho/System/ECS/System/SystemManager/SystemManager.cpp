@@ -1,6 +1,11 @@
 #include "PrecompiledHeader.h"
 #include "SystemManager.h"
 
+void SystemManager::Start(EntityManager& entityManager, ComponentManager& componentManager)
+{
+    scriptSystem.Start(entityManager, componentManager);
+}
+
 void SystemManager::Update(EntityManager& entityManager, ComponentManager& componentManager, float deltaTime) {
     scriptSystem.Update(entityManager, componentManager);
     physicsSystem.Update(entityManager, componentManager, deltaTime);

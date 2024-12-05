@@ -253,6 +253,8 @@ void Cho::Initialize()
 
 	/*読み込み*/
 	Load();
+
+	systemManager->Start(*entityManager.get(), *componentManager.get());
 }
 
 void Cho::Finalize()

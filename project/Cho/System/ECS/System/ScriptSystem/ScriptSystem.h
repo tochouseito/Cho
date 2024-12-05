@@ -5,6 +5,7 @@
 class ScriptSystem
 {
 public:
+	void Start(EntityManager& entityManager, ComponentManager& componentManager);
 	void Update(EntityManager& entityManager, ComponentManager& componentManager);
 };
 

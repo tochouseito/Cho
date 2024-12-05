@@ -75,8 +75,8 @@ void PopupMenu::Update(bool excludeRightClick)
             if (ImGui::MenuItem("Camera")) { 
                 editManager_->CreateCamera();
             }
-            if (ImGui::MenuItem("Item 3")) {
-                
+            if (ImGui::MenuItem("LoadDLL")) {
+                ScriptProject::LoadScriptDLL("C:/ChoGame/bin/Debug/Test.dll");
             }
 
             if (ImGui::MenuItem("AddC++Script")) {

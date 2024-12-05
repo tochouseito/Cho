@@ -5,9 +5,9 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <iostream>
-#include<algorithm>
-#include<numbers>
-#include<array>
+#include <algorithm>
+#include <numbers>
+#include <array>
 
 #include <assert.h>
 

@@ -105,30 +105,41 @@ void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const 
     cppPath = fs::absolute(cppPath).string();
     hPath = fs::absolute(hPath).string();
 
-    // すでにスクリプトファイルが存在する場合はスキップ
-    if (fs::exists(cppPath)) {
-        std::cout << "CPP file already exists: " << cppPath << "\n";
-    } else {
-        std::ofstream cppFile(cppPath);
-        cppFile << "#include \"" << scriptName << ".h\"\n\n";
-        cppFile << "void " << scriptName << "::Start() {\n    // Initialization\n}\n\n";
-        cppFile << "void " << scriptName << "::Update() {\n    // Update logic\n}\n";
-        cppFile.close();
-        std::cout << "Generated CPP file: " << cppPath << "\n";
-    }
-
+    // ヘッダーファイルの生成
     if (fs::exists(hPath)) {
         std::cout << "Header file already exists: " << hPath << "\n";
     } else {
         std::ofstream hFile(hPath);
         hFile << "#pragma once\n\n";
-        hFile << "class " << scriptName << " {\n";
+        hFile << "#include \"IScript.h\"\n\n";
+        hFile << "class " << scriptName << " : public IScript {\n";
         hFile << "public:\n";
-        hFile << "    void Start();\n";
-        hFile << "    void Update();\n";
+        hFile << "    " << scriptName << "() = default;\n";
+        hFile << "    ~" << scriptName << "() override = default;\n\n";
+        hFile << "    void Start() override;\n";
+        hFile << "    void Update() override;\n";
         hFile << "};\n";
         hFile.close();
         std::cout << "Generated header file: " << hPath << "\n";
+    }
+
+    // CPPファイルの生成
+    if (fs::exists(cppPath)) {
+        std::cout << "CPP file already exists: " << cppPath << "\n";
+    } else {
+        std::ofstream cppFile(cppPath);
+        cppFile << "#include \"" << scriptName << ".h\"\n\n";
+        cppFile << "void " << scriptName << "::Start() {\n";
+        cppFile << "    // Initialization\n";
+        cppFile << "}\n\n";
+        cppFile << "void " << scriptName << "::Update() {\n";
+        cppFile << "    // Update logic\n";
+        cppFile << "}\n\n";
+        cppFile << "extern \"C\" __declspec(dllexport) IScript* CreateScript() {\n";
+        cppFile << "    return new " << scriptName << "();\n";
+        cppFile << "}\n";
+        cppFile.close();
+        std::cout << "Generated CPP file: " << cppPath << "\n";
     }
 }
 
@@ -144,12 +155,12 @@ void ScriptProject::LoadScriptDLL(const std::string& dllPath) {
     }
 
     // DLL内の関数を取得して実行
-    typedef void (*ScriptInitFunc)();
-    ScriptInitFunc initFunc = (ScriptInitFunc)GetProcAddress(scriptLibrary, "Init");
-    if (initFunc) {
-        initFunc();
+    typedef void (*ScriptStartFunc)();
+    ScriptStartFunc StartFunc = (ScriptStartFunc)GetProcAddress(scriptLibrary, "Start");
+    if (StartFunc) {
+        StartFunc();
     } else {
-        std::cerr << "Init function not found in DLL: " << dllPath << "\n";
+        std::cerr << "Start function not found in DLL: " << dllPath << "\n";
     }
 }
 
@@ -187,9 +198,18 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     scriptFiles.insert(scriptFiles.end(), scripts["h"].begin(), scripts["h"].end());
 
     fs::path currentPath = fs::current_path();
+
     fs::path mathPath = "Cho/Utility/ChoMath";
-    fs::path fullMathPath = currentPath / mathPath;
-    fullMathPath.make_preferred();
+    fs::path basePath = "Cho/Utility/Base";
+    mathPath = currentPath / mathPath;
+    mathPath.make_preferred();
+
+    basePath = currentPath / basePath;
+    basePath.make_preferred();
+
+    fs::path scriptTempPath = "Cho/System/Script/IScript";
+    scriptTempPath = currentPath / scriptTempPath;
+    scriptTempPath.make_preferred();
 
     std::ofstream vcxFile(vcxprojPath, std::ios::trunc);
     vcxFile << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
@@ -248,7 +268,11 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "      <WarningLevel>Level3</WarningLevel>\n";
     vcxFile << "      <Optimization>Disabled</Optimization>\n";
     vcxFile << "      <PreprocessorDefinitions>_DEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << fullMathPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << mathPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << basePath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << scriptTempPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <LanguageStandard>stdcpp20</LanguageStandard>\n"; // C++20を指定
+    vcxFile << "      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>\n";
     vcxFile << "    </ClCompile>\n";
     vcxFile << "    <Link>\n";
     vcxFile << "      <SubSystem>Windows</SubSystem>\n";
@@ -262,7 +286,11 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "      <WarningLevel>Level3</WarningLevel>\n";
     vcxFile << "      <Optimization>MaxSpeed</Optimization>\n";
     vcxFile << "      <PreprocessorDefinitions>NDEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << fullMathPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << mathPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << basePath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << scriptTempPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <LanguageStandard>stdcpp20</LanguageStandard>\n"; // C++20を指定
+    vcxFile << "      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>\n";
     vcxFile << "    </ClCompile>\n";
     vcxFile << "    <Link>\n";
     vcxFile << "      <SubSystem>Windows</SubSystem>\n";
