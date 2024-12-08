@@ -151,14 +151,28 @@ void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const 
 }
 
 void ScriptProject::LoadScriptDLL(const std::string& dllPath) {
+    // 既存のDLLをアンロード
     if (scriptLibrary) {
-        FreeLibrary(scriptLibrary);  // 既存のDLLをアンロード
+        FreeLibrary(scriptLibrary);
+        scriptLibrary = nullptr;
+        std::cout << "Previous DLL unloaded successfully.\n";
     }
 
+    // 新しいDLLをロード
     scriptLibrary = LoadLibraryA(dllPath.c_str());
     if (!scriptLibrary) {
-        std::cerr << "Failed to load DLL: " << dllPath << "\n";
+        DWORD errorCode = GetLastError();
+        std::cerr << "Failed to load DLL: " << dllPath << " (Error Code: " << errorCode << ")\n";
         return;
+    }
+    std::cout << "DLL loaded successfully: " << dllPath << "\n";
+
+    // PDBファイルの読み込み
+    std::string pdbPath = dllPath.substr(0, dllPath.find_last_of('.')) + ".pdb";
+    if (!LoadPDBForDLL(dllPath, pdbPath)) {
+        std::cerr << "Failed to load PDB: " << pdbPath << "\n";
+    } else {
+        std::cout << "PDB loaded successfully: " << pdbPath << "\n";
     }
 }
 
@@ -195,18 +209,16 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     scriptFiles.insert(scriptFiles.end(), scripts["cpp"].begin(), scripts["cpp"].end());
     scriptFiles.insert(scriptFiles.end(), scripts["h"].begin(), scripts["h"].end());
 
+    // パス設定
     fs::path currentPath = fs::current_path();
 
-    fs::path mathPath = "Cho/Utility/ChoMath";
-    fs::path basePath = "Cho/Utility/Base";
-    mathPath = currentPath / mathPath;
+    fs::path mathPath = currentPath / "Cho/Utility/ChoMath";
+    fs::path basePath = currentPath / "Cho/Utility/Base";
+    fs::path scriptTempPath = currentPath / "Cho/System/Script/IScript";
+
+    // パスの正規化
     mathPath.make_preferred();
-
-    basePath = currentPath / basePath;
     basePath.make_preferred();
-
-    fs::path scriptTempPath = "Cho/System/Script/IScript";
-    scriptTempPath = currentPath / scriptTempPath;
     scriptTempPath.make_preferred();
 
     std::ofstream vcxFile(vcxprojPath, std::ios::trunc);
@@ -238,7 +250,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "  <PropertyGroup Condition=\"'$(Configuration)|$(Platform)'=='Debug|x64'\" Label=\"Configuration\">\n";
     vcxFile << "    <ConfigurationType>DynamicLibrary</ConfigurationType>\n";
     vcxFile << "    <UseDebugLibraries>true</UseDebugLibraries>\n";
-    vcxFile << "    <PlatformToolset>v143</PlatformToolset>\n"; // Visual Studio 2022 のツールセット
+    vcxFile << "    <PlatformToolset>v143</PlatformToolset>\n";
     vcxFile << "    <CharacterSet>Unicode</CharacterSet>\n";
     vcxFile << "  </PropertyGroup>\n";
 
@@ -266,10 +278,8 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "      <WarningLevel>Level3</WarningLevel>\n";
     vcxFile << "      <Optimization>Disabled</Optimization>\n";
     vcxFile << "      <PreprocessorDefinitions>_DEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << mathPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << basePath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << scriptTempPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
-    vcxFile << "      <LanguageStandard>stdcpp20</LanguageStandard>\n"; // C++20を指定
+    vcxFile << "      <AdditionalIncludeDirectories>" << mathPath.string() << ";" << basePath.string() << ";" << scriptTempPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <LanguageStandard>stdcpp20</LanguageStandard>\n";
     vcxFile << "      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>\n";
     vcxFile << "    </ClCompile>\n";
     vcxFile << "    <Link>\n";
@@ -284,10 +294,8 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "      <WarningLevel>Level3</WarningLevel>\n";
     vcxFile << "      <Optimization>MaxSpeed</Optimization>\n";
     vcxFile << "      <PreprocessorDefinitions>NDEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << mathPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << basePath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << scriptTempPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
-    vcxFile << "      <LanguageStandard>stdcpp20</LanguageStandard>\n"; // C++20を指定
+    vcxFile << "      <AdditionalIncludeDirectories>" << mathPath.string() << ";" << basePath.string() << ";" << scriptTempPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <LanguageStandard>stdcpp20</LanguageStandard>\n";
     vcxFile << "      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>\n";
     vcxFile << "    </ClCompile>\n";
     vcxFile << "    <Link>\n";
@@ -367,4 +375,43 @@ std::string ScriptProject::FindSolutionPath()
 std::string ScriptProject::ConvertToWindowsPath(const std::string& path) {
     fs::path p = path;
     return p.make_preferred().string();
+}
+
+bool ScriptProject::LoadPDBForDLL(const std::string& dllPath, const std::string& pdbPath) {
+    // DbgHelp を初期化
+    if (!SymInitialize(GetCurrentProcess(), nullptr, FALSE)) {
+        DWORD errorCode = GetLastError();
+        std::cerr << "SymInitialize failed (Error Code: " << errorCode << ")\n";
+        return false;
+    }
+
+    // DLLのシンボルをロード
+    DWORD64 baseAddress = SymLoadModuleEx(
+        GetCurrentProcess(),
+        nullptr,
+        dllPath.c_str(),
+        nullptr,
+        0,
+        0,
+        nullptr,
+        0
+    );
+
+    if (baseAddress == 0) {
+        DWORD errorCode = GetLastError();
+        std::cerr << "SymLoadModuleEx failed for " << dllPath << " (Error Code: " << errorCode << ")\n";
+        SymCleanup(GetCurrentProcess());
+        return false;
+    }
+
+    // PDBパスが存在するか確認
+    if (!fs::exists(pdbPath)) {
+        std::cerr << "PDB file not found: " << pdbPath << "\n";
+        SymCleanup(GetCurrentProcess());
+        return false;
+    }
+
+    std::cout << "PDB associated with DLL successfully.\n";
+
+    return true;
 }

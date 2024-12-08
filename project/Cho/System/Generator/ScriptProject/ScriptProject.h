@@ -10,6 +10,8 @@
 #include <unordered_map>
 #include <filesystem>
 #include <windows.h>
+#include <DbgHelp.h>
+#pragma comment(lib, "Dbghelp.lib")
 
 namespace fs = std::filesystem;
 
@@ -31,5 +33,6 @@ private:
     static std::unordered_map<std::string, std::vector<std::string>> scripts;  // 更新されたスクリプトのリスト
     static HMODULE scriptLibrary;
     static std::string ConvertToWindowsPath(const std::string& path);
+    static bool LoadPDBForDLL(const std::string& dllPath, const std::string& pdbPath);
 };
 
