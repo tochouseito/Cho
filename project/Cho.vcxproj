@@ -172,7 +172,9 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\System\UI\ImGuiManager\ImGuiManager.cpp" />
     <ClCompile Include="Cho\System\WinApp\WinApp.cpp" />
     <ClCompile Include="Cho\Utility\ConvertString\ConvertString.cpp" />
-    <ClCompile Include="Cho\Utility\ChoMath\ChoMath.cpp" />
+    <ClCompile Include="Cho\Utility\ChoMath\ChoMath.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Cho\System\Load\JsonFileLoader\JsonFileLoader.cpp" />
     <ClCompile Include="Cho\System\Editor\InfoView\InfoView.cpp" />
     <ClCompile Include="Cho\System\Scene\MainScene.cpp" />

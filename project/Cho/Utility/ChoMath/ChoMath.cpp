@@ -1,4 +1,4 @@
-#include "PrecompiledHeader.h"
+//#include "PrecompiledHeader.h"
 #include "ChoMath.h"
 
 
@@ -477,6 +477,3 @@ Vector3 ChoMath::ToEulerAngles(const Quaternion& q, RotationOrder order) {
 
 	return angles;
 }
-
-
-

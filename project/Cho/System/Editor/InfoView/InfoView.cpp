@@ -160,7 +160,7 @@ void InfoView::Update()
                     if (ImGui::Selectable("ScriptComponent")) {
                         isAdd = false;
                         ScriptComponent scriptComp;
-                        scriptComp.SetGOInfo(selectGO->GetEntityID(), static_cast<uint32_t>(selectGO->GetObjectType()));
+                        scriptComp.SetGOInfo(selectGO->GetEntityID(), static_cast<uint32_t>(selectGO->GetObjectType()),componentManager_);
                         selectGO->AddComponent(scriptComp);
                     }
                 }

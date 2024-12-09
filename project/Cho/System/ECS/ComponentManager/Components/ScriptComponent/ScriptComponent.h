@@ -13,8 +13,9 @@ public:
 
     uint32_t id;
     uint32_t type;
+    ComponentManager* ptr = nullptr;
 
-    using ScriptFunc = std::function<void(uint32_t, uint32_t)>; // スクリプト関数型
+    using ScriptFunc = std::function<void(uint32_t, uint32_t, ComponentManager*)>; // スクリプト関数型
 
     ScriptFunc startFunc;  // Start関数
     ScriptFunc updateFunc; // Update関数
@@ -23,9 +24,10 @@ public:
     bool isScript = false;
 
 public:
-    void SetGOInfo(uint32_t ID, uint32_t Type) {
+    void SetGOInfo(uint32_t ID, uint32_t Type, ComponentManager* Ptr) {
         id = ID;
         type = Type;
+        ptr = Ptr;
     }
 
     bool LoadDLLFunc() {
@@ -56,12 +58,14 @@ public:
         }
 
         // スクリプトのStart関数とUpdate関数をラップ
-        startFunc = [scriptInstance](uint32_t id, uint32_t type) {
+        startFunc = [scriptInstance](uint32_t id, uint32_t type, ComponentManager* ptr) {
             std::cout << "Script Start: ID=" << id << ", Type=" << type << "\n";
+            ptr;
             scriptInstance->Start();
             };
-        updateFunc = [scriptInstance](uint32_t id, uint32_t type) {
+        updateFunc = [scriptInstance](uint32_t id, uint32_t type, ComponentManager* ptr) {
             std::cout << "Script Update: ID=" << id << ", Type=" << type << "\n";
+            ptr;
             scriptInstance->Update();
             };
 
@@ -75,13 +79,13 @@ public:
 
     void Start() {
         if (startFunc) {
-            startFunc(id, type);
+            startFunc(id, type, ptr);
         }
     }
 
     void Update() {
         if (updateFunc) {
-            updateFunc(id, type);
+            updateFunc(id, type, ptr);
         }
     }
 

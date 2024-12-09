@@ -116,13 +116,14 @@ void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const 
         hFile << "class " << scriptName << " : public IScript {\n";
         hFile << "private:\n";
         hFile << "    uint32_t entityId = 0;\n";
-        hFile << "    uint32_t entityType = 0;\n\n";
+        hFile << "    uint32_t entityType = 0;\n";
+        hFile << "    ComponentManager* componentPtr = nullptr;\n\n";
         hFile << "public:\n";
         hFile << "    " << scriptName << "() = default;\n";
         hFile << "    ~" << scriptName << "() override = default;\n\n";
         hFile << "    void Start() override;\n";
         hFile << "    void Update() override;\n";
-        hFile << "    void SetEntityInfo(uint32_t id, uint32_t type) override;\n";
+        hFile << "    void SetEntityInfo(uint32_t id, uint32_t type, ComponentManager* ptr) override;\n";
         hFile << "};\n";
         hFile.close();
         std::cout << "Generated header file: " << hPath << "\n";
@@ -141,9 +142,10 @@ void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const 
         cppFile << "void " << scriptName << "::Update() {\n";
         cppFile << "    // Update logic\n";
         cppFile << "}\n\n";
-        cppFile << "void " << scriptName << "::SetEntityInfo(uint32_t id, uint32_t type) {\n";
+        cppFile << "void " << scriptName << "::SetEntityInfo(uint32_t id, uint32_t type, ComponentManager* ptr) {\n";
         cppFile << "    entityId = id;\n";
         cppFile << "    entityType = type;\n";
+        cppFile << "    componentPtr = ptr;\n";
         cppFile << "}\n\n";
         cppFile << "extern \"C\" __declspec(dllexport) IScript* CreateScript() {\n";
         cppFile << "    return new " << scriptName << "();\n";
