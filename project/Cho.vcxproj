@@ -266,6 +266,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\ECS\System\ScriptSystem\ScriptSystem.h" />
     <ClInclude Include="Cho\System\Script\ScriptManager\ScriptManager.h" />
     <ClInclude Include="Cho\System\Script\IScript\IScript.h" />
+    <ClInclude Include="Cho\Utility\EngineSystemHeader\ChoEngine.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

@@ -165,8 +165,6 @@ Matrix4 ChoMath::MakeAffineMatrix(const Scale& scale, const Quaternion& rotate, 
 	Matrix4 scaleMatrix = MakeScaleMatrix(scale);
 	Matrix4 rotateMatrix = MakeRotateMatrix(rotate);
 	Matrix4 translateMatrix = MakeTranslateMatrix(translate);
-	// 回転 → スケール → 平行移動
-	//result = Multiply(Multiply(rotateMatrix, scaleMatrix), translateMatrix);
 	result = scaleMatrix * rotateMatrix * translateMatrix;
 	return result;
 }
@@ -343,19 +341,25 @@ float ChoMath::Dot(const Quaternion& q0, const Quaternion& q1)
 // オイラー角からクォータニオンを生成
 
 Quaternion ChoMath::FromEulerAngles(const Vector3& eulerAngles) {
-	float cy = std::cos(eulerAngles.y * 0.5f);
-	float sy = std::sin(eulerAngles.y * 0.5f);
-	float cp = std::cos(eulerAngles.x * 0.5f);
-	float sp = std::sin(eulerAngles.x * 0.5f);
-	float cr = std::cos(eulerAngles.z * 0.5f);
-	float sr = std::sin(eulerAngles.z * 0.5f);
+	// 半角を計算
+	float halfX = eulerAngles.x * 0.5f; // ピッチ（X軸）
+	float halfY = eulerAngles.y * 0.5f; // ヨー（Y軸）
+	float halfZ = eulerAngles.z * 0.5f; // ロール（Z軸）
 
-	// 左手座標系の場合、y と z に符号を反転
+	// 三角関数を計算
+	float cx = std::cos(halfX); // cos(θx / 2)
+	float sx = std::sin(halfX); // sin(θx / 2)
+	float cy = std::cos(halfY); // cos(θy / 2)
+	float sy = std::sin(halfY); // sin(θy / 2)
+	float cz = std::cos(halfZ); // cos(θz / 2)
+	float sz = std::sin(halfZ); // sin(θz / 2)
+
+	// 左手座標系を考慮したXYZ順のクォータニオン計算
 	return Quaternion{
-		sr * cp * cy - cr * sp * sy,
-		cr * sp * cy + sr * cp * sy,
-		cr * cp * sy - sr * sp * cy,
-		cr * cp * cy + sr * sp * sy
+		sx * cy * cz + cx * sy * sz, // X
+		cx * sy * cz - sx * cy * sz, // Y
+		cx * cy * sz - sx * sy * cz, // Z
+		cx * cy * cz + sx * sy * sz  // W
 	};
 }
 

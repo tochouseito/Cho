@@ -473,6 +473,9 @@
     <ClInclude Include="Cho\System\Script\IScript\IScript.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Cho\Utility\EngineSystemHeader\ChoEngine.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Cho\Resources\Shader\DemoOBJ.PS.hlsl" />

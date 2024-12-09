@@ -1,5 +1,6 @@
 #pragma once
 #include"ChoMath.h"
+#include"SystemState/SystemState.h"
 // 定数バッファ用データ構造体
 struct ConstBufferDataViewProjection final{
     Matrix4 view;
