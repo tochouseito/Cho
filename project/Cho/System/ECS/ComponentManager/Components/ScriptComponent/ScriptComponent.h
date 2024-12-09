@@ -66,6 +66,7 @@ public:
         updateFunc = [scriptInstance](uint32_t id, uint32_t type, ComponentManager* ptr) {
             std::cout << "Script Update: ID=" << id << ", Type=" << type << "\n";
             ptr;
+            scriptInstance->SetEntityInfo(id, type, ptr);
             scriptInstance->Update();
             };
 
