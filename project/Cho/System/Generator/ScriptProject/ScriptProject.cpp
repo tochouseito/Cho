@@ -101,6 +101,8 @@ void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const 
     std::string cppPath = outputPath + "/Scripts/" + scriptName + ".cpp";
     std::string hPath = outputPath + "/Scripts/" + scriptName + ".h";
 
+    std::string engineFuncInc = "ChoEngine";
+
     cppPath = fs::absolute(cppPath).string();
     hPath = fs::absolute(hPath).string();
 
@@ -132,6 +134,7 @@ void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const 
     } else {
         std::ofstream cppFile(cppPath);
         cppFile << "#include \"" << scriptName << ".h\"\n\n";
+        cppFile << "#include \"" << engineFuncInc << ".h\"\n\n";
         cppFile << "void " << scriptName << "::Start() {\n";
         cppFile << "    // Initialization logic\n";
         cppFile << "}\n\n";
@@ -212,13 +215,15 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     // パス設定
     fs::path currentPath = fs::current_path();
 
+    fs::path choMainPath = currentPath / "Cho/Main";
     fs::path mathPath = currentPath / "Cho/Utility/ChoMath";
     fs::path systemPath = currentPath / "Cho/System";
-    fs::path engineSystemPath = "Cho/Utility/EngineSystemHeader";
+    fs::path engineSystemPath = currentPath / "Cho/Utility/EngineSystemHeader";
     fs::path basePath = currentPath / "Cho/Utility/Base";
     fs::path scriptTempPath = currentPath / "Cho/System/Script/IScript";
 
     // パスの正規化
+    choMainPath.make_preferred();
     mathPath.make_preferred();
     systemPath.make_preferred();
     engineSystemPath.make_preferred();
@@ -282,7 +287,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "      <WarningLevel>Level3</WarningLevel>\n";
     vcxFile << "      <Optimization>Disabled</Optimization>\n";
     vcxFile << "      <PreprocessorDefinitions>_DEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << mathPath.string() << ";" << basePath.string() << ";" << scriptTempPath.string() << ";" << systemPath.string() << ";" << engineSystemPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << choMainPath.string() << ";" << mathPath.string() << ";" << basePath.string() << ";" << scriptTempPath.string() << ";" << systemPath.string() << ";" << engineSystemPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
     vcxFile << "      <LanguageStandard>stdcpp20</LanguageStandard>\n";
     vcxFile << "      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>\n";
     vcxFile << "    </ClCompile>\n";
@@ -298,7 +303,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "      <WarningLevel>Level3</WarningLevel>\n";
     vcxFile << "      <Optimization>MaxSpeed</Optimization>\n";
     vcxFile << "      <PreprocessorDefinitions>NDEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << mathPath.string() << ";" << basePath.string() << ";" << scriptTempPath.string() << ";" << systemPath.string() << ";" << engineSystemPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << choMainPath.string() << ";" << mathPath.string() << ";" << basePath.string() << ";" << scriptTempPath.string() << ";" << systemPath.string() << ";" << engineSystemPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
     vcxFile << "      <LanguageStandard>stdcpp20</LanguageStandard>\n";
     vcxFile << "      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>\n";
     vcxFile << "    </ClCompile>\n";

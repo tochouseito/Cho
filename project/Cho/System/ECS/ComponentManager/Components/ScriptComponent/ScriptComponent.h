@@ -20,6 +20,8 @@ public:
     ScriptFunc updateFunc; // Update関数
     std::function<void()> cleanupFunc; // 解放関数
 
+    bool isScript = false;
+
 public:
     void SetGOInfo(uint32_t ID, uint32_t Type) {
         id = ID;

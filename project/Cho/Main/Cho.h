@@ -57,6 +57,8 @@ public:
 
 	static inline ResourceViewManager* GetResourceViewManagerPtr() { return resourceViewManager.get(); }
 
+	static inline ComponentManager* ComponentPtr() { return componentManager.get(); }
+
 
 private:// メンバ関数
 

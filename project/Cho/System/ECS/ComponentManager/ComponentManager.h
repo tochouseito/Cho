@@ -13,6 +13,8 @@ class ResourceViewManager;
 // 各エンティティに対してコンポーネントを管理するクラス
 class ComponentManager {
 public:
+    ~ComponentManager() = default;
+
     void SetRVManager(ResourceViewManager* RVManager);
 
     // エンティティにTransformコンポーネントを追加します。

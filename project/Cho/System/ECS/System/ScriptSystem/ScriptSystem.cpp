@@ -5,7 +5,9 @@ void ScriptSystem::Start(EntityManager& entityManager, ComponentManager& compone
 {
     for (Entity entity : entityManager.GetActiveEntities()) {
         ScriptComponent* script = componentManager.GetScript(entity,Type::Object);
-        script;
+        if (script) {
+            script->Start();
+        }
     }
 }
 
