@@ -219,11 +219,15 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     // パス設定
     fs::path currentPath = fs::current_path();
 
+    // インクルードディレクトリ
     fs::path systemPath = currentPath / "Cho/System";
     fs::path mathLibPath = currentPath / "Cho/Externals/ChoMath";
     fs::path engineSystemPath = currentPath / "Cho/Utility/EngineSystemHeader";
     fs::path basePath = currentPath / "Cho/Utility/Base";
     fs::path scriptTempPath = currentPath / "Cho/System/Script/IScript";
+
+    // ライブラリディレクトリ
+    fs::path libraryPath = currentPath / "../generated/outputs/$(Configuration)/";
 
     // パスの正規化
     systemPath.make_preferred();
@@ -231,6 +235,8 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     engineSystemPath.make_preferred();
     basePath.make_preferred();
     scriptTempPath.make_preferred();
+
+    libraryPath.make_preferred();
 
     std::ofstream vcxFile(vcxprojPath, std::ios::trunc);
     vcxFile << "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
@@ -292,10 +298,13 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "      <AdditionalIncludeDirectories>" << mathLibPath.string() << ";" << basePath.string() << ";" << scriptTempPath.string() << ";" << systemPath.string() << ";" << engineSystemPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
     vcxFile << "      <LanguageStandard>stdcpp20</LanguageStandard>\n";
     vcxFile << "      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>\n";
+    vcxFile << "      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>\n"; // MTd
     vcxFile << "    </ClCompile>\n";
     vcxFile << "    <Link>\n";
     vcxFile << "      <SubSystem>Windows</SubSystem>\n";
     vcxFile << "      <GenerateDebugInformation>true</GenerateDebugInformation>\n";
+    vcxFile << "      <AdditionalDependencies>ChoMath.lib;%(AdditionalDependencies)</AdditionalDependencies>\n";
+    vcxFile << "      <AdditionalLibraryDirectories>" << libraryPath.string() << ";%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>\n";
     vcxFile << "    </Link>\n";
     vcxFile << "  </ItemDefinitionGroup>\n";
 
@@ -308,12 +317,15 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "      <AdditionalIncludeDirectories>" << mathLibPath.string() << ";" << basePath.string() << ";" << scriptTempPath.string() << ";" << systemPath.string() << ";" << engineSystemPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
     vcxFile << "      <LanguageStandard>stdcpp20</LanguageStandard>\n";
     vcxFile << "      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>\n";
+    vcxFile << "      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>\n"; // MT
     vcxFile << "    </ClCompile>\n";
     vcxFile << "    <Link>\n";
     vcxFile << "      <SubSystem>Windows</SubSystem>\n";
     vcxFile << "      <EnableCOMDATFolding>true</EnableCOMDATFolding>\n";
     vcxFile << "      <OptimizeReferences>true</OptimizeReferences>\n";
     vcxFile << "      <GenerateDebugInformation>true</GenerateDebugInformation>\n";
+    vcxFile << "      <AdditionalDependencies>ChoMath.lib;%(AdditionalDependencies)</AdditionalDependencies>\n";
+    vcxFile << "      <AdditionalLibraryDirectories>" << libraryPath.string() << ";%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>\n";
     vcxFile << "    </Link>\n";
     vcxFile << "  </ItemDefinitionGroup>\n";
 
