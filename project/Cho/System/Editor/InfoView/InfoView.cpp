@@ -109,8 +109,7 @@ void InfoView::Update()
             if (componentManager_->GetScript(selectGO->GetEntityID(),selectGO->GetObjectType())) {
                 ScriptComponent& scriptComp = *componentManager_->GetScript(selectGO->GetEntityID(),selectGO->GetObjectType());
                 
-                static bool isScript = false;
-                if (isScript) {
+                if (scriptComp.isScript) {
                     if (ImGui::Button("LoadFunc")) {
                         scriptComp.LoadDLLFunc();
                     }
@@ -118,7 +117,7 @@ void InfoView::Update()
                     if (ImGui::Button("AddScript")){
                         ScriptProject::GenerateScriptTemplate(editManager_->GetSelectedGOName(), "C:/ChoGame/Assets");
                         
-                        isScript = true;
+                        scriptComp.isScript = true;
                     }
                 }
             }
