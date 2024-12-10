@@ -1,7 +1,7 @@
 #include "PrecompiledHeader.h"
 #include "MainMenu.h"
 #include"imgui.h"
-#include"ChoMath/ChoMath.h"
+#include"ChoMath.h"
 
 #include"D3D12/ResourceViewManager/ResourceViewManager.h"
 #include"D3D12/RTVManager/RTVManager.h"

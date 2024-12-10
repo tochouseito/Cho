@@ -62,7 +62,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Utility\ChoMath;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Cho\Externals\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Cho\Externals\nlohmann;$(ProjectDir)Cho\Externals\ChoMath;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PrecompiledHeader.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -71,7 +71,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
       <AdditionalOptions>/ignore:4049 /ignore:4048 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>dxcompiler.lib;dxguid.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxcompiler.lib;dxguid.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;ChoMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\generated\outputs\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxcompiler.dll" "$(TargetDir)dxcompiler.dll"
@@ -101,7 +102,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Utility\ChoMath;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Cho\Externals\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Cho\Utility;$(ProjectDir)Cho\Utility\Base;$(ProjectDir)Cho\Utility\ConvertString;$(ProjectDir)Cho\Externals\assimp\include;$(ProjectDir)Cho\Externals\DirectXTex;$(ProjectDir)Cho\Externals\imgui;$(ProjectDir)Cho\System;$(ProjectDir)Cho\Main;$(ProjectDir)Cho\System\PrecompiledHeader;$(ProjectDir)Cho\Externals\nlohmann;$(ProjectDir)Cho\Externals\ChoMath;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PrecompiledHeader.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -110,7 +111,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>dxcompiler.lib;dxguid.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxcompiler.lib;dxguid.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;ChoMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\generated\outputs\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxcompiler.dll" "$(TargetDir)dxcompiler.dll"
@@ -172,9 +174,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Cho\System\UI\ImGuiManager\ImGuiManager.cpp" />
     <ClCompile Include="Cho\System\WinApp\WinApp.cpp" />
     <ClCompile Include="Cho\Utility\ConvertString\ConvertString.cpp" />
-    <ClCompile Include="Cho\Utility\ChoMath\ChoMath.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Cho\System\Load\JsonFileLoader\JsonFileLoader.cpp" />
     <ClCompile Include="Cho\System\Editor\InfoView\InfoView.cpp" />
     <ClCompile Include="Cho\System\Scene\MainScene.cpp" />
@@ -204,8 +203,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\PhysicsComponent\PhysicsComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\RenderComponent\RenderComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\TransformComponent\TransformComponent.h" />
-    <ClInclude Include="Cho\Utility\Base\Quaternion.h" />
-    <ClInclude Include="Cho\Utility\Base\Scale.h" />
     <ClInclude Include="Cho\System\Generator\GameProject\GameProject.h" />
     <ClInclude Include="Cho\System\ECS\System\CameraSystem\CameraSystem.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\Components.h" />
@@ -219,11 +216,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\D3D12\DXGIFactory\DXGIFactory.h" />
     <ClInclude Include="Cho\System\PrecompiledHeader\PrecompiledHeader.h" />
     <ClInclude Include="Cho\Utility\Base\Color.h" />
-    <ClInclude Include="Cho\Utility\Base\mathShapes.h" />
-    <ClInclude Include="Cho\Utility\Base\Matrix4.h" />
-    <ClInclude Include="Cho\Utility\Base\Vector2.h" />
-    <ClInclude Include="Cho\Utility\Base\Vector3.h" />
-    <ClInclude Include="Cho\Utility\Base\Vector4.h" />
     <ClInclude Include="Cho\Utility\BlendMode.h" />
     <ClInclude Include="Cho\Utility\ConvertString\ConvertString.h" />
     <ClInclude Include="Cho\System\D3D12\D3DCommand\D3DCommand.h" />
@@ -253,7 +245,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\System\ECS\System\SystemManager\SystemManager.h" />
     <ClInclude Include="Cho\System\ECS\System\RenderSystem\RenderSystem.h" />
     <ClInclude Include="Cho\System\ECS\PrefabManager\PrefabManager.h" />
-    <ClInclude Include="Cho\Utility\ChoMath\ChoMath.h" />
     <ClInclude Include="Cho\System\Editor\SceneView\SceneView.h" />
     <ClInclude Include="Cho\System\StartSetting\StartSetting.h" />
     <ClInclude Include="Cho\System\Load\JsonFileLoader\JsonFileLoader.h" />
@@ -271,6 +262,9 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Cho\Utility\EngineSystemHeader\ChoEngine.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Cho\Externals\ChoMath\ChoMath.vcxproj">
+      <Project>{3cf8afa4-25ac-4b52-92f3-3af6824d3643}</Project>
+    </ProjectReference>
     <ProjectReference Include="Cho\Externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
       <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
     </ProjectReference>

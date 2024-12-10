@@ -108,9 +108,6 @@
     <ClCompile Include="Cho\System\D3D12\D3DCommand\D3DCommand.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\Utility\ChoMath\ChoMath.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Cho\Utility\ConvertString\ConvertString.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -356,18 +353,6 @@
     <ClInclude Include="Cho\Utility\BlendMode.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\Utility\Base\Vector4.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Cho\Utility\Base\Vector3.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Cho\Utility\Base\Vector2.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Cho\Utility\Base\Color.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Cho\System\ECS\GameObject\GameObject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -390,15 +375,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\ECS\PrefabManager\PrefabManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Cho\Utility\Base\Matrix4.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Cho\Utility\ChoMath\ChoMath.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Cho\Utility\Base\mathShapes.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\Editor\SceneView\SceneView.h">
@@ -443,12 +419,6 @@
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\TransformComponent\TransformComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\Utility\Base\Quaternion.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Cho\Utility\Base\Scale.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\ScriptComponent\ScriptComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -474,6 +444,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\Utility\EngineSystemHeader\ChoEngine.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\Utility\Base\Color.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

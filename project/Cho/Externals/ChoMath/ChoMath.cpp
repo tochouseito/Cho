@@ -1,19 +1,22 @@
-//#include "PrecompiledHeader.h"
-#include "ChoMath.h"
+// ChoMath.cpp : スタティック ライブラリ用の関数を定義します。
+//
 
+#include "pch.h"
+#include "framework.h"
+#include "ChoMath.h"
 
 // 行列のチェック関数
 
-int ChoMath::Check(double mat[MatNum][MatNum], double inv[MatNum][MatNum])
+int ChoMath::Check(double mat[MatCount][MatCount], double inv[MatCount][MatCount])
 {
 	double inner_product;
 	int i, j, k;
 	double ans;
 	double diff;
-	for (i = 0; i < MatNum; i++) {
-		for (j = 0; j < MatNum; j++) {
+	for (i = 0; i < MatCount; i++) {
+		for (j = 0; j < MatCount; j++) {
 			inner_product = 0;
-			for (k = 0; k < MatNum; k++) {
+			for (k = 0; k < MatCount; k++) {
 				inner_product += mat[i][k] * inv[k][j];
 			}
 
@@ -27,11 +30,16 @@ int ChoMath::Check(double mat[MatNum][MatNum], double inv[MatNum][MatNum])
 	return 1;
 }
 
+float ChoMath::Clamp(float x, float min, float max)
+{
+	return (x < min) ? min : (x > max) ? max : x;
+}
+
 Matrix4 ChoMath::Transpose(const Matrix4& m)
 {
 	Matrix4 result = { 0 };
-	for (int i = 0; i < MatNum; ++i) {
-		for (int j = 0; j < MatNum; ++j) {
+	for (int i = 0; i < MatCount; ++i) {
+		for (int j = 0; j < MatCount; ++j) {
 			result.m[j][i] = m.m[i][j];
 		}
 	}
@@ -41,7 +49,7 @@ Matrix4 ChoMath::Transpose(const Matrix4& m)
 Matrix4 ChoMath::MakeIdentity4x4()
 {
 	Matrix4 result = { 0 };
-	for (int i = 0; i < MatNum; ++i) {
+	for (int i = 0; i < MatCount; ++i) {
 		result.m[i][i] = 1.0;
 	}
 	return result;
@@ -50,9 +58,9 @@ Matrix4 ChoMath::MakeIdentity4x4()
 Matrix4 ChoMath::Multiply(const Matrix4& m1, const Matrix4& m2)
 {
 	Matrix4 result = { 0 };
-	for (int i = 0; i < MatNum; ++i) {
-		for (int j = 0; j < MatNum; ++j) {
-			for (int k = 0; k < MatNum; ++k) {
+	for (int i = 0; i < MatCount; ++i) {
+		for (int j = 0; j < MatCount; ++j) {
+			for (int k = 0; k < MatCount; ++k) {
 				result.m[i][j] += m1.m[i][k] * m2.m[k][j];
 			}
 		}
@@ -140,33 +148,6 @@ Matrix4 ChoMath::MakeRotateXYZMatrix(const Vector3& rotate)
 	Matrix4 rotateXYZMatrix = Multiply(Multiply(rotateZMatrix, rotateYMatrix), rotateXMatrix);
 
 	return rotateXYZMatrix;
-}
-
-Matrix4 ChoMath::MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate)
-{
-	Matrix4 result;
-	Matrix4 scaleMatrix = MakeScaleMatrix(scale);
-	Matrix4 rotateXMatrix = MakeRotateXMatrix(rotate.x);
-	Matrix4 rotateYMatrix = MakeRotateYMatrix(rotate.y);
-	Matrix4 rotateZMatrix = MakeRotateZMatrix(rotate.z);
-	Matrix4 rotateXYZMatrix = Multiply(Multiply(rotateZMatrix, rotateYMatrix), rotateXMatrix);
-
-	Matrix4 translateMatrix = MakeTranslateMatrix(translate);
-	//result = Multiply(rotateXYZMatrix, Multiply(scaleMatrix, translateMatrix));
-	result = Multiply(scaleMatrix, Multiply(rotateXYZMatrix, translateMatrix));
-	//result = Multiply(translateMatrix, Multiply(scaleMatrix, rotateXYZMatrix));
-	result = Multiply(Multiply(scaleMatrix, rotateXYZMatrix), translateMatrix);
-	return result;
-}
-
-Matrix4 ChoMath::MakeAffineMatrix(const Scale& scale, const Quaternion& rotate, const Vector3& translate)
-{
-	Matrix4 result;
-	Matrix4 scaleMatrix = MakeScaleMatrix(scale);
-	Matrix4 rotateMatrix = MakeRotateMatrix(rotate);
-	Matrix4 translateMatrix = MakeTranslateMatrix(translate);
-	result = scaleMatrix * rotateMatrix * translateMatrix;
-	return result;
 }
 
 Matrix4 ChoMath::MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip, float farClip)
@@ -476,4 +457,31 @@ Vector3 ChoMath::ToEulerAngles(const Quaternion& q, RotationOrder order) {
 	}
 
 	return angles;
+}
+
+Matrix4 ChoMath::MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate)
+{
+	Matrix4 result;
+	Matrix4 scaleMatrix = MakeScaleMatrix(scale);
+	Matrix4 rotateXMatrix = MakeRotateXMatrix(rotate.x);
+	Matrix4 rotateYMatrix = MakeRotateYMatrix(rotate.y);
+	Matrix4 rotateZMatrix = MakeRotateZMatrix(rotate.z);
+	Matrix4 rotateXYZMatrix = Multiply(Multiply(rotateZMatrix, rotateYMatrix), rotateXMatrix);
+
+	Matrix4 translateMatrix = MakeTranslateMatrix(translate);
+	//result = Multiply(rotateXYZMatrix, Multiply(scaleMatrix, translateMatrix));
+	result = Multiply(scaleMatrix, Multiply(rotateXYZMatrix, translateMatrix));
+	//result = Multiply(translateMatrix, Multiply(scaleMatrix, rotateXYZMatrix));
+	result = Multiply(Multiply(scaleMatrix, rotateXYZMatrix), translateMatrix);
+	return result;
+}
+
+Matrix4 ChoMath::MakeAffineMatrix(const Scale& scale, const Quaternion& rotate, const Vector3& translate)
+{
+	Matrix4 result;
+	Matrix4 scaleMatrix = MakeScaleMatrix(scale);
+	Matrix4 rotateMatrix = MakeRotateMatrix(rotate);
+	Matrix4 translateMatrix = MakeTranslateMatrix(translate);
+	result = scaleMatrix * rotateMatrix * translateMatrix;
+	return result;
 }

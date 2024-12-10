@@ -1,6 +1,6 @@
 #pragma once
 
-// Utility
+// Mathライブラリ
 #include"ChoMath.h"
 
 // C++

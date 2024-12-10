@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChoMath", "Cho\Externals\ChoMath\ChoMath.vcxproj", "{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
@@ -81,6 +83,24 @@ Global
 		{B4E3CFD6-CD84-4565-84E7-03FEB4C6881E}.Release|x64.Build.0 = Release|x64
 		{B4E3CFD6-CD84-4565-84E7-03FEB4C6881E}.Release|x86.ActiveCfg = Release|x64
 		{B4E3CFD6-CD84-4565-84E7-03FEB4C6881E}.Release|x86.Build.0 = Release|x64
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Debug|ARM64.ActiveCfg = Debug|x64
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Debug|ARM64.Build.0 = Debug|x64
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Debug|x64.ActiveCfg = Debug|x64
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Debug|x64.Build.0 = Debug|x64
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Debug|x86.ActiveCfg = Debug|Win32
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Debug|x86.Build.0 = Debug|Win32
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Profile|ARM64.ActiveCfg = Debug|x64
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Profile|ARM64.Build.0 = Debug|x64
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Profile|x64.ActiveCfg = Debug|x64
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Profile|x64.Build.0 = Debug|x64
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Profile|x86.ActiveCfg = Debug|Win32
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Profile|x86.Build.0 = Debug|Win32
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Release|ARM64.ActiveCfg = Release|x64
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Release|ARM64.Build.0 = Release|x64
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Release|x64.ActiveCfg = Release|x64
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Release|x64.Build.0 = Release|x64
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Release|x86.ActiveCfg = Release|Win32
+		{3CF8AFA4-25AC-4B52-92F3-3AF6824D3643}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

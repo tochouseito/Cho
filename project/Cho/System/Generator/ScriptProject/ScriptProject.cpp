@@ -217,16 +217,12 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     // パス設定
     fs::path currentPath = fs::current_path();
 
-    fs::path choMainPath = currentPath / "Cho/Main";
-    fs::path mathPath = currentPath / "Cho/Utility/ChoMath";
     fs::path systemPath = currentPath / "Cho/System";
     fs::path engineSystemPath = currentPath / "Cho/Utility/EngineSystemHeader";
     fs::path basePath = currentPath / "Cho/Utility/Base";
     fs::path scriptTempPath = currentPath / "Cho/System/Script/IScript";
 
     // パスの正規化
-    choMainPath.make_preferred();
-    mathPath.make_preferred();
     systemPath.make_preferred();
     engineSystemPath.make_preferred();
     basePath.make_preferred();
@@ -289,7 +285,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "      <WarningLevel>Level3</WarningLevel>\n";
     vcxFile << "      <Optimization>Disabled</Optimization>\n";
     vcxFile << "      <PreprocessorDefinitions>_DEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << choMainPath.string() << ";" << mathPath.string() << ";" << basePath.string() << ";" << scriptTempPath.string() << ";" << systemPath.string() << ";" << engineSystemPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << basePath.string() << ";" << scriptTempPath.string() << ";" << systemPath.string() << ";" << engineSystemPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
     vcxFile << "      <LanguageStandard>stdcpp20</LanguageStandard>\n";
     vcxFile << "      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>\n";
     vcxFile << "    </ClCompile>\n";
@@ -305,7 +301,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "      <WarningLevel>Level3</WarningLevel>\n";
     vcxFile << "      <Optimization>MaxSpeed</Optimization>\n";
     vcxFile << "      <PreprocessorDefinitions>NDEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << choMainPath.string() << ";" << mathPath.string() << ";" << basePath.string() << ";" << scriptTempPath.string() << ";" << systemPath.string() << ";" << engineSystemPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << basePath.string() << ";" << scriptTempPath.string() << ";" << systemPath.string() << ";" << engineSystemPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
     vcxFile << "      <LanguageStandard>stdcpp20</LanguageStandard>\n";
     vcxFile << "      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>\n";
     vcxFile << "    </ClCompile>\n";
