@@ -214,6 +214,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClInclude Include="Cho\System\Scene\SceneFactory\AbstractSceneFactory.h" />
     <ClInclude Include="Cho\System\Scene\BaseScene\BaseScene.h" />
     <ClInclude Include="Cho\Main\Cho.h" />
+    <ClInclude Include="Cho\System\Script\ScriptStatus.h" />
     <ClInclude Include="Cho\System\WinApp\WinApp.h" />
     <ClInclude Include="Cho\System\UI\ImGuiManager\ImGuiManager.h" />
     <ClInclude Include="Cho\System\D3D12\ResourceLeakChecker\ResourceLeakChecker.h" />
@@ -266,6 +267,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClInclude Include="Cho\System\Script\IScript\IScript.h" />
     <ClInclude Include="Cho\Utility\EngineSystemHeader\ChoEngine.h" />
     <ClInclude Include="Cho\System\ECS\System\TransformSystem\TransformSystem.h" />
+    <ClInclude Include="Cho\Utility\ObjectType\ObjectType.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\ChoMath\ChoMath.vcxproj">

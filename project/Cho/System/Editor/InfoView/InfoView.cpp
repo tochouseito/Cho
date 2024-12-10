@@ -60,7 +60,7 @@ void InfoView::Update()
 
         switch (selectGO->GetObjectType())
         {
-        case Type::Object:
+        case ObjectType::Object:
 
             // コンポーネントがあれば表示
             if (componentManager_->GetTransform(selectGO->GetEntityID())) {
@@ -169,7 +169,7 @@ void InfoView::Update()
                 }
             }
             break;
-        case Type::Camera:
+        case ObjectType::Camera:
 
             // コンポーネントがあれば表示
             if (componentManager_->GetCamera(selectGO->GetEntityID())) {

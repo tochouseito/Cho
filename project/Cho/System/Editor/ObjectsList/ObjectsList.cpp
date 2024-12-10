@@ -61,7 +61,7 @@ void ObjectsList::selectObject(const std::unordered_map<std::string, std::unique
     static char inputBuffer[128] = ""; // 入力用バッファ
     static std::string editingName;   // 現在編集中のオブジェクト名
     std::vector<std::pair<std::string, std::string>> renameRequests;
-    static Type renameType = Type::Object;
+    static ObjectType renameType = ObjectType::Object;
 
     for (auto& pair : objectList) {
         const std::string& name = pair.first;
@@ -109,17 +109,17 @@ void ObjectsList::selectObject(const std::unordered_map<std::string, std::unique
         // 名前の変更処理
         switch (renameType)
         {
-        case Type::Object:
+        case ObjectType::Object:
             name = sceneManager_->GameObjectListRename(newName, oldName);  // 名前変更
             editManager_->SetSelectedGOName(name);
             editManager_->SetSelectedGO(sceneManager_->GetGameObject(name));  // 選択したオブジェクトを保持
             break;
-        case Type::Camera:
+        case ObjectType::Camera:
             name = sceneManager_->CameraObjectListRename(newName, oldName);
             editManager_->SetSelectedGOName(name);
             editManager_->SetSelectedGO(sceneManager_->GetCameraObject(name));  // 選択したオブジェクトを保持
             break;
-        case Type::Light:
+        case ObjectType::Light:
             break;
         default:
             break;

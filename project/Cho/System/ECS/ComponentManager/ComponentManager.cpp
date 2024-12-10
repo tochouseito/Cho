@@ -60,16 +60,16 @@ void ComponentManager::AddComponent(Entity entity, const MaterialComponent& comp
 
 void ComponentManager::AddComponent(Entity entity, const ScriptComponent& component)
 {
-    Type type = static_cast<Type>(component.type);
+    ObjectType type = static_cast<ObjectType>(component.type);
     switch (type)
     {
-    case Type::Object:
+    case ObjectType::Object:
         objectScripts[entity] = component;
         break;
-    case Type::Camera:
+    case ObjectType::Camera:
         cameraScripts[entity] = component;
         break;
-    case Type::Light:
+    case ObjectType::Light:
         lightScripts[entity] = component;
         break;
     default:

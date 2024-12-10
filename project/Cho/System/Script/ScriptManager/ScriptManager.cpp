@@ -1,10 +1,23 @@
 #include "PrecompiledHeader.h"
 #include "ScriptManager.h"
 
-void ScriptManager::AddScript(const std::string& NewName)
+void ScriptManager::Initialize()
 {
-	if (scripts.contains(NewName)) {
+	// 全タイプのスクリプトコンテナを用意
+	scripts[ObjectType::Object];
+	scripts[ObjectType::Camera];
+	scripts[ObjectType::Light];
+}
+
+// スクリプトを新規追加
+void ScriptManager::AddScript(ObjectType type, const std::string& NewName)
+{
+	if (scripts.contains(type)) {
 		return;
 	}
-	scripts[NewName] = NewName;
+	if (scripts[type].contains(NewName)) {
+		return;
+	}
+	ScriptStatus& script = scripts[type][NewName];
+	script.name = NewName; script.type = type;
 }

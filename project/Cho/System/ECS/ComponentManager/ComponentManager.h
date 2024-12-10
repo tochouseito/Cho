@@ -79,22 +79,22 @@ public:
         return nullptr;
     }
 
-    inline ScriptComponent* GetScript(Entity entity,Type type) {
+    inline ScriptComponent* GetScript(Entity entity, ObjectType type) {
         switch (type)
         {
-        case Type::Object:
+        case ObjectType::Object:
             if (objectScripts.contains(entity)) {
                 return &objectScripts[entity];
             }
             return nullptr;
             break;
-        case Type::Camera:
+        case ObjectType::Camera:
             if (cameraScripts.contains(entity)) {
                 return &cameraScripts[entity];
             }
             return nullptr;
             break;
-        case Type::Light:
+        case ObjectType::Light:
             if (lightScripts.contains(entity)) {
                 return &lightScripts[entity];
             }
