@@ -220,6 +220,10 @@ void MainMenu::EngineInfoMenu()
         ImGui::Text("fps: %.1f", NowFrameRate());
         ImGui::Text("DeltaTime: %.5f", DeltaTime());
 
+        ImGui::SeparatorText("EngineCurrentPath");
+        std::string currentPath = fs::current_path().string();
+        ImGui::Text("Current Path: %s", currentPath.c_str()); // パスを表示
+
         ImGui::EndMenu();
     }
 }

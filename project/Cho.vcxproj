@@ -76,7 +76,8 @@
     </Link>
     <PostBuildEvent>
       <Command>copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxcompiler.dll" "$(TargetDir)dxcompiler.dll"
-copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dxil.dll"</Command>
+copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dxil.dll"
+xcopy "$(SolutionDir)Cho\Resources" "$(TargetDir)Cho\Resources" /E /I /Y</Command>
     </PostBuildEvent>
     <Dxc>
       <AdditionalIncludeDirectories>$(ProjectDir)Resources\Shader\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -116,7 +117,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </Link>
     <PostBuildEvent>
       <Command>copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxcompiler.dll" "$(TargetDir)dxcompiler.dll"
-copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dxil.dll"</Command>
+copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dxil.dll"
+xcopy "$(SolutionDir)Cho\Resources" "$(TargetDir)Cho\Resources" /E /I /Y</Command>
     </PostBuildEvent>
     <Dxc>
       <AdditionalIncludeDirectories>$(ProjectDir)Resources\Shader\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
