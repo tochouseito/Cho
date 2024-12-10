@@ -77,7 +77,8 @@
     <PostBuildEvent>
       <Command>copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxcompiler.dll" "$(TargetDir)dxcompiler.dll"
 copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dxil.dll"
-xcopy "$(SolutionDir)Cho\Resources" "$(TargetDir)Cho\Resources" /E /I /Y</Command>
+xcopy "$(SolutionDir)Cho\Resources" "$(TargetDir)Cho\Resources" /E /I /Y
+copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     </PostBuildEvent>
     <Dxc>
       <AdditionalIncludeDirectories>$(ProjectDir)Resources\Shader\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -118,7 +119,8 @@ xcopy "$(SolutionDir)Cho\Resources" "$(TargetDir)Cho\Resources" /E /I /Y</Comman
     <PostBuildEvent>
       <Command>copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxcompiler.dll" "$(TargetDir)dxcompiler.dll"
 copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dxil.dll"
-xcopy "$(SolutionDir)Cho\Resources" "$(TargetDir)Cho\Resources" /E /I /Y</Command>
+xcopy "$(SolutionDir)Cho\Resources" "$(TargetDir)Cho\Resources" /E /I /Y
+copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     </PostBuildEvent>
     <Dxc>
       <AdditionalIncludeDirectories>$(ProjectDir)Resources\Shader\header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
