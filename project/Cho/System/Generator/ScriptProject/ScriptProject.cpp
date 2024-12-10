@@ -149,7 +149,7 @@ void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const 
         cppFile << "    entityType = type;\n";
         cppFile << "    componentPtr = ptr;\n";
         cppFile << "}\n\n";
-        cppFile << "extern \"C\" __declspec(dllexport) IScript* CreateScript() {\n";
+        cppFile << "extern \"C\" __declspec(dllexport) IScript* Create" << scriptName << "Script() { \n";
         cppFile << "    return new " << scriptName << "();\n";
         cppFile << "}\n";
         cppFile.close();

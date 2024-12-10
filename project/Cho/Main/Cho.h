@@ -23,6 +23,9 @@ class GraphicsSystem;
 // Loader
 class TextureLoader;
 
+// Script
+class ScriptManager;
+
 // ECS
 class EntityManager;
 class ComponentManager;
@@ -137,6 +140,9 @@ private:// メンバ変数
 
 	/*Loader*/
 	static std::unique_ptr<TextureLoader> textureLoader;
+
+	/*Script*/
+	static std::unique_ptr<ScriptManager> scriptManager;
 
 	/*ECS*/
 	static std::unique_ptr<EntityManager> entityManager;

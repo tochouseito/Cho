@@ -20,6 +20,9 @@
 // Loader
 #include"Load/TextureLoader/TextureLoader.h"
 
+// Script
+#include "Script/ScriptManager/ScriptManager.h"
+
 // ECS
 #include"ECS/EntityManager/EntityManager.h"
 #include"ECS/ComponentManager/ComponentManager.h"
@@ -62,6 +65,9 @@ std::unique_ptr<GraphicsSystem> Cho::graphicsSystem = nullptr;
 
 // Loader
 std::unique_ptr<TextureLoader> Cho::textureLoader = nullptr;
+
+// Script
+std::unique_ptr<ScriptManager> Cho::scriptManager = nullptr;
 
 // ECS
 std::unique_ptr<EntityManager>Cho::entityManager = nullptr;
@@ -169,13 +175,16 @@ void Cho::Initialize()
 
 #pragma region 汎用機能初期化
 
-	// TextureManager
+	// TextureLoader
 	textureLoader = std::make_unique<TextureLoader>();
 	textureLoader->Initialize(
 		d3dDevice.get(),
 		d3dCommand.get(),
 		resourceViewManager.get()
 	);
+
+	// ScriptManager
+	scriptManager = std::make_unique<ScriptManager>();
 
 	// ImGuiManager
 	imguiManager = std::make_unique<ImGuiManager>();

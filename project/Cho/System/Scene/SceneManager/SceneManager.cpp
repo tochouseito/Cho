@@ -66,6 +66,7 @@ std::string SceneManager::AddGameObject(const std::string& objectName)
 	// 新しいGameObjectを作成してマップに追加
 	gameObjects[newName] = std::make_unique<GameObject>();
 	GameObject* gameObject = gameObjects[newName].get();
+	gameObject->SetName(newName);
 	gameObject->SetManager(entityManager_, componentManager_);
 	gameObject->CreateEntity();
 
@@ -116,6 +117,8 @@ std::string SceneManager::GameObjectListRename(const std::string& newName, const
 
 	// 新しい名前で挿入
 	gameObjects[NewName] = std::move(object);
+	GameObject* gameObject = gameObjects[NewName].get();
+	gameObject->SetName(NewName);
 
 	return NewName;
 }

@@ -76,11 +76,16 @@ public:
         return componentManager->GetCamera(entity);
     }
 
+    inline void SetName(const std::string& newName) {
+        name = newName;
+    }
+
     // 子オブジェクトを更新します。
     void UpdateChildren(float deltaTime);
 
 private:
     Entity entity;
+    std::string name = "";
     EntityManager* entityManager;
     ComponentManager* componentManager;
     std::vector<GameObject*> children;
