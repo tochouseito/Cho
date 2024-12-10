@@ -81,7 +81,6 @@ std::string SceneManager::AddCameraObject(const std::string& cameraName)
 	cameraObject->SetManager(entityManager_, componentManager_);
 	cameraObject->CreateCameraEntity();
 	CameraComponent cameraComp;
-	cameraComp.Initialize();
 	cameraObject->AddComponent(cameraComp);
 
 	return newName;
@@ -94,7 +93,6 @@ void SceneManager::CreateDebugCamera()
 	debugCameraObject->SetManager(entityManager_, componentManager_);
 	debugCameraObject->CreateCameraEntity();
 	CameraComponent cameraComp;
-	cameraComp.Initialize();
 	debugCameraObject->AddComponent(cameraComp);
 }
 

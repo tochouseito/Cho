@@ -10,6 +10,10 @@
 #include <unordered_map>
 #include <filesystem>
 #include <windows.h>
+#include <winsock.h>
+#include <wingdi.h>
+#include <shellapi.h>
+#include <ole2.h>
 #include <DbgHelp.h>
 #pragma comment(lib, "Dbghelp.lib")
 

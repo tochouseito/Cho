@@ -41,7 +41,6 @@ void StartSetting::Initialize(
 	name = "Cube";
 	name = sceneManager->AddGameObject(name);
 	TransformComponent TFComp;
-	TFComp.Initialize();
 	MeshComponent MeshComp;
 	MeshComp.meshID = static_cast<uint32_t>(MeshPattern::Cube);
 	MaterialComponent MaterialComp;

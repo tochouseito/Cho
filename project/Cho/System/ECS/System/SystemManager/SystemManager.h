@@ -7,6 +7,7 @@
 #include"ECS/System/RenderSystem/RenderSystem.h"
 #include"ECS/System/CameraSystem/CameraSystem.h"
 #include"ECS/System/ScriptSystem/ScriptSystem.h"
+#include"ECS/System/TransformSystem/TransformSystem.h"
 
 class D3DCommand;
 class ResourceViewManager;
@@ -41,5 +42,6 @@ private:
     RenderSystem renderSystem;
     CameraSystem cameraSystem;
     ScriptSystem scriptSystem;
+    TransformSystem transformSystem;
 };
 

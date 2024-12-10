@@ -6,6 +6,9 @@
 /*-------------------------------------------------------------------------------------------*/
 
 #include <Windows.h>
+//#include <ole.h>
+#include <ole2.h>
+#include <timeapi.h>
 #include<cstdint>
 
 class WinApp

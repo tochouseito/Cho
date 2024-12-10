@@ -9,7 +9,7 @@ struct ConstBufferDataWorldTransform final{
 };
 struct TransformComponent final {
     Vector3 translation = { 0.0f, 0.0f, 0.0f };
-    Quaternion rotation = { 0.0f, 0.0f, 0.0f,1.0f};
+    Quaternion rotation = { 0.0f, 0.0f, 0.0f,1.0f };
     Scale scale = { 1.0f, 1.0f, 1.0f };
 
     Matrix4 matWorld = ChoMath::MakeIdentity4x4();
@@ -20,36 +20,6 @@ struct TransformComponent final {
     // 差分計算用
     Quaternion diffQ = { 0.0f, 0.0f, 0.0f,1.0f };
     Vector3 diffRot= { 0.0f, 0.0f, 0.0f };
-
-    // 初期化
-    inline void Initialize() {
-        translation.Initialize();
-        rotation.Initialize();
-        scale = { 1.0f,1.0f,1.0f };
-        matWorld = ChoMath::MakeIdentity4x4();
-        rootMatrix = ChoMath::MakeIdentity4x4();
-    }
-    inline void UpdateMatrix() {
-        //diffQ.x = rot.x - diffRot.x;
-        //diffQ.y = rot.y - diffRot.y;
-        //diffQ.z = rot.z - diffRot.z;
-
-        //rotation = diffQ * rotation;
-
-        rotation = ChoMath::FromEulerAngles(rot);
-        rotation.Normalize();
-        matWorld = ChoMath::MakeAffineMatrix(scale, rotation, translation);
-        
-        //diffQ.Initialize();
-        //diffRot = rot;
-
-        TransferMatrix();
-    }
-    inline void TransferMatrix() {
-        constData->matWorld = matWorld;
-        constData->worldInverse = ChoMath::Transpose(Matrix4::Inverse(matWorld));
-        constData->rootNode = rootMatrix;
-    }
 
     ConstBufferDataWorldTransform* constData = nullptr;
     //uint32_t rvIndex;

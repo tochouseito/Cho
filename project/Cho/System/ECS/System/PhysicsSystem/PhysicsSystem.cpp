@@ -13,9 +13,6 @@ void PhysicsSystem::Update(EntityManager& entityManager, ComponentManager& compo
             physics->velocity.x += physics->acceleration.x * deltaTime;
             transform->translation.x += physics->velocity.x * deltaTime;
             // 他の軸も同様に処理
-        } else if(!physics&&transform)
-        {
-            transform->UpdateMatrix();
         }
         /*if (cameraCompo) {
             cameraCompo->UpdateMatrix();

@@ -160,7 +160,6 @@ void EditorManager::CreateObject()
     SetSelectedGO(sceneManager_->GetGameObject(name));
     // 初期コンポーネントのトランスフォームコンポーネントを付与
     TransformComponent TFComp;
-    TFComp.Initialize();
     sceneManager_->GetGameObject(name)->AddComponent(TFComp);
 }
 

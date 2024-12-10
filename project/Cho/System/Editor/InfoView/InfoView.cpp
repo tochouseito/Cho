@@ -136,7 +136,6 @@ void InfoView::Update()
                     if (ImGui::Selectable("TransformComponent")) {
                         isAdd = false;
                         TransformComponent TFCompo;
-                        TFCompo.Initialize();
                         selectGO->AddComponent(TFCompo);
                     }
                 }
@@ -188,7 +187,6 @@ void InfoView::Update()
                     if (ImGui::Selectable("CameraComponent")) {
                         isAdd = false;
                         CameraComponent cameraCompo;
-                        cameraCompo.Initialize();
                         selectGO->AddComponent(cameraCompo);
                     }
                 }

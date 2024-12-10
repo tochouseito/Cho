@@ -8,6 +8,7 @@ void SystemManager::Start(EntityManager& entityManager, ComponentManager& compon
 
 void SystemManager::Update(EntityManager& entityManager, ComponentManager& componentManager, float deltaTime) {
     scriptSystem.Update(entityManager, componentManager);
+    transformSystem.Update(entityManager, componentManager);
     physicsSystem.Update(entityManager, componentManager, deltaTime);
     cameraSystem.Update(entityManager, componentManager);
 }
