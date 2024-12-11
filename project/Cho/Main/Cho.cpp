@@ -185,6 +185,7 @@ void Cho::Initialize()
 
 	// ScriptManager
 	scriptManager = std::make_unique<ScriptManager>();
+	scriptManager->Initialize();
 
 	// ImGuiManager
 	imguiManager = std::make_unique<ImGuiManager>();
@@ -240,7 +241,8 @@ void Cho::Initialize()
 		componentManager.get(),
 		systemManager.get(),
 		prefabManager.get(),
-		sceneManager.get()
+		sceneManager.get(),
+		scriptManager.get()
 		);
 
 #pragma endregion

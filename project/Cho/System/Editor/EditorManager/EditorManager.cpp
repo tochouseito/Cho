@@ -22,7 +22,8 @@ void EditorManager::Initialize(
     ComponentManager* componentManager,
     SystemManager* systemManager,
     PrefabManager* prefabManager,
-    SceneManager* sceneManager
+    SceneManager* sceneManager,
+    ScriptManager* scriptManager
 )
 {
 	// MainMenu
@@ -54,7 +55,8 @@ void EditorManager::Initialize(
         systemManager,
         prefabManager,
         sceneManager,
-        this
+        this,
+        scriptManager
     );
 
 	// FileView
@@ -72,7 +74,8 @@ void EditorManager::Initialize(
         systemManager,
         prefabManager,
         sceneManager,
-        this
+        this,
+        scriptManager
     );
 
     // ObjectsList
@@ -102,6 +105,9 @@ void EditorManager::Initialize(
 
     // SceneManager
     sceneManager_ = sceneManager;
+
+    // ScriptManager
+    scriptManager_ = scriptManager;
 }
 
 void EditorManager::Update()

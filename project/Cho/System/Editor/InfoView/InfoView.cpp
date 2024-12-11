@@ -16,6 +16,8 @@
 
 #include"Generator/ScriptProject/ScriptProject.h"
 
+#include"Script/ScriptManager/ScriptManager.h"
+
 void InfoView::Initialize(
 	ResourceViewManager* rvManager,
 	RTVManager* rtvManager,
@@ -25,7 +27,8 @@ void InfoView::Initialize(
 	SystemManager* systemManager,
 	PrefabManager* prefabManager,
 	SceneManager* sceneManager,
-    EditorManager* editManager
+    EditorManager* editManager,
+    ScriptManager* scriptManager
 )
 {
     // D3D12
@@ -43,6 +46,8 @@ void InfoView::Initialize(
     sceneManager_ = sceneManager;
 
     editManager_ = editManager;
+
+    scriptManager_ = scriptManager;
 }
 
 void InfoView::Update()
@@ -86,7 +91,7 @@ void InfoView::Update()
                 ImGui::SeparatorText("MeshPattern");
 
                 // 現在のメッシュ形状の初期選択用変数
-                static MeshPattern selectedMeshPattern =MeshPattern::Cube;
+                MeshPattern selectedMeshPattern =static_cast<MeshPattern>(meshComp.meshID);
 
                 // コンボボックスでメッシュ形状を選択
                 const char* meshOptions[] = { "Cube", "Plane", "Sphere" };
@@ -119,6 +124,30 @@ void InfoView::Update()
                         
                         scriptComp.isScript = true;
                     }
+                }
+                
+                ImGui::SeparatorText("Script");
+
+                // コンボボックスの選択状態を管理する変数（選択中のインデックス）
+                static int selectedIndex = 0;  // 初期値として最初の要素を選択
+
+                // コンボボックスに表示するスクリプト名のリスト
+                const char* scriptOptions[] = { "Cube", "GGSphere" };
+                constexpr int scriptOptionsCount = IM_ARRAYSIZE(scriptOptions);
+                // 現在のスクリプト名からインデックスを更新
+                for (int i = 0; i < scriptOptionsCount; ++i) {
+                    if (scriptComp.status.name == scriptOptions[i]) {
+                        selectedIndex = i;
+                        break;
+                    }
+                }
+
+                // ImGui::Comboでスクリプト名を選択
+                if (ImGui::Combo("ScriptName", &selectedIndex, scriptOptions, scriptOptionsCount)) {
+                    // 選択された名前を保存
+                    scriptComp.status.name = scriptOptions[selectedIndex];
+                    scriptComp.status.type = ObjectType::Object;  // タイプを設定
+                    scriptComp.isScript = true;  // スクリプトが割り当てられたことを記録
                 }
             }
             

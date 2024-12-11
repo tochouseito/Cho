@@ -18,6 +18,8 @@
 // Generator
 #include"Generator/ScriptProject/ScriptProject.h"
 
+#include"Script/ScriptManager/ScriptManager.h"
+
 void PopupMenu::Initialize(
 	ResourceViewManager* rvManager,
 	RTVManager* rtvManager,
@@ -27,7 +29,8 @@ void PopupMenu::Initialize(
 	SystemManager* systemManager,
 	PrefabManager* prefabManager,
 	SceneManager* sceneManager,
-    EditorManager* editManager
+    EditorManager* editManager,
+    ScriptManager* scriptManager
 )
 {
 	// D3D12
@@ -45,6 +48,8 @@ void PopupMenu::Initialize(
 	sceneManager_ = sceneManager;
 
     editManager_ = editManager;
+
+    scriptManager_ = scriptManager;
 }
 
 void PopupMenu::Update(bool excludeRightClick)
@@ -78,9 +83,17 @@ void PopupMenu::Update(bool excludeRightClick)
             if (ImGui::MenuItem("LoadDLL")) {
                 ScriptProject::LoadScriptDLL("C:/ChoGame/bin/Debug/Test.dll");
             }
+            if (ImGui::BeginMenu("C++Script")) {
+                if (ImGui::MenuItem("ObjectScript")) {
+                    static std::string name = "Cube";
+                    scriptManager_->AddScript(ObjectType::Object, name);
+                    ScriptProject::GenerateScriptTemplate(name, "C:/ChoGame/Assets");
+                    name = "GGSphere";
+                }
+                if (ImGui::MenuItem("CameraScript")) {
 
-            if (ImGui::MenuItem("AddC++Script")) {
-                ScriptProject::GenerateScriptTemplate("Test", "C:/ChoGame/Assets");
+                }
+                ImGui::EndMenu();
             }
             if (ImGui::MenuItem("GenerateScriptProject")) {
                 ScriptProject::GenerateSolutionAndProject("Test", "C:/ChoGame");

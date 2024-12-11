@@ -19,6 +19,9 @@ class DrawExecution;
 // Loader
 class TextureLoader;
 
+// ScriptManager
+class ScriptManager;
+
 // ECS
 class EntityManager;
 class ComponentManager;
@@ -47,7 +50,8 @@ public:
 		ComponentManager* componentManager,
 		SystemManager* systemManager,
 		PrefabManager* prefabManager,
-		SceneManager* sceneManager
+		SceneManager* sceneManager,
+		ScriptManager* scriptManager
 	);
 
 	/// <summary>
@@ -89,6 +93,9 @@ private:
 	SystemManager* systemManager_ = nullptr;
 	PrefabManager* prefabManager_ = nullptr;
 	SceneManager* sceneManager_ = nullptr;
+
+	/*ScriptManager*/
+	ScriptManager* scriptManager_ = nullptr;
 
 	std::string selectedGamaObjectName_;
 	GameObject* selectedGameObject_ = nullptr;

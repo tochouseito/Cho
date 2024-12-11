@@ -6,6 +6,7 @@
 #include <functional>
 #include"Generator/ScriptProject/ScriptProject.h"
 #include"Script/IScript/IScript.h"
+#include"Script/ScriptStatus.h"
 
 struct ScriptComponent {
 public:
@@ -13,6 +14,7 @@ public:
 
     uint32_t id;
     uint32_t type;
+    ScriptStatus status;
     ComponentManager* ptr = nullptr;
 
     using ScriptFunc = std::function<void(uint32_t, uint32_t, ComponentManager*)>; // スクリプト関数型
@@ -39,10 +41,10 @@ public:
             std::cerr << "Failed to load DLL: " << dllPath << "\n";
             return false;
         }
-
+        std::string funcName = "Create" + status.name + "Script";
         // CreateScript関数を取得
         typedef IScript* (*CreateScriptFunc)();
-        CreateScriptFunc createScript = (CreateScriptFunc)GetProcAddress(dllHandle, "CreateScript");
+        CreateScriptFunc createScript = (CreateScriptFunc)GetProcAddress(dllHandle, funcName.c_str());
         if (!createScript) {
             std::cerr << "CreateScript function not found in DLL: " << dllPath << "\n";
             FreeLibrary(dllHandle);

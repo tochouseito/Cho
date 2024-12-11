@@ -19,6 +19,8 @@ class SceneManager;
 
 class EditorManager;
 
+class ScriptManager;
+
 class InfoView
 {
 public:
@@ -34,7 +36,8 @@ public:
 		SystemManager* systemManager,
 		PrefabManager* prefabManager,
 		SceneManager* sceneManager,
-		EditorManager* editManager
+		EditorManager* editManager,
+		ScriptManager* scriptManager
 	);
 
 	void Update();
@@ -57,5 +60,6 @@ private:
 	SceneManager* sceneManager_ = nullptr;
 
 	EditorManager* editManager_ = nullptr;
+	ScriptManager* scriptManager_ = nullptr;
 };
 

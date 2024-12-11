@@ -225,6 +225,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     fs::path engineSystemPath = currentPath / "Cho/Utility/EngineSystemHeader";
     fs::path basePath = currentPath / "Cho/Utility/Base";
     fs::path scriptTempPath = currentPath / "Cho/System/Script/IScript";
+    fs::path utilityPath = currentPath / "Cho/Utility";
 
     // ライブラリディレクトリ
     fs::path libraryPath = currentPath / "../generated/outputs/$(Configuration)/";
@@ -235,6 +236,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     engineSystemPath.make_preferred();
     basePath.make_preferred();
     scriptTempPath.make_preferred();
+    utilityPath.make_preferred();
 
     libraryPath.make_preferred();
 
@@ -295,7 +297,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "      <WarningLevel>Level3</WarningLevel>\n";
     vcxFile << "      <Optimization>Disabled</Optimization>\n";
     vcxFile << "      <PreprocessorDefinitions>_DEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << mathLibPath.string() << ";" << basePath.string() << ";" << scriptTempPath.string() << ";" << systemPath.string() << ";" << engineSystemPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << utilityPath.string() << ";" << mathLibPath.string() << ";" << basePath.string() << ";" << scriptTempPath.string() << ";" << systemPath.string() << ";" << engineSystemPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
     vcxFile << "      <LanguageStandard>stdcpp20</LanguageStandard>\n";
     vcxFile << "      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>\n";
     vcxFile << "      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>\n"; // MTd
@@ -314,7 +316,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile << "      <WarningLevel>Level3</WarningLevel>\n";
     vcxFile << "      <Optimization>MaxSpeed</Optimization>\n";
     vcxFile << "      <PreprocessorDefinitions>NDEBUG;EXPORT_SCRIPT_API;%(PreprocessorDefinitions)</PreprocessorDefinitions>\n";
-    vcxFile << "      <AdditionalIncludeDirectories>" << mathLibPath.string() << ";" << basePath.string() << ";" << scriptTempPath.string() << ";" << systemPath.string() << ";" << engineSystemPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
+    vcxFile << "      <AdditionalIncludeDirectories>" << utilityPath.string() << ";" <<mathLibPath.string() << ";" << basePath.string() << ";" << scriptTempPath.string() << ";" << systemPath.string() << ";" << engineSystemPath.string() << ";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>\n";
     vcxFile << "      <LanguageStandard>stdcpp20</LanguageStandard>\n";
     vcxFile << "      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>\n";
     vcxFile << "      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>\n"; // MT
