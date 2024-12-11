@@ -9,6 +9,11 @@ void ScriptManager::Initialize()
 	scripts[ObjectType::Light];
 }
 
+void ScriptManager::Load()
+{
+
+}
+
 // スクリプトを新規追加
 std::string ScriptManager::AddScript(ObjectType type, std::string& NewName)
 {
