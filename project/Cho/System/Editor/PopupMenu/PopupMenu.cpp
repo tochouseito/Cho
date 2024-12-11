@@ -85,10 +85,10 @@ void PopupMenu::Update(bool excludeRightClick)
             }
             if (ImGui::BeginMenu("C++Script")) {
                 if (ImGui::MenuItem("ObjectScript")) {
-                    static std::string name = "Cube";
+                    static std::string name = "NewScript";
+
                     scriptManager_->AddScript(ObjectType::Object, name);
                     ScriptProject::GenerateScriptTemplate(name, "C:/ChoGame/Assets");
-                    name = "GGSphere";
                 }
                 if (ImGui::MenuItem("CameraScript")) {
 

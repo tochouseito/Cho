@@ -41,7 +41,10 @@ private:
     /// <summary>
     /// ファイルブラウザをディレクトリ対応で表示
     /// </summary>
-    void ShowFileBrowserWithDirectories();
+    void ShowFileViewWithDirectories();
+
+    // フォルダ階層を表示して選択
+    void ShowFolderHierarchy(const std::string& rootPath, std::string& selectedPath);
 
 private:// メンバ変数
     /*D3D12*/
@@ -55,5 +58,8 @@ private:// メンバ変数
     std::string currentDirectory;      // 現在のディレクトリ
     std::vector<std::string> files;    // ディレクトリ内のファイルリスト
     std::string selectedFile;          // 選択されたファイル
+
+    std::string selectedFolder;
+
 };
 

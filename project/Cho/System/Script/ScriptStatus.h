@@ -3,6 +3,6 @@
 #include"ObjectType/ObjectType.h"
 struct ScriptStatus
 {
-	std::string name = "Cube";
+	std::string name = "";
 	ObjectType type;
 };

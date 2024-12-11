@@ -128,26 +128,39 @@ void InfoView::Update()
                 
                 ImGui::SeparatorText("Script");
 
-                // コンボボックスの選択状態を管理する変数（選択中のインデックス）
-                static int selectedIndex = 0;  // 初期値として最初の要素を選択
+                // スクリプトのマップを取得
+                std::unordered_map<ObjectType, std::unordered_map<std::string, ScriptStatus>> scripts = scriptManager_->GetScripts();
+                // 対応するObjectTypeのスクリプトを検索
+                auto it = scripts.find(static_cast<ObjectType>(scriptComp.type));
+                if (it == scripts.end()) {
+                    // 対応するスクリプトが見つからない場合
+                    ImGui::Text("No scripts available for this ObjectType");
+                }
 
-                // コンボボックスに表示するスクリプト名のリスト
-                const char* scriptOptions[] = { "Cube", "GGSphere" };
-                constexpr int scriptOptionsCount = IM_ARRAYSIZE(scriptOptions);
-                // 現在のスクリプト名からインデックスを更新
-                for (int i = 0; i < scriptOptionsCount; ++i) {
-                    if (scriptComp.status.name == scriptOptions[i]) {
-                        selectedIndex = i;
-                        break;
+                // 内部マップ（名前 -> ScriptStatus）を取得
+                const auto& scriptMap = it->second;
+
+                // 名前リストを構築
+                std::vector<const char*> scriptNames;
+                int currentIndex = -1;  // 現在選択中のスクリプトのインデックス
+
+                for (const auto& pair : scriptMap) {
+                    scriptNames.push_back(pair.first.c_str());  // 名前をリストに追加
+                    if (scriptComp.status.name == pair.first) {
+                        currentIndex = static_cast<int>(scriptNames.size()) - 1;  // 現在のスクリプト名に一致するインデックスを保存
                     }
                 }
 
-                // ImGui::Comboでスクリプト名を選択
-                if (ImGui::Combo("ScriptName", &selectedIndex, scriptOptions, scriptOptionsCount)) {
-                    // 選択された名前を保存
-                    scriptComp.status.name = scriptOptions[selectedIndex];
-                    scriptComp.status.type = ObjectType::Object;  // タイプを設定
-                    scriptComp.isScript = true;  // スクリプトが割り当てられたことを記録
+                if (scriptNames.empty()) {
+                    ImGui::Text("No scripts available");
+                    return;
+                }
+
+                // コンボボックスを表示
+                if (ImGui::Combo("ScriptName", &currentIndex, scriptNames.data(), static_cast<int>(scriptNames.size()))) {
+                    // 選択が変更された場合、スクリプトコンポーネントを更新
+                    scriptComp.status.name = scriptNames[currentIndex];
+                    scriptComp.isScript = true;  // スクリプトが設定されているフラグを更新
                 }
             }
             
