@@ -87,8 +87,9 @@ void PopupMenu::Update(bool excludeRightClick)
                 if (ImGui::MenuItem("ObjectScript")) {
                     static std::string name = "NewScript";
 
-                    scriptManager_->AddScript(ObjectType::Object, name);
+                    name = scriptManager_->AddScript(ObjectType::Object, name);
                     ScriptProject::GenerateScriptTemplate(name, "C:/ChoGame/Assets");
+                    editManager_->UpdateFiles();
                 }
                 if (ImGui::MenuItem("CameraScript")) {
 

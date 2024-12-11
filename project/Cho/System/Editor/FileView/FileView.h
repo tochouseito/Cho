@@ -31,6 +31,8 @@ public:
     /// </summary>
     void Update();
 
+    void UpdateFiles();
+
 private:
     /// <summary>
     /// ディレクトリ内のファイルを取得

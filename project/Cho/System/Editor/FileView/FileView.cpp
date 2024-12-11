@@ -41,6 +41,11 @@ void FileView::Update() {
     ImGui::End();
 }
 
+void FileView::UpdateFiles()
+{
+    files = GetFilesInDirectory(currentDirectory);
+}
+
 // 指定されたディレクトリ内のファイルを取得
 std::vector<std::string> FileView::GetFilesInDirectory(const std::string& directory) {
     std::vector<std::string> fileList;

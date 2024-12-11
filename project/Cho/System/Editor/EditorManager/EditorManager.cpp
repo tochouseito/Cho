@@ -177,6 +177,11 @@ void EditorManager::CreateCamera()
     SetSelectedGO(sceneManager_->GetCameraObject(name));
 }
 
+void EditorManager::UpdateFiles()
+{
+    fileView->UpdateFiles();
+}
+
 void EditorManager::UpdateMainWindow()
 {
 	// ウィンドウの位置を指定する

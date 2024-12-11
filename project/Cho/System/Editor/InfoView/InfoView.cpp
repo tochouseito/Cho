@@ -153,14 +153,13 @@ void InfoView::Update()
 
                 if (scriptNames.empty()) {
                     ImGui::Text("No scripts available");
-                    return;
-                }
-
-                // コンボボックスを表示
-                if (ImGui::Combo("ScriptName", &currentIndex, scriptNames.data(), static_cast<int>(scriptNames.size()))) {
-                    // 選択が変更された場合、スクリプトコンポーネントを更新
-                    scriptComp.status.name = scriptNames[currentIndex];
-                    scriptComp.isScript = true;  // スクリプトが設定されているフラグを更新
+                } else {
+                    // コンボボックスを表示
+                    if (ImGui::Combo("ScriptName", &currentIndex, scriptNames.data(), static_cast<int>(scriptNames.size()))) {
+                        // 選択が変更された場合、スクリプトコンポーネントを更新
+                        scriptComp.status.name = scriptNames[currentIndex];
+                        scriptComp.isScript = true;  // スクリプトが設定されているフラグを更新
+                    }
                 }
             }
             

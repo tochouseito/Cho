@@ -69,6 +69,8 @@ public:
 
 	void CreateCamera();
 
+	void UpdateFiles();
+
 private:// メンバ関数
 
 	void UpdateMainWindow();

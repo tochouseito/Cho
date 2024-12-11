@@ -11,7 +11,7 @@ class ScriptManager
 public:
 	void Initialize();
 
-	void AddScript(ObjectType type,const std::string& NewName);
+	std::string AddScript(ObjectType type,std::string& NewName);
 
 	const std::unordered_map < ObjectType, std::unordered_map < std::string, ScriptStatus>>& GetScripts() const{
 		return scripts;
