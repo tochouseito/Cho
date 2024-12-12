@@ -7,6 +7,7 @@
 #include"Generator/ScriptProject/ScriptProject.h"
 #include"Script/IScript/IScript.h"
 #include"Script/ScriptStatus.h"
+#include"SystemState/SystemState.h"
 
 struct ScriptComponent {
 public:
@@ -33,7 +34,9 @@ public:
     }
 
     bool LoadDLLFunc() {
-        std::string dllPath = "C:\\ChoProject\\bin\\Debug\\Test.dll";
+        std::string projectName = ProjectName();
+        std::string projectRoot = ProjectRoot();
+        std::string dllPath = projectRoot + "\\" + projectName + "\\" + "bin\\Debug\\" + projectName + ".dll";
 
         // DLLをロード
         dllHandle = LoadLibraryA(dllPath.c_str());

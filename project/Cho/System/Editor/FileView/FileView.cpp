@@ -4,6 +4,7 @@
 #include"Load/TextureLoader/TextureLoader.h"
 #include"imgui.h"
 #include"Editor/EditorManager/EditorManager.h"
+#include"SystemState/SystemState.h"
 
 void FileView::Initialize(EditorManager* editManager, ResourceViewManager* rvManager, TextureLoader* texLoader)
 {
@@ -11,34 +12,48 @@ void FileView::Initialize(EditorManager* editManager, ResourceViewManager* rvMan
     texLoader_ = texLoader;
     editManager_ = editManager;
 
-    // スラッシュを `/` に統一
-    currentDirectory = fs::path("C:/ChoProject/Assets").generic_string();
-
-    selectedFolder = currentDirectory;
-
-    files = GetFilesInDirectory(currentDirectory);
     selectedFile.clear();
 }
 
 // 毎フレーム呼ばれる更新処理
 void FileView::Update() {
 
+    static bool exit = false;
+
     // 移動を無効にするフラグ
     ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove;
 
     // フォルダビューウィンドウ
     ImGui::Begin("Folder Hierarchy", nullptr, windowFlags);
-    ShowFolderHierarchy("C:/ChoProject/Assets", selectedFolder);
+    if (exit) {
+        ShowFolderHierarchy(ProjectRoot() + "\\" + ProjectName() + "\\Assets", selectedFolder);
+    }
     ImGui::End();
 
     // ファイルビューウィンドウ
     ImGui::Begin("File View", nullptr, windowFlags);
-    if (selectedFolder != currentDirectory) {
-        currentDirectory = selectedFolder;
-        files = GetFilesInDirectory(currentDirectory);
+    if (exit) {
+        if (selectedFolder != currentDirectory) {
+            currentDirectory = selectedFolder;
+            files = GetFilesInDirectory(currentDirectory);
+        }
+        ShowFileViewWithDirectories();
     }
-    ShowFileViewWithDirectories();
     ImGui::End();
+
+    if (!exit) {
+        std::string projectName = ProjectName();
+        std::string projectRoot = ProjectRoot();
+
+        if (projectName == "" || projectRoot == "") { return; }
+
+        currentDirectory = projectRoot + "\\" + projectName + "\\" + "Assets\\";
+
+        selectedFolder = currentDirectory;
+
+        files = GetFilesInDirectory(currentDirectory);
+        exit = true;
+    }
 }
 
 void FileView::UpdateFiles()

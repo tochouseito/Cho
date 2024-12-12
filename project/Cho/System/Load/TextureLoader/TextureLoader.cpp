@@ -17,7 +17,7 @@ void TextureLoader::Initialize(D3DDevice* d3dDevice, D3DCommand* d3dCommand, Res
 void TextureLoader::Load()
 {
 	// 後でフォルダの中のもの全て別のスレッドで読み込む
-	const std::string& filePath = "Cho/Resources/Texture/monsterBall.png";
+	const std::string& filePath = "Cho\\Resources\\Texture\\monsterBall.png";
 	// 読み込み済みテクスチャを検索
 	if (textureData.contains(filePath)) {
 		return;

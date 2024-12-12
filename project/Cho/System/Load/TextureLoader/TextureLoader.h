@@ -69,7 +69,7 @@ private:
 	std::unordered_map<std::string, Texture> textureData;
 
 	// ファイルパス
-	const std::string& engineFilePath = "Cho/Resources/Texture/";
-	const std::string& gameFilePath = "Game/Assets/Texture/";
+	const std::string& engineFilePath = "Cho\\Resources\\Texture\\";
+	const std::string& gameFilePath = "Game\\Assets\\Texture\\";
 };
 

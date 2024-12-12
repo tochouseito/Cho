@@ -54,7 +54,7 @@ void JsonFileLoader::LoadStyle(const char* filename)
 
 void JsonFileLoader::SaveStyleToProject()
 {
-    std::filesystem::path styleDir = "Cho/Resources/ImGuiStyle";
+    std::filesystem::path styleDir = "Cho\\Resources\\ImGuiStyle";
     // ディレクトリが存在しない場合は作成
     if (!std::filesystem::exists(styleDir)) {
         std::filesystem::create_directories(styleDir);
@@ -66,7 +66,7 @@ void JsonFileLoader::SaveStyleToProject()
 
 void JsonFileLoader::LoadStyleFromProject()
 {
-    std::filesystem::path styleFile = "Cho/Resources/ImGuiStyle/style.json";
+    std::filesystem::path styleFile = "Cho\\Resources\\ImGuiStyle\\style.json";
     // スタイルファイルが存在する場合は読み込む
     if (std::filesystem::exists(styleFile)) {
         LoadStyle(styleFile.string().c_str());

@@ -134,16 +134,10 @@ void StartSetting::SelectedProject()
 
 void StartSetting::CreateProject()
 {
-	projectPath = fs::path(projectRoot) / projectName;
+	
 }
 
 void StartSetting::LoadProject()
 {
-	/*fs::path projectPath = fs::path(projectRoot) / projectName;
-
-	if (fs::exists(projectPath)) {
-		std::cout << "Loaded project from: " << projectPath.string() << std::endl;
-	} else {
-		ImGui::OpenPopup("Error");
-	}*/
+	
 }

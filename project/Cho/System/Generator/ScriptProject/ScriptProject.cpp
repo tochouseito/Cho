@@ -1,10 +1,17 @@
 #include "PrecompiledHeader.h"
 #include "ScriptProject.h"
+#include"SystemState/SystemState.h"
 
 std::unordered_map<std::string, std::vector<std::string>> ScriptProject::scripts;
 HMODULE ScriptProject::scriptLibrary = nullptr;
+std::string ScriptProject::projectGUID = "";
+std::string ScriptProject::slnPath = "";
+std::string ScriptProject::vcxprojPath = "";
+std::string ScriptProject::filtersPath = "";
 
-void ScriptProject::Update(const std::string& scriptsPath) {
+void ScriptProject::Update() {
+
+    std::string scriptsPath = ProjectRoot() + "\\" + ProjectName() + "\\Assets\\Scripts";
 
     std::string fullScriptsPath = fs::absolute(scriptsPath).string();
 
@@ -30,19 +37,26 @@ void ScriptProject::Update(const std::string& scriptsPath) {
             std::cout << "  " << file << "\n";
         }
     }
+
+    std::string projectName = ProjectName();
+
+    UpdateVcxproj(projectGUID, projectName);
+    UpdateFilters();
 }
 
-void ScriptProject::GenerateSolutionAndProject(const std::string& projectName, const std::string& outputPath) {
-    std::string slnPath = outputPath + "/" + projectName + ".sln";
-    std::string vcxprojPath = outputPath + "/" + projectName + ".vcxproj";
-    std::string filtersPath = vcxprojPath + ".filters";
+void ScriptProject::GenerateSolutionAndProject() {
+    std::string projectName = ProjectName();
+    std::string outputPath = ProjectRoot();
+    slnPath = outputPath + "\\" + projectName + "\\" + projectName + ".sln";
+    vcxprojPath = outputPath + "\\" + projectName + "\\" + projectName + ".vcxproj";
+    filtersPath = vcxprojPath + ".filters";
 
     slnPath = fs::absolute(slnPath).string();
     vcxprojPath = fs::absolute(vcxprojPath).string();
     filtersPath = fs::absolute(filtersPath).string();
 
     std::string slnGUID = GenerateGUID();
-    std::string projectGUID = GenerateGUID();
+    projectGUID = GenerateGUID();
 
     // ソリューションファイルの生成
     if (!fs::exists(slnPath)) {
@@ -78,28 +92,30 @@ void ScriptProject::GenerateSolutionAndProject(const std::string& projectName, c
         std::cout << "Solution file already exists: " << slnPath << "\n";
     }
 
-    UpdateVcxproj(vcxprojPath,projectGUID,projectName);
-    UpdateFilters(filtersPath);
+    UpdateVcxproj(projectGUID,projectName);
+    UpdateFilters();
 }
 
 void ScriptProject::OpenVisualStudio() {
-    std::string slnPath = FindSolutionPath();
-    if (fs::exists(slnPath)) {
+    std::string SolutionPath = FindSolutionPath();
+    if (fs::exists(SolutionPath)) {
         std::string vsPath = "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\devenv.exe";
-        HINSTANCE result = ShellExecuteA(nullptr, "open", vsPath.c_str(), slnPath.c_str(), nullptr, SW_SHOWNORMAL);
+        HINSTANCE result = ShellExecuteA(nullptr, "open", vsPath.c_str(), SolutionPath.c_str(), nullptr, SW_SHOWNORMAL);
         if ((uintptr_t)result <= 32) {
             std::cerr << "Failed to open Visual Studio. Error code: " << (uintptr_t)result << "\n";
         } else {
-            std::cout << "Opened Visual Studio with solution: " << slnPath << "\n";
+            std::cout << "Opened Visual Studio with solution: " << SolutionPath << "\n";
         }
     } else {
-        std::cerr << "Solution file not found: " << slnPath << "\n";
+        std::cerr << "Solution file not found: " << SolutionPath << "\n";
     }
 }
 
-void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const std::string& outputPath) {
-    std::string cppPath = outputPath + "/Scripts/" + scriptName + ".cpp";
-    std::string hPath = outputPath + "/Scripts/" + scriptName + ".h";
+void ScriptProject::GenerateScriptTemplate(const std::string& scriptName) {
+    std::string outputPath = ProjectRoot() + "\\" + ProjectName() + "\\Assets";
+
+    std::string cppPath = outputPath + "\\Scripts\\" + scriptName + ".cpp";
+    std::string hPath = outputPath + "\\Scripts\\" + scriptName + ".h";
 
     std::string engineFuncInc = "ChoEngine";
     std::string mathLibInc = "ChoMath";
@@ -157,7 +173,8 @@ void ScriptProject::GenerateScriptTemplate(const std::string& scriptName, const 
     }
 }
 
-void ScriptProject::LoadScriptDLL(const std::string& dllPath) {
+void ScriptProject::LoadScriptDLL() {
+    std::string dllPath = ProjectRoot() + "\\" + ProjectName() + "\\bin\\Debug\\" + ProjectName() + ".dll";
     // 既存のDLLをアンロード
     if (scriptLibrary) {
         FreeLibrary(scriptLibrary);
@@ -211,7 +228,7 @@ std::string ScriptProject::GenerateGUID() {
     return oss.str();
 }
 
-void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::string& projectGuid, const std::string& projectName) {
+void ScriptProject::UpdateVcxproj(const std::string& projectGuid, const std::string& projectName) {
     std::vector<std::string> scriptFiles;
     scriptFiles.insert(scriptFiles.end(), scripts["cpp"].begin(), scripts["cpp"].end());
     scriptFiles.insert(scriptFiles.end(), scripts["h"].begin(), scripts["h"].end());
@@ -354,7 +371,7 @@ void ScriptProject::UpdateVcxproj(const std::string& vcxprojPath, const std::str
     vcxFile.close();
 }
 
-void ScriptProject::UpdateFilters(const std::string& filtersPath) {
+void ScriptProject::UpdateFilters() {
     std::vector<std::string> scriptFiles;
     scriptFiles.insert(scriptFiles.end(), scripts["cpp"].begin(), scripts["cpp"].end());
     scriptFiles.insert(scriptFiles.end(), scripts["h"].begin(), scripts["h"].end());
@@ -380,10 +397,7 @@ void ScriptProject::UpdateFilters(const std::string& filtersPath) {
 
 std::string ScriptProject::FindSolutionPath()
 {
-    // 現在の作業ディレクトリを取得
-    //std::string currentPath = fs::current_path().string();
-    //std::string gameFolder = currentPath + "\\Game";
-    std::string gameFolder = "C:/ChoProject";
+    std::string gameFolder = ProjectRoot()+"\\"+ProjectName();
     gameFolder = fs::absolute(gameFolder).string();
 
     // Gameフォルダ内を検索

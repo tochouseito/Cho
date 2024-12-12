@@ -3,8 +3,8 @@
 
 void GameProject::CreateGameFolder(const std::string& projectName) {
     std::string gameFolderPath = "C:\\ChoProject";
-    gameFolderPath = gameFolderPath + "\\" + projectName;
-    std::string assetsFolderPath = gameFolderPath + "\\Assets";
+    std::string projectFolderPath = gameFolderPath + "\\" + projectName;
+    std::string assetsFolderPath = projectFolderPath + "\\Assets";
     std::string textureFolderPath = assetsFolderPath + "\\Texture";
     std::string scriptsFolderPath = assetsFolderPath + "\\Scripts";
     std::string scenesFolderPath = assetsFolderPath + "\\Scenes";
@@ -16,6 +16,14 @@ void GameProject::CreateGameFolder(const std::string& projectName) {
             std::cout << "Game folder created at: " << gameFolderPath << "\n";
         } else {
             std::cout << "Game folder already exists at: " << gameFolderPath << "\n";
+        }
+
+        // Projectフォルダ作成
+        if (!fs::exists(projectFolderPath)) {
+            fs::create_directory(projectFolderPath);
+            std::cout << "Game folder created at: " << projectFolderPath << "\n";
+        } else {
+            std::cout << "Game folder already exists at: " << projectFolderPath << "\n";
         }
 
         // Assetsフォルダ作成

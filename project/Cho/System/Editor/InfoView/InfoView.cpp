@@ -120,7 +120,7 @@ void InfoView::Update()
                     }
                 } else {
                     if (ImGui::Button("AddScript")){
-                        ScriptProject::GenerateScriptTemplate(editManager_->GetSelectedGOName(), "C:/ChoProject/Assets");
+                        ScriptProject::GenerateScriptTemplate(editManager_->GetSelectedGOName());
                         
                         scriptComp.isScript = true;
                     }

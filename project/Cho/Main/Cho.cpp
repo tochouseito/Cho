@@ -22,6 +22,7 @@
 
 // Script
 #include "Script/ScriptManager/ScriptManager.h"
+#include"Generator/ScriptProject/ScriptProject.h"
 
 // ECS
 #include"ECS/EntityManager/EntityManager.h"
@@ -400,7 +401,10 @@ void Cho::StartSetUp()
 	);
 
 	/*テクスチャリソースの読み込み*/
-	textureLoader->FirstResourceLoad("C:/ChoProject/Assets/Texture/");
+	std::string textureRoot = startSetting->GetProjectRoot();
+	std::string projectName = ProjectName();
+	textureRoot = textureRoot + "\\" + projectName + "\\" + "Assets\\Texture\\";
+	textureLoader->FirstResourceLoad(textureRoot);
 }
 
 void Cho::Save()
@@ -435,6 +439,9 @@ void Cho::SelectGameProject()
 		} else
 		{
 			if (startSetting->IsNew()) {
+				SystemState::GetInstance().SetProjectName(startSetting->GetProjectName());
+				SystemState::GetInstance().SetProjectRoot(startSetting->GetProjectRoot());
+
 				// 最初のシーンを作成
 				sceneManager->ChangeScene("MainScene");
 
@@ -444,11 +451,15 @@ void Cho::SelectGameProject()
 
 				//startSetting->CreateProject();
 
+				ScriptProject::GenerateSolutionAndProject();
+
 				// 解放
 				startSetting.reset();
 
 				end = true;
 			} else {
+				SystemState::GetInstance().SetProjectName(startSetting->GetProjectName());
+				SystemState::GetInstance().SetProjectRoot(startSetting->GetProjectRoot());
 
 				startSetting->LoadProject();
 

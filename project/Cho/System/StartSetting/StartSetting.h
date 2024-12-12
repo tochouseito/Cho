@@ -54,7 +54,11 @@ public:
 
 	void LoadProject();
 
-	std::string GetProjectName()const { return projectName; }
+	std::string GetProjectName()const {
+		return projectName;
+	}
+
+	std::string GetProjectRoot()const { return projectRoot; }
 
 private:
 
@@ -62,7 +66,7 @@ private:
 	fs::path projectPath = "";
 
 	bool createNewProject = true;        // 新しいプロジェクトを作るかどうか
-	std::string projectRoot = "C:/ChoProject/"; // プロジェクトのルートディレクトリ
+	std::string projectRoot = "C:\\ChoProject"; // プロジェクトのルートディレクトリ
 
 	bool isProject = false;
 

@@ -21,21 +21,26 @@ namespace fs = std::filesystem;
 
 class ScriptProject {
 public:
-    static void Update(const std::string& scriptsPath);                     // スクリプトの更新
-    static void GenerateSolutionAndProject(const std::string& projectName, const std::string& outputPath);
+    static void Update();                     // スクリプトの更新
+    static void GenerateSolutionAndProject();
     static void OpenVisualStudio();                                        // Visual Studio を開く
-    static void GenerateScriptTemplate(const std::string& scriptName, const std::string& outputPath);
-    static void LoadScriptDLL(const std::string& dllPath);
+    static void GenerateScriptTemplate(const std::string& scriptName);
+    static void LoadScriptDLL();
     static HMODULE GetDLL() { return scriptLibrary; }
 
 private:
     static std::string GenerateGUID();                                     // GUID 生成
-    static void UpdateVcxproj(const std::string& vcxprojPath, const std::string& projectGuid,const std::string& projectName);
-    static void UpdateFilters(const std::string& filtersPath);
+    static void UpdateVcxproj(const std::string& projectGuid,const std::string& projectName);
+    static void UpdateFilters();
     static std::string FindSolutionPath();
 
     static std::unordered_map<std::string, std::vector<std::string>> scripts;  // 更新されたスクリプトのリスト
     static HMODULE scriptLibrary;
+    static std::string projectGUID;
+    static std::string slnPath;
+    static std::string vcxprojPath;
+    static std::string filtersPath;
+
     static std::string ConvertToWindowsPath(const std::string& path);
     static bool LoadPDBForDLL(const std::string& dllPath, const std::string& pdbPath);
 };

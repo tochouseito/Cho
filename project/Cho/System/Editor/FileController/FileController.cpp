@@ -12,7 +12,8 @@ void FileController::Update()
         OpenExplorerInCurrentDirectory();
     }
     if (ImGui::MenuItem("OpenGameFile")) {
-        OpenExplorerInDirectory("C:\\ChoProject");
+        std::string path = ProjectRoot() + "\\" + ProjectName();
+        OpenExplorerInDirectory(path);
     }
     if (ImGui::MenuItem("Save", "Ctrl+S")) { /* Save action */ }
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include<cstdint>
+#include<string>
 
 class SystemState {
 public:
@@ -40,6 +41,18 @@ public:
 
    bool WindowResize();
 
+   void SetProjectName(const std::string& name) { projectName = name; }
+
+   std::string GetProjectName() {
+       return projectName;
+   }
+
+   void SetProjectRoot(const std::string& name) { projectRoot = name; }
+
+   std::string GetProjectRoot() { 
+       return projectRoot;
+   }
+
 private:
     int32_t windowWidth = 1280;// ウィンドウ横幅
     int32_t windowHeight = 720;// ウィンドウ縦幅
@@ -51,6 +64,9 @@ private:
     float MaxFramePerSecond = 60.0f;// FPS
 
     float nowFPS = MaxFramePerSecond;
+
+    std::string projectName = "";
+    std::string projectRoot = "";
 };
 
 inline float DeltaTime() {
@@ -71,4 +87,12 @@ inline int32_t WindowHeight() {
 
 inline float NowFrameRate() {
     return SystemState::GetInstance().GetNowFrameRate();
+}
+
+inline std::string ProjectName() {
+    return SystemState::GetInstance().GetProjectName();
+}
+
+inline std::string ProjectRoot() {
+    return SystemState::GetInstance().GetProjectRoot();
 }
