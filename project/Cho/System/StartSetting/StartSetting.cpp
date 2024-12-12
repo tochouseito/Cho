@@ -15,6 +15,8 @@
 #include"Generator/GameProject/GameProject.h"
 #include"Generator/ScriptProject/ScriptProject.h"
 
+#include"imgui.h"
+
 void StartSetting::Initialize(
 	ResourceViewManager* rvManager,
 	RTVManager* rtvManager,
@@ -28,7 +30,7 @@ void StartSetting::Initialize(
 )
 {
 	// ひとまず開発用プロジェクトの作成
-	GameProject::CreateGameFolder();
+	GameProject::CreateGameFolder(projectName);
 
 	sceneManager->CreateDebugCamera();
 	std::string name = "SceneCamera";
@@ -56,4 +58,92 @@ void StartSetting::Initialize(
 	componentManager;
 	systemManager;
 	prefabManager;
+}
+
+bool StartSetting::IsProject()
+{
+	return isProject;
+}
+
+void StartSetting::SelectedProject()
+{
+    // モーダルウィンドウを表示するフラグ
+    if (!ImGui::IsPopupOpen("Project Selector"))
+    {
+        ImGui::OpenPopup("Project Selector");
+    }
+
+    // モーダルウィンドウのスタイル
+    ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize |
+        ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar;
+
+    // モーダルウィンドウの表示
+    if (ImGui::BeginPopupModal("Project Selector", nullptr, windowFlags))
+    {
+        // ウィンドウを中央に配置
+        ImGui::SetNextWindowPos(ImGui::GetMainViewport()->GetCenter(), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+        ImGui::SetNextWindowSize(ImVec2(400, 300));
+
+        // ラジオボタンでプロジェクトの作成か読み込みを選択
+        if (ImGui::RadioButton("Create New Project", createNewProject)) {
+            createNewProject = true;
+        }
+        if (ImGui::RadioButton("Load Existing Project", !createNewProject)) {
+            createNewProject = false;
+        }
+
+        ImGui::Spacing();
+
+        // プロジェクト名の入力
+        ImGui::Text("Project Name:");
+        ImGui::InputText("##ProjectName", projectNameBuffer, sizeof(projectNameBuffer));
+        projectName = projectNameBuffer; // 入力内容を std::string に保存
+
+        ImGui::Spacing();
+
+        // プロジェクト名が空の場合ボタンを無効化
+        bool isNameValid = !projectName.empty();
+
+        if (createNewProject) {
+            if (!isNameValid) {
+                ImGui::BeginDisabled(); // ボタンを無効化
+            }
+            if (ImGui::Button("Create Project", ImVec2(120, 0))) {
+                isProject = true;
+                ImGui::CloseCurrentPopup(); // モーダルを閉じる
+            }
+            if (!isNameValid) {
+                ImGui::EndDisabled(); // ボタンを再度有効化
+            }
+        } else {
+            if (!isNameValid) {
+                ImGui::BeginDisabled(); // ボタンを無効化
+            }
+            if (ImGui::Button("Load Project", ImVec2(120, 0))) {
+                isProject = true;
+                ImGui::CloseCurrentPopup(); // モーダルを閉じる
+            }
+            if (!isNameValid) {
+                ImGui::EndDisabled(); // ボタンを再度有効化
+            }
+        }
+
+        ImGui::EndPopup();
+    }
+}
+
+void StartSetting::CreateProject()
+{
+	projectPath = fs::path(projectRoot) / projectName;
+}
+
+void StartSetting::LoadProject()
+{
+	/*fs::path projectPath = fs::path(projectRoot) / projectName;
+
+	if (fs::exists(projectPath)) {
+		std::cout << "Loaded project from: " << projectPath.string() << std::endl;
+	} else {
+		ImGui::OpenPopup("Error");
+	}*/
 }

@@ -81,14 +81,14 @@ void PopupMenu::Update(bool excludeRightClick)
                 editManager_->CreateCamera();
             }
             if (ImGui::MenuItem("LoadDLL")) {
-                ScriptProject::LoadScriptDLL("C:/ChoGame/bin/Debug/Test.dll");
+                ScriptProject::LoadScriptDLL("C:/ChoProject/bin/Debug/Test.dll");
             }
             if (ImGui::BeginMenu("C++Script")) {
                 if (ImGui::MenuItem("ObjectScript")) {
                     static std::string name = "NewScript";
 
                     name = scriptManager_->AddScript(ObjectType::Object, name);
-                    ScriptProject::GenerateScriptTemplate(name, "C:/ChoGame/Assets");
+                    ScriptProject::GenerateScriptTemplate(name, "C:/ChoProject/Assets");
                     editManager_->UpdateFiles();
                 }
                 if (ImGui::MenuItem("CameraScript")) {
@@ -97,10 +97,10 @@ void PopupMenu::Update(bool excludeRightClick)
                 ImGui::EndMenu();
             }
             if (ImGui::MenuItem("GenerateScriptProject")) {
-                ScriptProject::GenerateSolutionAndProject("Test", "C:/ChoGame");
+                ScriptProject::GenerateSolutionAndProject("Test", "C:/ChoProject");
             }
             if (ImGui::MenuItem("Update")) {
-                ScriptProject::Update("C:/ChoGame/Assets/Scripts");
+                ScriptProject::Update("C:/ChoProject/Assets/Scripts");
             }
             if (ImGui::MenuItem("OpenVS:Test")) {
                 ScriptProject::OpenVisualStudio();

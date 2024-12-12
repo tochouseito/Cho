@@ -12,7 +12,7 @@ void FileView::Initialize(EditorManager* editManager, ResourceViewManager* rvMan
     editManager_ = editManager;
 
     // スラッシュを `/` に統一
-    currentDirectory = fs::path("C:/ChoGame/Assets").generic_string();
+    currentDirectory = fs::path("C:/ChoProject/Assets").generic_string();
 
     selectedFolder = currentDirectory;
 
@@ -28,7 +28,7 @@ void FileView::Update() {
 
     // フォルダビューウィンドウ
     ImGui::Begin("Folder Hierarchy", nullptr, windowFlags);
-    ShowFolderHierarchy("C:/ChoGame/Assets", selectedFolder);
+    ShowFolderHierarchy("C:/ChoProject/Assets", selectedFolder);
     ImGui::End();
 
     // ファイルビューウィンドウ

@@ -1,6 +1,9 @@
 #include "PrecompiledHeader.h"
 #include "SceneManager.h"
 #include<assert.h>
+#include"ECS/EntityManager/EntityManager.h"
+#include"ECS/ComponentManager/ComponentManager.h"
+#include"ECS/System/SystemManager/SystemManager.h"
 
 void SceneManager::Initialize(
 	EntityManager* entityManager,
@@ -23,12 +26,15 @@ void SceneManager::Finalize()
 {
 	delete sceneFactory_;
 	/*最後のシーンの終了と解放*/
-	scene_->Finalize();
+	if (scene_) {
+		scene_->Finalize();
+	}
 	delete scene_;
 }
 
 void SceneManager::Update()
 {
+	if (!scene_) { return; }
 	if (nextScene_) {
 		/*旧シーンの終了*/
 		if (scene_) {
@@ -42,12 +48,14 @@ void SceneManager::Update()
 		scene_->SetSceneManager(this);
 		/*次のシーンを初期化する*/
 		scene_->Initialize();
+		systemManager_->Start(*entityManager_, *componentManager_);
 	}
 	scene_->Update();
 }
 
 void SceneManager::Draw()
 {
+	if (!scene_) { return; }
 	scene_->Draw();
 }
 

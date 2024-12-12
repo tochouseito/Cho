@@ -12,7 +12,7 @@ void FileController::Update()
         OpenExplorerInCurrentDirectory();
     }
     if (ImGui::MenuItem("OpenGameFile")) {
-        OpenExplorerInDirectory("C:\\ChoGame");
+        OpenExplorerInDirectory("C:\\ChoProject");
     }
     if (ImGui::MenuItem("Save", "Ctrl+S")) { /* Save action */ }
 }

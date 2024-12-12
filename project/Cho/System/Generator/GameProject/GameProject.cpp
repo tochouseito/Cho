@@ -1,8 +1,9 @@
 #include "PrecompiledHeader.h"
 #include "GameProject.h"
 
-void GameProject::CreateGameFolder() {
-    std::string gameFolderPath = "C:\\ChoGame";
+void GameProject::CreateGameFolder(const std::string& projectName) {
+    std::string gameFolderPath = "C:\\ChoProject";
+    gameFolderPath = gameFolderPath + "\\" + projectName;
     std::string assetsFolderPath = gameFolderPath + "\\Assets";
     std::string textureFolderPath = assetsFolderPath + "\\Texture";
     std::string scriptsFolderPath = assetsFolderPath + "\\Scripts";

@@ -38,7 +38,7 @@ public:
 
    void SetDeltaTime(float value) { deltaTime = value; }
 
-   bool WindowEvent();
+   bool WindowResize();
 
 private:
     int32_t windowWidth = 1280;// ウィンドウ横幅

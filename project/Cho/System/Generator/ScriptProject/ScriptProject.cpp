@@ -383,7 +383,7 @@ std::string ScriptProject::FindSolutionPath()
     // 現在の作業ディレクトリを取得
     //std::string currentPath = fs::current_path().string();
     //std::string gameFolder = currentPath + "\\Game";
-    std::string gameFolder = "C:/ChoGame";
+    std::string gameFolder = "C:/ChoProject";
     gameFolder = fs::absolute(gameFolder).string();
 
     // Gameフォルダ内を検索

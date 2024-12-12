@@ -255,17 +255,12 @@ void Cho::Initialize()
 
 #pragma endregion
 
-	// 最初のシーンを作成
-	sceneManager->ChangeScene("MainScene");
-
-	// 新プロジェクトの時のみ
-	/*スターター*/
-	StartSetUp();
+	// スタート設定
+	startSetting = std::make_unique<StartSetting>();
 
 	/*読み込み*/
 	Load();
 
-	systemManager->Start(*entityManager.get(), *componentManager.get());
 }
 
 void Cho::Finalize()
@@ -316,6 +311,8 @@ void Cho::Update()
 {
 	// ImGui受付開始
 	imguiManager->Begin();
+
+	SelectGameProject();
 
 	// エディタを更新
 	editorManager->Update();
@@ -386,12 +383,10 @@ void Cho::Load()
 
 	/*テクスチャリソースの読み込み*/
 	textureLoader->FirstResourceLoad("Cho/Resources/Texture/");
-	textureLoader->FirstResourceLoad("C:/ChoGame/Assets/Texture/");
 }
 
 void Cho::StartSetUp()
 {
-	startSetting = std::make_unique<StartSetting>();
 	startSetting->Initialize(
 		resourceViewManager.get(),
 		rtvManager.get(),
@@ -403,8 +398,9 @@ void Cho::StartSetUp()
 		sceneManager.get(),
 		editorManager.get()
 	);
-	// 解放
-	startSetting.reset();
+
+	/*テクスチャリソースの読み込み*/
+	textureLoader->FirstResourceLoad("C:/ChoProject/Assets/Texture/");
 }
 
 void Cho::Save()
@@ -416,12 +412,51 @@ void Cho::Save()
 void Cho::SystemStateEvent()
 {
 	// ウィンドウサイズ変更時スワップチェーン、RTVのリサイズ
-	if (SystemState::GetInstance().WindowEvent()) {
+	if (SystemState::GetInstance().WindowResize()) {
 		d3dCommand->Signal();
 
 		// 既存のリソースの解放,再作成
 		dsvManager->Resize();
 		drawExecution->ResizeOffscreenRenderTex();
 		rtvManager->ResizeSwapChain();
+	}
+}
+
+void Cho::SelectGameProject()
+{
+	static bool end = false;
+	if (end) {
+		return;
+	}
+	{
+		// プロジェクトの選択、作成
+		if (!startSetting->IsProject()) {
+			startSetting->SelectedProject();
+		} else
+		{
+			if (startSetting->IsNew()) {
+				// 最初のシーンを作成
+				sceneManager->ChangeScene("MainScene");
+
+				// 新プロジェクトの時のみ
+				/*スターター*/
+				StartSetUp();
+
+				//startSetting->CreateProject();
+
+				// 解放
+				startSetting.reset();
+
+				end = true;
+			} else {
+
+				startSetting->LoadProject();
+
+				// 解放
+				startSetting.reset();
+
+				end = true;
+			}
+		}
 	}
 }

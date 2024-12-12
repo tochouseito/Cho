@@ -7,6 +7,6 @@ class GameProject
 {
 public:
 
-    static void CreateGameFolder();
+    static void CreateGameFolder(const std::string& projectName);
 };
 

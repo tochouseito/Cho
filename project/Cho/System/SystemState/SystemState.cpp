@@ -5,7 +5,7 @@ void SystemState::Initialize()
 
 }
 
-bool SystemState::WindowEvent()
+bool SystemState::WindowResize()
 {
 	if (preWindowHeight != windowHeight ||
 		preWindowWidth != windowWidth) {

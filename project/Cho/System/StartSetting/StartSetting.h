@@ -1,6 +1,10 @@
 #pragma once
 
-#include<string>
+#include <filesystem>
+#include <string>
+#include <iostream>
+
+namespace fs = std::filesystem;
 
 // D3D12
 class ResourceViewManager;
@@ -40,6 +44,29 @@ public:
 		EditorManager* editorManager
 	);
 
+	bool IsProject();
+
+	void SelectedProject();
+
+	bool IsNew() { return createNewProject; }
+
+	void CreateProject();
+
+	void LoadProject();
+
+	std::string GetProjectName()const { return projectName; }
+
 private:
+
+	std::string projectName = "";
+	fs::path projectPath = "";
+
+	bool createNewProject = true;        // 新しいプロジェクトを作るかどうか
+	std::string projectRoot = "C:/ChoProject/"; // プロジェクトのルートディレクトリ
+
+	bool isProject = false;
+
+	// プロジェクト名の入力用バッファ
+	char projectNameBuffer[256] = ""; // 必要なバッファサイズに調整
 };
 

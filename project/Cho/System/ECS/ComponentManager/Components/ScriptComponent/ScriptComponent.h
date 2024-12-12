@@ -33,7 +33,7 @@ public:
     }
 
     bool LoadDLLFunc() {
-        std::string dllPath = "C:\\ChoGame\\bin\\Debug\\Test.dll";
+        std::string dllPath = "C:\\ChoProject\\bin\\Debug\\Test.dll";
 
         // DLLをロード
         dllHandle = LoadLibraryA(dllPath.c_str());

@@ -1,5 +1,6 @@
 #include "PrecompiledHeader.h"
 #include "ScriptManager.h"
+#include<assert.h>
 
 void ScriptManager::Initialize()
 {

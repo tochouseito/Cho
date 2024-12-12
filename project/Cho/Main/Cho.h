@@ -112,6 +112,8 @@ private:// メンバ関数
 
 	static void SystemStateEvent();
 
+	static void SelectGameProject();
+
 private:// メンバ変数
 
 	/*共有するもの（シングルトンクラス）*/
