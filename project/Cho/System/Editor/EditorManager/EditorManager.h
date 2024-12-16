@@ -10,6 +10,7 @@
 #include"Editor/SceneView/SceneView.h"
 #include"Editor/InfoView/InfoView.h"
 #include"Editor/ObjectsList/ObjectsList.h"
+#include"Editor/ToolBar/ToolBar.h"
 
 // D3D12
 class ResourceViewManager;
@@ -83,6 +84,7 @@ private:
 	std::unique_ptr<SceneView> sceneView = nullptr;
 	std::unique_ptr<InfoView> infoView = nullptr;
 	std::unique_ptr<ObjectsList> objectsList = nullptr;
+	std::unique_ptr<ToolBar> toolBar = nullptr;
 
 	/*D3D12*/
 	ResourceViewManager* rvManager_ = nullptr;

@@ -92,6 +92,20 @@ void EditorManager::Initialize(
         this
     );
 
+    toolBar = std::make_unique<ToolBar>();
+    toolBar->Initialize(
+        rvManager,
+        rtvManager,
+        drawExe,
+        entityManager,
+        componentManager,
+        systemManager,
+        prefabManager,
+        sceneManager,
+        this,
+        scriptManager
+    );
+
     // D3D12
     rvManager_ = rvManager;
     rtvManager_ = rtvManager;
@@ -132,30 +146,9 @@ void EditorManager::Update()
 
     // ObjectsList
     objectsList->Update();
-    
-    //// 個別のドッカブルウィンドウのセットアップ
-    //ImGui::Begin("Memory Editor", nullptr, ImGuiWindowFlags_NoCollapse);
-    //// メモリエディタのUI要素をここに追加
-    //ImGui::End(); // メモリエディタウィンドウを終了
 
-    //ImGui::Begin("Tools", nullptr, ImGuiWindowFlags_NoCollapse);
-    //// ツールのUI要素をここに追加
-    //ImGui::End(); // ツールウィンドウを終了
-
-    //ImGui::Begin("Dear ImGui Test Engine", nullptr, ImGuiWindowFlags_NoCollapse);
-    //// メインシーンビューのUI要素を追加
-    //ImGui::Text("Orthographic"); // シーンビューの例としてテキスト要素を追加
-    //// ツールバーやビューポートオプションなどの要素を追加
-    //ImGui::End(); // テストエンジンウィンドウを終了
-
-    //ImGui::Begin("Stock Prices", nullptr, ImGuiWindowFlags_NoCollapse);
-    //// 株価グラフの要素をここに追加
-    //ImGui::End(); // 株価ウィンドウを終了
-
-    //// 画像に基づくその他のドッカブルな要素
-    //ImGui::Begin("Tools Item Picker", nullptr, ImGuiWindowFlags_NoCollapse);
-    //// 「Show windows」や「Show mesh wh」などのオプションを追加
-    //ImGui::End(); // ツールアイテムピッカーウィンドウを終了
+    // ToolBar
+    toolBar->Update();
 }
 
 void EditorManager::CreateObject()

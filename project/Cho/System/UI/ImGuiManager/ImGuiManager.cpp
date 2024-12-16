@@ -19,6 +19,9 @@ void ImGuiManager::Initialize(WinApp* win, D3DDevice* d3dDevice, D3DCommand* d3d
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable; // Dockingを有効化
 	//io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 	// フォントファイルのパスとサイズを指定してフォントをロードする
+	//io.Fonts->AddFontFromFileTTF(
+	//	"C:\\Windows\\Fonts\\seguisym.ttf", 16.0f // Segoe UI Symbolフォント
+	//);
 	io.Fonts->AddFontFromFileTTF(
 		"C:\\Windows\\Fonts\\Arial.ttf", 16.0f // フォントファイルのパスとフォントサイズ
 	);

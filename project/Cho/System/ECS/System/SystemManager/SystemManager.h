@@ -37,11 +37,16 @@ public:
         GraphicsSystem* graphicsSystem,
         TextureLoader* texLoad
     );
+
+    void PlaySwitch() { run = !run; }
+    bool IsPlay() { return run; }
 private:
     PhysicsSystem physicsSystem;
     RenderSystem renderSystem;
     CameraSystem cameraSystem;
     ScriptSystem scriptSystem;
     TransformSystem transformSystem;
+
+    bool run = false;
 };
 
