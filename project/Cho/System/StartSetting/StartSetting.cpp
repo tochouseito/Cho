@@ -67,6 +67,7 @@ bool StartSetting::IsProject()
 
 void StartSetting::SelectedProject()
 {
+    FindProjects();
     // モーダルウィンドウを表示するフラグ
     if (!ImGui::IsPopupOpen("Project Selector"))
     {
@@ -140,4 +141,31 @@ void StartSetting::CreateProject()
 void StartSetting::LoadProject()
 {
 	
+}
+
+void StartSetting::FindProjects()
+{
+    // プロジェクトのルートディレクトリを絶対パスに変換
+    std::string fullProjectsPath = fs::absolute(projectRoot).string();
+
+    // プロジェクトリストを初期化
+    projectList.clear();
+
+    try {
+        // ディレクトリ内を探索
+        for (const auto& entry : fs::directory_iterator(fullProjectsPath)) {
+            if (entry.is_directory()) { 
+                projectList.push_back(entry.path().filename().string()); // ファイル名をリストに追加
+            }
+        }
+    }
+    catch (const std::filesystem::filesystem_error& e) {
+        std::cerr << "Error accessing directory: " << e.what() << std::endl;
+    }
+
+    // 結果をデバッグ表示
+    std::cout << "Found project files:\n";
+    for (const auto& project : projectList) {
+        std::cout << "  " << project << "\n";
+    }
 }

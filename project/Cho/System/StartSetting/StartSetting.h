@@ -60,6 +60,8 @@ public:
 
 	std::string GetProjectRoot()const { return projectRoot; }
 
+	void FindProjects();
+
 private:
 
 	std::string projectName = "";
@@ -67,6 +69,7 @@ private:
 
 	bool createNewProject = true;        // 新しいプロジェクトを作るかどうか
 	std::string projectRoot = "C:\\ChoProject"; // プロジェクトのルートディレクトリ
+	std::vector<std::string> projectList;     // 見つかったプロジェクトのリスト
 
 	bool isProject = false;
 
