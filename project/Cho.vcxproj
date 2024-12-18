@@ -203,6 +203,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClCompile Include="Cho\System\Script\ScriptManager\ScriptManager.cpp" />
     <ClCompile Include="Cho\System\ECS\System\TransformSystem\TransformSystem.cpp" />
     <ClCompile Include="Cho\System\Editor\ToolBar\ToolBar.cpp" />
+    <ClCompile Include="Cho\System\SaveManager\SaveManager.cpp" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\CameraComponent\CameraComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\MaterialComponent\MaterialComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\MeshComponent\MeshComponenth.h" />
@@ -270,6 +271,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClInclude Include="Cho\System\ECS\System\TransformSystem\TransformSystem.h" />
     <ClInclude Include="Cho\Utility\ObjectType\ObjectType.h" />
     <ClInclude Include="Cho\System\Editor\ToolBar\ToolBar.h" />
+    <ClInclude Include="Cho\System\SaveManager\SaveManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\ChoMath\ChoMath.vcxproj">

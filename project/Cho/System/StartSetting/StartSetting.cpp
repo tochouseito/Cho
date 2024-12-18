@@ -129,6 +129,14 @@ void StartSetting::SelectedProject()
             }
         }
 
+        ImGui::SeparatorText("Projects");
+
+        for (auto& project : projectList) {
+            if (ImGui::Selectable(project.c_str())) {
+                LoadProject();
+            }
+        }
+
         ImGui::EndPopup();
     }
 }
@@ -140,7 +148,7 @@ void StartSetting::CreateProject()
 
 void StartSetting::LoadProject()
 {
-	
+    isProject = true;
 }
 
 void StartSetting::FindProjects()

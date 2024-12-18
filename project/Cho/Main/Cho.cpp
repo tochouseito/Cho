@@ -46,7 +46,7 @@
 #include"Load/JsonFileLoader/JsonFileLoader.h"
 
 #pragma region 静的メンバー変数の定義
-SystemState& Cho::systemState=SystemState::GetInstance();
+SystemState& Cho::systemState = SystemState::GetInstance();
 
 std::unique_ptr <WinApp> Cho::win = nullptr;
 std::unique_ptr <ResourceLeakChecker> Cho::resourceLeakChecker = nullptr;

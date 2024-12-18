@@ -53,7 +53,9 @@ void ToolBar::Initialize(
 
 void ToolBar::Update()
 {
-    ImGui::Begin("ToolBar");
+    // 移動を無効にするフラグ
+    ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove;
+    ImGui::Begin("ToolBar",nullptr,windowFlags);
     PlaybackControls();
     ImGui::End();
 }
