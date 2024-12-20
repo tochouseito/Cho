@@ -96,7 +96,7 @@ void SaveManager::Save(JsonFileLoader* jsonLoad)
     j[sceneName] = sceneJson;
     // }
 
-     // ファイルに書き込む
+    // ファイルに書き込む
     std::ofstream file(dataFileName);
     if (!file.is_open()) {
         // ファイルが開けない
