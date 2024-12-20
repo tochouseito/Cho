@@ -34,6 +34,10 @@ void SaveManager::Save(JsonFileLoader* jsonLoad)
     std::string projectName = ProjectName();
     std::string projectRoot = ProjectRoot();
 
+    if (projectName == "" || projectRoot == "") {
+        return;
+    }
+
     std::filesystem::path projectDataDir = projectRoot + "\\" + projectName + "\\" + "ProjectData";
 
     if (!std::filesystem::exists(projectDataDir)) {
