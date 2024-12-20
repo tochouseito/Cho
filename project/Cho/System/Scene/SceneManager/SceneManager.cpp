@@ -1,6 +1,6 @@
 #include "PrecompiledHeader.h"
 #include "SceneManager.h"
-#include<assert.h>
+#include <assert.h>
 #include"ECS/EntityManager/EntityManager.h"
 #include"ECS/ComponentManager/ComponentManager.h"
 #include"ECS/System/SystemManager/SystemManager.h"

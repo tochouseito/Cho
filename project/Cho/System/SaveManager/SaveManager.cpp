@@ -64,16 +64,22 @@ void SaveManager::Save(JsonFileLoader* jsonLoad)
         nlohmann::ordered_json json;
         nlohmann::ordered_json gameObjJson;
 
+        // ID,type,nameを取得
+        Entity entity = gameObject.second->GetEntityID();
+        ObjectType type = gameObject.second->GetObjectType();
+        std::string name = gameObject.first;
+
         // 名前とIDを設定
-        json["name"] = gameObject.first;
-        json["entityId"] = gameObject.second->GetEntityID();
+        json["name"] = name;
+        json["entityId"] = entity;
+        json["objectType"] = type;
 
         // コンポーネント
         nlohmann::ordered_json compJ;
 
         // TransformComponent
-        if (componentManager_->GetTransform(gameObject.second->GetEntityID())) {
-            TransformComponent* tf = componentManager_->GetTransform(gameObject.second->GetEntityID());
+        if (componentManager_->GetTransform(entity)) {
+            TransformComponent* tf = componentManager_->GetTransform(entity);
             nlohmann::ordered_json tfJ;
 
             tfJ["position"] = { tf->translation.x, tf->translation.y, tf->translation.z };
@@ -83,6 +89,60 @@ void SaveManager::Save(JsonFileLoader* jsonLoad)
             compJ["transform"] = tfJ;
         }
 
+        // MaterialComponent
+        if (componentManager_->GetMaterial(entity)) {
+            MaterialComponent* mtl = componentManager_->GetMaterial(entity);
+            nlohmann::ordered_json mtlJ;
+
+            mtlJ["texture"] = mtl->textureID;
+
+            compJ["material"] = mtlJ;
+        }
+
+        // MeshComponent
+        if (componentManager_->GetMesh(entity)) {
+            MeshComponent* mesh = componentManager_->GetMesh(entity);
+            nlohmann::ordered_json meshJ;
+
+            meshJ["meshID"] = { mesh->meshID };
+
+            compJ["mesh"] = meshJ;
+        }
+
+        // RenderComponent
+        if (componentManager_->GetRender(entity)) {
+            RenderComponent* render = componentManager_->GetRender(entity);
+            nlohmann::ordered_json renderJ;
+
+            renderJ["visible"] = render->visible;
+
+            compJ["render"] = renderJ;
+        }
+
+        // PhysicsComponent
+        if (componentManager_->GetPhysics(entity)) {
+            PhysicsComponent* physics = componentManager_->GetPhysics(entity);
+            nlohmann::ordered_json physicsJ;
+
+            physicsJ["velocity"] = { physics->velocity.x,physics->velocity.y,physics->velocity.z };
+            physicsJ["acceleration"] = { physics->acceleration.x,physics->acceleration.y,physics->acceleration.z };
+
+            compJ["physics"] = physicsJ;
+        }
+
+        // ScriptComponent
+        if (componentManager_->GetScript(entity,type)) {
+            ScriptComponent* script = componentManager_->GetScript(entity,type);
+            nlohmann::ordered_json scriptJ;
+
+            scriptJ["scriptName"] = script->status.name;
+            scriptJ["type"] = script->status.type;
+            scriptJ["id"] = script->id;
+            scriptJ["isScript"] = script->isScript;
+
+            compJ["script"] = scriptJ;
+        }
+
         // コンポーネントを追加
         json["Components"] = compJ;
 
@@ -90,6 +150,42 @@ void SaveManager::Save(JsonFileLoader* jsonLoad)
 
         // ゲームオブジェクトをシーンに追加
         sceneJson.push_back(gameObjJson);
+    }
+
+    // カメラオブジェクト
+    for (auto& cameraObject : sceneManager_->GetCameraObjects()) {
+        nlohmann::ordered_json json;
+        nlohmann::ordered_json cameraObjJson;
+
+        // ID,type,nameを取得
+        Entity entity = cameraObject.second->GetEntityID();
+        ObjectType type = cameraObject.second->GetObjectType();
+        std::string name = cameraObject.first;
+
+        // 名前とIDを設定
+        json["name"] = name;
+        json["entityId"] = entity;
+        json["objectType"] = type;
+
+        // コンポーネント
+        nlohmann::ordered_json compJ;
+
+        // CameraComponent
+        if (componentManager_->GetCamera(entity)) {
+            CameraComponent* camera = componentManager_->GetCamera(entity);
+            nlohmann::ordered_json cameraJ;
+
+            cameraJ["position"] = { camera->translation.x,camera->translation.y,camera->translation.z };
+
+            compJ["camera"] = cameraJ;
+        }
+        // コンポーネントを追加
+        json["Components"] = compJ;
+
+        cameraObjJson["CameraObject"] = json;
+
+        // ゲームオブジェクトをシーンに追加
+        sceneJson.push_back(cameraObjJson);
     }
 
     // シーンを全体のJSONに追加
