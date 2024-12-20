@@ -47,6 +47,9 @@ class StartSetting;
 // Json
 class JsonFileLoader;
 
+// Save
+class SaveManager;
+
 // C++
 #include<memory>
 
@@ -166,5 +169,8 @@ private:// メンバ変数
 
 	/*Json*/
 	static std::unique_ptr<JsonFileLoader> jsonFileLoader;
+
+	/*Save*/
+	static std::unique_ptr<SaveManager> saveManager;
 };
 

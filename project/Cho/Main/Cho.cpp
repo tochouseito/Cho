@@ -45,6 +45,9 @@
 // Json
 #include"Load/JsonFileLoader/JsonFileLoader.h"
 
+// Save
+#include"SaveManager/SaveManager.h"
+
 #pragma region 静的メンバー変数の定義
 SystemState& Cho::systemState = SystemState::GetInstance();
 
@@ -90,6 +93,9 @@ std::unique_ptr<StartSetting> Cho::startSetting = nullptr;
 
 /*Json*/
 std::unique_ptr<JsonFileLoader> Cho::jsonFileLoader = nullptr;
+
+/*Save*/
+std::unique_ptr<SaveManager> Cho::saveManager = nullptr;
 
 #pragma endregion
 
@@ -409,8 +415,22 @@ void Cho::StartSetUp()
 
 void Cho::Save()
 {
+	saveManager = std::make_unique<SaveManager>();
+	saveManager->Initialize(
+		scriptManager.get(),
+		entityManager.get(),
+		componentManager.get(),
+		prefabManager.get(),
+		sceneManager.get()
+	);
+
+	saveManager->Save(jsonFileLoader.get());
+
 	/*ImGuiのスタイルを保存*/
 	jsonFileLoader->SaveStyleToProject();
+
+	saveManager.reset();
+	saveManager = nullptr;
 }
 
 void Cho::SystemStateEvent()
