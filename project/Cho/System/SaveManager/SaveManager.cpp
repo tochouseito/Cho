@@ -34,6 +34,7 @@ void SaveManager::Save(JsonFileLoader* jsonLoad)
     std::string projectName = ProjectName();
     std::string projectRoot = ProjectRoot();
 
+    // プロジェクトがなかったら
     if (projectName == "" || projectRoot == "") {
         return;
     }
