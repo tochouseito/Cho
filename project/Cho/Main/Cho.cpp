@@ -258,7 +258,13 @@ void Cho::Initialize()
 
 	// Json
 	jsonFileLoader = std::make_unique<JsonFileLoader>();
-	jsonFileLoader->Initialize();
+	jsonFileLoader->Initialize(
+		scriptManager.get(),
+		entityManager.get(),
+		componentManager.get(),
+		prefabManager.get(),
+		sceneManager.get()
+	);
 
 #pragma endregion
 
@@ -481,7 +487,10 @@ void Cho::SelectGameProject()
 				SystemState::GetInstance().SetProjectName(startSetting->GetProjectName());
 				SystemState::GetInstance().SetProjectRoot(startSetting->GetProjectRoot());
 
-				startSetting->LoadProject();
+				// 最初のシーンを作成
+				sceneManager->ChangeScene("MainScene");
+
+				startSetting->LoadProject(jsonFileLoader.get());
 
 				// 解放
 				startSetting.reset();

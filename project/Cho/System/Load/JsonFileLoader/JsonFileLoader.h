@@ -7,6 +7,12 @@
 // Json
 #include <json.hpp>
 
+class ScriptManager;
+class EntityManager;
+class ComponentManager;
+class PrefabManager;
+class SceneManager;
+
 class JsonFileLoader
 {
 public:
@@ -14,7 +20,13 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize();
+	void Initialize(
+		ScriptManager* scriptManager,
+		EntityManager* entityManager,
+		ComponentManager* componentManager,
+		PrefabManager* prefabManager,
+		SceneManager* sceneManager
+	);
 
 	// ImGuiのスタイルを指定したファイルに保存する関数
 	void SaveStyle(const char* filename);
@@ -28,7 +40,13 @@ public:
 	// プロジェクトの「Resources/ImGuiStyle/style.json」からスタイルを読み込む関数
 	void LoadStyleFromProject();
 
-private:
+	void LoadProject();
 
+private:
+	ScriptManager* scriptManager_ = nullptr;
+	EntityManager* entityManager_ = nullptr;
+	ComponentManager* componentManager_ = nullptr;
+	PrefabManager* prefabManager_ = nullptr;
+	SceneManager* sceneManager_ = nullptr;
 };
 

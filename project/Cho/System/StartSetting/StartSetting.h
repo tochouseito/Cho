@@ -26,6 +26,9 @@ class SceneManager;
 // EditorManager
 class EditorManager;
 
+// JSON
+class JsonFileLoader;
+
 class StartSetting
 {
 public:
@@ -52,7 +55,7 @@ public:
 
 	void CreateProject();
 
-	void LoadProject();
+	void LoadProject(JsonFileLoader* jsonLoader);
 
 	std::string GetProjectName()const {
 		return projectName;

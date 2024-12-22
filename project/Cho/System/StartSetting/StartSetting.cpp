@@ -15,6 +15,9 @@
 #include"Generator/GameProject/GameProject.h"
 #include"Generator/ScriptProject/ScriptProject.h"
 
+// Json
+#include"Load/JsonFileLoader/JsonFileLoader.h"
+
 #include"imgui.h"
 
 void StartSetting::Initialize(
@@ -133,7 +136,9 @@ void StartSetting::SelectedProject()
 
         for (auto& project : projectList) {
             if (ImGui::Selectable(project.c_str())) {
-                LoadProject();
+                isProject = true;
+                createNewProject = false;
+                ImGui::CloseCurrentPopup(); // モーダルを閉じる
             }
         }
 
@@ -146,9 +151,9 @@ void StartSetting::CreateProject()
 	
 }
 
-void StartSetting::LoadProject()
+void StartSetting::LoadProject(JsonFileLoader* jsonLoader)
 {
-    isProject = true;
+    jsonLoader->LoadProject();
 }
 
 void StartSetting::FindProjects()
