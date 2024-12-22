@@ -40,8 +40,6 @@ void StartSetting::Initialize(
 	name = sceneManager->AddCameraObject(name);
 	Entity ent = sceneManager->GetCameraObject(name)->GetEntityID();
 	entityManager->SetCameraID(ent);
-	// デフォルトメッシュ生成
-	rvManager->CreateMeshPattern();
 	// デフォルトオブジェクト生成
 	name = "Cube";
 	name = sceneManager->AddGameObject(name);
@@ -57,6 +55,7 @@ void StartSetting::Initialize(
 	editorManager->SetSelectedGOName(name);
 	editorManager->SetSelectedGO(sceneManager->GetGameObject(name));
 	rtvManager;
+    rvManager;
 	drawExe;
 	componentManager;
 	systemManager;

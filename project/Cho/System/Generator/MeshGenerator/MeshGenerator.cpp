@@ -1,8 +1,8 @@
 #include "PrecompiledHeader.h"
-#include "Mesh.h"
+#include "MeshGenerator.h"
 #include"D3D12/ResourceViewManager/ResourceViewManager.h"
 
-Meshs Mesh::GeneratorMeshs(MeshPattern pattern, ResourceViewManager* rvManager)
+Meshs MeshGenerator::GeneratorMeshs(MeshPattern pattern, ResourceViewManager* rvManager)
 {
 	Meshs meshs;
 	switch (pattern)
@@ -47,7 +47,7 @@ Meshs Mesh::GeneratorMeshs(MeshPattern pattern, ResourceViewManager* rvManager)
 	return meshs;
 }
 
-VertexSize Mesh::CreateSphere(MeshData& data, ResourceViewManager* rvManager)
+VertexSize MeshGenerator::CreateSphere(MeshData& data, ResourceViewManager* rvManager)
 {
 	VertexSize result;
 
@@ -135,7 +135,7 @@ VertexSize Mesh::CreateSphere(MeshData& data, ResourceViewManager* rvManager)
 	return result;
 }
 
-VertexSize Mesh::CreateCube(MeshData& data, ResourceViewManager* rvManager)
+VertexSize MeshGenerator::CreateCube(MeshData& data, ResourceViewManager* rvManager)
 {
 	VertexSize result;
 
@@ -216,7 +216,7 @@ VertexSize Mesh::CreateCube(MeshData& data, ResourceViewManager* rvManager)
 	return result;
 }
 
-VertexSize Mesh::CreatePlane(MeshData& data, ResourceViewManager* rvManager)
+VertexSize MeshGenerator::CreatePlane(MeshData& data, ResourceViewManager* rvManager)
 {
 	VertexSize result;
 

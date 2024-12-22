@@ -321,7 +321,7 @@ void ResourceViewManager::CreateMeshPattern()
 
 		// indexをMeshPattern型にキャストしてGeneratorMeshsに渡す
 		meshContainer.push_back(
-			std::make_unique<Meshs>(Mesh::GeneratorMeshs(static_cast<MeshPattern>(index), this))
+			std::make_unique<Meshs>(MeshGenerator::GeneratorMeshs(static_cast<MeshPattern>(index), this))
 		);
 	}
 }

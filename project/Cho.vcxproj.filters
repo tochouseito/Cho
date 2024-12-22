@@ -144,7 +144,7 @@
     <ClCompile Include="Cho\System\Graphics\GraphicsSystem\GraphicsSystem.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\Generator\Mesh\Mesh.cpp">
+    <ClCompile Include="Cho\System\Generator\MeshGenerator\MeshGenerator.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cho\System\FrameRate\FrameRate.cpp">
@@ -350,7 +350,7 @@
     <ClInclude Include="Cho\System\Graphics\GraphicsSystem\GraphicsSystem.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\System\Generator\Mesh\Mesh.h">
+    <ClInclude Include="Cho\System\Generator\MeshGenerator\MeshGenerator.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\Load\TextureLoader\TextureLoader.h">
@@ -471,6 +471,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\SaveManager\SaveManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\ConstantData\ModelData.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\ConstantData\MeshData.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

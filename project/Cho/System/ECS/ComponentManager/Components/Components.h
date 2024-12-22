@@ -10,7 +10,7 @@
 #include<vector>
 
 // Data
-#include"Generator/Mesh/Mesh.h"
+#include"Generator/MeshGenerator/MeshGenerator.h"
 
 // Components
 #include"ECS/ComponentManager/Components/CameraComponent/CameraComponent.h"

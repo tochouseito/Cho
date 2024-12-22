@@ -274,6 +274,9 @@ void Cho::Initialize()
 	/*読み込み*/
 	Load();
 
+	// デフォルトメッシュ生成
+	resourceViewManager->CreateMeshPattern();
+
 }
 
 void Cho::Finalize()
