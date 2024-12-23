@@ -5,8 +5,8 @@ void ScriptSystem::Start(EntityManager& entityManager, ComponentManager& compone
 {
     for (Entity entity : entityManager.GetActiveEntities()) {
         ScriptComponent* script = componentManager.GetScript(entity, ObjectType::Object);
-        if (script) {
-            script->Start();
+        if (script && script->startFunc) {
+            script->startFunc(script->id, script->type, script->ptr);
         }
     }
 }
@@ -15,9 +15,18 @@ void ScriptSystem::Update(EntityManager& entityManager, ComponentManager& compon
 {
     for (Entity entity : entityManager.GetActiveEntities()) {
         ScriptComponent* script = componentManager.GetScript(entity, ObjectType::Object);
-        if (script) {
-            script->Update();
+        if (script&&script->updateFunc) {
+            script->updateFunc(script->id, script->type, script->ptr);
         }
     }
-   
+}
+
+void ScriptSystem::Cleanup(EntityManager& entityManager, ComponentManager& componentManager)
+{
+    for (Entity entity : entityManager.GetActiveEntities()) {
+        ScriptComponent* script = componentManager.GetScript(entity, ObjectType::Object);
+        if (script && script->cleanupFunc) {
+            script->cleanupFunc();
+        }
+    }
 }

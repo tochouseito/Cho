@@ -89,18 +89,13 @@ void PopupMenu::Update(bool excludeRightClick)
 
                     name = scriptManager_->AddScript(ObjectType::Object, name);
                     ScriptProject::GenerateScriptTemplate(name);
+                    ScriptProject::Update();
                     editManager_->UpdateFiles();
                 }
                 if (ImGui::MenuItem("CameraScript")) {
 
                 }
                 ImGui::EndMenu();
-            }
-            if (ImGui::MenuItem("GenerateScriptProject")) {
-                ScriptProject::GenerateSolutionAndProject();
-            }
-            if (ImGui::MenuItem("Update")) {
-                ScriptProject::Update();
             }
             if (ImGui::MenuItem("OpenVS:Test")) {
                 ScriptProject::OpenVisualStudio();

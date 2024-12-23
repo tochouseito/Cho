@@ -45,6 +45,9 @@ void ScriptProject::Update() {
 }
 
 void ScriptProject::GenerateSolutionAndProject() {
+
+    Update();
+
     std::string projectName = ProjectName();
     std::string outputPath = ProjectRoot();
     slnPath = outputPath + "\\" + projectName + "\\" + projectName + ".sln";
@@ -97,6 +100,7 @@ void ScriptProject::GenerateSolutionAndProject() {
 }
 
 void ScriptProject::OpenVisualStudio() {
+    Update();
     std::string SolutionPath = FindSolutionPath();
     if (fs::exists(SolutionPath)) {
         std::string vsPath = "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\devenv.exe";

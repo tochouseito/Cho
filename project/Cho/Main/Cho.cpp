@@ -216,6 +216,7 @@ void Cho::Initialize()
 
 	// SystemManager
 	systemManager = std::make_unique<SystemManager>();
+	systemManager->Initialize(entityManager.get(), componentManager.get());
 
 	// PrefabManager
 	prefabManager = std::make_unique<PrefabManager>();

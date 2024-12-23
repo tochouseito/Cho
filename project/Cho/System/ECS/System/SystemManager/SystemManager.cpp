@@ -1,6 +1,17 @@
 #include "PrecompiledHeader.h"
 #include "SystemManager.h"
 
+SystemManager::~SystemManager()
+{
+    scriptSystem.Cleanup(*entityManager_,*componentManager_);
+}
+
+void SystemManager::Initialize(EntityManager* entityManager, ComponentManager* componentManager)
+{
+    entityManager_ = entityManager;
+    componentManager_ = componentManager;
+}
+
 void SystemManager::Start(EntityManager& entityManager, ComponentManager& componentManager)
 {
     scriptSystem.Start(entityManager, componentManager);

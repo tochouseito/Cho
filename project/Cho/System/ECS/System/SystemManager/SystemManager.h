@@ -13,8 +13,14 @@ class D3DCommand;
 class ResourceViewManager;
 class GraphicsSystem;
 class TextureLoader;
+
 class SystemManager {
 public:
+    // デストラクタ
+    ~SystemManager();
+
+    void Initialize(EntityManager* entityManager, ComponentManager* componentManager);
+
     void Start(EntityManager& entityManager, ComponentManager& componentManager);
 
     void Update(EntityManager& entityManager, ComponentManager& componentManager, float deltaTime);
@@ -46,6 +52,9 @@ private:
     CameraSystem cameraSystem;
     ScriptSystem scriptSystem;
     TransformSystem transformSystem;
+
+    EntityManager* entityManager_ = nullptr;
+    ComponentManager* componentManager_ = nullptr;
 
     bool run = false;
 };

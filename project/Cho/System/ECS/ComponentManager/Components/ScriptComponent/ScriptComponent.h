@@ -27,12 +27,6 @@ public:
     bool isScript = false;
 
 public:
-    void SetGOInfo(uint32_t ID, uint32_t Type, ComponentManager* Ptr) {
-        id = ID;
-        type = Type;
-        ptr = Ptr;
-    }
-
     bool LoadDLLFunc() {
         std::string projectName = ProjectName();
         std::string projectRoot = ProjectRoot();
@@ -81,28 +75,6 @@ public:
             };
 
         return true;
-    }
-
-    void Start() {
-        if (startFunc) {
-            startFunc(id, type, ptr);
-        }
-    }
-
-    void Update() {
-        if (updateFunc) {
-            updateFunc(id, type, ptr);
-        }
-    }
-
-    void Cleanup() {
-        if (cleanupFunc) {
-            cleanupFunc();
-        }
-    }
-
-    ~ScriptComponent() {
-        Cleanup();
     }
 };
 

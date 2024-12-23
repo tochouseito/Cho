@@ -127,28 +127,8 @@ void MainMenu::EditMenu()
     {
         // 編集アクションをここに追加
 
-        // 「Add」メニュー項目の追加
-        if (ImGui::BeginMenu("Add"))
-        {
-            // 「3DObject」サブメニューを追加
-            if (ImGui::BeginMenu("3DObject"))
-            {
-                // 「3DObject」メニューの横にさらにリスト表示
-                if (ImGui::MenuItem("BaseObject")) {
-                    editManager_->CreateObject();
-                }
+        if (ImGui::MenuItem("Item 3")) { /* Item 3の処理 */ }
 
-                ImGui::EndMenu(); // 「3DObject」サブメニューを終了
-            }
-
-            // 他のメニュー項目の追加
-            if (ImGui::MenuItem("CameraObject")) {
-                editManager_->CreateCamera();
-            }
-            if (ImGui::MenuItem("Item 3")) { /* Item 3の処理 */ }
-
-            ImGui::EndMenu(); // 「Add」メニューを終了
-        }
         ImGui::EndMenu(); // 「Edit」メニューを終了
     }
 }
