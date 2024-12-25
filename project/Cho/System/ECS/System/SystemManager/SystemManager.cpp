@@ -52,3 +52,8 @@ void SystemManager::DebugDraw(
 {
     renderSystem.DebugRender(entityManager, componentManager, d3dCommand, rvManager, graphicsSystem, texLoad);
 }
+
+void SystemManager::LoadScripts()
+{
+    scriptSystem.LoadScripts(*entityManager_, *componentManager_);
+}

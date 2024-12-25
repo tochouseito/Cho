@@ -25,56 +25,5 @@ public:
     std::function<void()> cleanupFunc; // 解放関数
 
     bool isScript = false;
-
-public:
-    bool LoadDLLFunc() {
-        std::string projectName = ProjectName();
-        std::string projectRoot = ProjectRoot();
-        std::string dllPath = projectRoot + "\\" + projectName + "\\" + "bin\\Debug\\" + projectName + ".dll";
-
-        // DLLをロード
-        dllHandle = LoadLibraryA(dllPath.c_str());
-        if (!dllHandle) {
-            std::cerr << "Failed to load DLL: " << dllPath << "\n";
-            return false;
-        }
-        std::string funcName = "Create" + status.name + "Script";
-        // CreateScript関数を取得
-        typedef IScript* (*CreateScriptFunc)();
-        CreateScriptFunc createScript = (CreateScriptFunc)GetProcAddress(dllHandle, funcName.c_str());
-        if (!createScript) {
-            std::cerr << "CreateScript function not found in DLL: " << dllPath << "\n";
-            FreeLibrary(dllHandle);
-            return false;
-        }
-
-        // スクリプトインスタンスを生成
-        IScript* scriptInstance = createScript();
-        if (!scriptInstance) {
-            std::cerr << "Failed to create script instance.\n";
-            FreeLibrary(dllHandle);
-            return false;
-        }
-
-        // スクリプトのStart関数とUpdate関数をラップ
-        startFunc = [scriptInstance](uint32_t id, uint32_t type, ComponentManager* ptr) {
-            std::cout << "Script Start: ID=" << id << ", Type=" << type << "\n";
-            ptr;
-            scriptInstance->Start();
-            };
-        updateFunc = [scriptInstance](uint32_t id, uint32_t type, ComponentManager* ptr) {
-            std::cout << "Script Update: ID=" << id << ", Type=" << type << "\n";
-            ptr;
-            scriptInstance->SetEntityInfo(id, type, ptr);
-            scriptInstance->Update();
-            };
-
-        // インスタンスの解放用のクロージャを設定
-        cleanupFunc = [scriptInstance, this]() {
-            delete scriptInstance;
-            };
-
-        return true;
-    }
 };
 

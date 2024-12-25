@@ -8,5 +8,9 @@ public:
 	void Start(EntityManager& entityManager, ComponentManager& componentManager);
 	void Update(EntityManager& entityManager, ComponentManager& componentManager);
 	void Cleanup(EntityManager& entityManager, ComponentManager& componentManager);
+	void LoadScripts(EntityManager& entityManager, ComponentManager& componentManager);
+
+private:
+	bool LoadFuncDLL(ScriptComponent* script);
 };
 

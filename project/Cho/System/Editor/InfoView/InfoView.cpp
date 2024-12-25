@@ -116,7 +116,7 @@ void InfoView::Update()
                 
                 if (scriptComp.isScript) {
                     if (ImGui::Button("LoadFunc")) {
-                        scriptComp.LoadDLLFunc();
+                        //scriptComp.LoadDLLFunc();
                     }
                 } else {
                     if (ImGui::Button("AddScript")){

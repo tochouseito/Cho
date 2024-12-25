@@ -46,6 +46,8 @@ public:
 
     void PlaySwitch() { run = !run; }
     bool IsPlay() { return run; }
+
+    void LoadScripts();
 private:
     PhysicsSystem physicsSystem;
     RenderSystem renderSystem;

@@ -82,7 +82,8 @@ void ToolBar::PlaybackControls() {
         if (ImGui::Button("Play", ImVec2(30, 30))) {
             // 再生ボタンの処理
             systemManager_->PlaySwitch();
-            UpdateScripts();
+            systemManager_->LoadScripts();
+            //UpdateScripts();
             systemManager_->Start(*entityManager_,*componentManager_);
         }
     }
@@ -117,7 +118,7 @@ void ToolBar::UpdateScripts()
             GameObject* gameObject = pair.second.get();
             ScriptComponent* script = componentManager_->GetScript(gameObject->GetEntityID(), gameObject->GetObjectType());
             if (script) {
-                script->LoadDLLFunc();
+                //script->LoadDLLFunc();
             }
         }
     }
@@ -129,7 +130,7 @@ void ToolBar::UpdateScripts()
             componentManager_->GetScript(gameObject->GetEntityID(), gameObject->GetObjectType());
             ScriptComponent* script = componentManager_->GetScript(gameObject->GetEntityID(), gameObject->GetObjectType());
             if (script) {
-                script->LoadDLLFunc();
+                //script->LoadDLLFunc();
             }
         }
     }
