@@ -23,8 +23,8 @@ struct Node
 
 struct ObjectData {
 	std::vector<VertexData> vertices;// 頂点数
-	// マテリアルいるかも
-	Node rootNode;
+	std::vector<uint32_t>indices;// Index数
+	bool useTexture = false;
 };
 
 // モデルデータ構造体
@@ -33,5 +33,4 @@ struct ModelData {
 	std::vector<std::string> names;
 	Node rootNode;
 	bool isBone = false;
-
 };

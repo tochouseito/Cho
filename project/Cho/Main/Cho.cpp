@@ -19,6 +19,8 @@
 
 // Loader
 #include"Load/TextureLoader/TextureLoader.h"
+#include"Load/MeshLoader/MeshLoader.h"
+#include"Load/ModelLoader/ModelLoader.h"
 
 // Script
 #include "Script/ScriptManager/ScriptManager.h"
@@ -69,6 +71,8 @@ std::unique_ptr<GraphicsSystem> Cho::graphicsSystem = nullptr;
 
 // Loader
 std::unique_ptr<TextureLoader> Cho::textureLoader = nullptr;
+std::unique_ptr<MeshLoader> Cho::meshLoader = nullptr;
+std::unique_ptr<ModelLoader> Cho::modelLoader = nullptr;
 
 // Script
 std::unique_ptr<ScriptManager> Cho::scriptManager = nullptr;
@@ -189,6 +193,14 @@ void Cho::Initialize()
 		d3dCommand.get(),
 		resourceViewManager.get()
 	);
+
+	// MeshLoader
+	meshLoader = std::make_unique<MeshLoader>();
+	meshLoader->Initialize();
+	
+	// ModelLoader
+	modelLoader = std::make_unique<ModelLoader>();
+	modelLoader->Initialize(meshLoader.get());
 
 	// ScriptManager
 	scriptManager = std::make_unique<ScriptManager>();

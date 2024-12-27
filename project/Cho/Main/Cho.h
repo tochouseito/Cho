@@ -22,6 +22,8 @@ class GraphicsSystem;
 
 // Loader
 class TextureLoader;
+class ModelLoader;
+class MeshLoader;
 
 // Script
 class ScriptManager;
@@ -145,6 +147,8 @@ private:// メンバ変数
 
 	/*Loader*/
 	static std::unique_ptr<TextureLoader> textureLoader;
+	static std::unique_ptr<MeshLoader> meshLoader;
+	static std::unique_ptr<ModelLoader> modelLoader;
 
 	/*Script*/
 	static std::unique_ptr<ScriptManager> scriptManager;
