@@ -196,11 +196,11 @@ void Cho::Initialize()
 
 	// MeshLoader
 	meshLoader = std::make_unique<MeshLoader>();
-	meshLoader->Initialize();
+	meshLoader->Initialize(resourceViewManager.get());
 	
 	// ModelLoader
 	modelLoader = std::make_unique<ModelLoader>();
-	modelLoader->Initialize(meshLoader.get());
+	modelLoader->Initialize(resourceViewManager.get(),textureLoader.get(), meshLoader.get());
 
 	// ScriptManager
 	scriptManager = std::make_unique<ScriptManager>();

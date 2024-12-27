@@ -22,8 +22,9 @@ struct Node
 };
 
 struct ObjectData {
-	std::vector<VertexData> vertices;// 頂点数
-	std::vector<uint32_t>indices;// Index数
+	std::vector<VertexData> vertices;// 頂点リスト
+	std::vector<uint32_t>indices;// Indexリスト
+	uint32_t meshIndex;
 	bool useTexture = false;
 };
 

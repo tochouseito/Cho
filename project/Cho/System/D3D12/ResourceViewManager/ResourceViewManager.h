@@ -10,6 +10,7 @@
 #include<memory>
 #include"ECS/EntityManager/EntityManager.h"
 #include"Color.h"
+#include"ConstantData/ModelData.h"
 #include"ECS/ComponentManager/Components/Components.h"
 
 // ディスクリプタハンドル定数データ
@@ -91,6 +92,14 @@ public:// メンバ関数
 
 	Meshs* GetMeshs(uint32_t index)const { return meshContainer[index].get(); }
 
+	uint32_t CreateMeshResource(const std::string& name,uint32_t vertices,uint32_t indices);
+
+	void MeshMap(uint32_t& index, const std::string& name,const std::string& modelName);
+
+	void AddModel(const std::string& name);
+
+	ModelData* GetModelData(const std::string& name);
+
 private:
 
 	uint32_t Allocate();
@@ -149,6 +158,9 @@ private:// メンバ変数
 
 	// アップロードリソース
 	std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> uploadResources;
+
+	// Modelコンテナ
+	std::unordered_map<std::string, std::unique_ptr<ModelData>> modelContainer;
 
 };
 

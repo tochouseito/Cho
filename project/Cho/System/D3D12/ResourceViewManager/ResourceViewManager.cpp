@@ -335,3 +335,60 @@ void ResourceViewManager::CreateMeshViewDMP(uint32_t index, uint32_t vertices, u
 
 	meshView = CreateMeshViewResource(vertices,indices);
 }
+
+uint32_t ResourceViewManager::CreateMeshResource(const std::string& name, uint32_t vertices, uint32_t indices)
+{
+	uint32_t index = CreateMeshView(vertices, indices);
+
+	std::unique_ptr<Meshs> mesh = std::make_unique<Meshs>();
+
+	mesh->names.push_back(name);
+	MeshData& meshData = mesh->meshData[name];
+	meshData.meshViewIndex = index;
+	meshData.size.vertices = vertices;
+	meshData.size.indices = indices;
+
+	meshContainer.push_back(std::move(mesh));
+
+	return index;
+}
+
+void ResourceViewManager::MeshMap(uint32_t& index, const std::string& name, const std::string& modelName)
+{
+	Meshs* meshs = meshContainer[index].get();
+	ModelData* modelData = modelContainer[modelName].get();
+
+	meshViews[index].vbvData.resource->Map(
+		0, nullptr, 
+		reinterpret_cast<void**>(&meshs->meshData[name].vertexData)
+	);
+
+	meshViews[index].ibvData.resource->Map(
+		0, nullptr,
+		reinterpret_cast<void**>(&meshs->meshData[name].indexData)
+	);
+
+	// 頂点データをリソースにコピー
+	std::memcpy(meshs->meshData[name].vertexData,
+		modelData->objects[name].vertices.data(),
+		sizeof(VertexData) * modelData->objects[name].vertices.size()
+	);
+	// インデックスデータをリソースにコピー
+	std::memcpy(meshs->meshData[name].indexData,
+		modelData->objects[name].indices.data(),
+		sizeof(VertexData) * modelData->objects[name].indices.size()
+	);
+}
+
+void ResourceViewManager::AddModel(const std::string& name)
+{
+	modelContainer[name] = std::unique_ptr<ModelData>();
+}
+
+ModelData* ResourceViewManager::GetModelData(const std::string& name)
+{
+	if (!modelContainer.contains(name)) {
+		assert(0);
+	}
+	return modelContainer[name].get();
+}

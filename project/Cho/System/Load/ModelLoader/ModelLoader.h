@@ -12,23 +12,24 @@
 // モデルデータ構造体
 #include"ConstantData/ModelData.h"
 
+class ResourceViewManager;
 class TextureLoader;
 class MeshLoader;
 class ModelLoader
 {
 public:
 
-	void Initialize(TextureLoader* texLoader,MeshLoader* meshLoader);
+	void Initialize(ResourceViewManager* rvManager,TextureLoader* texLoader, MeshLoader* meshLoader);
 
 	void LoadModel(const std::string& fileRoot, const std::string& fileName);
 
 private:
+
 	ModelData* LoadModelFile(const std::string& fileRoot, const std::string& fileName);
+
 private:
 	// ポインタ
+	ResourceViewManager* rvManager_ = nullptr;
 	TextureLoader* texLoader_ = nullptr;
 	MeshLoader* meshLoader_ = nullptr;
-
-	// Modelコンテナ
-	std::unordered_map<std::string, std::unique_ptr<ModelData>> modelContainer;
 };

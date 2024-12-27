@@ -6,9 +6,12 @@
 
 #include"ConvertString/ConvertString.h"
 #include<assert.h>
+#include"Load/MeshLoader/MeshLoader.h"
+#include"D3D12/ResourceViewManager/ResourceViewManager.h"
 
-void ModelLoader::Initialize(TextureLoader* texLoader,MeshLoader* meshLoader)
+void ModelLoader::Initialize(ResourceViewManager* rvManager, TextureLoader* texLoader,MeshLoader* meshLoader)
 {
+	rvManager_ = rvManager;
 	texLoader_ = texLoader;
 	meshLoader_ = meshLoader;
 }
@@ -19,13 +22,17 @@ void ModelLoader::LoadModel(const std::string& fileRoot, const std::string& file
 	std::string modelName = fileName;
 
 	// モデルファイルの読み込み
-	modelContainer[modelName] = std::make_unique<ModelData>();
-	ModelData* modelData = modelContainer[modelName].get();
+	rvManager_->AddModel(modelName);
+	
+	ModelData* modelData = rvManager_->GetModelData(modelName);
 	modelData = LoadModelFile(fileRoot, fileName);
 
 	// meshリソースの作成
 	for (const std::string& name : modelData->names) {
-		
+		uint32_t vertices = static_cast<uint32_t>(modelData->objects[name].vertices.size());
+		uint32_t indices = static_cast<uint32_t>(modelData->objects[name].indices.size());
+		modelData->objects[name].meshIndex = meshLoader_->LoadMesh(name, vertices, indices);
+		meshLoader_->Map(modelData->objects[name].meshIndex, name, modelName);
 	}
 }
 
