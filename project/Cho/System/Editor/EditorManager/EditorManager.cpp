@@ -18,6 +18,7 @@ void EditorManager::Initialize(
     RTVManager* rtvManager,
     DrawExecution* drawExe,
     TextureLoader* texLoader,
+    ModelLoader* modelLoader,
     EntityManager* entityManager,
     ComponentManager* componentManager,
     SystemManager* systemManager,
@@ -61,7 +62,7 @@ void EditorManager::Initialize(
 
 	// FileView
 	fileView = std::make_unique<FileView>();
-    fileView->Initialize(this, rvManager, texLoader);
+    fileView->Initialize(this, rvManager, texLoader,modelLoader);
 
     // InfoView
     infoView = std::make_unique<InfoView>();

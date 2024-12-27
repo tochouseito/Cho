@@ -2,14 +2,16 @@
 #include"FileView.h"
 #include"D3D12/ResourceViewManager/ResourceViewManager.h"
 #include"Load/TextureLoader/TextureLoader.h"
+#include"Load/ModelLoader/ModelLoader.h"
 #include"imgui.h"
 #include"Editor/EditorManager/EditorManager.h"
 #include"SystemState/SystemState.h"
 
-void FileView::Initialize(EditorManager* editManager, ResourceViewManager* rvManager, TextureLoader* texLoader)
+void FileView::Initialize(EditorManager* editManager, ResourceViewManager* rvManager, TextureLoader* texLoader, ModelLoader* modelLoader)
 {
     rvManager_ = rvManager;
     texLoader_ = texLoader;
+    modelLoader_ = modelLoader;
     editManager_ = editManager;
 
     selectedFile.clear();
@@ -54,6 +56,13 @@ void FileView::Update() {
         files = GetFilesInDirectory(currentDirectory);
         exit = true;
     }
+
+    ImGui::Begin("test");
+    if (ImGui::Button("modelLoad")) {
+        modelLoader_->LoadModel("C:\\ChoProject\\test\\Assets", "axis");
+        modelLoader_->LoadModel("C:\\ChoProject\\test\\Assets", "teapot");
+    }
+    ImGui::End();
 }
 
 void FileView::UpdateFiles()

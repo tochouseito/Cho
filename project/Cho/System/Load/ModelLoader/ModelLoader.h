@@ -25,7 +25,7 @@ public:
 
 private:
 
-	ModelData* LoadModelFile(const std::string& fileRoot, const std::string& fileName);
+	void LoadModelFile(ModelData* modelData,const std::string& fileRoot, const std::string& fileName);
 
 private:
 	// ポインタ

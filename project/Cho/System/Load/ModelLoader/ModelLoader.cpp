@@ -25,7 +25,7 @@ void ModelLoader::LoadModel(const std::string& fileRoot, const std::string& file
 	rvManager_->AddModel(modelName);
 	
 	ModelData* modelData = rvManager_->GetModelData(modelName);
-	modelData = LoadModelFile(fileRoot, fileName);
+	LoadModelFile(modelData,fileRoot, fileName);
 
 	// meshリソースの作成
 	for (const std::string& name : modelData->names) {
@@ -36,10 +36,10 @@ void ModelLoader::LoadModel(const std::string& fileRoot, const std::string& file
 	}
 }
 
-ModelData* ModelLoader::LoadModelFile(const std::string& fileRoot, const std::string& fileName)
+void ModelLoader::LoadModelFile(ModelData* modelData,const std::string& fileRoot, const std::string& fileName)
 {
 	// 変数の宣言
-	ModelData* modelData = new ModelData();
+	//ModelData* modelData = new ModelData();
 	std::vector<Vector4> positions;// 位置
 	std::vector<Vector3> normals;// 法線
 	std::vector<Vector2> rexcoords;// UV座標
@@ -50,7 +50,7 @@ ModelData* ModelLoader::LoadModelFile(const std::string& fileRoot, const std::st
 	// ここからファイルを開く
 	
 	// まずobjファイルの読み込みのみ
-	filePath = fileRoot + "/" + fileName + "/" + fileName + ".obj";
+	filePath = fileRoot + "\\" + fileName + "\\" + fileName + ".obj";
 
 	const aiScene* scene = importer.ReadFile(filePath.c_str(), aiProcess_FlipWindingOrder | aiProcess_FlipUVs);
 	assert(scene->HasMeshes());// メッシュがないのは対応しない
@@ -132,5 +132,5 @@ ModelData* ModelLoader::LoadModelFile(const std::string& fileRoot, const std::st
 			modelData->objects[meshName].useTexture = false;
 		}
 	}
-	return modelData;
+	//return modelData;
 }

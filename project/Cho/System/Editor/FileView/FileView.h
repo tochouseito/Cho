@@ -14,6 +14,7 @@ class ResourceViewManager;
 
 // Loader
 class TextureLoader;
+class ModelLoader;
 
 // EditorManager
 class EditorManager;
@@ -24,7 +25,7 @@ public:
     /// <summary>
     /// 初期化
     /// </summary>
-    void Initialize(EditorManager* editManager_,ResourceViewManager* rvManager, TextureLoader* texLoader);
+    void Initialize(EditorManager* editManager_,ResourceViewManager* rvManager, TextureLoader* texLoader,ModelLoader* modelLoader);
 
     /// <summary>
     /// 更新
@@ -52,6 +53,7 @@ private:// メンバ変数
     /*D3D12*/
     ResourceViewManager* rvManager_ = nullptr;
 
+    ModelLoader* modelLoader_ = nullptr;
     TextureLoader* texLoader_ = nullptr;
 
     /*エディタマネージャ*/

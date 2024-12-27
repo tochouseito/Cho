@@ -19,6 +19,7 @@ class DrawExecution;
 
 // Loader
 class TextureLoader;
+class ModelLoader;
 
 // ScriptManager
 class ScriptManager;
@@ -47,6 +48,7 @@ public:
 		RTVManager* rtvManager,
 		DrawExecution* drawExe,
 		TextureLoader* texLoader,
+		ModelLoader* modelLoader,
 		EntityManager* entityManager,
 		ComponentManager* componentManager,
 		SystemManager* systemManager,

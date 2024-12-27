@@ -2,6 +2,7 @@
 #include "InfoView.h"
 
 #include"imgui.h"
+#include<memory>
 
 #include"D3D12/ResourceViewManager/ResourceViewManager.h"
 #include"D3D12/RTVManager/RTVManager.h"
@@ -99,6 +100,22 @@ void InfoView::Update()
                 {
                     // 選択されたメッシュの形状をセット
                     meshComp.SetMeshID(static_cast<uint32_t>(selectedMeshPattern));
+                }
+
+                uint32_t selectModelMesh = static_cast<uint32_t>(rvManager_->GetModels().size()) - 1;
+                std::vector<const char*> modelOptions;
+                for (auto& pair : rvManager_->GetModels()) {
+                    modelOptions.push_back(pair.first.c_str());
+                }
+                if (!modelOptions.empty()) {
+                    if (ImGui::Combo("Model Mesh", (int*)&selectModelMesh, modelOptions.data(), static_cast<int>(modelOptions.size()))) {
+                        // 選択されたモデルのメッシュIDをセット
+                        std::string modelName = modelOptions[selectModelMesh];
+                        for (const std::string& meshName : rvManager_->GetModelData(modelName)->names) {
+                            uint32_t index = rvManager_->GetModelData(modelName)->objects[meshName].meshIndex;
+                            meshComp.SetMeshID(index);
+                        }
+                    }
                 }
             }
 

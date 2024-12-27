@@ -382,7 +382,7 @@ void ResourceViewManager::MeshMap(uint32_t& index, const std::string& name, cons
 
 void ResourceViewManager::AddModel(const std::string& name)
 {
-	modelContainer[name] = std::unique_ptr<ModelData>();
+	modelContainer[name] = std::make_unique<ModelData>();
 }
 
 ModelData* ResourceViewManager::GetModelData(const std::string& name)

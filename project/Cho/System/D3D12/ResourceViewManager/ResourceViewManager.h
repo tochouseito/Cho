@@ -100,6 +100,7 @@ public:// メンバ関数
 
 	ModelData* GetModelData(const std::string& name);
 
+	const std::unordered_map<std::string, std::unique_ptr<ModelData>>& GetModels() { return modelContainer; }
 private:
 
 	uint32_t Allocate();
