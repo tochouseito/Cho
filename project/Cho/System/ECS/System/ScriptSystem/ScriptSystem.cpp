@@ -1,5 +1,6 @@
 #include "PrecompiledHeader.h"
 #include "ScriptSystem.h"
+#include<assert.h>
 
 void ScriptSystem::Start(EntityManager& entityManager, ComponentManager& componentManager)
 {
