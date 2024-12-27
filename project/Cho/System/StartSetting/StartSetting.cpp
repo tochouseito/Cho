@@ -75,6 +75,7 @@ void StartSetting::SelectedProject()
         isProject = true;
         createNewProject = true;
         projectName = "test";
+        return;
     }
     //FindProjects();
     //// モーダルウィンドウを表示するフラグ
@@ -142,6 +143,7 @@ void StartSetting::SelectedProject()
 
     //    for (auto& project : projectList) {
     //        if (ImGui::Selectable(project.c_str())) {
+    //            projectName = project;
     //            isProject = true;
     //            createNewProject = false;
     //            ImGui::CloseCurrentPopup(); // モーダルを閉じる

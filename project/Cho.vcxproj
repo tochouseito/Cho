@@ -204,6 +204,8 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClCompile Include="Cho\System\ECS\System\TransformSystem\TransformSystem.cpp" />
     <ClCompile Include="Cho\System\Editor\ToolBar\ToolBar.cpp" />
     <ClCompile Include="Cho\System\SaveManager\SaveManager.cpp" />
+    <ClInclude Include="Cho\System\ConstantData\AnimationData.h" />
+    <ClInclude Include="Cho\System\ConstantData\DebugTransform.h" />
     <ClInclude Include="Cho\System\ConstantData\MeshData.h" />
     <ClInclude Include="Cho\System\ConstantData\ModelData.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\CameraComponent\CameraComponent.h" />
