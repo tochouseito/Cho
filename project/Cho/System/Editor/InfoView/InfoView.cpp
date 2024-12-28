@@ -102,7 +102,7 @@ void InfoView::Update()
                     meshComp.SetMeshID(static_cast<uint32_t>(selectedMeshPattern));
                 }
 
-                uint32_t selectModelMesh = static_cast<uint32_t>(rvManager_->GetModels().size()) - 1;
+                static uint32_t selectModelMesh = 0;
                 std::vector<const char*> modelOptions;
                 for (auto& pair : rvManager_->GetModels()) {
                     modelOptions.push_back(pair.first.c_str());

@@ -376,7 +376,7 @@ void ResourceViewManager::MeshMap(uint32_t& index, const std::string& name, cons
 	// インデックスデータをリソースにコピー
 	std::memcpy(meshs->meshData[name].indexData,
 		modelData->objects[name].indices.data(),
-		sizeof(VertexData) * modelData->objects[name].indices.size()
+		sizeof(uint32_t) * modelData->objects[name].indices.size()
 	);
 }
 
