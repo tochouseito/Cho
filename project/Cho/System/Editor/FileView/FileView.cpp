@@ -59,8 +59,8 @@ void FileView::Update() {
 
     ImGui::Begin("test");
     if (ImGui::Button("modelLoad")) {
-        modelLoader_->LoadModel("C:\\ChoProject\\test\\Assets", "axis");
-        modelLoader_->LoadModel("C:\\ChoProject\\test\\Assets", "teapot");
+        modelLoader_->LoadModel("C:\\ChoProject\\test\\Assets\\Models", "axis");
+        modelLoader_->LoadModel("C:\\ChoProject\\test\\Assets\\Models", "teapot");
     }
     ImGui::End();
 }

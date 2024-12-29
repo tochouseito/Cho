@@ -8,6 +8,7 @@ void GameProject::CreateGameFolder(const std::string& projectName) {
     std::string textureFolderPath = assetsFolderPath + "\\Texture";
     std::string scriptsFolderPath = assetsFolderPath + "\\Scripts";
     std::string scenesFolderPath = assetsFolderPath + "\\Scenes";
+    std::string modelsFolderPath = assetsFolderPath + "\\Models";
 
     try {
         // Gameフォルダ作成
@@ -56,6 +57,14 @@ void GameProject::CreateGameFolder(const std::string& projectName) {
             std::cout << "Scenes folder created at: " << scenesFolderPath << "\n";
         } else {
             std::cout << "Scenes folder already exists at: " << scenesFolderPath << "\n";
+        }
+
+        // Modelsフォルダ作成
+        if (!fs::exists(modelsFolderPath)) {
+            fs::create_directory(modelsFolderPath);
+            std::cout << "Models folder created at: " << modelsFolderPath << "\n";
+        } else {
+            std::cout << "Models folder already exists at: " << modelsFolderPath << "\n";
         }
 
     }
