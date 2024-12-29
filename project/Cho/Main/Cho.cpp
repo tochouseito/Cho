@@ -491,7 +491,7 @@ void Cho::SelectGameProject()
 				// 新プロジェクトの時のみ
 				/*スターター*/
 				StartSetUp();
-
+				//startSetting->LoadProject(jsonFileLoader.get());
 				//startSetting->CreateProject();
 
 				ScriptProject::GenerateSolutionAndProject();

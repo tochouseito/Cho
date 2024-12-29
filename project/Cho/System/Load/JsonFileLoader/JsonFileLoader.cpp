@@ -98,126 +98,147 @@ void JsonFileLoader::LoadStyleFromProject()
 
 void JsonFileLoader::LoadProject()
 {
-    //// プロジェクト名とルートディレクトリを取得
-    //std::string projectName = ProjectName();
-    //std::string projectRoot = ProjectRoot();
+    // プロジェクト名とルートディレクトリを取得
+    std::string projectName = ProjectName();
+    std::string projectRoot = ProjectRoot();
 
-    //// プロジェクトデータディレクトリを構築
-    //std::filesystem::path projectDataDir = projectRoot + "\\" + projectName + "\\" + "ProjectData";
-    //std::filesystem::path dataFile = projectDataDir / "projectData.json";
+    // プロジェクトデータディレクトリを構築
+    std::filesystem::path projectDataDir = projectRoot + "\\" + projectName + "\\" + "ProjectData";
+    std::filesystem::path dataFile = projectDataDir / "projectData.json";
 
-    //// ファイルが存在しない場合はエラー
-    //if (!std::filesystem::exists(dataFile)) {
-    //    std::cerr << "Project data file not found: " << dataFile << std::endl;
-    //    return;
-    //}
+    // ファイルが存在しない場合はエラー
+    if (!std::filesystem::exists(dataFile)) {
+        std::cerr << "Project data file not found: " << dataFile << std::endl;
+        return;
+    }
 
-    //// JSON ファイルを読み込む
-    //nlohmann::ordered_json j;
-    //std::ifstream file(dataFile);
-    //if (!file.is_open()) {
-    //    std::cerr << "Failed to open project data file: " << dataFile << std::endl;
-    //    return;
-    //}
+    // JSON ファイルを読み込む
+    nlohmann::ordered_json j;
+    std::ifstream file(dataFile);
+    if (!file.is_open()) {
+        std::cerr << "Failed to open project data file: " << dataFile << std::endl;
+        return;
+    }
 
-    //file >> j;
-    //file.close();
+    file >> j;
+    file.close();
 
-    //// シーンを読み込み
-    //for (auto& [sceneName, sceneData] : j.items()) {
-    //    std::cout << "Loading scene: " << sceneName << std::endl;
+    // シーンを読み込み
+    for (auto& [sceneName, sceneData] : j.items()) {
+        std::cout << "Loading scene: " << sceneName << std::endl;
 
-    //    // ゲームオブジェクトを読み込み
-    //    for (auto& gameObjJson : sceneData) {
-    //        if (gameObjJson.contains("GameObject")) {
-    //            auto& objData = gameObjJson["GameObject"];
+        // ゲームオブジェクトを読み込み
+        for (auto& gameObjJson : sceneData) {
+            if (gameObjJson.contains("GameObject")) {
+                auto& objData = gameObjJson["GameObject"];
 
-    //            std::string name = objData["name"];
-    //            Entity entity = objData["entityId"];
-    //            ObjectType type = objData["objectType"];
+                std::string name = objData["name"];
+                Entity entity = objData["entityId"];
+                ObjectType type = objData["objectType"];
 
-    //            // ゲームオブジェクトを再構築
-    //            GameObject* gameObject = sceneManager_->CreateGameObject(name, type, entity);
+                // ゲームオブジェクトを再構築
+                sceneManager_->AddGameObject(name);
+                GameObject* gameObject = sceneManager_->GetGameObject(name);
+                gameObject->SetEntity(entity);
+                gameObject->SetObjectType(type);
 
-    //            // コンポーネントを復元
-    //            if (objData.contains("Components")) {
-    //                auto& compData = objData["Components"];
+                // コンポーネントを復元
+                if (objData.contains("Components")) {
+                    auto& compData = objData["Components"];
 
-    //                // TransformComponent
-    //                if (compData.contains("transform")) {
-    //                    auto& tfJ = compData["transform"];
-    //                    TransformComponent* tf = componentManager_->AddTransform(entity);
+                    // TransformComponent
+                    if (compData.contains("transform")) {
+                        auto& tfJ = compData["transform"];
 
-    //                    tf->translation = { tfJ["position"][0], tfJ["position"][1], tfJ["position"][2] };
-    //                    tf->rot = { tfJ["rotation"][0], tfJ["rotation"][1], tfJ["rotation"][2] };
-    //                    tf->scale = { tfJ["scale"][0], tfJ["scale"][1], tfJ["scale"][2] };
-    //                }
+                        TransformComponent tf;
 
-    //                // MaterialComponent
-    //                if (compData.contains("material")) {
-    //                    auto& mtlJ = compData["material"];
-    //                    MaterialComponent* mtl = componentManager_->AddMaterial(entity);
+                        tf.translation = { tfJ["position"][0], tfJ["position"][1], tfJ["position"][2] };
+                        tf.rot = { tfJ["rotation"][0], tfJ["rotation"][1], tfJ["rotation"][2] };
+                        tf.scale = { tfJ["scale"][0], tfJ["scale"][1], tfJ["scale"][2] };
 
-    //                    mtl->textureID = mtlJ["texture"];
-    //                }
+                        gameObject->AddComponent(tf);
+                    }
 
-    //                // MeshComponent
-    //                if (compData.contains("mesh")) {
-    //                    auto& meshJ = compData["mesh"];
-    //                    MeshComponent* mesh = componentManager_->AddMesh(entity);
+                    // MaterialComponent
+                    if (compData.contains("material")) {
+                        auto& mtlJ = compData["material"];
+                        MaterialComponent mtl;
 
-    //                    mesh->meshID = meshJ["meshID"];
-    //                }
+                        mtl.textureID = mtlJ["texture"];
 
-    //                // RenderComponent
-    //                if (compData.contains("render")) {
-    //                    auto& renderJ = compData["render"];
-    //                    RenderComponent* render = componentManager_->AddRender(entity);
+                        gameObject->AddComponent(mtl);
+                    }
 
-    //                    render->visible = renderJ["visible"];
-    //                }
+                    // MeshComponent
+                    if (compData.contains("mesh")) {
+                        auto& meshJ = compData["mesh"];
+                        MeshComponent mesh;
 
-    //                // PhysicsComponent
-    //                if (compData.contains("physics")) {
-    //                    auto& physicsJ = compData["physics"];
-    //                    PhysicsComponent* physics = componentManager_->AddPhysics(entity);
+                        mesh.meshID = meshJ["meshID"];
 
-    //                    physics->velocity = { physicsJ["velocity"][0], physicsJ["velocity"][1], physicsJ["velocity"][2] };
-    //                    physics->acceleration = { physicsJ["acceleration"][0], physicsJ["acceleration"][1], physicsJ["acceleration"][2] };
-    //                }
+                        gameObject->AddComponent(mesh);
+                    }
 
-    //                // ScriptComponent
-    //                if (compData.contains("script")) {
-    //                    auto& scriptJ = compData["script"];
-    //                    ScriptComponent* script = componentManager_->AddScript(entity, static_cast<ObjectType>(scriptJ["type"]));
+                    // RenderComponent
+                    if (compData.contains("render")) {
+                        auto& renderJ = compData["render"];
+                        RenderComponent render;
 
-    //                    script->status.name = scriptJ["scriptName"];
-    //                    script->status.type = scriptJ["type"];
-    //                    script->id = scriptJ["id"];
-    //                    script->isScript = scriptJ["isScript"];
-    //                }
-    //            }
-    //        }
+                        render.visible = renderJ["visible"];
 
-    //        // カメラオブジェクトを読み込み
-    //        if (gameObjJson.contains("CameraObject")) {
-    //            auto& objData = gameObjJson["CameraObject"];
+                        gameObject->AddComponent(render);
+                    }
 
-    //            std::string name = objData["name"];
-    //            Entity entity = objData["entityId"];
-    //            ObjectType type = objData["objectType"];
+                    // PhysicsComponent
+                    if (compData.contains("physics")) {
+                        auto& physicsJ = compData["physics"];
+                        PhysicsComponent physics;
 
-    //            // カメラオブジェクトを再構築
-    //            CameraObject* cameraObject = sceneManager_->CreateCameraObject(name, type, entity);
+                        physics.velocity = { physicsJ["velocity"][0], physicsJ["velocity"][1], physicsJ["velocity"][2] };
+                        physics.acceleration = { physicsJ["acceleration"][0], physicsJ["acceleration"][1], physicsJ["acceleration"][2] };
 
-    //            // CameraComponent
-    //            if (objData["Components"].contains("camera")) {
-    //                auto& cameraJ = objData["Components"]["camera"];
-    //                CameraComponent* camera = componentManager_->AddCamera(entity);
+                        gameObject->AddComponent(physics);
+                    }
 
-    //                camera->translation = { cameraJ["position"][0], cameraJ["position"][1], cameraJ["position"][2] };
-    //            }
-    //        }
-    //    }
-    //}
+                    // ScriptComponent
+                    if (compData.contains("script")) {
+                        auto& scriptJ = compData["script"];
+                        ScriptComponent script;
+
+                        script.status.name = scriptJ["scriptName"];
+                        script.status.type = scriptJ["type"];
+                        script.id = scriptJ["id"];
+                        script.isScript = scriptJ["isScript"];
+
+                        gameObject->AddComponent(script);
+                    }
+                }
+            }
+
+            // カメラオブジェクトを読み込み
+            if (gameObjJson.contains("CameraObject")) {
+                auto& objData = gameObjJson["CameraObject"];
+
+                std::string name = objData["name"];
+                Entity entity = objData["entityId"];
+                ObjectType type = objData["objectType"];
+
+                // カメラオブジェクトを再構築
+                sceneManager_->AddCameraObject(name);
+                GameObject* cameraObject = sceneManager_->GetCameraObject(name);
+                cameraObject->SetEntity(entity);
+                cameraObject->SetObjectType(type);
+
+                // CameraComponent
+                if (objData["Components"].contains("camera")) {
+                    auto& cameraJ = objData["Components"]["camera"];
+                    CameraComponent camera;
+
+                    camera.translation = { cameraJ["position"][0], cameraJ["position"][1], cameraJ["position"][2] };
+
+                    cameraObject->AddComponent(camera);
+                }
+            }
+        }
+    }
 }

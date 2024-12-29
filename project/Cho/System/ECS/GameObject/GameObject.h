@@ -83,6 +83,10 @@ public:
     // 子オブジェクトを更新します。
     void UpdateChildren(float deltaTime);
 
+    // ロード用
+    void SetEntity(const Entity& id) { entity = id; }
+    void SetObjectType(const ObjectType& objectType) { type = objectType; }
+
 private:
     Entity entity;
     std::string name = "";
