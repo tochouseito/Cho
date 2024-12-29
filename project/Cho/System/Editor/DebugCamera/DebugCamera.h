@@ -2,6 +2,6 @@
 class DebugCamera
 {
 public:
-
+	void Initialize();
 };
 
