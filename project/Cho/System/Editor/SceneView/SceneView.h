@@ -2,13 +2,14 @@
 
 #include<cstdint>
 
+class DebugCamera;
 class ResourceViewManager;
 class SceneView
 {
 public:
-	void Initialize(uint32_t index,ResourceViewManager* rvManager);
+	void Initialize(const uint32_t& index,ResourceViewManager* rvManager,DebugCamera* debugCamera);
 
-	void Update(uint32_t cameraIndex);
+	void Update(const uint32_t& cameraIndex);
 
 	bool IsWindowHovered()const { return excludeRightClickMenu; }
 
@@ -16,9 +17,11 @@ private:
 
 	void DebugView();
 
-	void GameView(uint32_t cameraIndex);
+	void GameView(const uint32_t& cameraIndex);
 private:
+	// ポインタ
 	ResourceViewManager* rvManager_ = nullptr;
+	DebugCamera* debugCamera_ = nullptr;
 
 	uint32_t sceneTextureIndex;
 

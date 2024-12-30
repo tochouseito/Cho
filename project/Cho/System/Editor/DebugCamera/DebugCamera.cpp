@@ -3,9 +3,12 @@
 
 #include"ECS/System/SystemManager/SystemManager.h"
 
-void DebugCamera::Initialize(SystemManager* systemManager)
+void DebugCamera::Initialize(ComponentManager* componentManager,SystemManager* systemManager)
 {
+	componentManager_ = componentManager;
 	systemManager_ = systemManager;
+
+	componentManager->InitCameraComponent(&cameraComponent);
 }
 
 void DebugCamera::Update()

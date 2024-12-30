@@ -27,6 +27,10 @@ void EditorManager::Initialize(
     ScriptManager* scriptManager
 )
 {
+    // デバッグカメラを作成
+    debugCamera = std::make_unique<DebugCamera>();
+    debugCamera->Initialize(componentManager,systemManager);
+
 	// MainMenu
 	mainMenu = std::make_unique<MainMenu>();
 	mainMenu->Initialize(
@@ -43,7 +47,7 @@ void EditorManager::Initialize(
 
     // SceneView
     sceneView = std::make_unique<SceneView>();
-    sceneView->Initialize(drawExe->GetDebugRenTexInd(), rvManager);
+    sceneView->Initialize(drawExe->GetDebugRenTexInd(), rvManager,debugCamera.get());
 
     // PopupMenu
     popupMenu = std::make_unique<PopupMenu>();
@@ -123,10 +127,6 @@ void EditorManager::Initialize(
 
     // ScriptManager
     scriptManager_ = scriptManager;
-
-    // デバッグカメラを作成
-    debugCamera = std::make_unique<DebugCamera>();
-    debugCamera->Initialize(systemManager);
 }
 
 void EditorManager::Update()
@@ -156,7 +156,7 @@ void EditorManager::Update()
     toolBar->Update();
 
     // DebugCamera
-    //debugCamera->Update();
+    debugCamera->Update();
 }
 
 void EditorManager::CreateObject()

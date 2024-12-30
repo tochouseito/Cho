@@ -22,10 +22,10 @@ void CameraSystem::UpdateMatrix(CameraComponent& compo) {
 void CameraSystem::TransferMatrix(CameraComponent& compo) {
 	compo.constData->matWorld = compo.matWorld;
 	compo.constData->view = Matrix4::Inverse(compo.matWorld);
-	float width = static_cast<float>(WindowWidth());
-	float height = static_cast<float>(WindowHeight());
+	//float width = static_cast<float>(WindowWidth());
+	//float height = static_cast<float>(WindowHeight());
 	compo.constData->projection = MakePerspectiveFovMatrix(
-		0.45f, width / height, 0.1f, 100.0f
+		compo.fovAngleY, compo.aspectRatio, compo.nearZ, compo.farZ
 	);
 	compo.constData->cameraPosition = compo.translation;
 }

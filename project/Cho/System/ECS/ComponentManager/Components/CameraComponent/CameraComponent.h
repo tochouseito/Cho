@@ -17,7 +17,7 @@ struct CameraComponent final{
     // 垂直方向視野角
     float fovAngleY = 45.0f * std::numbers::pi_v<float> / 180.0f;
     // ビューポートのアスペクト比
-    float aspectRatio = (float)16 / 9;
+    float aspectRatio = 16.0f / 9.0f;
     // 深度限界（手前側）
     float nearZ = 0.1f;
     // 深度限界（奥側）

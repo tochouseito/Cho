@@ -4,17 +4,19 @@
 #include"imgui.h"
 
 #include"D3D12/ResourceViewManager/ResourceViewManager.h"
+#include"Editor/DebugCamera/DebugCamera.h"
 
 // C++
 #include<algorithm>
 
-void SceneView::Initialize(uint32_t index, ResourceViewManager* rvManager)
+void SceneView::Initialize(const uint32_t& index, ResourceViewManager* rvManager, DebugCamera* debugCamera)
 {
 	sceneTextureIndex = index;
 	rvManager_ = rvManager;
+    debugCamera_ = debugCamera;
 }
 
-void SceneView::Update(uint32_t cameraIndex)
+void SceneView::Update(const uint32_t& cameraIndex)
 {
     // シーンビュー（ゲームカメラ）のビュー
     GameView(cameraIndex);
@@ -35,13 +37,14 @@ void SceneView::DebugView()
     // ウィンドウ内で利用可能な領域のサイズを取得
     ImVec2 availableSize = ImGui::GetContentRegionAvail();
 
-    // テクスチャを描画する大きさを、利用可能な領域に合わせて設定
-    ImVec2 textureSize = availableSize;
+    // アスペクト比を計算してカメラに設定
+    float newAspect = availableSize.x / availableSize.y;
+    debugCamera_->SetAspect(newAspect);
 
     // テクスチャを描画
     D3D12_GPU_DESCRIPTOR_HANDLE srvHandle = rvManager_->GetHandle(sceneTextureIndex).GPUHandle;
     ImTextureID textureID = (ImTextureID)srvHandle.ptr;
-    ImGui::Image(textureID, textureSize);
+    ImGui::Image(textureID, availableSize);
 
     // "Debug View" 上にカーソルがあるとき、右クリックメニューを開かないようにする
     if (ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup)&&!excludeRightClickMenu) {
@@ -54,7 +57,7 @@ void SceneView::DebugView()
     ImGui::PopStyleVar();
 }
 
-void SceneView::GameView(uint32_t cameraIndex)
+void SceneView::GameView(const uint32_t& cameraIndex)
 {
     // ウィンドウのパディングをゼロに設定
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));

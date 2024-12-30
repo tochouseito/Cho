@@ -86,3 +86,13 @@ void ComponentManager::RemoveComponent(Entity entity) {
     meshes.erase(entity);
 	cameras.erase(entity);
 }
+
+void ComponentManager::InitCameraComponent(CameraComponent* camera)
+{
+    camera->cbvIndex=RVManager_->CreateCBV(sizeof(ConstBufferDataViewProjection));
+    RVManager_->GetCBVResource(
+        camera->cbvIndex)->Map(
+            0, nullptr, reinterpret_cast<void**>(&camera->constData)
+        );
+}
+

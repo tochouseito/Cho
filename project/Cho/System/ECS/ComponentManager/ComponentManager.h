@@ -108,6 +108,9 @@ public:
 
     // 指定されたエンティティからコンポーネントを削除します。
     void RemoveComponent(Entity entity);
+
+    // コンポーネント初期化関数
+    void InitCameraComponent(CameraComponent* camera);
     
 private:
     std::unordered_map<Entity, TransformComponent> transforms;  // エンティティのTransformコンポーネントを管理します。
