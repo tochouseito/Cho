@@ -19,18 +19,10 @@ void TransformSystem::Update(EntityManager& entityManager, ComponentManager& com
 }
 
 void TransformSystem::UpdateMatrix(TransformComponent* tfComp) {
-    //diffQ.x = rot.x - diffRot.x;
-    //diffQ.y = rot.y - diffRot.y;
-    //diffQ.z = rot.z - diffRot.z;
-
-    //rotation = diffQ * rotation;
-
+    
     tfComp->rotation = ChoMath::FromEulerAngles(tfComp->rot);
     tfComp->rotation.Normalize();
     tfComp->matWorld = ChoMath::MakeAffineMatrix(tfComp->scale, tfComp->rotation, tfComp->translation);
-
-    //diffQ.Initialize();
-    //diffRot = rot;
 
     TransferMatrix(tfComp);
 }

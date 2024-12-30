@@ -15,11 +15,8 @@ struct TransformComponent final {
     Matrix4 matWorld = ChoMath::MakeIdentity4x4();
     Matrix4 rootMatrix = ChoMath::MakeIdentity4x4();
 
-    // 操作用のクオータニオンの3要素
+    // 操作用のオイラー角
     Vector3 rot= { 0.0f, 0.0f, 0.0f };
-    // 差分計算用
-    Quaternion diffQ = { 0.0f, 0.0f, 0.0f,1.0f };
-    Vector3 diffRot= { 0.0f, 0.0f, 0.0f };
 
     ConstBufferDataWorldTransform* constData = nullptr;
     //uint32_t rvIndex;
