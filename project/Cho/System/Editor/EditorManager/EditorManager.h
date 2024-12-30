@@ -3,7 +3,7 @@
 // C++
 #include<memory>
 
-// 
+// Editor
 #include"Editor/MainMenu/MainMenu.h"
 #include"Editor/PopupMenu/PopupMenu.h"
 #include"Editor/FileView/FileView.h"
@@ -11,6 +11,9 @@
 #include"Editor/InfoView/InfoView.h"
 #include"Editor/ObjectsList/ObjectsList.h"
 #include"Editor/ToolBar/ToolBar.h"
+
+// DebugCamera
+#include"Editor/DebugCamera/DebugCamera.h"
 
 // D3D12
 class ResourceViewManager;
@@ -87,6 +90,7 @@ private:
 	std::unique_ptr<InfoView> infoView = nullptr;
 	std::unique_ptr<ObjectsList> objectsList = nullptr;
 	std::unique_ptr<ToolBar> toolBar = nullptr;
+	std::unique_ptr<DebugCamera> debugCamera = nullptr;
 
 	/*D3D12*/
 	ResourceViewManager* rvManager_ = nullptr;

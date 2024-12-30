@@ -40,7 +40,10 @@ void SystemManager::Draw(
 {
     renderSystem.Render(entityManager, componentManager,d3dCommand,rvManager,graphicsSystem,texLoad);
 }
-
+void SystemManager::DebugCameraUpdate(CameraComponent& camera)
+{
+    cameraSystem.UpdateDebugCamera(camera);
+}
 void SystemManager::DebugDraw(
     EntityManager& entityManager,
     ComponentManager& componentManager,

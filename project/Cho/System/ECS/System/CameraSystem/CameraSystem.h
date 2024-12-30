@@ -10,7 +10,11 @@ public:
 	// 更新
 	void Update(EntityManager& entityManager, ComponentManager& componentManager);
 
-    void UpdateMatrix(CameraComponent* compo);
-    void TransferMatrix(CameraComponent* compo);
+	// 行列更新
+    void UpdateMatrix(CameraComponent& compo);
+    void TransferMatrix(CameraComponent& compo);
+
+	// デバッグカメラ更新
+	void UpdateDebugCamera(CameraComponent& camera);
 };
 

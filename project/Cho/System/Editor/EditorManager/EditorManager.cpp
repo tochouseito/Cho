@@ -123,6 +123,10 @@ void EditorManager::Initialize(
 
     // ScriptManager
     scriptManager_ = scriptManager;
+
+    // デバッグカメラを作成
+    debugCamera = std::make_unique<DebugCamera>();
+    debugCamera->Initialize(systemManager);
 }
 
 void EditorManager::Update()
@@ -150,6 +154,9 @@ void EditorManager::Update()
 
     // ToolBar
     toolBar->Update();
+
+    // DebugCamera
+    //debugCamera->Update();
 }
 
 void EditorManager::CreateObject()

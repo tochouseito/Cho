@@ -24,5 +24,5 @@ struct CameraComponent final{
     float farZ = 1000.0f;
 
     ConstBufferDataViewProjection* constData = nullptr;
-    uint32_t cbvIndex;
+    uint32_t cbvIndex=0;
 };

@@ -4,5 +4,5 @@
 struct ScriptStatus
 {
 	std::string name = "";
-	ObjectType type;
+	ObjectType type=ObjectType::Object;
 };

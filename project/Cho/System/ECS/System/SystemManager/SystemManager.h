@@ -35,6 +35,11 @@ public:
     );
 
     // デバッグカメラ
+
+    void DebugCameraUpdate(
+        CameraComponent& camera
+    );
+
     void DebugDraw(
         EntityManager& entityManager,
         ComponentManager& componentManager,

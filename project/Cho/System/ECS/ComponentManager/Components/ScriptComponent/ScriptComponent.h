@@ -13,8 +13,8 @@ struct ScriptComponent {
 public:
     HMODULE dllHandle;
 
-    uint32_t id;
-    uint32_t type;
+    uint32_t id=0;
+    uint32_t type = 0;
     ScriptStatus status;
     ComponentManager* ptr = nullptr;
 

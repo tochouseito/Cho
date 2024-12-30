@@ -23,5 +23,5 @@ struct TransformComponent final {
 
     ConstBufferDataWorldTransform* constData = nullptr;
     //uint32_t rvIndex;
-    uint32_t cbvIndex;
+    uint32_t cbvIndex=0;
 };
