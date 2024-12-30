@@ -153,7 +153,7 @@ void JsonFileLoader::LoadProject()
                         TransformComponent tf;
 
                         tf.translation = { tfJ["position"][0], tfJ["position"][1], tfJ["position"][2] };
-                        tf.rot = { tfJ["rotation"][0], tfJ["rotation"][1], tfJ["rotation"][2] };
+                        tf.degrees = { tfJ["rotation"][0], tfJ["rotation"][1], tfJ["rotation"][2] };
                         tf.scale = { tfJ["scale"][0], tfJ["scale"][1], tfJ["scale"][2] };
 
                         gameObject->AddComponent(tf);

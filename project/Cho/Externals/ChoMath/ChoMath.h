@@ -51,6 +51,13 @@ namespace ChoMath {
 
 	Matrix4 DirectionToDirection(const Vector3& from, const Vector3& to);
 
+	// 度数からラジアンに変換
+	float DegreesToRadians(const float& degrees);
+	Vector3 DegreesToRadians(const Vector3& degrees);
+
+	// ラジアンから度数に変換
+	float RadiansToDegrees(const float& radians);
+	Vector3 RadiansToDegrees(const Vector3& radians);
 
 	Quaternion MakeRotateAxisAngleQuaternion(const Vector3& axis, float angle);
 	Vector3 RotateVector(const Vector3& vector, const Quaternion& quaternion);

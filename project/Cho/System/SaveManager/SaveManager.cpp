@@ -83,7 +83,7 @@ void SaveManager::Save(JsonFileLoader* jsonLoad)
             nlohmann::ordered_json tfJ;
 
             tfJ["position"] = { tf->translation.x, tf->translation.y, tf->translation.z };
-            tfJ["rotation"] = { tf->rot.x, tf->rot.y, tf->rot.z };
+            tfJ["rotation"] = { tf->degrees.x, tf->degrees.y, tf->degrees.z };
             tfJ["scale"] = { tf->scale.x, tf->scale.y, tf->scale.z };
 
             compJ["transform"] = tfJ;

@@ -15,8 +15,11 @@ struct TransformComponent final {
     Matrix4 matWorld = ChoMath::MakeIdentity4x4();
     Matrix4 rootMatrix = ChoMath::MakeIdentity4x4();
 
-    // 操作用のオイラー角
-    Vector3 rot= { 0.0f, 0.0f, 0.0f };
+    // 度数表示,操作用変数
+    Vector3 degrees = { 0.0f,0.0f,0.0f };
+
+    // 差分計算用
+    Vector3 preRot = { 0.0f,0.0f,0.0f };
 
     ConstBufferDataWorldTransform* constData = nullptr;
     //uint32_t rvIndex;

@@ -79,7 +79,7 @@ void InfoView::Update()
                 ImGui::DragFloat3("Translation", &TFCompo.translation.x, 0.01f);
 
                 // 回転の操作
-                ImGui::DragFloat3("Rotation", &TFCompo.rot.x, 0.01f);
+                ImGui::DragFloat3("Rotation", &TFCompo.degrees.x, 0.1f);
 
                 // スケールの操作
                 ImGui::DragFloat3("Scale", &TFCompo.scale.x, 0.01f);

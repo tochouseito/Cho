@@ -20,6 +20,10 @@ void ComponentManager::AddComponent(Entity entity, const TransformComponent& com
         transforms[entity].cbvIndex)->Map(
             0, nullptr, reinterpret_cast<void**>(&transforms[entity].constData)
         );
+    // 初期化
+    transforms[entity].constData->matWorld = transforms[entity].matWorld;
+    transforms[entity].constData->worldInverse = Transpose(Matrix4::Inverse(transforms[entity].matWorld));
+    transforms[entity].constData->rootNode = transforms[entity].rootMatrix;
 }
 
 // EntityにRenderComponentを追加します。
@@ -49,6 +53,13 @@ void ComponentManager::AddComponent(Entity entity, const CameraComponent& compon
 		cameras[entity].cbvIndex)->Map(
 			0, nullptr, reinterpret_cast<void**>(&cameras[entity].constData)
 		);
+    // 初期化
+    cameras[entity].constData->matWorld = cameras[entity].matWorld;
+    cameras[entity].constData->view = Matrix4::Inverse(cameras[entity].matWorld);
+    cameras[entity].constData->projection = MakePerspectiveFovMatrix(
+        cameras[entity].fovAngleY, cameras[entity].aspectRatio, cameras[entity].nearZ, cameras[entity].farZ
+    );
+    cameras[entity].constData->cameraPosition = cameras[entity].translation;
 }
 
 void ComponentManager::AddComponent(Entity entity, const MaterialComponent& component)

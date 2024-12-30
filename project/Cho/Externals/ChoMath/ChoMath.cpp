@@ -254,10 +254,47 @@ Matrix4 ChoMath::DirectionToDirection(const Vector3& from, const Vector3& to) {
 	return rotateMatrix;
 }
 
+float ChoMath::DegreesToRadians(const float& degrees)
+{
+	return degrees * std::numbers::pi_v<float> / 180.0f;
+}
+
+Vector3 ChoMath::DegreesToRadians(const Vector3& degrees)
+{
+	Vector3 result;
+
+	result.x = DegreesToRadians(degrees.x);
+	result.y = DegreesToRadians(degrees.y);
+	result.z = DegreesToRadians(degrees.z);
+
+	return result;
+}
+
+
+float ChoMath::RadiansToDegrees(const float& radians)
+{
+	return radians * 180.0f / std::numbers::pi_v<float>;
+}
+
+Vector3 ChoMath::RadiansToDegrees(const Vector3& radians)
+{
+	Vector3 result;
+
+	result.x = RadiansToDegrees(radians.x);
+	result.y = RadiansToDegrees(radians.y);
+	result.z = RadiansToDegrees(radians.z);
+
+	return result;
+}
 
 Quaternion ChoMath::MakeRotateAxisAngleQuaternion(const Vector3& axis, float angle)
 {
 	Vector3 normAxis = axis;
+
+	if (normAxis.Length() == 0.0f) {
+		return Quaternion(0.0f, 0.0f, 0.0f, 1.0f); // 単位クォータニオンを返す
+	}
+
 	normAxis.Normalize();
 	float sinHalfAngle = std::sin(angle / 2.0f);
 	float cosHalfAngle = std::cos(angle / 2.0f);
@@ -287,19 +324,19 @@ Matrix4 ChoMath::MakeRotateMatrix(const Quaternion& quaternion) {
 	float wy = quaternion.w * quaternion.y;
 	float wz = quaternion.w * quaternion.z;
 
-	// 左手座標系に合わせて z に符号を反転
+	// 左手座標系に合わせて Z軸の符号のみ反転
 	matrix.m[0][0] = 1.0f - 2.0f * (yy + zz);
-	matrix.m[0][1] = 2.0f * (xy + wz); // 符号を反転
-	matrix.m[0][2] = 2.0f * (xz - wy); // 符号を反転
+	matrix.m[0][1] = 2.0f * (xy - wz); // 符号反転なし
+	matrix.m[0][2] = 2.0f * (xz + wy); // 符号反転なし
 	matrix.m[0][3] = 0.0f;
 
-	matrix.m[1][0] = 2.0f * (xy - wz); // 符号を反転
+	matrix.m[1][0] = 2.0f * (xy + wz); // 符号反転なし
 	matrix.m[1][1] = 1.0f - 2.0f * (xx + zz);
-	matrix.m[1][2] = 2.0f * (yz + wx); // 符号を反転
+	matrix.m[1][2] = 2.0f * (yz - wx); // 符号反転なし
 	matrix.m[1][3] = 0.0f;
 
-	matrix.m[2][0] = 2.0f * (xz + wy); // 符号を反転
-	matrix.m[2][1] = 2.0f * (yz - wx); // 符号を反転
+	matrix.m[2][0] = 2.0f * (xz - wy); // Z軸符号反転
+	matrix.m[2][1] = 2.0f * (yz + wx); // Z軸符号反転
 	matrix.m[2][2] = 1.0f - 2.0f * (xx + yy);
 	matrix.m[2][3] = 0.0f;
 
@@ -310,6 +347,7 @@ Matrix4 ChoMath::MakeRotateMatrix(const Quaternion& quaternion) {
 
 	return matrix;
 }
+
 
 float ChoMath::Dot(const Quaternion& q0, const Quaternion& q1)
 {
@@ -322,26 +360,33 @@ float ChoMath::Dot(const Quaternion& q0, const Quaternion& q1)
 // オイラー角からクォータニオンを生成
 
 Quaternion ChoMath::FromEulerAngles(const Vector3& eulerAngles) {
-	// 半角を計算
-	float halfX = eulerAngles.x * 0.5f; // ピッチ（X軸）
-	float halfY = eulerAngles.y * 0.5f; // ヨー（Y軸）
-	float halfZ = eulerAngles.z * 0.5f; // ロール（Z軸）
+	Quaternion qx = MakeRotateAxisAngleQuaternion(Vector3(1.0f, 0.0f, 0.0f), eulerAngles.x);
+	Quaternion qy = MakeRotateAxisAngleQuaternion(Vector3(0.0f, 1.0f, 0.0f), eulerAngles.y);
+	Quaternion qz = MakeRotateAxisAngleQuaternion(Vector3(0.0f, 0.0f, 1.0f), eulerAngles.z);
 
-	// 三角関数を計算
-	float cx = std::cos(halfX); // cos(θx / 2)
-	float sx = std::sin(halfX); // sin(θx / 2)
-	float cy = std::cos(halfY); // cos(θy / 2)
-	float sy = std::sin(halfY); // sin(θy / 2)
-	float cz = std::cos(halfZ); // cos(θz / 2)
-	float sz = std::sin(halfZ); // sin(θz / 2)
+	// ZYX の順に合成
+	return qz * qx * qy;
 
-	// 左手座標系を考慮したXYZ順のクォータニオン計算
-	return Quaternion{
-		sx * cy * cz + cx * sy * sz, // X
-		cx * sy * cz - sx * cy * sz, // Y
-		cx * cy * sz - sx * sy * cz, // Z
-		cx * cy * cz + sx * sy * sz  // W
-	};
+	//// 半角を計算
+	//float halfX = eulerAngles.x * 0.5f; // ピッチ（X軸）
+	//float halfY = eulerAngles.y * 0.5f; // ヨー（Y軸）
+	//float halfZ = eulerAngles.z * 0.5f; // ロール（Z軸）
+
+	//// 三角関数を計算
+	//float cx = std::cos(halfX); // cos(θx / 2)
+	//float sx = std::sin(halfX); // sin(θx / 2)
+	//float cy = std::cos(halfY); // cos(θy / 2)
+	//float sy = std::sin(halfY); // sin(θy / 2)
+	//float cz = std::cos(halfZ); // cos(θz / 2)
+	//float sz = std::sin(halfZ); // sin(θz / 2)
+
+	//// 左手座標系を考慮したXYZ順のクォータニオン計算
+	//return Quaternion{
+	//	sx * cy * cz + cx * sy * sz, // X
+	//	cx * sy * cz - sx * cy * sz, // Y
+	//	cx * cy * sz - sx * sy * cz, // Z
+	//	cx * cy * cz + sx * sy * sz  // W
+	//};
 }
 
 // クォータニオンからオイラー角を計算（回転順序を指定）
