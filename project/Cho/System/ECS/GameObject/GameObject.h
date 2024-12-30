@@ -90,9 +90,9 @@ public:
 private:
     Entity entity;
     std::string name = "";
-    EntityManager* entityManager;
-    ComponentManager* componentManager;
+    EntityManager* entityManager=nullptr;
+    ComponentManager* componentManager=nullptr;
     std::vector<GameObject*> children;
     GameObject* parent = nullptr;
-    ObjectType type;
+    ObjectType type=ObjectType::Object;
 };

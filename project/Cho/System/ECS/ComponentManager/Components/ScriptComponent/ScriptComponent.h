@@ -11,7 +11,7 @@
 
 struct ScriptComponent {
 public:
-    HMODULE dllHandle;
+    HMODULE dllHandle=nullptr;
 
     uint32_t id=0;
     uint32_t type = 0;

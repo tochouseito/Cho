@@ -63,7 +63,7 @@ uint32_t ResourceViewManager::CreateCBV(const size_t& sizeInBytes)
 	return index;
 }
 
-ID3D12Resource* ResourceViewManager::GetCBVResource(uint32_t& index)
+ID3D12Resource* ResourceViewManager::GetCBVResource(const uint32_t& index)
 {
 	if (CBVResources.find(index) == CBVResources.end()) {
 		return nullptr;
@@ -71,7 +71,7 @@ ID3D12Resource* ResourceViewManager::GetCBVResource(uint32_t& index)
 	return CBVResources[index].Get();
 }
 
-uint32_t ResourceViewManager::CreateMeshView(uint32_t& vertices,uint32_t& indices)
+uint32_t ResourceViewManager::CreateMeshView(const uint32_t& vertices, const uint32_t& indices)
 {
 	uint32_t index = MeshViewAllocate();
 
@@ -84,7 +84,7 @@ uint32_t ResourceViewManager::CreateMeshView(uint32_t& vertices,uint32_t& indice
 	return index;
 }
 
-MeshView* ResourceViewManager::GetMeshViewData(uint32_t& index)
+MeshView* ResourceViewManager::GetMeshViewData(const uint32_t& index)
 {
 	if (meshViews.find(index) == meshViews.end()) {
 		return nullptr;
@@ -92,7 +92,7 @@ MeshView* ResourceViewManager::GetMeshViewData(uint32_t& index)
 	return &meshViews[index];
 }
 
-void ResourceViewManager::CreateTextureResource(uint32_t& index, const DirectX::TexMetadata& metadata)
+void ResourceViewManager::CreateTextureResource(const uint32_t& index, const DirectX::TexMetadata& metadata)
 {
 	// 1.metadataを基にResourceの設定
 	D3D12_RESOURCE_DESC resourceDesc{};
@@ -126,7 +126,7 @@ void ResourceViewManager::CreateTextureResource(uint32_t& index, const DirectX::
 	handles[index].resource = resource;
 }
 
-void ResourceViewManager::UploadTextureDataEx(uint32_t& index, const DirectX::ScratchImage& mipImages)
+void ResourceViewManager::UploadTextureDataEx(const uint32_t& index, const DirectX::ScratchImage& mipImages)
 {
 	std::vector<D3D12_SUBRESOURCE_DATA>subresources;
 	DirectX::PrepareUpload(d3dDevice_->GetDevice(), mipImages.GetImages(), mipImages.GetImageCount(), mipImages.GetMetadata(), subresources);
@@ -145,7 +145,7 @@ void ResourceViewManager::UploadTextureDataEx(uint32_t& index, const DirectX::Sc
 	uploadResources.push_back(intermediateResource);
 }
 
-void ResourceViewManager::CreateSRVForTexture2D(uint32_t& index, DXGI_FORMAT Format, UINT MipLevels)
+void ResourceViewManager::CreateSRVForTexture2D(const uint32_t& index, DXGI_FORMAT Format, UINT MipLevels)
 {
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
 
@@ -162,7 +162,7 @@ void ResourceViewManager::CreateSRVForTexture2D(uint32_t& index, DXGI_FORMAT For
 	);
 }
 
-void ResourceViewManager::CreateRenderTextureResource(uint32_t& index, uint32_t& width, uint32_t& height, DXGI_FORMAT format, const Color& clearColor)
+void ResourceViewManager::CreateRenderTextureResource(const uint32_t& index, const uint32_t& width, const uint32_t& height, DXGI_FORMAT format, const Color& clearColor)
 {
 	// 生成するResourceの設定
 	D3D12_RESOURCE_DESC resourceDesc{};
@@ -285,7 +285,7 @@ uint32_t ResourceViewManager::MeshViewAllocate()
 	return index;
 }
 
-MeshView ResourceViewManager::CreateMeshViewResource(uint32_t& vertices, uint32_t& indices)
+MeshView ResourceViewManager::CreateMeshViewResource(const uint32_t& vertices, const uint32_t& indices)
 {
 	MeshView meshView;
 
@@ -326,7 +326,7 @@ void ResourceViewManager::CreateMeshPattern()
 	}
 }
 
-void ResourceViewManager::CreateMeshViewDMP(uint32_t index, uint32_t vertices, uint32_t indices)
+void ResourceViewManager::CreateMeshViewDMP(const uint32_t& index, const  uint32_t& vertices, const uint32_t& indices)
 {
 	//VBVData& vbvData = VBVResources[index];
 	MeshView& meshView = meshViews[index];
@@ -336,7 +336,7 @@ void ResourceViewManager::CreateMeshViewDMP(uint32_t index, uint32_t vertices, u
 	meshView = CreateMeshViewResource(vertices,indices);
 }
 
-uint32_t ResourceViewManager::CreateMeshResource(const std::string& name, uint32_t vertices, uint32_t indices)
+uint32_t ResourceViewManager::CreateMeshResource(const std::string& name, const uint32_t& vertices, const uint32_t& indices)
 {
 	uint32_t index = CreateMeshView(vertices, indices);
 
@@ -353,7 +353,7 @@ uint32_t ResourceViewManager::CreateMeshResource(const std::string& name, uint32
 	return index;
 }
 
-void ResourceViewManager::MeshMap(uint32_t& index, const std::string& name, const std::string& modelName)
+void ResourceViewManager::MeshMap(const uint32_t& index, const std::string& name, const std::string& modelName)
 {
 	Meshs* meshs = meshContainer[index].get();
 	ModelData* modelData = modelContainer[modelName].get();

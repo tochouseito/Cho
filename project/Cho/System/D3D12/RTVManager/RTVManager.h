@@ -66,7 +66,7 @@ private:
 		D3D12_DESCRIPTOR_HEAP_TYPE::D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
 
 	// デスクリプタサイズ
-	uint32_t descriptorSize_;
+	uint32_t descriptorSize_=0;
 
 	// デスクリプタヒープ
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descriptorHeap_;

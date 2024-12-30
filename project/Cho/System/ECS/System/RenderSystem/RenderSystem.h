@@ -24,7 +24,8 @@ public:
 		D3DCommand* d3dCommand,
 		ResourceViewManager* rvManager,
 		GraphicsSystem* graphicsSystem,
-		TextureLoader* texLoad
+		TextureLoader* texLoad,
+		const CameraComponent& camera
 		);
 };
 

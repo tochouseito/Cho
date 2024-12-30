@@ -383,6 +383,7 @@ void Cho::Draw()
 	);
 
 	drawExecution->DebugPreDraw();
+
 	// デバッグ用
 	systemManager->DebugDraw(
 		*entityManager.get(),
@@ -390,7 +391,8 @@ void Cho::Draw()
 		d3dCommand.get(),
 		resourceViewManager.get(),
 		graphicsSystem.get(),
-		textureLoader.get()
+		textureLoader.get(),
+		editorManager->GetDebugCameraComp()
 	);
 }
 

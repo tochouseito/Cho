@@ -77,6 +77,9 @@ public:
 
 	void UpdateFiles();
 
+	// debugCameraComponentGetter
+	const CameraComponent& GetDebugCameraComp() { return debugCamera->GetCameraComponent(); }
+
 private:// メンバ関数
 
 	void UpdateMainWindow();

@@ -64,22 +64,22 @@ public:// メンバ関数
 
 	uint32_t CreateCBV(const size_t& sizeInBytes);
 
-	ID3D12Resource* GetCBVResource(uint32_t& index);
+	ID3D12Resource* GetCBVResource(const uint32_t& index);
 
-	uint32_t CreateMeshView(uint32_t& vertices,uint32_t& indices);
+	uint32_t CreateMeshView(const uint32_t& vertices, const uint32_t& indices);
 
-	MeshView* GetMeshViewData(uint32_t& index);
+	MeshView* GetMeshViewData(const uint32_t& index);
 
-	void CreateTextureResource(uint32_t& index,const DirectX::TexMetadata& metadata);
+	void CreateTextureResource(const uint32_t& index,const DirectX::TexMetadata& metadata);
 
-	void UploadTextureDataEx(uint32_t& index,const DirectX::ScratchImage& mipImages);
+	void UploadTextureDataEx(const uint32_t& index,const DirectX::ScratchImage& mipImages);
 
-	void CreateSRVForTexture2D(uint32_t& index, DXGI_FORMAT Format, UINT MipLevels);
+	void CreateSRVForTexture2D(const uint32_t& index, DXGI_FORMAT Format, UINT MipLevels);
 
 	void CreateRenderTextureResource(
-		uint32_t& index,
-		uint32_t& width,
-		uint32_t& height,
+		const uint32_t& index,
+		const uint32_t& width,
+		const uint32_t& height,
 		DXGI_FORMAT format,
 		const Color& clearColor
 	);
@@ -88,13 +88,13 @@ public:// メンバ関数
 	void CreateMeshPattern();
 
 	// デフォルトメッシュ用の専用関数
-	void CreateMeshViewDMP(uint32_t index, uint32_t vertices,uint32_t indices);
+	void CreateMeshViewDMP(const uint32_t& index, const uint32_t& vertices, const uint32_t& indices);
 
-	Meshs* GetMeshs(uint32_t index)const { return meshContainer[index].get(); }
+	Meshs* GetMeshs(const uint32_t& index)const { return meshContainer[index].get(); }
 
-	uint32_t CreateMeshResource(const std::string& name,uint32_t vertices,uint32_t indices);
+	uint32_t CreateMeshResource(const std::string& name, const uint32_t& vertices, const uint32_t& indices);
 
-	void MeshMap(uint32_t& index, const std::string& name,const std::string& modelName);
+	void MeshMap(const uint32_t& index, const std::string& name,const std::string& modelName);
 
 	void AddModel(const std::string& name);
 
@@ -116,7 +116,7 @@ private:
 	uint32_t MeshViewAllocate();
 
 	// VBVリソース作成
-	MeshView CreateMeshViewResource(uint32_t& vertices,uint32_t& indices);
+	MeshView CreateMeshViewResource(const uint32_t& vertices, const uint32_t& indices);
 
 private:// メンバ変数
 

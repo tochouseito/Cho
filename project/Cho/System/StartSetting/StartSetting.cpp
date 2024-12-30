@@ -35,7 +35,6 @@ void StartSetting::Initialize(
 	// ひとまず開発用プロジェクトの作成
 	GameProject::CreateGameFolder(projectName);
 
-	sceneManager->CreateDebugCamera();
 	std::string name = "SceneCamera";
 	name = sceneManager->AddCameraObject(name);
 	Entity ent = sceneManager->GetCameraObject(name)->GetEntityID();

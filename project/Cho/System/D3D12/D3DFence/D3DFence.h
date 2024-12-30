@@ -26,7 +26,7 @@ public:// メンバ関数
 private:// メンバ変数
 	/*フェンス*/
 	Microsoft::WRL::ComPtr <ID3D12Fence>fence_;
-	HANDLE fenceEvent_;
+	HANDLE fenceEvent_=0;
 	uint64_t fenceValue_ = 0;
 };
 

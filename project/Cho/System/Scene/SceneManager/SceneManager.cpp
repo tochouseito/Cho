@@ -95,16 +95,6 @@ std::string SceneManager::AddCameraObject(const std::string& cameraName)
 	return newName;
 }
 
-void SceneManager::CreateDebugCamera()
-{
-	debugCameraObject = std::make_unique<GameObject>();
-	//std::string name = "DebugCamera";
-	debugCameraObject->SetManager(entityManager_, componentManager_);
-	debugCameraObject->CreateCameraEntity();
-	CameraComponent cameraComp;
-	debugCameraObject->AddComponent(cameraComp);
-}
-
 std::string SceneManager::GameObjectListRename(const std::string& newName, const std::string& deleteName)
 {
 	if (newName == deleteName) {

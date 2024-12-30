@@ -76,10 +76,10 @@ private:
 	DSVManager* dsvManager_ = nullptr;
 	GraphicsSystem* graphicsSystem_ = nullptr;
 
-	uint32_t offscreenRenderRTVHandleIndex;
-	uint32_t offscreenRenderTextureIndex;
+	uint32_t offscreenRenderRTVHandleIndex = 0;
+	uint32_t offscreenRenderTextureIndex = 0;
 
-	uint32_t debugRenderTexIndex;
-	uint32_t debugRTVHandleIndex;
+	uint32_t debugRenderTexIndex=0;
+	uint32_t debugRTVHandleIndex = 0;
 };
 

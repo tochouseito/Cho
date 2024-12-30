@@ -105,13 +105,6 @@ public:
             break;
         }
     }
-    // デバッグ用
-    inline CameraComponent* GetDebugCamera() {
-        if (cameras.contains(0)) {
-            return &cameras[0];
-        }
-        return nullptr;
-    }
 
     // 指定されたエンティティからコンポーネントを削除します。
     void RemoveComponent(Entity entity);

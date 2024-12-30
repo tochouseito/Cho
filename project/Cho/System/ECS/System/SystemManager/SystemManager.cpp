@@ -50,10 +50,11 @@ void SystemManager::DebugDraw(
     D3DCommand* d3dCommand,
     ResourceViewManager* rvManager,
     GraphicsSystem* graphicsSystem,
-    TextureLoader* texLoad
+    TextureLoader* texLoad,
+    const CameraComponent& camera
 )
 {
-    renderSystem.DebugRender(entityManager, componentManager, d3dCommand, rvManager, graphicsSystem, texLoad);
+    renderSystem.DebugRender(entityManager, componentManager, d3dCommand, rvManager, graphicsSystem, texLoad,camera);
 }
 
 void SystemManager::LoadScripts()

@@ -19,7 +19,7 @@ public:
 	void Update();
 
 public:// getter
-	CameraComponent GetCameraComponent()const { return cameraComponent; }
+	const CameraComponent& GetCameraComponent()const { return cameraComponent; }
 
 private:
 	// ポインタ
