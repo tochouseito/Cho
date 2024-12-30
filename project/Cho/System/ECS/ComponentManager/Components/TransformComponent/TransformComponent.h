@@ -22,6 +22,6 @@ struct TransformComponent final {
     Vector3 preRot = { 0.0f,0.0f,0.0f };
 
     ConstBufferDataWorldTransform* constData = nullptr;
-    //uint32_t rvIndex;
+    
     uint32_t cbvIndex=0;
 };
