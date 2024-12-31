@@ -76,14 +76,13 @@ void InfoView::Update()
                 ImGui::SeparatorText("Transform"); // ラインとテキスト表示
 
                 // 平行移動の操作
-                ImGui::DragFloat3("Translation", &TFCompo.translation.x, 0.01f);
+                ColoredDragFloat3("Translation", &TFCompo.translation.x, 0.01f, 0.0f, 0.0f, "%.1f");
 
                 // 回転の操作
                 ColoredDragFloat3("Rotation", &TFCompo.degrees.x, 0.1f, 0.0f, 0.0f, "%.1f°");
-                //ImGui::DragFloat3("Rotation", &TFCompo.degrees.x, 0.1f,0.0f,0.0f, "%.1f°");
 
                 // スケールの操作
-                ImGui::DragFloat3("Scale", &TFCompo.scale.x, 0.01f);
+                ColoredDragFloat3("Scale", &TFCompo.scale.x, 0.01f, 0.0f, 0.0f, "%.1f");
             }
 
             if (componentManager_->GetMesh(selectGO->GetEntityID())) {
@@ -239,8 +238,12 @@ void InfoView::Update()
 
                 // Transformを表示
                 ImGui::SeparatorText("Transform");// ラインとテキスト表示
-                ImGui::DragFloat3("translation", &cameraCompo.translation.x, 0.01f);
-                ImGui::DragFloat3("Rotation", &cameraCompo.rotation.x, 0.01f);
+
+                // 平行移動の操作
+                ColoredDragFloat3("Translation", &cameraCompo.translation.x, 0.01f, 0.0f, 0.0f, "%.1f");
+
+                // 回転の操作
+                ColoredDragFloat3("Rotation", &cameraCompo.degrees.x, 0.01f, 0.0f, 0.0f, "%.1f°");
             }
 
             if (isAdd) {
@@ -271,9 +274,7 @@ void InfoView::AddComponents()
 }
 
 bool InfoView::ColoredDragFloat3(const char* label, float* v, float v_speed, float v_min, float v_max, const char* format) {
-    ImGui::Text("%s", label); // ラベルを表示
-    ImGui::SameLine();        // ラベルとスライダーを横並びにする
-
+    
     ImGui::PushID(label); // 識別子をプッシュ（同じ名前のコントロールが競合しないようにする）
 
     float item_width = ImGui::CalcItemWidth(); // 現在の項目幅を取得
@@ -281,7 +282,7 @@ bool InfoView::ColoredDragFloat3(const char* label, float* v, float v_speed, flo
 
     // X軸（赤背景）
     ImGui::PushItemWidth(single_item_width);
-    ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(1.0f, 0.2f, 0.2f, 1.0f)); // 赤背景
+    ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.5f, 0.2f, 0.2f, 1.0f)); // 赤背景
     bool x_changed = ImGui::DragFloat("##X", &v[0], v_speed, v_min, v_max, format);
     ImGui::PopStyleColor();
     ImGui::PopItemWidth();
@@ -290,7 +291,7 @@ bool InfoView::ColoredDragFloat3(const char* label, float* v, float v_speed, flo
 
     // Y軸（緑背景）
     ImGui::PushItemWidth(single_item_width);
-    ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.2f, 1.0f, 0.2f, 1.0f)); // 緑背景
+    ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.2f, 0.5f, 0.2f, 1.0f)); // 緑背景
     bool y_changed = ImGui::DragFloat("##Y", &v[1], v_speed, v_min, v_max, format);
     ImGui::PopStyleColor();
     ImGui::PopItemWidth();
@@ -299,10 +300,13 @@ bool InfoView::ColoredDragFloat3(const char* label, float* v, float v_speed, flo
 
     // Z軸（青背景）
     ImGui::PushItemWidth(single_item_width);
-    ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.2f, 0.2f, 1.0f, 1.0f)); // 青背景
+    ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.2f, 0.2f, 0.5f, 1.0f)); // 青背景
     bool z_changed = ImGui::DragFloat("##Z", &v[2], v_speed, v_min, v_max, format);
     ImGui::PopStyleColor();
     ImGui::PopItemWidth();
+
+    ImGui::SameLine();        // ラベルとスライダーを横並びにする
+    ImGui::Text("%s", label); // ラベルを表示
 
     ImGui::PopID(); // 識別子をポップ
 

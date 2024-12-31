@@ -13,9 +13,34 @@ void CameraSystem::Update(EntityManager& entityManager, ComponentManager& compon
 }
 
 void CameraSystem::UpdateMatrix(CameraComponent& compo) {
-	Quaternion rotate = FromEulerAngles(compo.rotation);
-	compo.matWorld = MakeAffineMatrix(Scale(1.0f, 1.0f, 1.0f), rotate, compo.translation);
 
+	// 度数からラジアンに変換
+	Vector3 radians = ChoMath::DegreesToRadians(compo.degrees);
+
+	// 変更がなければreturn
+	if (compo.translation==compo.prePos&&
+		radians == compo.preRot) {
+		return;
+	}
+
+	// 差分計算
+	Vector3 diff = compo.preRot - radians;
+
+	// 各軸のクオータニオンを作成
+	Quaternion qx = ChoMath::MakeRotateAxisAngleQuaternion(Vector3(1.0f, 0.0f, 0.0f), diff.x);
+	Quaternion qy = ChoMath::MakeRotateAxisAngleQuaternion(Vector3(0.0f, 1.0f, 0.0f), diff.y);
+	Quaternion qz = ChoMath::MakeRotateAxisAngleQuaternion(Vector3(0.0f, 0.0f, 1.0f), diff.z);
+
+	// 同時回転を累積(順序は気にしなくていい)
+	compo.rotation = qx * qy * qz * compo.rotation;
+	
+	// アフィン変換
+	compo.matWorld = MakeAffineMatrix(Scale(1.0f, 1.0f, 1.0f), compo.rotation, compo.translation);
+
+	// 次のフレーム用に保存する
+	compo.preRot = radians;
+
+	// 行列の転送
 	TransferMatrix(compo);
 }
 

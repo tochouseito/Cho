@@ -10,6 +10,18 @@ public:
 		y = 1.0f;
 		z = 1.0f;
 	}
+
+	// 等号演算子
+	bool operator==(const Scale& other) const { return x == other.x && y == other.y && z == other.z; }
+
+	// 不等号演算子
+	bool operator!=(const Scale& other) const { return !(*this == other); }
+
+	// 小なりイコール演算子 (<=)
+	bool operator<=(const Scale& other) const {
+		return (this->x <= other.x && this->y <= other.y && this->z <= other.z);
+	}
+
 	// スケール加算
 	inline Scale operator+(const Scale& other) const {
 		return { x + other.x, y + other.y, z + other.z };

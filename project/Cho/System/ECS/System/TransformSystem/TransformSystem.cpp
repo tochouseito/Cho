@@ -24,7 +24,9 @@ void TransformSystem::UpdateMatrix(TransformComponent* tfComp) {
     Vector3 radians = ChoMath::DegreesToRadians(tfComp->degrees);
 
     // 変更がなければreturn
-    if (radians == tfComp->preRot) {
+    if (tfComp->translation==tfComp->prePos&&
+        radians == tfComp->preRot&&
+        tfComp->scale==tfComp->preScale) {
         return;
     }
 
@@ -46,7 +48,9 @@ void TransformSystem::UpdateMatrix(TransformComponent* tfComp) {
     tfComp->matWorld = ChoMath::MakeAffineMatrix(tfComp->scale, tfComp->rotation, tfComp->translation);
 
     // 次のフレーム用に保存する
+    tfComp->prePos = tfComp->translation;
     tfComp->preRot = radians;
+    tfComp->preScale = tfComp->scale;
 
     // 行列の転送
     TransferMatrix(tfComp);

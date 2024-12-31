@@ -176,6 +176,12 @@ void SaveManager::Save(JsonFileLoader* jsonLoad)
             nlohmann::ordered_json cameraJ;
 
             cameraJ["position"] = { camera->translation.x,camera->translation.y,camera->translation.z };
+            cameraJ["rotation"] = { camera->degrees.x,camera->degrees.y,camera->degrees.z };
+
+            cameraJ["fovAngleY"] = camera->fovAngleY;
+            cameraJ["aspectRatio"] = camera->aspectRatio;
+            cameraJ["nearZ"] = camera->nearZ;
+            cameraJ["farZ"] = camera->farZ;
 
             compJ["camera"] = cameraJ;
         }

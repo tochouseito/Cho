@@ -10,7 +10,15 @@ struct ConstBufferDataViewProjection final{
 };
 struct CameraComponent final{
     Vector3 translation = {0.0f,0.0f,-30.0f}; // 座標
-    Vector3 rotation = {0.0f,0.0f,0.0f}; // 回転
+    Quaternion rotation = { 0.0f,0.0f,0.0f,1.0f };// 回転
+    //Vector3 rotation = {0.0f,0.0f,0.0f}; // 回転
+
+    // 度数表示,操作用変数
+    Vector3 degrees = { 0.0f,0.0f,0.0f };
+
+    // 差分計算用
+    Vector3 prePos = { 0.0f,0.0f,0.0f };
+    Vector3 preRot = { 0.0f,0.0f,0.0f };
 
     Matrix4 matWorld = ChoMath::MakeIdentity4x4(); // ワールド行列
 

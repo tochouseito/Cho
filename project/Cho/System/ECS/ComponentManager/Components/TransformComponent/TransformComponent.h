@@ -19,7 +19,9 @@ struct TransformComponent final {
     Vector3 degrees = { 0.0f,0.0f,0.0f };
 
     // 差分計算用
+    Vector3 prePos = { 0.0f,0.0f,0.0f };
     Vector3 preRot = { 0.0f,0.0f,0.0f };
+    Scale preScale = { 1.0f,1.0f,1.0f };
 
     ConstBufferDataWorldTransform* constData = nullptr;
     
