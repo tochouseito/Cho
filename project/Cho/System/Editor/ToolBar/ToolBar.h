@@ -44,8 +44,6 @@ private:
 
     void PlaybackControls();
 
-	void UpdateScripts();
-
 private:
 	/*D3D12*/
 	ResourceViewManager* rvManager_ = nullptr;

@@ -235,6 +235,12 @@ void JsonFileLoader::LoadProject()
                     CameraComponent camera;
 
                     camera.translation = { cameraJ["position"][0], cameraJ["position"][1], cameraJ["position"][2] };
+                    camera.degrees = { cameraJ["rotation"][0],cameraJ["rotation"][1],cameraJ["rotation"][2] };
+
+                    camera.fovAngleY = cameraJ["fovAngleY"];
+                    camera.aspectRatio = cameraJ["AspectRatio"];
+                    camera.nearZ = cameraJ["nearZ"];
+                    camera.farZ = cameraJ["farZ"];
 
                     cameraObject->AddComponent(camera);
                 }

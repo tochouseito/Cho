@@ -15,6 +15,7 @@ void SystemManager::Initialize(EntityManager* entityManager, ComponentManager* c
 void SystemManager::Start(EntityManager& entityManager, ComponentManager& componentManager)
 {
     scriptSystem.Start(entityManager, componentManager);
+    transformSystem.Initialize(entityManager, componentManager);
 }
 
 void SystemManager::Update(EntityManager& entityManager, ComponentManager& componentManager, float deltaTime) {
@@ -24,7 +25,7 @@ void SystemManager::Update(EntityManager& entityManager, ComponentManager& compo
         physicsSystem.Update(entityManager, componentManager, deltaTime);
         cameraSystem.Update(entityManager, componentManager);
     } else {
-        transformSystem.Update(entityManager, componentManager);
+        transformSystem.UpdateEditor(entityManager, componentManager);
         cameraSystem.Update(entityManager, componentManager);
     }
 }
@@ -60,4 +61,9 @@ void SystemManager::DebugDraw(
 void SystemManager::LoadScripts()
 {
     scriptSystem.LoadScripts(*entityManager_, *componentManager_);
+}
+
+void SystemManager::UnLoadScripts()
+{
+    scriptSystem.UnLoadDLL(*entityManager_, *componentManager_);
 }

@@ -325,7 +325,7 @@ void ScriptProject::UpdateVcxproj(const std::string& projectGuid, const std::str
     vcxFile << "    </ClCompile>\n";
     vcxFile << "    <Link>\n";
     vcxFile << "      <SubSystem>Windows</SubSystem>\n";
-    vcxFile << "      <GenerateDebugInformation>true</GenerateDebugInformation>\n";
+    vcxFile << "      <GenerateDebugInformation>false</GenerateDebugInformation>\n";
     vcxFile << "      <AdditionalDependencies>ChoMath.lib;%(AdditionalDependencies)</AdditionalDependencies>\n";
     vcxFile << "      <AdditionalLibraryDirectories>" << libraryPath.string() << ";%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>\n";
     vcxFile << "    </Link>\n";
@@ -346,7 +346,7 @@ void ScriptProject::UpdateVcxproj(const std::string& projectGuid, const std::str
     vcxFile << "      <SubSystem>Windows</SubSystem>\n";
     vcxFile << "      <EnableCOMDATFolding>true</EnableCOMDATFolding>\n";
     vcxFile << "      <OptimizeReferences>true</OptimizeReferences>\n";
-    vcxFile << "      <GenerateDebugInformation>true</GenerateDebugInformation>\n";
+    vcxFile << "      <GenerateDebugInformation>false</GenerateDebugInformation>\n";
     vcxFile << "      <AdditionalDependencies>ChoMath.lib;%(AdditionalDependencies)</AdditionalDependencies>\n";
     vcxFile << "      <AdditionalLibraryDirectories>" << libraryPath.string() << ";%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>\n";
     vcxFile << "    </Link>\n";

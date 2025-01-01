@@ -54,6 +54,7 @@ public:
     bool IsPlay() { return run; }
 
     void LoadScripts();
+    void UnLoadScripts();
 private:
     PhysicsSystem physicsSystem;
     RenderSystem renderSystem;

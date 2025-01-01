@@ -77,13 +77,13 @@ void ToolBar::PlaybackControls() {
             // 再生ボタンの処理
             systemManager_->PlaySwitch();
             systemManager_->Start(*entityManager_, *componentManager_);
+            systemManager_->UnLoadScripts();
         }
     }else{
         if (ImGui::Button("Play", ImVec2(30, 30))) {
             // 再生ボタンの処理
             systemManager_->PlaySwitch();
             systemManager_->LoadScripts();
-            //UpdateScripts();
             systemManager_->Start(*entityManager_,*componentManager_);
         }
     }
@@ -109,29 +109,3 @@ void ToolBar::PlaybackControls() {
     ImGui::PopStyleVar();
 }
 
-void ToolBar::UpdateScripts()
-{
-    {
-        const std::unordered_map<std::string, std::unique_ptr<GameObject>>& objectList = sceneManager_->GetGameObjects();
-        for (auto& pair : objectList) {
-            //const std::string& name = pair.first;
-            GameObject* gameObject = pair.second.get();
-            ScriptComponent* script = componentManager_->GetScript(gameObject->GetEntityID(), gameObject->GetObjectType());
-            if (script) {
-                //script->LoadDLLFunc();
-            }
-        }
-    }
-    {
-        const std::unordered_map<std::string, std::unique_ptr<GameObject>>& objectList = sceneManager_->GetCameraObjects();
-        for (auto& pair : objectList) {
-            //const std::string& name = pair.first;
-            GameObject* gameObject = pair.second.get();
-            componentManager_->GetScript(gameObject->GetEntityID(), gameObject->GetObjectType());
-            ScriptComponent* script = componentManager_->GetScript(gameObject->GetEntityID(), gameObject->GetObjectType());
-            if (script) {
-                //script->LoadDLLFunc();
-            }
-        }
-    }
-}

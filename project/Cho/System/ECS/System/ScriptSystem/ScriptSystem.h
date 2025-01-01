@@ -10,6 +10,7 @@ public:
 	void Cleanup(EntityManager& entityManager, ComponentManager& componentManager);
 	void LoadScripts(EntityManager& entityManager, ComponentManager& componentManager);
 
+	void UnLoadDLL(EntityManager& entityManager, ComponentManager& componentManager);
 private:
 	bool LoadFuncDLL(ScriptComponent* script);
 };

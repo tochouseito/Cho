@@ -27,6 +27,7 @@ void ScriptSystem::Cleanup(EntityManager& entityManager, ComponentManager& compo
     for (Entity entity : entityManager.GetActiveEntities()) {
         ScriptComponent* script = componentManager.GetScript(entity, ObjectType::Object);
         if (script && script->cleanupFunc) {
+            assert(LoadFuncDLL(script));
             script->cleanupFunc();
         }
     }
@@ -38,6 +39,26 @@ void ScriptSystem::LoadScripts(EntityManager& entityManager, ComponentManager& c
         ScriptComponent* script = componentManager.GetScript(entity, ObjectType::Object);
         if (script&&script->isScript) {
             assert(LoadFuncDLL(script));
+        }
+    }
+}
+
+void ScriptSystem::UnLoadDLL(EntityManager& entityManager, ComponentManager& componentManager)
+{
+    for (Entity entity : entityManager.GetActiveEntities()) {
+        ScriptComponent* script = componentManager.GetScript(entity, ObjectType::Object);
+        if (script && script->isScript) {
+            FreeLibrary(script->dllHandle);
+        }
+    }
+    std::string name = "test.dll";
+    if (GetModuleHandleA(name.c_str()) != nullptr) {
+        // DLL まだメモリに残っている
+        for (Entity entity : entityManager.GetActiveEntities()) {
+            ScriptComponent* script = componentManager.GetScript(entity, ObjectType::Object);
+            if (script && script->isScript) {
+                FreeLibrary(script->dllHandle);
+            }
         }
     }
 }
@@ -76,12 +97,13 @@ bool ScriptSystem::LoadFuncDLL(ScriptComponent* script)
     script->startFunc = [scriptInstance](uint32_t id, uint32_t type, ComponentManager* ptr) {
         std::cout << "Script Start: ID=" << id << ", Type=" << type << "\n";
         ptr;
+        scriptInstance->SetEntityInfo(id, type, ptr);
         scriptInstance->Start();
         };
     script->updateFunc = [scriptInstance](uint32_t id, uint32_t type, ComponentManager* ptr) {
         std::cout << "Script Update: ID=" << id << ", Type=" << type << "\n";
         ptr;
-        scriptInstance->SetEntityInfo(id, type, ptr);
+        //scriptInstance->SetEntityInfo(id, type, ptr);
         scriptInstance->Update();
         };
 

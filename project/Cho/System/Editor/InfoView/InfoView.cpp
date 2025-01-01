@@ -131,18 +131,6 @@ void InfoView::Update()
             if (componentManager_->GetScript(selectGO->GetEntityID(),selectGO->GetObjectType())) {
                 ScriptComponent& scriptComp = *componentManager_->GetScript(selectGO->GetEntityID(),selectGO->GetObjectType());
                 
-                if (scriptComp.isScript) {
-                    if (ImGui::Button("LoadFunc")) {
-                        //scriptComp.LoadDLLFunc();
-                    }
-                } else {
-                    if (ImGui::Button("AddScript")){
-                        ScriptProject::GenerateScriptTemplate(editManager_->GetSelectedGOName());
-                        
-                        scriptComp.isScript = true;
-                    }
-                }
-                
                 ImGui::SeparatorText("Script");
 
                 // スクリプトのマップを取得
