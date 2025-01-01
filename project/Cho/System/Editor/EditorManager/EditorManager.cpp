@@ -156,7 +156,9 @@ void EditorManager::Update()
     toolBar->Update();
 
     // DebugCamera
-    debugCamera->Update();
+    if (sceneView->IsWindowHovered()) {
+        debugCamera->Update();
+    }
 }
 
 void EditorManager::CreateObject()

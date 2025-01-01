@@ -1,6 +1,47 @@
 #include "PrecompiledHeader.h"
 #include "CameraSystem.h"
 
+void CameraSystem::InitMatrix(CameraComponent& compo)
+{
+	// 度数からラジアンに変換
+	Vector3 radians = ChoMath::DegreesToRadians(compo.degrees);
+
+	// 変更がなければreturn
+	if (compo.translation == compo.prePos &&
+		radians == compo.preRot) {
+		return;
+	}
+
+	// 各軸のクオータニオンを作成
+	Quaternion qx = ChoMath::MakeRotateAxisAngleQuaternion(Vector3(1.0f, 0.0f, 0.0f), radians.x);
+	Quaternion qy = ChoMath::MakeRotateAxisAngleQuaternion(Vector3(0.0f, 1.0f, 0.0f), radians.y);
+	Quaternion qz = ChoMath::MakeRotateAxisAngleQuaternion(Vector3(0.0f, 0.0f, 1.0f), radians.z);
+
+	// 同時回転を累積
+	compo.rotation = qx * qy * qz;
+
+	// アフィン変換
+	compo.matWorld = MakeAffineMatrix(Scale(1.0f, 1.0f, 1.0f), compo.rotation, compo.translation);
+
+	// 次のフレーム用に保存する
+	compo.prePos = compo.translation;
+	compo.preRot = radians;
+
+	// 行列の転送
+	TransferMatrix(compo);
+}
+
+void CameraSystem::Initialize(EntityManager& entityManager, ComponentManager& componentManager)
+{
+	for (Entity entity : entityManager.GetCameraEntities()) {
+		CameraComponent* cameraCompo = componentManager.GetCamera(entity);
+
+		if (cameraCompo) {
+			InitMatrix(*cameraCompo);
+		}
+	}
+}
+
 void CameraSystem::Update(EntityManager& entityManager, ComponentManager& componentManager)
 {
 	for (Entity entity : entityManager.GetCameraEntities()) {
@@ -8,6 +49,17 @@ void CameraSystem::Update(EntityManager& entityManager, ComponentManager& compon
 
 		if (cameraCompo) {
 			UpdateMatrix(*cameraCompo);
+		}
+	}
+}
+
+void CameraSystem::UpdateEditor(EntityManager& entityManager, ComponentManager& componentManager)
+{
+	for (Entity entity : entityManager.GetCameraEntities()) {
+		CameraComponent* cameraCompo = componentManager.GetCamera(entity);
+
+		if (cameraCompo) {
+			InitMatrix(*cameraCompo);
 		}
 	}
 }
@@ -38,6 +90,7 @@ void CameraSystem::UpdateMatrix(CameraComponent& compo) {
 	compo.matWorld = MakeAffineMatrix(Scale(1.0f, 1.0f, 1.0f), compo.rotation, compo.translation);
 
 	// 次のフレーム用に保存する
+	compo.prePos = compo.translation;
 	compo.preRot = radians;
 
 	// 行列の転送
@@ -57,5 +110,5 @@ void CameraSystem::TransferMatrix(CameraComponent& compo) {
 
 void CameraSystem::UpdateDebugCamera(CameraComponent& camera)
 {
-	UpdateMatrix(camera);
+	InitMatrix(camera);
 }

@@ -26,7 +26,7 @@ void SystemManager::Update(EntityManager& entityManager, ComponentManager& compo
         cameraSystem.Update(entityManager, componentManager);
     } else {
         transformSystem.UpdateEditor(entityManager, componentManager);
-        cameraSystem.Update(entityManager, componentManager);
+        cameraSystem.UpdateEditor(entityManager, componentManager);
     }
 }
 
