@@ -12,6 +12,16 @@
 
 #include"SystemState/SystemState.h"
 
+// Enum を文字列に変換する関数
+std::string ObjectTypeToString(ObjectType type) {
+    switch (type) {
+    case ObjectType::Object: return "Object";
+    case ObjectType::Camera: return "Camera";
+    case ObjectType::Light: return "Light";
+    default: return "Unknown";
+    }
+}
+
 void SaveManager::Initialize(
 	ScriptManager* scriptManager,
 	EntityManager* entityManager,
@@ -193,6 +203,24 @@ void SaveManager::Save(JsonFileLoader* jsonLoad)
         // ゲームオブジェクトをシーンに追加
         sceneJson.push_back(cameraObjJson);
     }
+
+    // スクリプト
+    nlohmann::ordered_json scriptJ;
+    for (const auto& [type, scriptMap] : scriptManager_->GetScripts()) {
+        std::string typeStr = ObjectTypeToString(type);
+        nlohmann::ordered_json typeJson;
+        for (const auto& [scriptName, status] : scriptMap) {
+            nlohmann::ordered_json script;
+            script["name"] = status.name;
+
+            // ObjectType ごとにスクリプトをまとめる
+            typeJson[scriptName] = script;
+        }
+        scriptJ[typeStr] = typeJson;
+    }
+
+    // スクリプト全体をシーンJSONに追加
+    sceneJson.push_back({ {"Script", scriptJ} });
 
     // シーンを全体のJSONに追加
     j[sceneName] = sceneJson;

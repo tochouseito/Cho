@@ -80,9 +80,6 @@ void PopupMenu::Update(bool excludeRightClick)
             if (ImGui::MenuItem("Camera")) { 
                 editManager_->CreateCamera();
             }
-            if (ImGui::MenuItem("LoadDLL")) {
-                ScriptProject::LoadScriptDLL();
-            }
             if (ImGui::BeginMenu("C++Script")) {
                 if (ImGui::MenuItem("ObjectScript")) {
                     static std::string name = "NewScript";

@@ -246,5 +246,23 @@ void JsonFileLoader::LoadProject()
                 }
             }
         }
+
+        /*for (const auto& script : sceneData) {
+            if (script.contains("Object")) {
+                auto& scriptData = script["Object"];
+                
+            }
+        }
+
+        for (const auto& [typeStr, scriptMapJson] : sceneData.items()) {
+            ObjectType type = StringToObjectType(typeStr);
+            for (const auto& [scriptName, scriptJson] : scriptMapJson.items()) {
+                ScriptStatus status;
+                status.name = scriptJson.at("name").get<std::string>();
+                status.type = type;
+
+                scripts[type][scriptName] = status;
+            }
+        }*/
     }
 }

@@ -314,6 +314,7 @@ Vector3 ChoMath::RotateVector(const Vector3& vector, const Quaternion& quaternio
 Matrix4 ChoMath::MakeRotateMatrix(const Quaternion& quaternion) {
 	Matrix4 matrix;
 
+	// クォータニオン成分の積
 	float xx = quaternion.x * quaternion.x;
 	float yy = quaternion.y * quaternion.y;
 	float zz = quaternion.z * quaternion.z;
@@ -324,19 +325,19 @@ Matrix4 ChoMath::MakeRotateMatrix(const Quaternion& quaternion) {
 	float wy = quaternion.w * quaternion.y;
 	float wz = quaternion.w * quaternion.z;
 
-	// 左手座標系に合わせて Z軸の符号のみ反転
+	// 左手座標系用の回転行列
 	matrix.m[0][0] = 1.0f - 2.0f * (yy + zz);
-	matrix.m[0][1] = (2.0f * (xy - wz))*(-1.0f); // 符号反転あり
-	matrix.m[0][2] = (2.0f * (xz + wy))*(-1.0f); // 符号反転あり
+	matrix.m[0][1] = 2.0f * (xy + wz); // 符号反転なし
+	matrix.m[0][2] = 2.0f * (xz - wy); // 符号反転（Z軸符号反転）
 	matrix.m[0][3] = 0.0f;
 
-	matrix.m[1][0] = (2.0f * (xy + wz))*(-1.0f); // 符号反転あり
+	matrix.m[1][0] = 2.0f * (xy - wz); // 符号反転なし
 	matrix.m[1][1] = 1.0f - 2.0f * (xx + zz);
-	matrix.m[1][2] = (2.0f * (yz - wx))*(-1.0f); // 符号反転あり
+	matrix.m[1][2] = 2.0f * (yz + wx); // 符号反転（Z軸符号反転）
 	matrix.m[1][3] = 0.0f;
 
-	matrix.m[2][0] = (2.0f * (xz - wy))*(-1.0f); // Z軸符号反転なし
-	matrix.m[2][1] = (2.0f * (yz + wx))*(-1.0f); // Z軸符号反転なし
+	matrix.m[2][0] = 2.0f * (xz + wy); // 符号反転（Z軸符号反転）
+	matrix.m[2][1] = 2.0f * (yz - wx); // 符号反転（Z軸符号反転）
 	matrix.m[2][2] = 1.0f - 2.0f * (xx + yy);
 	matrix.m[2][3] = 0.0f;
 
@@ -347,6 +348,8 @@ Matrix4 ChoMath::MakeRotateMatrix(const Quaternion& quaternion) {
 
 	return matrix;
 }
+
+
 
 
 float ChoMath::Dot(const Quaternion& q0, const Quaternion& q1)
