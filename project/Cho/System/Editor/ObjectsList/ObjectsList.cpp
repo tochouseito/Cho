@@ -51,6 +51,7 @@ void ObjectsList::Update()
 
     selectObject(sceneManager_->GetGameObjects());// ベースオブジェクトを表示
     selectObject(sceneManager_->GetCameraObjects());// カメラオブジェクトを表示
+    selectObject(sceneManager_->GetSpriteObjects());// カメラオブジェクトを表示
 
     ImGui::End();
 }
@@ -120,6 +121,12 @@ void ObjectsList::selectObject(const std::unordered_map<std::string, std::unique
             editManager_->SetSelectedGO(sceneManager_->GetCameraObject(name));  // 選択したオブジェクトを保持
             break;
         case ObjectType::Light:
+            break;
+
+        case ObjectType::Sprite:
+            name = sceneManager_->SpriteObjectListRename(newName, oldName);
+            editManager_->SetSelectedGOName(name);
+            editManager_->SetSelectedGO(sceneManager_->GetCameraObject(name));  // 選択したオブジェクトを保持
             break;
         default:
             break;

@@ -249,6 +249,39 @@ void InfoView::Update()
                 }
             }
             break;
+        case ObjectType::Light:
+            break;
+        case ObjectType::Sprite:
+            // コンポーネントがあれば表示
+            if (componentManager_->GetSprite(selectGO->GetEntityID())) {
+                SpriteComponent& spriteCompo = *componentManager_->GetSprite(selectGO->GetEntityID());
+
+                // Transformを表示
+                ImGui::SeparatorText("Transform");// ラインとテキスト表示
+
+                // 平行移動の操作
+                ImGui::DragFloat2("Position", &spriteCompo.position.x, 0.1f);
+
+                // 回転の操作
+                ImGui::DragFloat("ZRotate", &spriteCompo.rotation, 0.01f);
+            }
+
+            if (isAdd) {
+                if (!selectGO->GetSprite()) {
+                    if (ImGui::Selectable("SpriteComponent")) {
+                        isAdd = false;
+                        SpriteComponent spriteCompo;
+                        selectGO->AddComponent(spriteCompo);
+                    }
+                }
+            }
+            else
+            {
+                if (ImGui::Button("AddComponent")) {
+                    isAdd = true;
+                }
+            }
+            break;
         default:
             break;
         }

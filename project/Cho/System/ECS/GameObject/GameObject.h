@@ -45,6 +45,8 @@ public:
 
     void AddComponent(const ScriptComponent& component);
 
+    void AddComponent(const SpriteComponent& component);
+
     // TransformComponentを取得します。
     inline TransformComponent* GetTransform() {
         return componentManager->GetTransform(entity);
@@ -74,6 +76,10 @@ public:
 
     inline CameraComponent* GetCamera() {
         return componentManager->GetCamera(entity);
+    }
+
+    inline SpriteComponent* GetSprite() {
+        return componentManager->GetSprite(entity);
     }
 
     inline void SetName(const std::string& newName) {

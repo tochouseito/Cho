@@ -1,11 +1,13 @@
 #include "PrecompiledHeader.h"
 #include "SceneManager.h"
 #include <assert.h>
+#include"D3D12/ResourceViewManager/ResourceViewManager.h"
 #include"ECS/EntityManager/EntityManager.h"
 #include"ECS/ComponentManager/ComponentManager.h"
 #include"ECS/System/SystemManager/SystemManager.h"
 
 void SceneManager::Initialize(
+	ResourceViewManager* rvManager,
 	EntityManager* entityManager,
 	ComponentManager* componentManager,
 	SystemManager* systemManager,
@@ -14,6 +16,8 @@ void SceneManager::Initialize(
 {
 	// シーンファクトリーの生成
 	sceneFactory_ = new SceneFactory();
+
+	rvManager_ = rvManager;
 
 	// ECS
 	entityManager_ = entityManager;
@@ -95,6 +99,21 @@ std::string SceneManager::AddCameraObject(const std::string& cameraName)
 	return newName;
 }
 
+std::string SceneManager::AddSpriteObject(const std::string& spriteName)
+{
+	std::string newName = GenerateUniqueName(spriteObjects, spriteName);
+	// 新しいGameObjectを作成してマップに追加
+	spriteObjects[newName] = std::make_unique<GameObject>();
+	GameObject* spriteObject = spriteObjects[newName].get();
+	spriteObject->SetName(newName);
+	spriteObject->SetManager(entityManager_, componentManager_);
+	spriteObject->CreateEntity();
+
+	rvManager_->CreateSpriteData(newName);
+
+	return newName;
+}
+
 std::string SceneManager::GameObjectListRename(const std::string& newName, const std::string& deleteName)
 {
 	if (newName == deleteName) {
@@ -141,6 +160,32 @@ std::string SceneManager::CameraObjectListRename(const std::string& newName, con
 
 	// 新しい名前で挿入
 	cameraObjects[NewName] = std::move(object);
+
+	return NewName;
+}
+
+std::string SceneManager::SpriteObjectListRename(const std::string& newName, const std::string& deleteName)
+{
+	if (newName == deleteName) {
+		return newName;
+	}
+	// 古い名前が存在するか確認
+	auto it = spriteObjects.find(deleteName);
+	if (!spriteObjects.contains(deleteName)) {
+		//std::cerr << "Error: GameObject with name \"" << deleteName << "\" not found.\n";
+		assert(0);
+	}
+
+	std::string NewName = GenerateUniqueName(spriteObjects, newName);
+
+	// オブジェクトを一時保存して、古い名前を削除
+	auto object = std::move(it->second);
+	spriteObjects.erase(it);
+
+	// 新しい名前で挿入
+	spriteObjects[NewName] = std::move(object);
+	GameObject* gameObject = spriteObjects[NewName].get();
+	gameObject->SetName(NewName);
 
 	return NewName;
 }

@@ -204,6 +204,29 @@ void ResourceViewManager::CreateRenderTextureResource(const uint32_t& index, con
 }
 
 
+SpriteMeshData* ResourceViewManager::GetSpriteData(const std::string& name)
+{
+	if (!spriteContainer.contains(name)) {
+		return nullptr;
+	}
+	return spriteContainer[name].get();
+}
+
+std::string ResourceViewManager::CreateSpriteData(const std::string& name)
+{
+	if (spriteContainer.contains(name)) {
+		return name;
+	}
+
+	SpriteMeshData* data = spriteContainer[name].get();
+
+	MeshGenerator::CreateSprite(*data, this);
+
+	spriteContainer[name];
+
+	return name;
+}
+
 uint32_t ResourceViewManager::Allocate()
 {
 	if (useIndex_+useCBVIndex_ >= kMaxDescriptor) {
@@ -353,7 +376,7 @@ uint32_t ResourceViewManager::CreateMeshResource(const std::string& name, const 
 	return index;
 }
 
-void ResourceViewManager::MeshMap(const uint32_t& index, const std::string& name, const std::string& modelName)
+void ResourceViewManager::ModelMeshMap(const uint32_t& index, const std::string& name, const std::string& modelName)
 {
 	Meshs* meshs = meshContainer[index].get();
 	ModelData* modelData = modelContainer[modelName].get();

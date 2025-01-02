@@ -206,15 +206,20 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClCompile Include="Cho\System\Editor\ToolBar\ToolBar.cpp" />
     <ClCompile Include="Cho\System\SaveManager\SaveManager.cpp" />
     <ClCompile Include="Cho\System\Load\MeshLoader\MeshLoader.cpp" />
+    <ClCompile Include="Cho\System\ECS\System\SpriteSystem\SpriteSystem.cpp" />
     <ClInclude Include="Cho\System\ConstantData\AnimationData.h" />
-    <ClInclude Include="Cho\System\ConstantData\DebugTransform.h" />
+    <ClInclude Include="Cho\System\ConstantData\MaterialData.h" />
     <ClInclude Include="Cho\System\ConstantData\MeshData.h" />
     <ClInclude Include="Cho\System\ConstantData\ModelData.h" />
+    <ClInclude Include="Cho\System\ConstantData\SpriteData.h" />
+    <ClInclude Include="Cho\System\ConstantData\ViewProjection.h" />
+    <ClInclude Include="Cho\System\ConstantData\WorldTransform.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\CameraComponent\CameraComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\MaterialComponent\MaterialComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\MeshComponent\MeshComponenth.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\PhysicsComponent\PhysicsComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\RenderComponent\RenderComponent.h" />
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\SpriteComponent\SpriteComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\TransformComponent\TransformComponent.h" />
     <ClInclude Include="Cho\System\Generator\GameProject\GameProject.h" />
     <ClInclude Include="Cho\System\ECS\System\CameraSystem\CameraSystem.h" />
@@ -280,6 +285,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClInclude Include="Cho\System\SaveManager\SaveManager.h" />
     <ClInclude Include="Cho\System\Load\MeshLoader\MeshLoader.h" />
     <ClInclude Include="Cho\System\Editor\DebugCamera\DebugCamera.h" />
+    <ClInclude Include="Cho\System\ECS\System\SpriteSystem\SpriteSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\ChoMath\ChoMath.vcxproj">
@@ -313,11 +319,24 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
+    <FxCompile Include="Cho\Resources\Shader\Sprite.VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Cho\Resources\Shader\Sprite.PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Cho\Resources\ImGuiStyle\style.json" />
     <None Include="Cho\Resources\Shader\header\Demo.hlsli" />
     <None Include="Cho\Resources\Shader\header\FullScreen.hlsli" />
+    <None Include="Cho\Resources\Shader\header\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Cho\Resources\Texture\uvChecker.png" />

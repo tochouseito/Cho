@@ -42,6 +42,9 @@ namespace ChoMath {
 
 	Matrix4 MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip, float farClip);
 
+	// 正射影行列
+	Matrix4 MakeOrthographicMatrix(float left, float top, float right, float bottom, float nearClip, float farClip);
+
 	//// ベクトルの正規化
 	float Normalize(float x, float min, float max);
 

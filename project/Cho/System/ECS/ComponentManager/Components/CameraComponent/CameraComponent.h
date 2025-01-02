@@ -1,13 +1,8 @@
 #pragma once
+#include"ConstantData/ViewProjection.h"
 #include"ChoMath.h"
 #include"SystemState/SystemState.h"
-// 定数バッファ用データ構造体
-struct ConstBufferDataViewProjection final{
-    Matrix4 view;
-    Matrix4 projection;
-    Matrix4 matWorld;
-    Vector3 cameraPosition;
-};
+
 struct CameraComponent final{
     Vector3 translation = {0.0f,0.0f,-30.0f}; // 座標
     Quaternion rotation = { 0.0f,0.0f,0.0f,1.0f };// 回転

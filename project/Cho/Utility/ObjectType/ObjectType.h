@@ -3,5 +3,6 @@
 enum class ObjectType {
     Object,
     Camera,
-    Light
+    Light,
+    Sprite
 };

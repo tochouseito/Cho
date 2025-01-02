@@ -5,8 +5,7 @@
 // 数学ライブラリ
 #include"ChoMath.h"
 
-// デバッグ用
-#include"ConstantData/DebugTransform.h"
+#include"ConstantData/WorldTransform.h"
 
 // C++
 #include<unordered_map>
@@ -15,7 +14,7 @@
 
 struct Node
 {
-	DebugTransform transform;
+	NodeTransform transform;
 	Matrix4 localMatrix;
 	std::string name;
 	std::vector<Node> children;

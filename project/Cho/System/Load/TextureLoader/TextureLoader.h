@@ -56,6 +56,11 @@ public:
 		return textureData[whitePixel];
 	}
 
+	Vector2 GetTextureSize(const std::string& texID) {
+		const DirectX::TexMetadata& metaData = textureData[texID].metadata;
+		return Vector2(static_cast<float>(metaData.width), static_cast<float>(metaData.height));
+	}
+
 private:
 
 

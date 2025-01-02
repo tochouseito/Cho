@@ -34,6 +34,8 @@ public:
 
     void AddComponent(Entity entity, const ScriptComponent& component);
 
+    void AddComponent(Entity entity, const SpriteComponent& component);
+
     // 指定されたエンティティのTransformコンポーネントを取得します。
     inline TransformComponent* GetTransform(Entity entity) {
         if (transforms.contains(entity)) {
@@ -100,10 +102,23 @@ public:
             }
             return nullptr;
             break;
+        case ObjectType::Sprite:
+            if (spriteScripts.contains(entity)) {
+                return &spriteScripts[entity];
+            }
+            return nullptr;
+            break;
         default:
             return nullptr;
             break;
         }
+    }
+
+    inline SpriteComponent* GetSprite(Entity entity) {
+        if (sprites.contains(entity)) {
+            return &sprites[entity];
+        }
+        return nullptr;
     }
 
     // 指定されたエンティティからコンポーネントを削除します。
@@ -122,6 +137,8 @@ private:
     std::unordered_map<Entity, ScriptComponent> objectScripts;
     std::unordered_map<Entity, ScriptComponent> cameraScripts;
     std::unordered_map<Entity, ScriptComponent> lightScripts;
+    std::unordered_map<Entity, ScriptComponent> spriteScripts;
+    std::unordered_map<Entity, SpriteComponent> sprites;
 
-    ResourceViewManager* RVManager_ = nullptr;
+    ResourceViewManager* rvManager_ = nullptr;
 };

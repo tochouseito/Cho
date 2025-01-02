@@ -6,8 +6,10 @@ SystemManager::~SystemManager()
     scriptSystem.Cleanup(*entityManager_,*componentManager_);
 }
 
-void SystemManager::Initialize(EntityManager* entityManager, ComponentManager* componentManager)
+void SystemManager::Initialize(ResourceViewManager* rvManager,TextureLoader* texLoader, EntityManager* entityManager, ComponentManager* componentManager)
 {
+    spriteSystem.SetRVManagerPtr(rvManager);
+    spriteSystem.SetTexLoadPtr(texLoader);
     entityManager_ = entityManager;
     componentManager_ = componentManager;
 }

@@ -8,6 +8,7 @@
 #include"ECS/System/CameraSystem/CameraSystem.h"
 #include"ECS/System/ScriptSystem/ScriptSystem.h"
 #include"ECS/System/TransformSystem/TransformSystem.h"
+#include"ECS/System/SpriteSystem/SpriteSystem.h"
 
 class D3DCommand;
 class ResourceViewManager;
@@ -19,7 +20,7 @@ public:
     // デストラクタ
     ~SystemManager();
 
-    void Initialize(EntityManager* entityManager, ComponentManager* componentManager);
+    void Initialize(ResourceViewManager* rvManager,TextureLoader* texLoader,EntityManager* entityManager, ComponentManager* componentManager);
 
     void Start(EntityManager& entityManager, ComponentManager& componentManager);
 
@@ -61,6 +62,8 @@ private:
     CameraSystem cameraSystem;
     ScriptSystem scriptSystem;
     TransformSystem transformSystem;
+    SpriteSystem spriteSystem;
+
 
     EntityManager* entityManager_ = nullptr;
     ComponentManager* componentManager_ = nullptr;

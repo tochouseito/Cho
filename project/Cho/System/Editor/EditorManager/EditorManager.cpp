@@ -180,6 +180,14 @@ void EditorManager::CreateCamera()
     SetSelectedGO(sceneManager_->GetCameraObject(name));
 }
 
+void EditorManager::CreateSprite()
+{
+    std::string name = "NewSprite";
+    name = sceneManager_->AddSpriteObject(name);
+    SetSelectedGOName(name);
+    SetSelectedGO(sceneManager_->GetSpriteObject(name));
+}
+
 void EditorManager::UpdateFiles()
 {
     fileView->UpdateFiles();

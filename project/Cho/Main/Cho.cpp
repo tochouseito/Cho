@@ -228,7 +228,12 @@ void Cho::Initialize()
 
 	// SystemManager
 	systemManager = std::make_unique<SystemManager>();
-	systemManager->Initialize(entityManager.get(), componentManager.get());
+	systemManager->Initialize(
+		resourceViewManager.get(),
+		textureLoader.get(), 
+		entityManager.get(),
+		componentManager.get()
+	);
 
 	// PrefabManager
 	prefabManager = std::make_unique<PrefabManager>();
@@ -238,6 +243,7 @@ void Cho::Initialize()
 	// SceneManager
 	sceneManager = std::make_unique<SceneManager>();
 	sceneManager->Initialize(
+		resourceViewManager.get(),
 		entityManager.get(),
 		componentManager.get(),
 		systemManager.get(),

@@ -94,13 +94,19 @@ public:// メンバ関数
 
 	uint32_t CreateMeshResource(const std::string& name, const uint32_t& vertices, const uint32_t& indices);
 
-	void MeshMap(const uint32_t& index, const std::string& name,const std::string& modelName);
+	void ModelMeshMap(const uint32_t& index, const std::string& name,const std::string& modelName);
 
 	void AddModel(const std::string& name);
 
 	ModelData* GetModelData(const std::string& name);
 
 	const std::unordered_map<std::string, std::unique_ptr<ModelData>>& GetModels() { return modelContainer; }
+
+	const std::unordered_map<std::string, std::unique_ptr<SpriteMeshData>>& GetSprites() { return spriteContainer; }
+
+	SpriteMeshData* GetSpriteData(const std::string& name);
+
+	std::string CreateSpriteData(const std::string& name);
 private:
 
 	uint32_t Allocate();
@@ -162,6 +168,9 @@ private:// メンバ変数
 
 	// Modelコンテナ
 	std::unordered_map<std::string, std::unique_ptr<ModelData>> modelContainer;
+
+	// スプライトコンテナ
+	std::unordered_map<std::string, std::unique_ptr<SpriteMeshData>> spriteContainer;
 
 };
 

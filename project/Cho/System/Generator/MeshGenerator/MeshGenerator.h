@@ -7,6 +7,7 @@
 
 // MeshData
 #include"ConstantData/MeshData.h"
+#include"ConstantData/SpriteData.h"
 
 struct Meshs {
 	std::unordered_map <std::string, MeshData> meshData;
@@ -25,6 +26,9 @@ class MeshGenerator
 {
 public:
 	static Meshs GeneratorMeshs(MeshPattern pattern, ResourceViewManager* rvManager);
+
+	// スプライト生成
+	static void CreateSprite(SpriteMeshData& data, ResourceViewManager* rvManager);
 private:
 	// 球体生成
 	static VertexSize CreateSphere(MeshData& data, ResourceViewManager* rvManager);

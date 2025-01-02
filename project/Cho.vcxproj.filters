@@ -273,6 +273,9 @@
     <ClCompile Include="Cho\System\Editor\DebugCamera\DebugCamera.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Cho\System\ECS\System\SpriteSystem\SpriteSystem.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cho\System\WinApp\WinApp.h">
@@ -488,13 +491,28 @@
     <ClInclude Include="Cho\System\ConstantData\AnimationData.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\System\ConstantData\DebugTransform.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Cho\System\Load\MeshLoader\MeshLoader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\Editor\DebugCamera\DebugCamera.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\ConstantData\SpriteData.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\ConstantData\WorldTransform.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\ConstantData\ViewProjection.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\SpriteComponent\SpriteComponent.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\ECS\System\SpriteSystem\SpriteSystem.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\ConstantData\MaterialData.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -503,11 +521,14 @@
     <FxCompile Include="Cho\Resources\Shader\DemoOBJ.VS.hlsl" />
     <FxCompile Include="Cho\Resources\Shader\FullScreen.VS.hlsl" />
     <FxCompile Include="Cho\Resources\Shader\FullScreen.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\Sprite.VS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\Sprite.PS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Cho\Resources\Shader\header\Demo.hlsli" />
     <None Include="Cho\Resources\Shader\header\FullScreen.hlsli" />
     <None Include="Cho\Resources\ImGuiStyle\style.json" />
+    <None Include="Cho\Resources\Shader\header\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Cho\Resources\Texture\uvChecker.png">

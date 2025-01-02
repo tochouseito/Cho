@@ -251,3 +251,36 @@ VertexSize MeshGenerator::CreatePlane(MeshData& data, ResourceViewManager* rvMan
 #pragma endregion
 	return result;
 }
+
+void MeshGenerator::CreateSprite(SpriteMeshData& data, ResourceViewManager* rvManager)
+{
+	VertexSize result;
+
+	uint32_t vertices = 4;
+	uint32_t indices = 6;
+
+	data.size.vertices = vertices;
+	data.size.indices = indices;
+
+	data.meshViewIndex=rvManager->CreateMeshView(data.size.vertices, data.size.indices);
+
+	rvManager->GetMeshViewData(data.meshViewIndex)->vbvData.resource->Map(
+		0, nullptr, reinterpret_cast<void**>(&data.vertexData)
+	);
+
+	rvManager->GetMeshViewData(data.meshViewIndex)->ibvData.resource->Map(
+		0, nullptr, reinterpret_cast<void**>(&data.indexData)
+	);
+
+	data.vertexData[0] = { {0.0f,360.0f},{0.0f,1.0f} };  // 左下
+	data.vertexData[1] = { {0.0f,0.0f},{0.0f,0.0f} };	 // 左上
+	data.vertexData[2] = { {640.0f,360.0f},{1.0f,1.0f} };// 右下
+	data.vertexData[3] = { {640.0f,0.0f},{1.0f,0.0f} };	 // 右上
+	
+	data.indexData[0] = 0;
+	data.indexData[1] = 1;
+	data.indexData[2] = 2;
+	data.indexData[3] = 1;
+	data.indexData[4] = 3;
+	data.indexData[5] = 2;
+}

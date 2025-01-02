@@ -8,6 +8,8 @@
 #include<memory>
 #include <regex>
 
+class ResourceViewManager;
+
 // ECS
 class EntityManager;
 class ComponentManager;
@@ -22,6 +24,7 @@ public:
 	/// 初期化
 	/// </summary>
 	void Initialize(
+		ResourceViewManager* rvManager,
 		EntityManager* entityManager,
 		ComponentManager* componentManager,
 		SystemManager* systemManager,
@@ -52,6 +55,9 @@ public:
 
 	std::string AddCameraObject(const std::string& cameraName);
 
+	std::string AddSpriteObject(const std::string& spriteName);
+
+	// ベースオブジェクト
 	const std::unordered_map<std::string, std::unique_ptr<GameObject>>& GetGameObjects() const {
 		return gameObjects;
 	}
@@ -62,6 +68,7 @@ public:
 		return result;
 	}
 
+	// カメラ
 	const std::unordered_map<std::string, std::unique_ptr<GameObject>>& GetCameraObjects() const {
 		return cameraObjects;
 	}
@@ -71,8 +78,19 @@ public:
 		return result;
 	}
 
+	// スプライト
+	const std::unordered_map<std::string, std::unique_ptr<GameObject>>& GetSpriteObjects() const{
+		return spriteObjects;
+	}
+
+	GameObject* GetSpriteObject(const std::string& name) {
+		GameObject* result = spriteObjects[name].get();
+		return result;
+	}
+
 	std::string GameObjectListRename(const std::string& newName, const std::string& deleteName);
 	std::string CameraObjectListRename(const std::string& newName, const std::string& deleteName);
+	std::string SpriteObjectListRename(const std::string& newName, const std::string& deleteName);
 
 private:
 	// ユニークな名前を生成する関数
@@ -88,6 +106,9 @@ private:
 	/*シーンファクトリー*/
 	AbstractSceneFactory* sceneFactory_ = nullptr;
 
+	// ResourceManager
+	ResourceViewManager* rvManager_ = nullptr;
+
 	/*ECS*/
 	EntityManager* entityManager_ = nullptr;
 	ComponentManager* componentManager_ = nullptr;
@@ -97,5 +118,6 @@ private:
 	std::unordered_map<std::string, std::unique_ptr<GameObject>> gameObjects;
 	std::unordered_map<std::string, std::unique_ptr<GameObject>> cameraObjects;
 	//std::unordered_map<std::string, std::unique_ptr<GameObject>> lightObjects;
+	std::unordered_map<std::string, std::unique_ptr<GameObject>> spriteObjects;
 };
 

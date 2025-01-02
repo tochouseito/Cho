@@ -15,5 +15,5 @@ uint32_t MeshLoader::LoadMesh(const std::string& name,uint32_t& vertices, uint32
 
 void MeshLoader::Map(uint32_t& index, const std::string& name, const std::string& modelName)
 {
-	rvManager_->MeshMap(index, name,modelName);
+	rvManager_->ModelMeshMap(index, name,modelName);
 }

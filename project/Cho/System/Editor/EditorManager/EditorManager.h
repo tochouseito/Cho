@@ -75,6 +75,8 @@ public:
 
 	void CreateCamera();
 
+	void CreateSprite();
+
 	void UpdateFiles();
 
 	// debugCameraComponentGetter

@@ -24,3 +24,14 @@ struct MeshData {
 	VertexSize size;
 	uint32_t meshViewIndex = 0;
 };
+// スプライト用
+struct SpriteVertexData {
+	Vector2 position = { 0.0f };
+	Vector2 texcoord = { 0.0f };
+};
+struct SpriteMeshData {
+	SpriteVertexData* vertexData = nullptr;
+	uint32_t* indexData = nullptr;
+	VertexSize size;
+	uint32_t meshViewIndex = 0;
+};

@@ -1,12 +1,8 @@
 #pragma once
+#include"ConstantData/WorldTransform.h"
 #include"ChoMath.h"
 // Transform
-// 定数バッファ用データ構造体
-struct ConstBufferDataWorldTransform final{
-    Matrix4 matWorld; // ローカル → ワールド変換行列
-    Matrix4 worldInverse;
-    Matrix4 rootNode;// モデルのRootMatrix
-};
+
 struct TransformComponent final {
     Vector3 translation = { 0.0f, 0.0f, 0.0f };
     Quaternion rotation = { 0.0f, 0.0f, 0.0f,1.0f };

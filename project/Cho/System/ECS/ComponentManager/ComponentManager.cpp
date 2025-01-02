@@ -8,15 +8,15 @@
 
 void ComponentManager::SetRVManager(ResourceViewManager* RVManager)
 {
-    RVManager_ = RVManager;
+    rvManager_ = RVManager;
 }
 
 // EntityにTransformComponentを追加します。
 // 指定されたEntityにTransformComponentをTransformsマップに割り当てます。
 void ComponentManager::AddComponent(Entity entity, const TransformComponent& component) {
     transforms[entity] = component;
-    transforms[entity].cbvIndex = RVManager_->CreateCBV(sizeof(ConstBufferDataWorldTransform));
-    RVManager_->GetCBVResource(
+    transforms[entity].cbvIndex = rvManager_->CreateCBV(sizeof(ConstBufferDataWorldTransform));
+    rvManager_->GetCBVResource(
         transforms[entity].cbvIndex)->Map(
             0, nullptr, reinterpret_cast<void**>(&transforms[entity].constData)
         );
@@ -31,7 +31,6 @@ void ComponentManager::AddComponent(Entity entity, const TransformComponent& com
 void ComponentManager::AddComponent(Entity entity, const RenderComponent& component) {
     renders[entity] = component;
 	renders[entity].visible = true;
-	//renders[entity].textureID = "monsterBall.png";
 }
 
 // EntityにPhysicsComponentを追加します。
@@ -48,8 +47,8 @@ void ComponentManager::AddComponent(Entity entity, const MeshComponent& componen
 void ComponentManager::AddComponent(Entity entity, const CameraComponent& component)
 {
 	cameras[entity] = component;
-	cameras[entity].cbvIndex = RVManager_->CreateCBV(sizeof(ConstBufferDataViewProjection));
-	RVManager_->GetCBVResource(
+	cameras[entity].cbvIndex = rvManager_->CreateCBV(sizeof(ConstBufferDataViewProjection));
+	rvManager_->GetCBVResource(
 		cameras[entity].cbvIndex)->Map(
 			0, nullptr, reinterpret_cast<void**>(&cameras[entity].constData)
 		);
@@ -66,7 +65,19 @@ void ComponentManager::AddComponent(Entity entity, const MaterialComponent& comp
 {
     materials[entity] = component;
     // デフォルト画像テクスチャマテリアル
-    materials[entity].textureID = "uvChecker.png";
+    std::string texName= "uvChecker.png";
+    materials[entity].textureID = texName;
+    materials[entity].preTexID = texName;
+    materials[entity].cbvIndex = rvManager_->CreateCBV(sizeof(ConstBufferDataMaterial));
+    rvManager_->GetCBVResource(
+        materials[entity].cbvIndex)->Map(
+            0, nullptr, reinterpret_cast<void**>(&materials[entity].constData)
+        );
+    // 初期化
+    materials[entity].constData->matUV = ChoMath::MakeIdentity4x4();
+    materials[entity].constData->color = { 1.0f,1.0f,1.0f,1.0f };
+    materials[entity].constData->enableLighting = false;
+    materials[entity].constData->shininess = 50.0f;
 }
 
 void ComponentManager::AddComponent(Entity entity, const ScriptComponent& component)
@@ -83,9 +94,24 @@ void ComponentManager::AddComponent(Entity entity, const ScriptComponent& compon
     case ObjectType::Light:
         lightScripts[entity] = component;
         break;
+    case ObjectType::Sprite:
+        spriteScripts[entity] = component;
+        break;
     default:
         break;
     }
+}
+
+void ComponentManager::AddComponent(Entity entity, const SpriteComponent& component)
+{
+    sprites[entity] = component;
+    sprites[entity].cbvIndex = rvManager_->CreateCBV(sizeof(ConstBufferDataSprite));
+    rvManager_->GetCBVResource(
+        sprites[entity].cbvIndex)->Map(
+            0, nullptr, reinterpret_cast<void**>(&sprites[entity].constData)
+        );
+    // 初期化
+    sprites[entity].constData->matWorld = sprites[entity].matWorld;
 }
 
 // Entityに関連するすべてのコンポーネントを削除します。
@@ -100,8 +126,8 @@ void ComponentManager::RemoveComponent(Entity entity) {
 
 void ComponentManager::InitCameraComponent(CameraComponent* camera)
 {
-    camera->cbvIndex=RVManager_->CreateCBV(sizeof(ConstBufferDataViewProjection));
-    RVManager_->GetCBVResource(
+    camera->cbvIndex=rvManager_->CreateCBV(sizeof(ConstBufferDataViewProjection));
+    rvManager_->GetCBVResource(
         camera->cbvIndex)->Map(
             0, nullptr, reinterpret_cast<void**>(&camera->constData)
         );
