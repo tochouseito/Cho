@@ -6,7 +6,7 @@
 
 void SpriteSystem::Initialize(EntityManager& entityManager, ComponentManager& componentManager)
 {
-    for (Entity entity : entityManager.GetActiveEntities()) {
+    for (Entity entity : entityManager.GetSpriteEntities()) {
         SpriteComponent* comp = componentManager.GetSprite(entity);
 
         if (comp) {
@@ -17,7 +17,7 @@ void SpriteSystem::Initialize(EntityManager& entityManager, ComponentManager& co
 
 void SpriteSystem::Update(EntityManager& entityManager, ComponentManager& componentManager)
 {
-    for (Entity entity : entityManager.GetActiveEntities()) {
+    for (Entity entity : entityManager.GetSpriteEntities()) {
         SpriteComponent* comp = componentManager.GetSprite(entity);
 
         if (comp) {
@@ -80,7 +80,6 @@ void SpriteSystem::TransferMatrix(SpriteComponent* comp)
     // マテリアル
     comp->material.constData->color = comp->material.color;
     comp->material.constData->matUV = comp->material.matUV;
-    comp->material.constData->shininess = comp->material.shininess;
 }
 
 void SpriteSystem::SetVertexData(SpriteComponent* comp, const float& left, const float& right, const float& top, const float& bottom, const float& tex_left, const float& tex_right, const float& tex_top, const float& tex_bottom)

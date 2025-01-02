@@ -15,6 +15,8 @@ public:
 
     void CreateCameraEntity();
 
+    void CreateSpriteEntity();
+
     void SetManager(EntityManager* em, ComponentManager* cm);
 
     // 親オブジェクトを設定します。

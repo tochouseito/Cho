@@ -13,6 +13,8 @@ public:
 
     Entity CreateCameraEntity();
 
+    Entity CreateSpriteEntity();
+
     // 指定されたエンティティを破棄します。
     void DestroyEntity(Entity entity);
 
@@ -23,6 +25,10 @@ public:
 
     inline const std::vector<Entity>& GetCameraEntities() const {
         return cameraEntities;
+    }
+
+    inline const std::vector<Entity>& GetSpriteEntities() {
+        return spriteEntities;
     }
 
     void SetCameraID(Entity entity);
@@ -38,5 +44,9 @@ private:
     uint32_t nextCameraID = 0;
     std::vector<Entity> cameraEntities;
     Entity nowCameraID = 0;
+
+    uint32_t nextSpriteID = 0;
+    std::vector<Entity> spriteEntities;
+
 };
 

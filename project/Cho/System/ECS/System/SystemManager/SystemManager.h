@@ -9,6 +9,7 @@
 #include"ECS/System/ScriptSystem/ScriptSystem.h"
 #include"ECS/System/TransformSystem/TransformSystem.h"
 #include"ECS/System/SpriteSystem/SpriteSystem.h"
+#include"ECS/System/MaterialSystem/MaterialSystem.h"
 
 class D3DCommand;
 class ResourceViewManager;
@@ -63,6 +64,7 @@ private:
     ScriptSystem scriptSystem;
     TransformSystem transformSystem;
     SpriteSystem spriteSystem;
+    MaterialSystem materialSystem;
 
 
     EntityManager* entityManager_ = nullptr;

@@ -107,7 +107,7 @@ std::string SceneManager::AddSpriteObject(const std::string& spriteName)
 	GameObject* spriteObject = spriteObjects[newName].get();
 	spriteObject->SetName(newName);
 	spriteObject->SetManager(entityManager_, componentManager_);
-	spriteObject->CreateEntity();
+	spriteObject->CreateSpriteEntity();
 
 	rvManager_->CreateSpriteData(newName);
 

@@ -207,6 +207,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClCompile Include="Cho\System\SaveManager\SaveManager.cpp" />
     <ClCompile Include="Cho\System\Load\MeshLoader\MeshLoader.cpp" />
     <ClCompile Include="Cho\System\ECS\System\SpriteSystem\SpriteSystem.cpp" />
+    <ClCompile Include="Cho\System\ECS\System\MaterialSystem\MaterialSystem.cpp" />
     <ClInclude Include="Cho\System\ConstantData\AnimationData.h" />
     <ClInclude Include="Cho\System\ConstantData\MaterialData.h" />
     <ClInclude Include="Cho\System\ConstantData\MeshData.h" />
@@ -286,6 +287,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClInclude Include="Cho\System\Load\MeshLoader\MeshLoader.h" />
     <ClInclude Include="Cho\System\Editor\DebugCamera\DebugCamera.h" />
     <ClInclude Include="Cho\System\ECS\System\SpriteSystem\SpriteSystem.h" />
+    <ClInclude Include="Cho\System\ECS\System\MaterialSystem\MaterialSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\ChoMath\ChoMath.vcxproj">

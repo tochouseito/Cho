@@ -13,6 +13,12 @@ void GameObject::CreateCameraEntity()
     type = ObjectType::Camera;
 }
 
+void GameObject::CreateSpriteEntity()
+{
+    entity = entityManager->CreateSpriteEntity();
+    type = ObjectType::Sprite;
+}
+
 void GameObject::SetManager(EntityManager* em, ComponentManager* cm)
 {
     entityManager = em;

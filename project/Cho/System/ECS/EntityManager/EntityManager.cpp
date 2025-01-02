@@ -17,6 +17,14 @@ Entity EntityManager::CreateCameraEntity()
     return entity;
 }
 
+Entity EntityManager::CreateSpriteEntity()
+{
+    Entity entity = nextSpriteID;  // 次のエンティティIDを生成します。
+    nextSpriteID++;
+    spriteEntities.push_back(entity);  // アクティブなエンティティリストに追加します。
+    return entity;
+}
+
 // 指定されたエンティティを破棄します。
 inline void EntityManager::DestroyEntity(Entity entity) {
     // 指定されたエンティティをアクティブリストから削除します。
