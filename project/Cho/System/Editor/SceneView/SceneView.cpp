@@ -64,12 +64,12 @@ void SceneView::GameView(const uint32_t& cameraIndex)
 
     // 移動を無効にするフラグ
     ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse;
-    // ウィンドウの開始
-    ImGui::Begin("Scene View", nullptr,windowFlags);
 
-    // ウィンドウの位置とサイズを取得
-    ImVec2 windowPos = ImGui::GetWindowPos();
-    ImVec2 windowSize = ImGui::GetWindowSize();
+    // ウィンドウの開始
+    ImGui::Begin("Scene View", nullptr, windowFlags);
+
+    // ウィンドウ内の描画可能領域を取得
+    ImVec2 contentRegion = ImGui::GetContentRegionAvail();
 
     // 固定解像度のテクスチャサイズ
     ImVec2 textureResolution = {
@@ -77,17 +77,18 @@ void SceneView::GameView(const uint32_t& cameraIndex)
         static_cast<float>(WindowHeight())
     };
 
-    // アスペクト比を維持しつつ、ウィンドウ内に収まるようにスケーリング係数を計算
-    float scaleX = windowSize.x / textureResolution.x;
-    float scaleY = windowSize.y / textureResolution.y;
+    // アスペクト比を維持しつつ、ウィンドウ内の描画可能領域に収まるようにスケーリング係数を計算
+    float scaleX = contentRegion.x / textureResolution.x;
+    float scaleY = contentRegion.y / textureResolution.y;
     float scale = std::min(scaleX, scaleY);
 
     // スケーリング後のテクスチャサイズを計算
     ImVec2 scaledTextureSize = ImVec2(textureResolution.x * scale, textureResolution.y * scale);
 
     // 描画位置のオフセットを計算（ウィンドウの中央に配置するため）
-    float offsetX = windowPos.x + (windowSize.x - scaledTextureSize.x) * 0.5f;
-    float offsetY = windowPos.y + (windowSize.y - scaledTextureSize.y) * 0.5f;
+    ImVec2 cursorPos = ImGui::GetCursorScreenPos();
+    float offsetX = cursorPos.x + (contentRegion.x - scaledTextureSize.x) * 0.5f;
+    float offsetY = cursorPos.y + (contentRegion.y - scaledTextureSize.y) * 0.5f;
 
     // カーソル位置を設定し、スクリーン上にテクスチャを中央に描画
     ImGui::SetCursorScreenPos(ImVec2(offsetX, offsetY));
@@ -100,8 +101,8 @@ void SceneView::GameView(const uint32_t& cameraIndex)
     // "Scene View" 上にカーソルがあるとき、右クリックメニューを開かないようにする
     if (ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup)) {
         excludeRightClickMenu = true;
-    } else
-    {
+    }
+    else {
         excludeRightClickMenu = false;
     }
 
@@ -111,3 +112,5 @@ void SceneView::GameView(const uint32_t& cameraIndex)
     // スタイルを元に戻す
     ImGui::PopStyleVar();
 }
+
+
