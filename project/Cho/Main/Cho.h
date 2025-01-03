@@ -39,6 +39,7 @@ class SceneManager;
 
 // 汎用機能
 class InputManager;
+class AudioManager;
 class ImGuiManager;
 
 // Editor
@@ -165,6 +166,7 @@ private:// メンバ変数
 
 	/*汎用機能*/
 	static std::unique_ptr<InputManager> inputManager;
+	static std::unique_ptr<AudioManager> audioManager;
 	static std::unique_ptr<ImGuiManager> imguiManager;
 
 	/*Editor*/
