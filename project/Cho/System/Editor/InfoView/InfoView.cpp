@@ -264,9 +264,15 @@ void InfoView::Update()
 
                 // 回転の操作
                 ImGui::DragFloat("ZRotate", &spriteCompo.rotation, 0.01f);
+
+                // スケールの操作
+                ImGui::DragFloat2("Scale", &spriteCompo.scale.x, 0.01f);
+
+                ImGui::Checkbox("visible", &spriteCompo.render.visible);
             }
 
             if (isAdd) {
+                
                 if (!selectGO->GetSprite()) {
                     if (ImGui::Selectable("SpriteComponent")) {
                         isAdd = false;

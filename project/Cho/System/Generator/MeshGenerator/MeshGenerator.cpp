@@ -262,7 +262,7 @@ void MeshGenerator::CreateSprite(SpriteMeshData& data, ResourceViewManager* rvMa
 	data.size.vertices = vertices;
 	data.size.indices = indices;
 
-	data.meshViewIndex=rvManager->CreateMeshView(data.size.vertices, data.size.indices);
+	data.meshViewIndex = rvManager->CreateMeshView(data.size.vertices, data.size.indices,sizeof(SpriteVertexData));
 
 	rvManager->GetMeshViewData(data.meshViewIndex)->vbvData.resource->Map(
 		0, nullptr, reinterpret_cast<void**>(&data.vertexData)
@@ -272,15 +272,20 @@ void MeshGenerator::CreateSprite(SpriteMeshData& data, ResourceViewManager* rvMa
 		0, nullptr, reinterpret_cast<void**>(&data.indexData)
 	);
 
-	data.vertexData[0] = { {0.0f,360.0f},{0.0f,1.0f} };  // 左下
-	data.vertexData[1] = { {0.0f,0.0f},{0.0f,0.0f} };	 // 左上
-	data.vertexData[2] = { {640.0f,360.0f},{1.0f,1.0f} };// 右下
-	data.vertexData[3] = { {640.0f,0.0f},{1.0f,0.0f} };	 // 右上
-	
-	data.indexData[0] = 0;
-	data.indexData[1] = 1;
-	data.indexData[2] = 2;
-	data.indexData[3] = 1;
-	data.indexData[4] = 3;
-	data.indexData[5] = 2;
+	data.vertexData[0] = { {0.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 0.0f} };    // 左上
+	data.vertexData[1] = { {640.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f} };  // 右上
+	data.vertexData[2] = { {0.0f, 360.0f, 0.0f, 1.0f}, {0.0f, 1.0f} };  // 左下
+	data.vertexData[3] = { {640.0f, 360.0f, 0.0f, 1.0f}, {1.0f, 1.0f} }; // 右下
+
+
+	// インデックスバッファ (反時計回り CCW)
+	data.indexData[0] = 0;  // 左上
+	data.indexData[1] = 1;  // 右上
+	data.indexData[2] = 2;  // 左下
+
+	data.indexData[3] = 1;  // 右上
+	data.indexData[4] = 3;  // 右下
+	data.indexData[5] = 2;  // 左下
+
+
 }

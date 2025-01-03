@@ -66,7 +66,7 @@ public:// メンバ関数
 
 	ID3D12Resource* GetCBVResource(const uint32_t& index);
 
-	uint32_t CreateMeshView(const uint32_t& vertices, const uint32_t& indices);
+	uint32_t CreateMeshView(const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes);
 
 	MeshView* GetMeshViewData(const uint32_t& index);
 
@@ -102,11 +102,11 @@ public:// メンバ関数
 
 	const std::unordered_map<std::string, std::unique_ptr<ModelData>>& GetModels() { return modelContainer; }
 
-	const std::unordered_map<std::string, std::unique_ptr<SpriteMeshData>>& GetSprites() { return spriteContainer; }
+	const std::unordered_map<uint32_t, std::unique_ptr<SpriteMeshData>>& GetSprites() { return spriteContainer; }
 
-	SpriteMeshData* GetSpriteData(const std::string& name);
+	SpriteMeshData* GetSpriteData(const uint32_t& index);
 
-	std::string CreateSpriteData(const std::string& name);
+	uint32_t CreateSpriteData();
 private:
 
 	uint32_t Allocate();
@@ -122,7 +122,9 @@ private:
 	uint32_t MeshViewAllocate();
 
 	// VBVリソース作成
-	MeshView CreateMeshViewResource(const uint32_t& vertices, const uint32_t& indices);
+	MeshView CreateMeshViewResource(const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes);
+
+	uint32_t SpriteAllocate();
 
 private:// メンバ変数
 
@@ -169,8 +171,11 @@ private:// メンバ変数
 	// Modelコンテナ
 	std::unordered_map<std::string, std::unique_ptr<ModelData>> modelContainer;
 
+
+	// 次に使用するスプライトインデックス
+	uint32_t useSpriteIndex_ = 0;
 	// スプライトコンテナ
-	std::unordered_map<std::string, std::unique_ptr<SpriteMeshData>> spriteContainer;
+	std::unordered_map<uint32_t, std::unique_ptr<SpriteMeshData>> spriteContainer;
 
 };
 

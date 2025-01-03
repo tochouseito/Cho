@@ -71,7 +71,7 @@ ID3D12Resource* ResourceViewManager::GetCBVResource(const uint32_t& index)
 	return CBVResources[index].Get();
 }
 
-uint32_t ResourceViewManager::CreateMeshView(const uint32_t& vertices, const uint32_t& indices)
+uint32_t ResourceViewManager::CreateMeshView(const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes)
 {
 	uint32_t index = MeshViewAllocate();
 
@@ -79,7 +79,7 @@ uint32_t ResourceViewManager::CreateMeshView(const uint32_t& vertices, const uin
 
 	//size_t sizeInBytes = sizeof(VertexData);
 
-	meshView = CreateMeshViewResource(vertices,indices);
+	meshView = CreateMeshViewResource(vertices,indices,sizeInBytes);
 
 	return index;
 }
@@ -204,27 +204,23 @@ void ResourceViewManager::CreateRenderTextureResource(const uint32_t& index, con
 }
 
 
-SpriteMeshData* ResourceViewManager::GetSpriteData(const std::string& name)
+SpriteMeshData* ResourceViewManager::GetSpriteData(const uint32_t& index)
 {
-	if (!spriteContainer.contains(name)) {
+	if (!spriteContainer.contains(index)) {
 		return nullptr;
 	}
-	return spriteContainer[name].get();
+	return spriteContainer[index].get();
 }
 
-std::string ResourceViewManager::CreateSpriteData(const std::string& name)
+uint32_t ResourceViewManager::CreateSpriteData()
 {
-	if (spriteContainer.contains(name)) {
-		return name;
-	}
-
-	SpriteMeshData* data = spriteContainer[name].get();
+	uint32_t index = SpriteAllocate();
+	spriteContainer[index] = std::make_unique<SpriteMeshData>();
+	SpriteMeshData* data = spriteContainer[index].get();
 
 	MeshGenerator::CreateSprite(*data, this);
 
-	spriteContainer[name];
-
-	return name;
+	return index;
 }
 
 uint32_t ResourceViewManager::Allocate()
@@ -308,11 +304,11 @@ uint32_t ResourceViewManager::MeshViewAllocate()
 	return index;
 }
 
-MeshView ResourceViewManager::CreateMeshViewResource(const uint32_t& vertices, const uint32_t& indices)
+MeshView ResourceViewManager::CreateMeshViewResource(const uint32_t& vertices, const uint32_t& indices,const size_t& sizeInBytes)
 {
 	MeshView meshView;
 
-	size_t sizeInBytes = sizeof(VertexData);
+	//size_t sizeInBytes = sizeof(VertexData);
 
 	meshView.vbvData.resource = CreateBufferResource(sizeInBytes * static_cast<size_t>(vertices));
 
@@ -327,12 +323,19 @@ MeshView ResourceViewManager::CreateMeshViewResource(const uint32_t& vertices, c
 	meshView.vbvData.vbv.StrideInBytes = static_cast<UINT>(sizeInBytes);
 
 	// インデックスバッファービューを作成する
-	meshView.ibvData.resource = CreateBufferResource(sizeInBytes * static_cast<size_t>(indices));
+	meshView.ibvData.resource = CreateBufferResource(sizeof(uint32_t) * static_cast<size_t>(indices));
 	meshView.ibvData.ibv.BufferLocation = meshView.ibvData.resource->GetGPUVirtualAddress();
-	meshView.ibvData.ibv.SizeInBytes = static_cast<UINT>(sizeInBytes * indices);
+	meshView.ibvData.ibv.SizeInBytes = static_cast<UINT>(sizeof(uint32_t) * indices);
 	meshView.ibvData.ibv.Format = DXGI_FORMAT_R32_UINT;
 
 	return meshView;
+}
+
+uint32_t ResourceViewManager::SpriteAllocate()
+{
+	uint32_t index = useSpriteIndex_;
+	useSpriteIndex_++;
+	return index;
 }
 
 void ResourceViewManager::CreateMeshPattern()
@@ -356,12 +359,12 @@ void ResourceViewManager::CreateMeshViewDMP(const uint32_t& index, const  uint32
 
 	//size_t sizeInBytes = sizeof(VertexData);
 
-	meshView = CreateMeshViewResource(vertices,indices);
+	meshView = CreateMeshViewResource(vertices,indices,sizeof(VertexData));
 }
 
 uint32_t ResourceViewManager::CreateMeshResource(const std::string& name, const uint32_t& vertices, const uint32_t& indices)
 {
-	uint32_t index = CreateMeshView(vertices, indices);
+	uint32_t index = CreateMeshView(vertices, indices,sizeof(VertexData));
 
 	std::unique_ptr<Meshs> mesh = std::make_unique<Meshs>();
 

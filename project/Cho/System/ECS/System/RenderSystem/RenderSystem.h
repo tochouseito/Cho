@@ -27,5 +27,24 @@ public:
 		TextureLoader* texLoad,
 		const CameraComponent& camera
 		);
+
+private:
+	void ObjectRender(
+		EntityManager& entityManager,
+		ComponentManager& componentManager,
+		D3DCommand* d3dCommand,
+		ResourceViewManager* rvManager,
+		GraphicsSystem* graphicsSystem,
+		TextureLoader* texLoad
+	);
+
+	void SpriteRender(
+		EntityManager& entityManager,
+		ComponentManager& componentManager,
+		D3DCommand* d3dCommand,
+		ResourceViewManager* rvManager,
+		GraphicsSystem* graphicsSystem,
+		TextureLoader* texLoad
+	);
 };
 

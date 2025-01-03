@@ -109,8 +109,6 @@ std::string SceneManager::AddSpriteObject(const std::string& spriteName)
 	spriteObject->SetManager(entityManager_, componentManager_);
 	spriteObject->CreateSpriteEntity();
 
-	rvManager_->CreateSpriteData(newName);
-
 	return newName;
 }
 

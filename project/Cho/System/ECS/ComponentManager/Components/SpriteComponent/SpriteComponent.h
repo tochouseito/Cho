@@ -20,13 +20,14 @@ struct SpriteComponent final {
 	Vector2 uvScale = { 1.0f,1.0f };
 
 	MaterialComponent material;
+	RenderComponent render;
 
 	Vector2 anchorPoint = { 0.0f,0.0f };// アンカーポイント
-	Vector2 size = { 640.0f,360.0f };// サイズ
+	Vector2 size = { 64.0f,64.0f };// サイズ
 	Vector2 textureLeftTop = { 0.0f,0.0f };// テクスチャの左上座標
-	Vector2 textureSize = { 100.0f,100.0f };// テクスチャのサイズ
+	Vector2 textureSize = { 64.0f,64.0f };// テクスチャのサイズ
 
-	std::string spriteName = "";
+	uint32_t spriteIndex = 0;
 
 	BlendMode blendMode = BlendMode::kBlendModeNone;// ブレンドモード
 

@@ -110,6 +110,12 @@ void ComponentManager::AddComponent(Entity entity, const SpriteComponent& compon
         sprites[entity].cbvIndex)->Map(
             0, nullptr, reinterpret_cast<void**>(&sprites[entity].constData)
         );
+    sprites[entity].spriteIndex= rvManager_->CreateSpriteData();
+    sprites[entity].material.cbvIndex = rvManager_->CreateCBV(sizeof(ConstBufferDataMaterial));
+    rvManager_->GetCBVResource(
+        sprites[entity].material.cbvIndex)->Map(
+            0, nullptr, reinterpret_cast<void**>(&sprites[entity].material.constData)
+        );
     // 初期化
     sprites[entity].constData->matWorld = sprites[entity].matWorld;
 }

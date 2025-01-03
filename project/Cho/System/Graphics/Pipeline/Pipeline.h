@@ -31,6 +31,8 @@ public:
 
 	void CreatePSOScreenCopy();
 
+	void CreatePSOSprite();
+
 	PSOBlend& GetPSO(uint32_t index) { return psoBlends[index]; }
 
 private:

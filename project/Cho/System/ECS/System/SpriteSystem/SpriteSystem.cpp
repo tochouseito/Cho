@@ -36,9 +36,9 @@ void SpriteSystem::UpdateMatrix(SpriteComponent* comp)
     }
 
     float left = 0.0f - comp->anchorPoint.x;
-    float right = 1.0f - comp->anchorPoint.x;
+    float right = comp->textureSize.x - comp->anchorPoint.x;
     float top = 0.0f - comp->anchorPoint.y;
-    float bottom = 1.0f - comp->anchorPoint.y;
+    float bottom = comp->textureSize.y - comp->anchorPoint.y;
 
     float tex_left = comp->textureLeftTop.x / comp->textureSize.x;
     float tex_right = (comp->textureLeftTop.x + comp->textureSize.x) / comp->textureSize.x;
@@ -47,7 +47,7 @@ void SpriteSystem::UpdateMatrix(SpriteComponent* comp)
 
     SetVertexData(comp, left, right, top, bottom, tex_left, tex_right, tex_top, tex_bottom);
 
-    comp->scale = comp->size;
+    //comp->scale = comp->size;
 
     Matrix4 worldMatrixSprite = ChoMath::MakeAffineMatrix(Vector3(comp->scale.x, comp->scale.y, 1.0f), Vector3(0.0f, 0.0f, comp->rotation), Vector3(comp->position.x, comp->position.y, 0.0f));
 
@@ -78,37 +78,30 @@ void SpriteSystem::TransferMatrix(SpriteComponent* comp)
     comp->constData->matWorld = comp->matWorld;
 
     // マテリアル
-    comp->material.constData->color = comp->material.color;
-    comp->material.constData->matUV = comp->material.matUV;
+    if (comp->material.constData) {
+        comp->material.constData->color = comp->material.color;
+        comp->material.constData->matUV = comp->material.matUV;
+    }
 }
 
 void SpriteSystem::SetVertexData(SpriteComponent* comp, const float& left, const float& right, const float& top, const float& bottom, const float& tex_left, const float& tex_right, const float& tex_top, const float& tex_bottom)
 {
-   SpriteMeshData* data= rvManager_->GetSpriteData(comp->spriteName);
+   SpriteMeshData* data= rvManager_->GetSpriteData(comp->spriteIndex);
 
    if (!data) {
        return;
    }
    
-   data->vertexData[0].position = { left,bottom};// 左下
+   data->vertexData[0].position = { left,bottom,0.0f,1.0f};// 左下
    data->vertexData[0].texcoord = { tex_left,tex_bottom };
    
    data->vertexData[1].position = { left,top};// 左上
    data->vertexData[1].texcoord = { tex_left,tex_top };
    
-   data->vertexData[2].position = { right,bottom};// 右下
+   data->vertexData[2].position = { right,bottom,0.0f,1.0f };// 右下
    data->vertexData[2].texcoord = { tex_right,tex_bottom };
    
-   data->vertexData[3].position = { right,top};// 左上
+   data->vertexData[3].position = { right,top,0.0f,1.0f };// 左上
    data->vertexData[3].texcoord = { tex_right,tex_top };
-   
-   data->vertexData[3].position = { left,top};// 左下
-   data->vertexData[3].texcoord = { tex_left,tex_top };
-   
-   data->vertexData[4].position = { right,top};// 左上
-   data->vertexData[4].texcoord = { tex_right,tex_top };
-   
-   data->vertexData[5].position = { right,bottom};// 右下
-   data->vertexData[5].texcoord = { tex_right,tex_bottom };
    
 }

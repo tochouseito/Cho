@@ -1,4 +1,4 @@
 #pragma once
 struct RenderComponent final{
-    bool visible;
+    bool visible = true;
 };

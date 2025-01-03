@@ -26,7 +26,7 @@ struct MeshData {
 };
 // スプライト用
 struct SpriteVertexData {
-	Vector2 position = { 0.0f };
+	Vector4 position = { 0.0f };
 	Vector2 texcoord = { 0.0f };
 };
 struct SpriteMeshData {
