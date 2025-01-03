@@ -36,6 +36,7 @@
 #include"Scene/SceneManager/SceneManager.h"
 
 // 汎用機能
+#include"Input/InputManager.h"
 #include"UI/ImGuiManager/ImGuiManager.h"
 
 // Editor
@@ -87,6 +88,7 @@ std::unique_ptr<PrefabManager> Cho::prefabManager = nullptr;
 std::unique_ptr<SceneManager> Cho::sceneManager = nullptr;
 
 // 汎用機能
+std::unique_ptr<InputManager> Cho::inputManager = nullptr;
 std::unique_ptr<ImGuiManager> Cho::imguiManager = nullptr;
 
 // Editor
@@ -185,6 +187,10 @@ void Cho::Initialize()
 #pragma endregion
 
 #pragma region 汎用機能初期化
+
+	// Input
+	inputManager = std::make_unique<InputManager>();
+	inputManager->Initialize(win.get());
 
 	// TextureLoader
 	textureLoader = std::make_unique<TextureLoader>();
@@ -349,6 +355,8 @@ void Cho::Update()
 	imguiManager->Begin();
 
 	SelectGameProject();
+
+	inputManager->Update();
 
 	// エディタを更新
 	editorManager->Update();

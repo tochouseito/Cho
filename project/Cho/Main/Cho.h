@@ -38,6 +38,7 @@ class PrefabManager;
 class SceneManager;
 
 // 汎用機能
+class InputManager;
 class ImGuiManager;
 
 // Editor
@@ -163,6 +164,7 @@ private:// メンバ変数
 	static std::unique_ptr<SceneManager> sceneManager;
 
 	/*汎用機能*/
+	static std::unique_ptr<InputManager> inputManager;
 	static std::unique_ptr<ImGuiManager> imguiManager;
 
 	/*Editor*/
