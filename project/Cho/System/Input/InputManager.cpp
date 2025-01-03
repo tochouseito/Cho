@@ -1,6 +1,7 @@
 #include "PrecompiledHeader.h"
 #include "InputManager.h"
 #include"WinApp/WinApp.h"
+#include<assert.h>
 
 void InputManager::Initialize(WinApp* winApp)
 {

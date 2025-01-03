@@ -176,6 +176,7 @@ void AudioManager::SetVolume(SoundData& soundData, float volume)
 	if (soundData.pSourceVoice) {
 		// ボリュームを設定する
 		HRESULT result = soundData.pSourceVoice->SetVolume(volume);
+		result;
 		assert(SUCCEEDED(result)); // ボリューム設定が失敗した場合にアサート
 
 		// 現在のボリューム値を保存
