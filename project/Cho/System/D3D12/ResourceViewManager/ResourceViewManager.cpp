@@ -145,7 +145,25 @@ void ResourceViewManager::UploadTextureDataEx(const uint32_t& index, const Direc
 	uploadResources.push_back(intermediateResource);
 }
 
-void ResourceViewManager::CreateSRVForTexture2D(const uint32_t& index, DXGI_FORMAT Format, UINT MipLevels)
+void ResourceViewManager::CreateUAVforStructuredBuffer(const uint32_t& index, const UINT& numElements, const UINT& structuredByteStride)
+{
+	D3D12_UNORDERED_ACCESS_VIEW_DESC uavDesc{};
+	uavDesc.Format = DXGI_FORMAT_UNKNOWN;
+	uavDesc.ViewDimension = D3D12_UAV_DIMENSION_BUFFER;
+	uavDesc.Buffer.FirstElement = 0;
+	uavDesc.Buffer.Flags = D3D12_BUFFER_UAV_FLAG_NONE;
+	uavDesc.Buffer.NumElements = numElements;
+	uavDesc.Buffer.StructureByteStride = structuredByteStride;
+	
+	d3dDevice_->GetDevice()->CreateUnorderedAccessView(
+		handles[index].resource.Get(),
+		nullptr,
+		&uavDesc,
+		handles[index].CPUHandle
+	);
+}
+
+void ResourceViewManager::CreateSRVForTexture2D(const uint32_t& index, const DXGI_FORMAT& Format, const UINT& MipLevels)
 {
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
 

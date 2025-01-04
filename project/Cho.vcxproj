@@ -212,15 +212,19 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClCompile Include="Cho\System\Graphics\ParticleManager\ParticleManager.cpp" />
     <ClInclude Include="Cho\System\Audio\AudioManager.h" />
     <ClInclude Include="Cho\System\ConstantData\AnimationData.h" />
+    <ClInclude Include="Cho\System\ConstantData\EmitterData.h" />
     <ClInclude Include="Cho\System\ConstantData\MaterialData.h" />
     <ClInclude Include="Cho\System\ConstantData\MeshData.h" />
     <ClInclude Include="Cho\System\ConstantData\ModelData.h" />
+    <ClInclude Include="Cho\System\ConstantData\ParticleData.h" />
     <ClInclude Include="Cho\System\ConstantData\SpriteData.h" />
     <ClInclude Include="Cho\System\ConstantData\ViewProjection.h" />
     <ClInclude Include="Cho\System\ConstantData\WorldTransform.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\CameraComponent\CameraComponent.h" />
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\EmitterComponent\EmitterComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\MaterialComponent\MaterialComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\MeshComponent\MeshComponenth.h" />
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\ParticleComponent\ParticleComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\PhysicsComponent\PhysicsComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\RenderComponent\RenderComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\SpriteComponent\SpriteComponent.h" />
@@ -325,6 +329,18 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
+    <FxCompile Include="Cho\Resources\Shader\Particle.PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Cho\Resources\Shader\Particle.VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
     <FxCompile Include="Cho\Resources\Shader\Sprite.VS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
@@ -342,6 +358,8 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <None Include="Cho\Resources\ImGuiStyle\style.json" />
     <None Include="Cho\Resources\Shader\header\Demo.hlsli" />
     <None Include="Cho\Resources\Shader\header\FullScreen.hlsli" />
+    <None Include="Cho\Resources\Shader\header\Particle.hlsli" />
+    <None Include="Cho\Resources\Shader\header\Random.hlsli" />
     <None Include="Cho\Resources\Shader\header\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>

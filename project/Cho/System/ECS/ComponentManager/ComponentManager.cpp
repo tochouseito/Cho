@@ -3,9 +3,6 @@
 
 #include"D3D12/ResourceViewManager/ResourceViewManager.h"
 
-// 後で消す
-#include<numbers>
-
 void ComponentManager::SetRVManager(ResourceViewManager* RVManager)
 {
     rvManager_ = RVManager;
@@ -118,6 +115,32 @@ void ComponentManager::AddComponent(Entity entity, const SpriteComponent& compon
         );
     // 初期化
     sprites[entity].constData->matWorld = sprites[entity].matWorld;
+}
+
+void ComponentManager::AddComponent(Entity entity, const ParticleComponent& component)
+{
+    particles[entity] = component;
+    particles[entity].uavIndex = rvManager_->GetNewHandle();
+
+    // UAV作成
+    rvManager_->CreateUAVforStructuredBuffer(
+        particles[entity].uavIndex,
+        kMaxParticle,
+        sizeof(ConstBufferDataParticle)
+    );
+    // 初期化
+}
+
+void ComponentManager::AddComponent(Entity entity, const EmitterComponent& component)
+{
+    emitters[entity] = component;
+    emitters[entity].cbvIndex = rvManager_->CreateCBV(sizeof(ConstBufferDataEmitter));
+
+    rvManager_->GetCBVResource(
+        emitters[entity].cbvIndex)->Map(
+            0, nullptr, reinterpret_cast<void**>(&emitters[entity].constData)
+        );
+    // 初期化
 }
 
 // Entityに関連するすべてのコンポーネントを削除します。

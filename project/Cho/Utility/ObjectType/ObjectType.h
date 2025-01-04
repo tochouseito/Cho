@@ -4,5 +4,6 @@ enum class ObjectType {
     Object,
     Camera,
     Light,
-    Sprite
+    Sprite,
+    Particle
 };

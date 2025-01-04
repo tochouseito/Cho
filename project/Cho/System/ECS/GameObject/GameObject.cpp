@@ -19,6 +19,12 @@ void GameObject::CreateSpriteEntity()
     type = ObjectType::Sprite;
 }
 
+void GameObject::CreateParticleEntity()
+{
+    entity = entityManager->CreateParticleEntity();
+    type = ObjectType::Particle;
+}
+
 void GameObject::SetManager(EntityManager* em, ComponentManager* cm)
 {
     entityManager = em;

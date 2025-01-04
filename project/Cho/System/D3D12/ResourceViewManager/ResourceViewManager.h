@@ -74,7 +74,9 @@ public:// メンバ関数
 
 	void UploadTextureDataEx(const uint32_t& index,const DirectX::ScratchImage& mipImages);
 
-	void CreateSRVForTexture2D(const uint32_t& index, DXGI_FORMAT Format, UINT MipLevels);
+	void CreateUAVforStructuredBuffer(const uint32_t& index,const UINT& numElements, const UINT& structuredByteStride);
+
+	void CreateSRVForTexture2D(const uint32_t& index, const DXGI_FORMAT& Format, const UINT& MipLevels);
 
 	void CreateRenderTextureResource(
 		const uint32_t& index,
@@ -137,7 +139,7 @@ private:// メンバ変数
 	// デスクリプタヒープ
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> descriptorHeap_;
 
-	// 次に使用するSRVインデックス。先頭はImGuiで使うので1から
+	// 次に使用するSRV,UAVインデックス。先頭はImGuiで使うので1から
 	uint32_t useIndex_ = 1;
 
 	// 最大ディスクリプタ数
@@ -147,7 +149,7 @@ private:// メンバ変数
 	static const D3D12_DESCRIPTOR_HEAP_TYPE HEAP_TYPE =
 		D3D12_DESCRIPTOR_HEAP_TYPE::D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 
-	// SRVコンテナ
+	// SRV,UAVコンテナ
 	std::unordered_map<uint32_t, ConstantHandleData> handles;
 
 	// 次に使用するCBVインデックス

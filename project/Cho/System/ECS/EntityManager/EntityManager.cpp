@@ -25,6 +25,14 @@ Entity EntityManager::CreateSpriteEntity()
     return entity;
 }
 
+Entity EntityManager::CreateParticleEntity()
+{
+    Entity entity = nextParticleID;  // 次のエンティティIDを生成します。
+    nextParticleID++;
+    particleEntities.push_back(entity);  // アクティブなエンティティリストに追加します。
+    return entity;
+}
+
 // 指定されたエンティティを破棄します。
 inline void EntityManager::DestroyEntity(Entity entity) {
     // 指定されたエンティティをアクティブリストから削除します。

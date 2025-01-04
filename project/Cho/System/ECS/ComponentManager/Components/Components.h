@@ -21,5 +21,7 @@
 #include"ECS/ComponentManager/Components/TransformComponent/TransformComponent.h"
 #include"ECS/ComponentManager/Components/ScriptComponent/ScriptComponent.h"
 #include"ECS/ComponentManager/Components/SpriteComponent/SpriteComponent.h"
+#include"ECS/ComponentManager/Components/ParticleComponent/ParticleComponent.h"
+#include"ECS/ComponentManager/Components/EmitterComponent/EmitterComponent.h"
 
 #include"ObjectType/ObjectType.h"

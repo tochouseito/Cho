@@ -36,6 +36,10 @@ public:
 
     void AddComponent(Entity entity, const SpriteComponent& component);
 
+    void AddComponent(Entity entity, const ParticleComponent& component);
+
+    void AddComponent(Entity entity, const EmitterComponent& component);
+
     // 指定されたエンティティのTransformコンポーネントを取得します。
     inline TransformComponent* GetTransform(Entity entity) {
         if (transforms.contains(entity)) {
@@ -139,6 +143,8 @@ private:
     std::unordered_map<Entity, ScriptComponent> lightScripts;
     std::unordered_map<Entity, ScriptComponent> spriteScripts;
     std::unordered_map<Entity, SpriteComponent> sprites;
+    std::unordered_map<Entity, ParticleComponent> particles;
+    std::unordered_map<Entity, EmitterComponent> emitters;
 
     ResourceViewManager* rvManager_ = nullptr;
 };

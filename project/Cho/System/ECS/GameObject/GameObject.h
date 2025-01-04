@@ -17,6 +17,8 @@ public:
 
     void CreateSpriteEntity();
 
+    void CreateParticleEntity();
+
     void SetManager(EntityManager* em, ComponentManager* cm);
 
     // 親オブジェクトを設定します。

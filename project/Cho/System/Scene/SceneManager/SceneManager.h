@@ -57,6 +57,8 @@ public:
 
 	std::string AddSpriteObject(const std::string& spriteName);
 
+	std::string AddParticleObject(const std::string& particleName);
+
 	// ベースオブジェクト
 	const std::unordered_map<std::string, std::unique_ptr<GameObject>>& GetGameObjects() const {
 		return gameObjects;
@@ -88,9 +90,20 @@ public:
 		return result;
 	}
 
+	// パーティクル
+	const std::unordered_map<std::string, std::unique_ptr<GameObject>>& GetParticleObjects() const {
+		return particleObjects;
+	}
+
+	GameObject* GetParticleObject(const std::string& name) {
+		GameObject* result = particleObjects[name].get();
+		return result;
+	}
+
 	std::string GameObjectListRename(const std::string& newName, const std::string& deleteName);
 	std::string CameraObjectListRename(const std::string& newName, const std::string& deleteName);
 	std::string SpriteObjectListRename(const std::string& newName, const std::string& deleteName);
+	std::string ParticleObjectListRename(const std::string& newName, const std::string& deleteName);
 
 private:
 	// ユニークな名前を生成する関数
@@ -119,5 +132,6 @@ private:
 	std::unordered_map<std::string, std::unique_ptr<GameObject>> cameraObjects;
 	//std::unordered_map<std::string, std::unique_ptr<GameObject>> lightObjects;
 	std::unordered_map<std::string, std::unique_ptr<GameObject>> spriteObjects;
+	std::unordered_map<std::string, std::unique_ptr<GameObject>> particleObjects;
 };
 

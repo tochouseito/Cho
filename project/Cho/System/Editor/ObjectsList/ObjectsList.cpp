@@ -51,7 +51,8 @@ void ObjectsList::Update()
 
     selectObject(sceneManager_->GetGameObjects());// ベースオブジェクトを表示
     selectObject(sceneManager_->GetCameraObjects());// カメラオブジェクトを表示
-    selectObject(sceneManager_->GetSpriteObjects());// カメラオブジェクトを表示
+    selectObject(sceneManager_->GetSpriteObjects());// スプライトオブジェクトを表示
+    selectObject(sceneManager_->GetParticleObjects());// パーティクルオブジェクトを表示
 
     ImGui::End();
 }
@@ -126,7 +127,12 @@ void ObjectsList::selectObject(const std::unordered_map<std::string, std::unique
         case ObjectType::Sprite:
             name = sceneManager_->SpriteObjectListRename(newName, oldName);
             editManager_->SetSelectedGOName(name);
-            editManager_->SetSelectedGO(sceneManager_->GetCameraObject(name));  // 選択したオブジェクトを保持
+            editManager_->SetSelectedGO(sceneManager_->GetSpriteObject(name));  // 選択したオブジェクトを保持
+            break;
+        case ObjectType::Particle:
+            name = sceneManager_->ParticleObjectListRename(newName, oldName);
+            editManager_->SetSelectedGOName(name);
+            editManager_->SetSelectedGO(sceneManager_->GetParticleObject(name));  // 選択したオブジェクトを保持
             break;
         default:
             break;

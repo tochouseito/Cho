@@ -112,6 +112,19 @@ std::string SceneManager::AddSpriteObject(const std::string& spriteName)
 	return newName;
 }
 
+std::string SceneManager::AddParticleObject(const std::string& particleName)
+{
+	std::string newName = GenerateUniqueName(particleObjects, particleName);
+	// 新しいGameObjectを作成してマップに追加
+	particleObjects[newName] = std::make_unique<GameObject>();
+	GameObject* particleObject = particleObjects[newName].get();
+	particleObject->SetName(newName);
+	particleObject->SetManager(entityManager_, componentManager_);
+	particleObject->CreateParticleEntity();
+
+	return newName;
+}
+
 std::string SceneManager::GameObjectListRename(const std::string& newName, const std::string& deleteName)
 {
 	if (newName == deleteName) {
@@ -183,6 +196,32 @@ std::string SceneManager::SpriteObjectListRename(const std::string& newName, con
 	// 新しい名前で挿入
 	spriteObjects[NewName] = std::move(object);
 	GameObject* gameObject = spriteObjects[NewName].get();
+	gameObject->SetName(NewName);
+
+	return NewName;
+}
+
+std::string SceneManager::ParticleObjectListRename(const std::string& newName, const std::string& deleteName)
+{
+	if (newName == deleteName) {
+		return newName;
+	}
+	// 古い名前が存在するか確認
+	auto it = particleObjects.find(deleteName);
+	if (!particleObjects.contains(deleteName)) {
+		//std::cerr << "Error: GameObject with name \"" << deleteName << "\" not found.\n";
+		assert(0);
+	}
+
+	std::string NewName = GenerateUniqueName(particleObjects, newName);
+
+	// オブジェクトを一時保存して、古い名前を削除
+	auto object = std::move(it->second);
+	particleObjects.erase(it);
+
+	// 新しい名前で挿入
+	particleObjects[NewName] = std::move(object);
+	GameObject* gameObject = particleObjects[NewName].get();
 	gameObject->SetName(NewName);
 
 	return NewName;
