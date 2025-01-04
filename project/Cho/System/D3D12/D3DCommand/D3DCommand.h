@@ -18,6 +18,13 @@ enum CommandType {
 	Copy,
 };
 
+struct Queue {
+	Microsoft::WRL::ComPtr < ID3D12CommandQueue> queue=nullptr;
+	Microsoft::WRL::ComPtr <ID3D12Fence>fence=nullptr;
+	HANDLE fenceEvent = 0;
+	uint64_t fenceValue = 0;
+};
+
 struct Command {
 	Microsoft::WRL::ComPtr < ID3D12CommandAllocator>allocator = nullptr;
 	Microsoft::WRL::ComPtr < ID3D12GraphicsCommandList>list = nullptr;
@@ -40,19 +47,19 @@ public:// メンバ関数
 
 	void Finalize();
 
-	ID3D12CommandQueue* GetCommandQueue(const QueueType& type)const { return commandQueues[type].Get(); }
+	ID3D12CommandQueue* GetCommandQueue(const QueueType& type)const { return queues[type].queue.Get(); }
 
 	Command GetCommand(const CommandType& type)const { return commands[type]; }
 
-	ID3D12Fence* GetFence()const { return fence_.Get(); }
-	uint64_t GetValue()const { return fenceValue_; }
+	ID3D12Fence* GetFence(const QueueType& type)const { return queues[type].fence.Get(); }
+	uint64_t GetValue(const QueueType& type)const { return queues[type].fenceValue; }
 
 private:
 
 	/*フェンス*/
 	void CreateFences(ID3D12Device& device);
-	void FenceValueUpdate();
-	void WaitForSingle();
+	void FenceValueUpdate(const QueueType& type);
+	void WaitForSingle(const QueueType& type);
 
 	void CreateQueues(ID3D12Device& device);
 
@@ -62,14 +69,8 @@ private:
 
 private:// メンバ変数
 	/*フェンス*/
-	Microsoft::WRL::ComPtr <ID3D12Fence>fence_;
-	HANDLE fenceEvent_ = 0;
-	uint64_t fenceValue_ = 0;
-	/**/
-	//D3DFence* d3dFence_ = nullptr;
-
+	std::array< Queue, TypeCount> queues;
 	/*コマンド*/
-	std::array< Microsoft::WRL::ComPtr < ID3D12CommandQueue>, TypeCount> commandQueues;
 	std::vector<Command> commands;
 };
 

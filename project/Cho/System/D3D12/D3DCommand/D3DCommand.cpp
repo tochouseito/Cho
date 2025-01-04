@@ -21,17 +21,17 @@ void D3DCommand::Close(const QueueType& queueType, const CommandType& commandTyp
 
 	// GPUにコマンドリストの実行を行わせる
 	Microsoft::WRL::ComPtr < ID3D12CommandList> commandLists[] = { commands[commandType].list};
-	commandQueues[queueType]->ExecuteCommandLists(1, commandLists->GetAddressOf());
+	queues[queueType].queue->ExecuteCommandLists(1, commandLists->GetAddressOf());
 }
 
 void D3DCommand::Signal(const QueueType& type)
 {
-	FenceValueUpdate();
+	FenceValueUpdate(type);
 
 	// GPUがここまでたどり着いたときに、Fenceの値を指定した値に代入するようにSignalを送る
-	commandQueues[type]->Signal(GetFence(), GetValue());
+	queues[type].queue->Signal(GetFence(type), GetValue(type));
 
-	WaitForSingle();
+	WaitForSingle(type);
 }
 
 void D3DCommand::Reset(const CommandType& type)
@@ -46,38 +46,88 @@ void D3DCommand::Reset(const CommandType& type)
 
 void D3DCommand::Finalize()
 {
-	CloseHandle(fenceEvent_);
+	for (int queue = QueueType::DIRECT; queue < QueueType::TypeCount; ++queue) {
+		QueueType currentQueue = static_cast<QueueType>(queue);
+		switch (currentQueue)
+		{
+		case DIRECT:
+			CloseHandle(queues[queue].fenceEvent);
+			break;
+		case COMPUTE:
+			CloseHandle(queues[queue].fenceEvent);
+			break;
+		case COPY:
+			CloseHandle(queues[queue].fenceEvent);
+			break;
+		case TypeCount:
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void D3DCommand::CreateFences(ID3D12Device& device)
 {
 	HRESULT hr;
-	// 初期値0でFenceを作る
-	fence_ = nullptr;
-	hr = device.CreateFence(fenceValue_, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence_));
-	assert(SUCCEEDED(hr));
+	for (int queue = QueueType::DIRECT; queue < QueueType::TypeCount; ++queue) {
+		QueueType currentQueue = static_cast<QueueType>(queue);
+		switch (currentQueue)
+		{
+		case DIRECT:
+			// 初期値0でFenceを作る
+			queues[queue].fence = nullptr;
+			hr = device.CreateFence(queues[queue].fenceValue, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&queues[queue].fence));
+			assert(SUCCEEDED(hr));
 
-	// FenceのSignalを持つためのイベントを作成する
-	fenceEvent_ = CreateEvent(NULL, FALSE, FALSE, NULL);
-	assert(fenceEvent_ != nullptr);
+			// FenceのSignalを持つためのイベントを作成する
+			queues[queue].fenceEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+			assert(queues[queue].fenceEvent != nullptr);
+			break;
+		case COMPUTE:
+			// 初期値0でFenceを作る
+			queues[queue].fence = nullptr;
+			hr = device.CreateFence(queues[queue].fenceValue, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&queues[queue].fence));
+			assert(SUCCEEDED(hr));
+
+			// FenceのSignalを持つためのイベントを作成する
+			queues[queue].fenceEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+			assert(queues[queue].fenceEvent != nullptr);
+			break;
+		case COPY:
+			// 初期値0でFenceを作る
+			queues[queue].fence = nullptr;
+			hr = device.CreateFence(queues[queue].fenceValue, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&queues[queue].fence));
+			assert(SUCCEEDED(hr));
+
+			// FenceのSignalを持つためのイベントを作成する
+			queues[queue].fenceEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+			assert(queues[queue].fenceEvent != nullptr);
+			break;
+		case TypeCount:
+			break;
+		default:
+			break;
+		}
+	}
 }
 
-void D3DCommand::FenceValueUpdate()
+void D3DCommand::FenceValueUpdate(const QueueType& type)
 {
-	fenceValue_++;
+	queues[type].fenceValue++;
 }
 
-void D3DCommand::WaitForSingle()
+void D3DCommand::WaitForSingle(const QueueType& type)
 {
 	// Fenceの値が指定したSignal値にたどり着いているか確認する
 	// GetCompletedValueの初期値はFence作成時に渡した初期値
-	if (fence_->GetCompletedValue() < fenceValue_) {
+	if (queues[type].fence->GetCompletedValue() < queues[type].fenceValue) {
 
 		// 指定したSignalにたどり着いていないので、たどり着くまで待つようにイベントを設定する
-		fence_->SetEventOnCompletion(fenceValue_, fenceEvent_);
+		queues[type].fence->SetEventOnCompletion(queues[type].fenceValue, queues[type].fenceEvent);
 
 		// イベント待つ
-		WaitForSingleObject(fenceEvent_, INFINITE);
+		WaitForSingleObject(queues[type].fenceEvent, INFINITE);
 	}
 }
 
@@ -93,7 +143,7 @@ void D3DCommand::CreateQueues(ID3D12Device& device)
 			commandQueueDesc.Type= D3D12_COMMAND_LIST_TYPE_DIRECT;
 			hr = device.CreateCommandQueue(
 				&commandQueueDesc,
-				IID_PPV_ARGS(&commandQueues[queue])
+				IID_PPV_ARGS(&queues[queue].queue)
 			);
 			assert(SUCCEEDED(hr));
 			break;
@@ -101,14 +151,14 @@ void D3DCommand::CreateQueues(ID3D12Device& device)
 			commandQueueDesc.Type = D3D12_COMMAND_LIST_TYPE_COMPUTE;
 			hr = device.CreateCommandQueue(
 				&commandQueueDesc,
-				IID_PPV_ARGS(&commandQueues[queue])
+				IID_PPV_ARGS(&queues[queue].queue)
 			);
 			break;
 		case COPY:
 			commandQueueDesc.Type = D3D12_COMMAND_LIST_TYPE_COPY;
 			hr = device.CreateCommandQueue(
 				&commandQueueDesc,
-				IID_PPV_ARGS(&commandQueues[queue])
+				IID_PPV_ARGS(&queues[queue].queue)
 			);
 			break;
 		case TypeCount:
