@@ -155,7 +155,7 @@ void D3DCommand::CreateQueues(ID3D12Device& device)
 			);
 			break;
 		case COPY:
-			commandQueueDesc.Type = D3D12_COMMAND_LIST_TYPE_COPY;
+			commandQueueDesc.Type = D3D12_COMMAND_LIST_TYPE_DIRECT;
 			hr = device.CreateCommandQueue(
 				&commandQueueDesc,
 				IID_PPV_ARGS(&queues[queue].queue)
@@ -182,7 +182,7 @@ void D3DCommand::CreateCommands(ID3D12Device& device)
 			CreateCommand(device, D3D12_COMMAND_LIST_TYPE_COMPUTE);
 			break;
 		case Copy:
-			CreateCommand(device, D3D12_COMMAND_LIST_TYPE_COPY);
+			CreateCommand(device, D3D12_COMMAND_LIST_TYPE_DIRECT);
 			break;
 		default:
 			break;
