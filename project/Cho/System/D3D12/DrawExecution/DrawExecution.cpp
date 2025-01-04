@@ -225,9 +225,9 @@ void DrawExecution::PostDraw()
 	// 形状を設定。
 	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	commandList->SetGraphicsRootSignature(graphicsSystem_->GetPipeline()->GetPSO(1).rootSignature.Get());
+	commandList->SetGraphicsRootSignature(graphicsSystem_->GetPipeline()->GetPSO(PSOMode::ScreenCopy).rootSignature.Get());
 
-	commandList->SetPipelineState(graphicsSystem_->GetPipeline()->GetPSO(1).Blend[0].Get());
+	commandList->SetPipelineState(graphicsSystem_->GetPipeline()->GetPSO(PSOMode::ScreenCopy).Blend[0].Get());
 
 	commandList->SetGraphicsRootDescriptorTable(0, resourceViewManager_->GetHandle(offscreenRenderTextureIndex).GPUHandle);
 

@@ -46,5 +46,14 @@ private:
 		GraphicsSystem* graphicsSystem,
 		TextureLoader* texLoad
 	);
+
+	void ParticleRender(
+		EntityManager& entityManager,
+		ComponentManager& componentManager,
+		D3DCommand* d3dCommand,
+		ResourceViewManager* rvManager,
+		GraphicsSystem* graphicsSystem,
+		TextureLoader* texLoad
+	);
 };
 

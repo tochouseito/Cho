@@ -5,7 +5,7 @@ struct VertexShaderOutput
     float3 normal : NORMAL0;
     float4 color : COLOR0;
 };
-struct GPUParticle
+struct Particle
 {
     float3 translate;
     float3 rotate;
@@ -15,14 +15,6 @@ struct GPUParticle
     float currentTime;
     float4 color;
     int isAlive;
-};
-struct PerView
-{
-    float4x4 View;
-    float4x4 Projection;
-    //float32_t4x4 billboardMatrix;
-    float4x4 cameraMat;
-    float3 cameraPosition;
 };
 struct PerFrame
 {

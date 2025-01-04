@@ -44,7 +44,7 @@ uint32_t ResourceViewManager::GetNewHandle()
 	return index;
 }
 
-ConstantHandleData ResourceViewManager::GetHandle(uint32_t index)
+ConstantHandleData ResourceViewManager::GetHandle(const uint32_t& index)
 {
 	if (handles.find(index) == handles.end()) {
 		assert(0);
@@ -143,6 +143,31 @@ void ResourceViewManager::UploadTextureDataEx(const uint32_t& index, const Direc
 	barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_GENERIC_READ;
 	d3dCommand_->GetCommand(CommandType::Copy).list->ResourceBarrier(1, &barrier);
 	uploadResources.push_back(intermediateResource);
+}
+
+void ResourceViewManager::CreateUAVResource(const uint32_t& index, const size_t& sizeInBytes)
+{
+	// リソース用のヒープの設定
+	D3D12_HEAP_PROPERTIES uploadHeapProperties{};
+	uploadHeapProperties.Type = D3D12_HEAP_TYPE_DEFAULT;
+	// リソースの設定
+	D3D12_RESOURCE_DESC resourceDesc{};
+	// バッファリソース。テクスチャの場合はまた別の設定をする
+	resourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
+	resourceDesc.Width = sizeInBytes;// リソースのサイズ。今回はVector4を３頂点分
+	// バッファの場合はこれらは1にする決まり
+	resourceDesc.Height = 1;
+	resourceDesc.DepthOrArraySize = 1;
+	resourceDesc.MipLevels = 1;
+	resourceDesc.SampleDesc.Count = 1;
+	resourceDesc.Flags = D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS;
+	// バッファの場合ははこれにする決まり
+	resourceDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
+	// 実際にリソースを作る
+	HRESULT hr = d3dDevice_->GetDevice()->CreateCommittedResource(&uploadHeapProperties, D3D12_HEAP_FLAG_NONE,
+		&resourceDesc, D3D12_RESOURCE_STATE_COMMON, nullptr,
+		IID_PPV_ARGS(&handles[index].resource));
+	assert(SUCCEEDED(hr));
 }
 
 void ResourceViewManager::CreateUAVforStructuredBuffer(const uint32_t& index, const UINT& numElements, const UINT& structuredByteStride)

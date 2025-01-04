@@ -82,9 +82,19 @@ private:// メンバ関数
 	static void Finalize();
 
 	/// <summary>
+	/// 更新前処理
+	/// </summary>
+	static void PreUpdate();
+
+	/// <summary>
 	/// 更新
 	/// </summary>
 	static void Update();
+
+	/// <summary>
+	/// 更新後処理
+	/// </summary>
+	static void PostUpdate();
 
 	/// <summary>
 	/// 描画前処理

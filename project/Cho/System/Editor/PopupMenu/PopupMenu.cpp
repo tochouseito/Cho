@@ -85,6 +85,10 @@ void PopupMenu::Update(bool excludeRightClick)
                 editManager_->CreateSprite();
             }
 
+            if (ImGui::MenuItem("Particle")) {
+                editManager_->CreateParticle();
+            }
+
             if (ImGui::BeginMenu("C++Script")) {
                 if (ImGui::MenuItem("ObjectScript")) {
                     static std::string name = "NewScript";

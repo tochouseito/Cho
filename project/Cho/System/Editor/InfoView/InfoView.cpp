@@ -13,6 +13,8 @@
 
 #include"ECS/GameObject/GameObject.h"
 
+#include"ECS/System/SystemManager/SystemManager.h"
+
 #include"Editor/EditorManager/EditorManager.h"
 
 #include"Generator/ScriptProject/ScriptProject.h"
@@ -278,6 +280,25 @@ void InfoView::Update()
                         isAdd = false;
                         SpriteComponent spriteCompo;
                         selectGO->AddComponent(spriteCompo);
+                    }
+                }
+            }
+            else
+            {
+                if (ImGui::Button("AddComponent")) {
+                    isAdd = true;
+                }
+            }
+            break;
+        case ObjectType::Particle:
+            if (isAdd) {
+
+                if (!selectGO->GetParticle()) {
+                    if (ImGui::Selectable("ParticleComponent")) {
+                        isAdd = false;
+                        ParticleComponent particleCompo;
+                        selectGO->AddComponent(particleCompo);
+                        systemManager_->Start(*entityManager_, *componentManager_);
                     }
                 }
             }

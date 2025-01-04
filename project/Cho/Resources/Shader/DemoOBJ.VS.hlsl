@@ -1,4 +1,5 @@
 #include"header/Demo.hlsli"
+#include"header/ViewProjection.hlsli"
 
 // トランスフォームリソース
 ConstantBuffer<Transform> gTF : register(b0);

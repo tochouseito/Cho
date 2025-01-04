@@ -282,7 +282,10 @@
     <ClCompile Include="Cho\System\Audio\AudioManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\Graphics\ParticleManager\ParticleManager.cpp">
+    <ClCompile Include="Cho\System\ECS\System\ParticleSystem\ParticleSystem.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Cho\System\ECS\System\EmitterSystem\EmitterSystem.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -530,9 +533,6 @@
     <ClInclude Include="Cho\System\Audio\AudioManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Cho\System\Graphics\ParticleManager\ParticleManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\ParticleComponent\ParticleComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -545,6 +545,12 @@
     <ClInclude Include="Cho\System\ConstantData\EmitterData.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Cho\System\ECS\System\ParticleSystem\ParticleSystem.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\ECS\System\EmitterSystem\EmitterSystem.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Cho\Resources\Shader\DemoOBJ.PS.hlsl" />
@@ -555,6 +561,9 @@
     <FxCompile Include="Cho\Resources\Shader\Sprite.PS.hlsl" />
     <FxCompile Include="Cho\Resources\Shader\Particle.VS.hlsl" />
     <FxCompile Include="Cho\Resources\Shader\Particle.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\EmitParticle.CS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\UpdateParticle.CS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\InitParticle.CS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Cho\Resources\Shader\header\Demo.hlsli" />
@@ -563,6 +572,7 @@
     <None Include="Cho\Resources\Shader\header\Sprite.hlsli" />
     <None Include="Cho\Resources\Shader\header\Particle.hlsli" />
     <None Include="Cho\Resources\Shader\header\Random.hlsli" />
+    <None Include="Cho\Resources\Shader\header\ViewProjection.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Cho\Resources\Texture\uvChecker.png">

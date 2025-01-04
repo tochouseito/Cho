@@ -122,13 +122,54 @@ void ComponentManager::AddComponent(Entity entity, const ParticleComponent& comp
     particles[entity] = component;
     particles[entity].uavIndex = rvManager_->GetNewHandle();
 
+    // マテリアル作成
+    particles[entity].material.cbvIndex = rvManager_->CreateCBV(sizeof(ConstBufferDataMaterial));
+    rvManager_->GetCBVResource(
+        particles[entity].material.cbvIndex)->Map(
+            0, nullptr, reinterpret_cast<void**>(&particles[entity].material.constData)
+        );
+
     // UAV作成
+    rvManager_->CreateUAVResource(particles[entity].uavIndex, sizeof(ConstBufferDataParticle) * kMaxParticle);
     rvManager_->CreateUAVforStructuredBuffer(
         particles[entity].uavIndex,
         kMaxParticle,
         sizeof(ConstBufferDataParticle)
     );
+
+    // PerFrame
+    particles[entity].perFrame.cbvIndex = rvManager_->CreateCBV(sizeof(ConstBufferDataPerFrame));
+    rvManager_->GetCBVResource(particles[entity].perFrame.cbvIndex)->Map(
+        0, nullptr, reinterpret_cast<void**>(&particles[entity].perFrame.constData)
+    );
+
+    // Counter,UAV作成
+    particles[entity].counter.uavIndex = rvManager_->GetNewHandle();
+    rvManager_->CreateUAVResource(particles[entity].counter.uavIndex, sizeof(ConstBufferDataCounter));
+    rvManager_->CreateUAVforStructuredBuffer(
+        particles[entity].counter.uavIndex,
+        1,
+        sizeof(ConstBufferDataCounter)
+    );
+
+    // FreeList,UAV作成
+    particles[entity].freeListIndex.uavIndex = rvManager_->GetNewHandle();
+    rvManager_->CreateUAVResource(particles[entity].freeListIndex.uavIndex, sizeof(ConstBufferDataFreeListIndex));
+    rvManager_->CreateUAVforStructuredBuffer(
+        particles[entity].freeListIndex.uavIndex,
+        1,
+        sizeof(ConstBufferDataFreeListIndex)
+    );
+    particles[entity].freeList.uavIndex = rvManager_->GetNewHandle();
+    rvManager_->CreateUAVResource(particles[entity].freeList.uavIndex, sizeof(ConstBufferDataFreeList) * kMaxParticle);
+    rvManager_->CreateUAVforStructuredBuffer(
+        particles[entity].freeList.uavIndex,
+        kMaxParticle,
+        sizeof(ConstBufferDataFreeList)
+    );
+
     // 初期化
+
 }
 
 void ComponentManager::AddComponent(Entity entity, const EmitterComponent& component)

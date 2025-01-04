@@ -10,6 +10,8 @@
 #include"ECS/System/TransformSystem/TransformSystem.h"
 #include"ECS/System/SpriteSystem/SpriteSystem.h"
 #include"ECS/System/MaterialSystem/MaterialSystem.h"
+#include"ECS/System/ParticleSystem/ParticleSystem.h"
+#include"ECS/System/EmitterSystem/EmitterSystem.h"
 
 class D3DCommand;
 class ResourceViewManager;
@@ -21,7 +23,7 @@ public:
     // デストラクタ
     ~SystemManager();
 
-    void Initialize(ResourceViewManager* rvManager,TextureLoader* texLoader,EntityManager* entityManager, ComponentManager* componentManager);
+    void Initialize(D3DCommand* d3dCommand,ResourceViewManager* rvManager, GraphicsSystem* graphicsSystem,TextureLoader* texLoader,EntityManager* entityManager, ComponentManager* componentManager);
 
     void Start(EntityManager& entityManager, ComponentManager& componentManager);
 
@@ -65,6 +67,8 @@ private:
     TransformSystem transformSystem;
     SpriteSystem spriteSystem;
     MaterialSystem materialSystem;
+    ParticleSystem particleSystem;
+    EmitterSystem emitterSystem;
 
 
     EntityManager* entityManager_ = nullptr;

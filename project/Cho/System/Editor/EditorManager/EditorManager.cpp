@@ -188,6 +188,14 @@ void EditorManager::CreateSprite()
     SetSelectedGO(sceneManager_->GetSpriteObject(name));
 }
 
+void EditorManager::CreateParticle()
+{
+    std::string name = "NewParticle";
+    name = sceneManager_->AddParticleObject(name);
+    SetSelectedGOName(name);
+    SetSelectedGO(sceneManager_->GetParticleObject(name));
+}
+
 void EditorManager::UpdateFiles()
 {
     fileView->UpdateFiles();

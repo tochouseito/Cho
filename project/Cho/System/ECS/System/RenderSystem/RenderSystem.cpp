@@ -43,8 +43,8 @@ void RenderSystem::DebugRender(
             uint32_t meshesIndex = meshComp->meshID;
             // 描画処理: 描画コンポーネントに基づきリソースをバインドして描画
 
-            commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(0).rootSignature.Get());
-            commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(0).Blend[kBlendModeNone].Get());
+            commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Demo).rootSignature.Get());
+            commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Demo).Blend[kBlendModeNone].Get());
             for (std::string name : rvManager->GetMeshs(meshesIndex)->names) {
                 commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->vbvData.vbv);
                 commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
@@ -79,8 +79,8 @@ void RenderSystem::ObjectRender(EntityManager& entityManager, ComponentManager& 
             uint32_t meshesIndex = meshComp->meshID;
             // 描画処理: 描画コンポーネントに基づきリソースをバインドして描画
 
-            commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(0).rootSignature.Get());
-            commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(0).Blend[kBlendModeNone].Get());
+            commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Demo).rootSignature.Get());
+            commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Demo).Blend[kBlendModeNone].Get());
             for (std::string name : rvManager->GetMeshs(meshesIndex)->names) {
                 commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->vbvData.vbv);
                 commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
@@ -113,10 +113,10 @@ void RenderSystem::SpriteRender(EntityManager& entityManager, ComponentManager& 
             // 描画処理: 描画コンポーネントに基づきリソースをバインドして描画
 
             // ルートシグネイチャセット
-            commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(2).rootSignature.Get());
+            commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Sprite).rootSignature.Get());
 
             // パイプラインセット
-            commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(2).Blend[sprite->blendMode].Get());
+            commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Sprite).Blend[sprite->blendMode].Get());
 
             // VBVセット
             commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(meshViewIndex)->vbvData.vbv);
@@ -132,6 +132,47 @@ void RenderSystem::SpriteRender(EntityManager& entityManager, ComponentManager& 
             // DrawCall
             commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetSpriteData(sprite->spriteIndex)->size.indices), 1, 0, 0, 0);
 
+        }
+    }
+}
+
+void RenderSystem::ParticleRender(EntityManager& entityManager, ComponentManager& componentManager, D3DCommand* d3dCommand, ResourceViewManager* rvManager, GraphicsSystem* graphicsSystem, TextureLoader* texLoad)
+{
+    ID3D12GraphicsCommandList* commandList = d3dCommand->GetCommand(CommandType::Draw).list.Get();
+
+    // 今セットされているカメラのコンポーネント
+    CameraComponent* cameraComp = componentManager.GetCamera(entityManager.GetNowCameraEntity());
+
+    // 全てのエンティティ
+    for (Entity entity : entityManager.GetParticleEntites()) {
+        ParticleComponent* particle = componentManager.GetParticle(entity);
+        if (particle && particle->render.visible) {
+            // 頂点データ取得キー
+            uint32_t meshesIndex = static_cast<uint32_t>(MeshPattern::Plane);
+            // 描画処理: 描画コンポーネントに基づきリソースをバインドして描画
+
+            // ルートシグネイチャセット
+            commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Particle).rootSignature.Get());
+
+            // パイプラインセット
+            commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Particle).Blend[kBlendModeNone].Get());
+
+            for (std::string name : rvManager->GetMeshs(meshesIndex)->names) {
+
+                // VBVセット
+                commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->vbvData.vbv);
+
+                // IBVセット
+                commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
+
+                // ルートパラメータをセット
+                commandList->SetGraphicsRootDescriptorTable(0, rvManager->GetHandle(particle->uavIndex).GPUHandle);
+                commandList->SetGraphicsRootConstantBufferView(1, rvManager->GetCBVResource(cameraComp->cbvIndex)->GetGPUVirtualAddress());
+                commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetTexture(particle->material.textureID).rvIndex).GPUHandle);
+
+                // DrawCall
+                commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMeshs(meshesIndex)->meshData[name].size.indices), 1, 0, 0, 0);
+            }
         }
     }
 }

@@ -49,10 +49,10 @@ void ObjectsList::Update()
     ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove;
     ImGui::Begin("GameObjectList",nullptr,windowFlags);
 
-    selectObject(sceneManager_->GetGameObjects());// ベースオブジェクトを表示
-    selectObject(sceneManager_->GetCameraObjects());// カメラオブジェクトを表示
-    selectObject(sceneManager_->GetSpriteObjects());// スプライトオブジェクトを表示
-    selectObject(sceneManager_->GetParticleObjects());// パーティクルオブジェクトを表示
+    selectObject(sceneManager_->GetGameObjects());      // ベースオブジェクトを表示
+    selectObject(sceneManager_->GetCameraObjects());    // カメラオブジェクトを表示
+    selectObject(sceneManager_->GetSpriteObjects());    // スプライトオブジェクトを表示
+    selectObject(sceneManager_->GetParticleObjects());  // パーティクルオブジェクトを表示
 
     ImGui::End();
 }

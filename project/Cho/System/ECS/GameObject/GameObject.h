@@ -51,6 +51,10 @@ public:
 
     void AddComponent(const SpriteComponent& component);
 
+    void AddComponent(const ParticleComponent& component);
+
+    void AddComponent(const EmitterComponent& component);
+
     // TransformComponentを取得します。
     inline TransformComponent* GetTransform() {
         return componentManager->GetTransform(entity);
@@ -84,6 +88,14 @@ public:
 
     inline SpriteComponent* GetSprite() {
         return componentManager->GetSprite(entity);
+    }
+
+    inline ParticleComponent* GetParticle() {
+        return componentManager->GetParticle(entity);
+    }
+
+    inline EmitterComponent* GetEmitter() {
+        return componentManager->GetEmitter(entity);
     }
 
     inline void SetName(const std::string& newName) {

@@ -5,5 +5,6 @@ struct ConstBufferDataViewProjection final {
     Matrix4 view;
     Matrix4 projection;
     Matrix4 matWorld;
+    Matrix4 matBillboard;
     Vector3 cameraPosition;
 };

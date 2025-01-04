@@ -10,6 +10,7 @@
 #include <iostream>
 #include <filesystem>
 #include <vector>
+#include<unordered_map>
 #include <string>
 #include<wrl.h>
 
@@ -37,6 +38,12 @@ public:
 		// CompilerするShaderファイルへのパス
 		const std::wstring& filePath,
 		// Compilerに使用するProfile
+		const wchar_t* profile
+	);
+
+	// すでにコンパイルされたシェーダーはスキップするバージョン
+	IDxcBlob* CompilerShaderWithCache(
+		const std::wstring& filePath,
 		const wchar_t* profile
 	);
 
@@ -90,5 +97,7 @@ private:
 
 	std::vector<std::pair<uint32_t, std::string>> rootParmDemo;
 	Microsoft::WRL::ComPtr < ID3D12RootSignature> rootSignatureDemo;
+
+	std::unordered_map<std::wstring, Microsoft::WRL::ComPtr<IDxcBlob>> shaderCache_;
 };
 

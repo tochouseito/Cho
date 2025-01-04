@@ -10,6 +10,16 @@
 // Utility
 #include"BlendMode.h"
 
+enum PSOMode {
+	Demo=0,
+	ScreenCopy,
+	Sprite,
+	Particle,
+	Init,
+	Emit,
+	ParticleUpdate,
+};
+
 class D3DDevice;
 class ShaderCompiler;
 class Pipeline
@@ -27,22 +37,28 @@ public:
 	/// </summary>
 	void Initialize(D3DDevice* d3dDevice,ShaderCompiler* shaderCompiler);
 
+	PSOBlend& GetPSO(const PSOMode& index) { return psoBlends[index]; }
+
+private:
+
 	void CreatePSODemo();
 
 	void CreatePSOScreenCopy();
 
 	void CreatePSOSprite();
 
-	PSOBlend& GetPSO(uint32_t index) { return psoBlends[index]; }
+	void CreatePSOParticle();
+
+	void CreatePSOParticleInit();
+
+	void CreatePSOEmit();
+
+	void CreatePSOUpdate();
 
 private:
 
 	D3DDevice* d3dDevice_ = nullptr;
 
-	/*std::vector<
-		std::array<
-		Microsoft::WRL::ComPtr <ID3D12PipelineState>,
-		BlendMode::kCountOfBlendMode>> PSO;*/
 	std::vector<PSOBlend> psoBlends;
 	
 	ShaderCompiler* shaderCompiler_ = nullptr;

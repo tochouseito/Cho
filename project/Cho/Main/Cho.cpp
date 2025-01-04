@@ -235,7 +235,9 @@ void Cho::Initialize()
 	// SystemManager
 	systemManager = std::make_unique<SystemManager>();
 	systemManager->Initialize(
+		d3dCommand.get(),
 		resourceViewManager.get(),
+		graphicsSystem.get(),
 		textureLoader.get(), 
 		entityManager.get(),
 		componentManager.get()
@@ -321,6 +323,18 @@ void Cho::Finalize()
 	win->TerminateWindow();
 }
 
+void Cho::PreUpdate()
+{
+	// ComputeCommand記録開始
+	d3dCommand->Reset(CommandType::Compute);
+
+	// 使うディスクリプタヒープをセット
+	resourceViewManager->SetDescriptorHeap(
+		d3dCommand->GetCommand(
+			CommandType::Compute).list.Get()
+	);
+}
+
 void Cho::Operation()
 {
 	/*初期化*/
@@ -334,8 +348,12 @@ void Cho::Operation()
 		}
 		SystemStateEvent();
 		if (!win->IsEndApp()) {
+			/*更新前処理*/
+			PreUpdate();
 			/*毎フレーム更新*/
 			Update();
+			/*更新後処理*/
+			PostUpdate();
 			/*描画前処理*/
 			PreDraw();
 			/*描画*/
@@ -369,6 +387,13 @@ void Cho::Update()
 	systemManager->Update(*entityManager.get(), *componentManager.get(),0.01f);
 }
 
+void Cho::PostUpdate()
+{
+	d3dCommand->Close(COMPUTE, CommandType::Compute);
+
+	d3dCommand->Signal(COMPUTE);
+}
+
 void Cho::PreDraw()
 {
 	// ImGui受付終了
@@ -378,7 +403,10 @@ void Cho::PreDraw()
 	d3dCommand->Reset(CommandType::Draw);
 
 	// 使うディスクリプタヒープをセット
-	resourceViewManager->SetDescriptorHeap(d3dCommand->GetCommand(CommandType::Draw).list.Get());
+	resourceViewManager->SetDescriptorHeap(
+		d3dCommand->GetCommand(
+			CommandType::Draw).list.Get()
+	);
 
 	// 描画前処理
 	drawExecution->PreDraw();

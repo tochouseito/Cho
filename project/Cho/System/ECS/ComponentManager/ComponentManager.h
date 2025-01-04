@@ -125,6 +125,20 @@ public:
         return nullptr;
     }
 
+    inline ParticleComponent* GetParticle(Entity entity) {
+        if (particles.contains(entity)) {
+            return &particles[entity];
+        }
+        return nullptr;
+    }
+
+    inline EmitterComponent* GetEmitter(Entity entity) {
+        if (emitters.contains(entity)) {
+            return &emitters[entity];
+        }
+        return nullptr;
+    }
+
     // 指定されたエンティティからコンポーネントを削除します。
     void RemoveComponent(Entity entity);
 

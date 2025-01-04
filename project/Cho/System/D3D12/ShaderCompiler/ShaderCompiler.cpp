@@ -83,6 +83,23 @@ IDxcBlob* ShaderCompiler::CompilerShader(
 	return shaderBlob;
 }
 
+IDxcBlob* ShaderCompiler::CompilerShaderWithCache(const std::wstring& filePath, const wchar_t* profile)
+{
+	// キャッシュに存在するか確認
+	auto it = shaderCache_.find(filePath);
+	if (it != shaderCache_.end()) {
+		return it->second.Get(); // キャッシュから取得
+	}
+
+	// シェーダーをコンパイル
+	IDxcBlob* shaderBlob = CompilerShader(filePath, profile);
+	if (shaderBlob) {
+		// コンパイル結果をキャッシュに保存
+		shaderCache_[filePath] = shaderBlob;
+	}
+	return shaderBlob;
+}
+
 Microsoft::WRL::ComPtr < ID3D12ShaderReflection> ShaderCompiler::ReflectShader(IDxcBlob* shaderBlob)
 {
 	Microsoft::WRL::ComPtr<IDxcContainerReflection> pContainerReflection;

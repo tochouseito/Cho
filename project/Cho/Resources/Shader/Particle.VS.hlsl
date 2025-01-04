@@ -1,9 +1,10 @@
 #include"header/Particle.hlsli"
+#include"header/ViewProjection.hlsli"
 
 static const float PI = 3.14159265359;// 円周率
 
-StructuredBuffer<GPUParticle> gParticles : register(t0);
-ConstantBuffer<PerView> gPerView : register(b0);
+StructuredBuffer<Particle> gParticles : register(t0);
+ConstantBuffer<ViewProjection> gPerView : register(b0);
 
 struct VertexShaderInput
 {
@@ -16,9 +17,9 @@ struct VertexShaderInput
 VertexShaderOutput main(VertexShaderInput input, uint instanceId : SV_InstanceID)
 {
     VertexShaderOutput output;
-    GPUParticle particle = gParticles[instanceId];
-    float4x4 WVP = mul(gPerView.View, gPerView.Projection);
-    float4x4 cameraMatrix = gPerView.cameraMat;
+    Particle particle = gParticles[instanceId];
+    float4x4 WVP = mul(gPerView.view, gPerView.projection);
+    float4x4 cameraMatrix = gPerView.matWorld;
     float cosY = cos(PI);
     float sinY = sin(PI);
     float4x4 backToFrontMatrix =
