@@ -301,6 +301,14 @@ void InfoView::Update()
                         systemManager_->Start(*entityManager_, *componentManager_);
                     }
                 }
+
+                if (!selectGO->GetEmitter()) {
+                    if (ImGui::Selectable("EmitterComponent")) {
+                        isAdd = false;
+                        EmitterComponent emitterComp;
+                        selectGO->AddComponent(emitterComp);
+                    }
+                }
             }
             else
             {

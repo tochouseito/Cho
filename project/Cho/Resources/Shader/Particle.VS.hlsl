@@ -3,7 +3,7 @@
 
 static const float PI = 3.14159265359;// 円周率
 
-StructuredBuffer<Particle> gParticles : register(t0);
+RWStructuredBuffer<Particle> gParticles : register(u0);
 ConstantBuffer<ViewProjection> gPerView : register(b0);
 
 struct VertexShaderInput

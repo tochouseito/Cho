@@ -35,7 +35,7 @@ void EmitterSystem::UpdateMatrix(EmitterComponent* comp)
 	}
 	else {
 		// 射出間隔を上回ってないので、許可は出せない
-		comp->emit = 0;
+		comp->emit = 1;
 	}
 
 	// 転送

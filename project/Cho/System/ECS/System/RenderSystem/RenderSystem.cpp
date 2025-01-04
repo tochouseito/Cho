@@ -17,6 +17,7 @@ void RenderSystem::Render(
 {
     ObjectRender(entityManager, componentManager, d3dCommand, rvManager, graphicsSystem, texLoad);
     SpriteRender(entityManager, componentManager, d3dCommand, rvManager, graphicsSystem, texLoad);
+    ParticleRender(entityManager, componentManager, d3dCommand, rvManager, graphicsSystem, texLoad);
 }
 
 void RenderSystem::DebugRender(
@@ -146,7 +147,8 @@ void RenderSystem::ParticleRender(EntityManager& entityManager, ComponentManager
     // 全てのエンティティ
     for (Entity entity : entityManager.GetParticleEntites()) {
         ParticleComponent* particle = componentManager.GetParticle(entity);
-        if (particle && particle->render.visible) {
+        EmitterComponent* emitter = componentManager.GetEmitter(entity);
+        if (particle && particle->render.visible&&emitter) {
             // 頂点データ取得キー
             uint32_t meshesIndex = static_cast<uint32_t>(MeshPattern::Plane);
             // 描画処理: 描画コンポーネントに基づきリソースをバインドして描画
@@ -166,12 +168,12 @@ void RenderSystem::ParticleRender(EntityManager& entityManager, ComponentManager
                 commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
 
                 // ルートパラメータをセット
-                commandList->SetGraphicsRootDescriptorTable(0, rvManager->GetHandle(particle->uavIndex).GPUHandle);
-                commandList->SetGraphicsRootConstantBufferView(1, rvManager->GetCBVResource(cameraComp->cbvIndex)->GetGPUVirtualAddress());
+                commandList->SetGraphicsRootDescriptorTable(1, rvManager->GetHandle(particle->uavIndex).GPUHandle);
+                commandList->SetGraphicsRootConstantBufferView(0, rvManager->GetCBVResource(cameraComp->cbvIndex)->GetGPUVirtualAddress());
                 commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetTexture(particle->material.textureID).rvIndex).GPUHandle);
 
                 // DrawCall
-                commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMeshs(meshesIndex)->meshData[name].size.indices), 1, 0, 0, 0);
+                commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMeshs(meshesIndex)->meshData[name].size.indices), 1024, 0, 0, 0);
             }
         }
     }
