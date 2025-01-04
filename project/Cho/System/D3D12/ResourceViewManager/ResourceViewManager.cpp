@@ -132,7 +132,7 @@ void ResourceViewManager::UploadTextureDataEx(const uint32_t& index, const Direc
 	DirectX::PrepareUpload(d3dDevice_->GetDevice(), mipImages.GetImages(), mipImages.GetImageCount(), mipImages.GetMetadata(), subresources);
 	uint64_t intermediateSize = GetRequiredIntermediateSize(handles[index].resource.Get(), 0, UINT(subresources.size()));
 	Microsoft::WRL::ComPtr < ID3D12Resource> intermediateResource = CreateBufferResource(intermediateSize);
-	UpdateSubresources(d3dCommand_->GetCommandList(), handles[index].resource.Get(), intermediateResource.Get(), 0, 0, UINT(subresources.size()), subresources.data());
+	UpdateSubresources(d3dCommand_->GetCommand(CommandType::Draw).list.Get(), handles[index].resource.Get(), intermediateResource.Get(), 0, 0, UINT(subresources.size()), subresources.data());
 	// Textureへの転送後は利用できるよう,D3D12_RESOURCE_STATE_COPY_DESTからD3D12_RESOURCE_STATE_GENERIC_READへResourceStateを変更する
 	D3D12_RESOURCE_BARRIER barrier{};
 	barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
@@ -141,7 +141,7 @@ void ResourceViewManager::UploadTextureDataEx(const uint32_t& index, const Direc
 	barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
 	barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_COPY_DEST;
 	barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_GENERIC_READ;
-	d3dCommand_->GetCommandList()->ResourceBarrier(1, &barrier);
+	d3dCommand_->GetCommand(CommandType::Draw).list->ResourceBarrier(1, &barrier);
 	uploadResources.push_back(intermediateResource);
 }
 

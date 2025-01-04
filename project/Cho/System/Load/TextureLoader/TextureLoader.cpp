@@ -69,13 +69,13 @@ void TextureLoader::Load()
 	const DirectX::TexMetadata& metadata = mipImages.GetMetadata();
 
 	// リソース作成
-	d3dCommand_->Reset();
+	d3dCommand_->Reset(CommandType::Draw);
 
 	rvManager_->CreateTextureResource(texData.rvIndex, metadata);
 	rvManager_->UploadTextureDataEx(texData.rvIndex, mipImages);
 
-	d3dCommand_->Close();
-	d3dCommand_->Signal();
+	d3dCommand_->Close(DIRECT,CommandType::Draw);
+	d3dCommand_->Signal(DIRECT);
 
 	texData.metadata = metadata;
 
@@ -162,13 +162,13 @@ void TextureLoader::FirstResourceLoad(const std::string& directoryPath)
                 const DirectX::TexMetadata& metadata = mipImages.GetMetadata();
 
                 // リソース作成
-                d3dCommand_->Reset();
+                d3dCommand_->Reset(CommandType::Draw);
 
                 rvManager_->CreateTextureResource(texData.rvIndex, metadata);
                 rvManager_->UploadTextureDataEx(texData.rvIndex, mipImages);
 
-                d3dCommand_->Close();
-                d3dCommand_->Signal();
+                d3dCommand_->Close(DIRECT,CommandType::Draw);
+                d3dCommand_->Signal(DIRECT);
 
                 texData.metadata = metadata;
 

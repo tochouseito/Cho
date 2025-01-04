@@ -6,6 +6,9 @@
 // Pipeline
 #include"Graphics/Pipeline/Pipeline.h"
 
+// ParticleManager
+#include"Graphics/ParticleManager/ParticleManager.h"
+
 // C++
 #include<memory>
 
@@ -29,5 +32,7 @@ private:
 	// Pipeline
 	std::unique_ptr<Pipeline> pipeline;
 
+	// ParticleManager
+	std::unique_ptr<ParticleManager> particleManager;
 };
 

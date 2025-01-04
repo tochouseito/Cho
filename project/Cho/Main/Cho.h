@@ -9,7 +9,6 @@ class ResourceLeakChecker;
 class FrameRate;
 class DXGIFactory;
 class D3DDevice;
-class D3DFence;
 class D3DCommand;
 class D3DSwapChain;
 class ResourceViewManager;
@@ -136,7 +135,6 @@ private:// メンバ変数
 	static std::unique_ptr<ResourceLeakChecker> resourceLeakChecker;
 	static std::unique_ptr<DXGIFactory> dxgiFactory;
 	static std::unique_ptr<D3DDevice> d3dDevice;
-	static std::unique_ptr<D3DFence> d3dFence;
 	static std::unique_ptr<D3DCommand> d3dCommand;
 	static std::unique_ptr<D3DSwapChain> d3dSwapChain;
 	static std::unique_ptr<ResourceViewManager> resourceViewManager;

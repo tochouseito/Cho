@@ -143,7 +143,6 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     </ClCompile>
     <ClCompile Include="Cho\System\D3D12\D3DCommand\D3DCommand.cpp" />
     <ClCompile Include="Cho\System\D3D12\D3DDevice\D3DDevice.cpp" />
-    <ClCompile Include="Cho\System\D3D12\D3DFence\D3DFence.cpp" />
     <ClCompile Include="Cho\System\D3D12\D3DSwapChain\D3DSwapChain.cpp" />
     <ClCompile Include="Cho\System\D3D12\DrawExecution\DrawExecution.cpp" />
     <ClCompile Include="Cho\System\D3D12\DSVManager\DSVManager.cpp" />
@@ -210,6 +209,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClCompile Include="Cho\System\Load\MeshLoader\MeshLoader.cpp" />
     <ClCompile Include="Cho\System\ECS\System\SpriteSystem\SpriteSystem.cpp" />
     <ClCompile Include="Cho\System\ECS\System\MaterialSystem\MaterialSystem.cpp" />
+    <ClCompile Include="Cho\System\Graphics\ParticleManager\ParticleManager.cpp" />
     <ClInclude Include="Cho\System\Audio\AudioManager.h" />
     <ClInclude Include="Cho\System\ConstantData\AnimationData.h" />
     <ClInclude Include="Cho\System\ConstantData\MaterialData.h" />
@@ -242,7 +242,6 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClInclude Include="Cho\Utility\BlendMode.h" />
     <ClInclude Include="Cho\Utility\ConvertString\ConvertString.h" />
     <ClInclude Include="Cho\System\D3D12\D3DCommand\D3DCommand.h" />
-    <ClInclude Include="Cho\System\D3D12\D3DFence\D3DFence.h" />
     <ClInclude Include="Cho\System\D3D12\D3DSwapChain\D3DSwapChain.h" />
     <ClInclude Include="Cho\System\D3D12\DrawExecution\DrawExecution.h" />
     <ClInclude Include="Cho\System\D3D12\DSVManager\DSVManager.h" />
@@ -292,6 +291,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClInclude Include="Cho\System\ECS\System\SpriteSystem\SpriteSystem.h" />
     <ClInclude Include="Cho\System\ECS\System\MaterialSystem\MaterialSystem.h" />
     <ClInclude Include="Cho\System\Input\InputManager.h" />
+    <ClInclude Include="Cho\System\Graphics\ParticleManager\ParticleManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\ChoMath\ChoMath.vcxproj">

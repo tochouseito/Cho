@@ -29,7 +29,7 @@ void RenderSystem::DebugRender(
     const CameraComponent& camera
 )
 {
-    ID3D12GraphicsCommandList* commandList = d3dCommand->GetCommandList();
+    ID3D12GraphicsCommandList* commandList = d3dCommand->GetCommand(CommandType::Draw).list.Get();
 
     // 全てのエンティティ
     for (Entity entity : entityManager.GetActiveEntities()) {
@@ -62,7 +62,7 @@ void RenderSystem::DebugRender(
 
 void RenderSystem::ObjectRender(EntityManager& entityManager, ComponentManager& componentManager, D3DCommand* d3dCommand, ResourceViewManager* rvManager, GraphicsSystem* graphicsSystem, TextureLoader* texLoad)
 {
-    ID3D12GraphicsCommandList* commandList = d3dCommand->GetCommandList();
+    ID3D12GraphicsCommandList* commandList = d3dCommand->GetCommand(CommandType::Draw).list.Get();
 
     // 今セットされているカメラのコンポーネント
     CameraComponent* cameraComp = componentManager.GetCamera(entityManager.GetNowCameraEntity());
@@ -102,7 +102,7 @@ void RenderSystem::ObjectRender(EntityManager& entityManager, ComponentManager& 
 
 void RenderSystem::SpriteRender(EntityManager& entityManager, ComponentManager& componentManager, D3DCommand* d3dCommand, ResourceViewManager* rvManager, GraphicsSystem* graphicsSystem, TextureLoader* texLoad)
 {
-    ID3D12GraphicsCommandList* commandList = d3dCommand->GetCommandList();
+    ID3D12GraphicsCommandList* commandList = d3dCommand->GetCommand(CommandType::Draw).list.Get();
 
     // 全てのエンティティ
     for (Entity entity : entityManager.GetSpriteEntities()) {

@@ -204,9 +204,6 @@
     <ClCompile Include="Cho\System\D3D12\D3DSwapChain\D3DSwapChain.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Cho\System\D3D12\D3DFence\D3DFence.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Cho\System\D3D12\D3DDevice\D3DDevice.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -285,6 +282,9 @@
     <ClCompile Include="Cho\System\Audio\AudioManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Cho\System\Graphics\ParticleManager\ParticleManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cho\System\WinApp\WinApp.h">
@@ -312,9 +312,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\D3D12\D3DCommand\D3DCommand.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Cho\System\D3D12\D3DFence\D3DFence.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\D3D12\D3DSwapChain\D3DSwapChain.h">
@@ -531,6 +528,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\Audio\AudioManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Cho\System\Graphics\ParticleManager\ParticleManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

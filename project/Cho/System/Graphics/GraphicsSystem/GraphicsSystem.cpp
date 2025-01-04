@@ -12,5 +12,6 @@ void GraphicsSystem::Initialize(D3DDevice* d3dDevice)
 	pipeline = std::make_unique<Pipeline>();
 	pipeline->Initialize(d3dDevice,shaderCompiler.get());
 
-
+	particleManager = std::make_unique<ParticleManager>();
+	particleManager->Initialize();
 }

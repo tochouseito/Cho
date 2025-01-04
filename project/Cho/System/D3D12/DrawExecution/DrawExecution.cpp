@@ -56,7 +56,7 @@ void DrawExecution::Initialize(
 
 void DrawExecution::PreDraw()
 {
-	ID3D12GraphicsCommandList* commandList = d3dCommand_->GetCommandList();
+	ID3D12GraphicsCommandList* commandList = d3dCommand_->GetCommand(CommandType::Draw).list.Get();
 
 	BarrierTransition(
 		resourceViewManager_->GetHandle(offscreenRenderTextureIndex).resource.Get(),
@@ -113,7 +113,7 @@ void DrawExecution::PreDraw()
 
 void DrawExecution::DebugPreDraw()
 {
-	ID3D12GraphicsCommandList* commandList = d3dCommand_->GetCommandList();
+	ID3D12GraphicsCommandList* commandList = d3dCommand_->GetCommand(CommandType::Draw).list.Get();
 
 	BarrierTransition(
 		resourceViewManager_->GetHandle(debugRenderTexIndex).resource.Get(),
@@ -174,7 +174,7 @@ void DrawExecution::Draw()
 
 void DrawExecution::PostDraw()
 {
-	ID3D12GraphicsCommandList* commandList = d3dCommand_->GetCommandList();
+	ID3D12GraphicsCommandList* commandList = d3dCommand_->GetCommand(CommandType::Draw).list.Get();
 
 	UINT backBufferIndex = d3dSwapChain_->GetSwapChain()->GetCurrentBackBufferIndex();
 
@@ -248,11 +248,11 @@ void DrawExecution::End()
 		D3D12_RESOURCE_STATE_PRESENT
 	);
 
-	d3dCommand_->Close();
+	d3dCommand_->Close(DIRECT,CommandType::Draw);
 
 	d3dSwapChain_->Present();
 
-	d3dCommand_->Signal();
+	d3dCommand_->Signal(DIRECT);
 }
 
 void DrawExecution::ResizeOffscreenRenderTex()
@@ -291,7 +291,7 @@ void DrawExecution::ResizeOffscreenRenderTex()
 
 void DrawExecution::BarrierTransition(ID3D12Resource* pResource, D3D12_RESOURCE_STATES Before, D3D12_RESOURCE_STATES After)
 {
-	ID3D12GraphicsCommandList* commandList = d3dCommand_->GetCommandList();
+	ID3D12GraphicsCommandList* commandList = d3dCommand_->GetCommand(CommandType::Draw).list.Get();
 
 	// TransitionBarrierの設定
 	D3D12_RESOURCE_BARRIER barrier{};
