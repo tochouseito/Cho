@@ -107,6 +107,8 @@ public:
 
 	ComponentManager* GetCompPtr()const { return componentManager_; }
 
+	void SetNowCamera(const Entity& id) { entityManager_->SetCameraID(id); }
+
 private:
 	// ユニークな名前を生成する関数
 	std::string GenerateUniqueName(

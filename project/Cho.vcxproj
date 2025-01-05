@@ -189,7 +189,9 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClCompile Include="Cho\System\Editor\DebugCamera\DebugCamera.cpp" />
     <ClCompile Include="Cho\System\Input\InputManager.cpp" />
     <ClCompile Include="Cho\System\ECS\System\EmitterSystem\EmitterSystem.cpp" />
+    <ClCompile Include="Game\Objects\Camera\FollowCamera\FollowCamera.cpp" />
     <ClCompile Include="Game\Scens\GameScene\GameScene.cpp" />
+    <ClCompile Include="Game\Objects\GameObject\Ground\Ground.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -301,9 +303,11 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClInclude Include="Cho\System\Input\InputManager.h" />
     <ClInclude Include="Cho\System\ECS\System\EmitterSystem\EmitterSystem.h" />
     <ClInclude Include="Cho\System\ECS\System\ParticleSystem\ParticleSystem.h" />
+    <ClInclude Include="Game\Objects\Camera\FollowCamera\FollowCamera.h" />
     <ClInclude Include="Game\Scens\GameScene\GameScene.h" />
     <ClInclude Include="Game\Scens\TitleScene\TitleScene.h" />
     <ClInclude Include="Game\Objects\GameObject\Player\Player.h" />
+    <ClInclude Include="Game\Objects\GameObject\Ground\Ground.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Cho\Externals\ChoMath\ChoMath.vcxproj">
