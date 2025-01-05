@@ -16,6 +16,8 @@ class ComponentManager;
 class SystemManager;
 class PrefabManager;
 
+class InputManager;
+
 class SceneManager
 {
 public:
@@ -28,7 +30,8 @@ public:
 		EntityManager* entityManager,
 		ComponentManager* componentManager,
 		SystemManager* systemManager,
-		PrefabManager* prefabManager
+		PrefabManager* prefabManager,
+		InputManager* inputManager
 	);
 
 	/// <summary>
@@ -107,6 +110,7 @@ public:
 
 	ComponentManager* GetCompPtr()const { return componentManager_; }
 	ResourceViewManager* GetRVManagerPtr()const { return rvManager_; }
+	InputManager* GetInputManagerPtr()const { return inputManager_; }
 
 	void SetNowCamera(const Entity& id) { entityManager_->SetCameraID(id); }
 
@@ -132,6 +136,8 @@ private:
 	ComponentManager* componentManager_ = nullptr;
 	SystemManager* systemManager_ = nullptr;
 	PrefabManager* prefabManager_ = nullptr;
+
+	InputManager* inputManager_ = nullptr;
 	
 	std::unordered_map<std::string, std::unique_ptr<GameObject>> gameObjects;
 	std::unordered_map<std::string, std::unique_ptr<GameObject>> cameraObjects;

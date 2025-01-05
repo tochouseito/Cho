@@ -255,7 +255,8 @@ void Cho::Initialize()
 		entityManager.get(),
 		componentManager.get(),
 		systemManager.get(),
-		prefabManager.get()
+		prefabManager.get(),
+		inputManager.get()
 		);
 
 #pragma region プロジェクトデータの読み込み

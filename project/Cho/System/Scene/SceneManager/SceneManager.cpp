@@ -11,7 +11,8 @@ void SceneManager::Initialize(
 	EntityManager* entityManager,
 	ComponentManager* componentManager,
 	SystemManager* systemManager,
-	PrefabManager* prefabManager
+	PrefabManager* prefabManager,
+	InputManager* inputManager
 )
 {
 	// シーンファクトリーの生成
@@ -24,6 +25,8 @@ void SceneManager::Initialize(
 	componentManager_ = componentManager;
 	systemManager_ = systemManager;
 	prefabManager_ = prefabManager;
+
+	inputManager_ = inputManager;
 }
 
 void SceneManager::Finalize()
