@@ -47,6 +47,7 @@ void StartSetting::Initialize(
 	MeshComp.meshID = static_cast<uint32_t>(MeshPattern::Cube);
 	MaterialComponent MaterialComp;
 	RenderComponent renderComp;
+    renderComp.visible = false;
 	sceneManager->GetGameObject(name)->AddComponent(TFComp);
 	sceneManager->GetGameObject(name)->AddComponent(MeshComp);
 	sceneManager->GetGameObject(name)->AddComponent(MaterialComp);

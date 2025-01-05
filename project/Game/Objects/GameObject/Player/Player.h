@@ -12,6 +12,12 @@ public:
 
 	void Update();
 
+private:
+
+	void Input();
+
+	
+
 public:
 	const std::string name = "Player";
 private:

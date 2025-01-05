@@ -164,7 +164,8 @@ void ResourceViewManager::CreateUAVResource(const uint32_t& index, const size_t&
 	// バッファの場合ははこれにする決まり
 	resourceDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 	// 実際にリソースを作る
-	HRESULT hr = d3dDevice_->GetDevice()->CreateCommittedResource(&uploadHeapProperties, D3D12_HEAP_FLAG_NONE,
+	HRESULT hr;
+	hr = d3dDevice_->GetDevice()->CreateCommittedResource(&uploadHeapProperties, D3D12_HEAP_FLAG_NONE,
 		&resourceDesc, D3D12_RESOURCE_STATE_COMMON, nullptr,
 		IID_PPV_ARGS(&handles[index].resource));
 	assert(SUCCEEDED(hr));

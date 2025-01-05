@@ -582,6 +582,8 @@
     <FxCompile Include="Cho\Resources\Shader\EmitParticle.CS.hlsl" />
     <FxCompile Include="Cho\Resources\Shader\UpdateParticle.CS.hlsl" />
     <FxCompile Include="Cho\Resources\Shader\InitParticle.CS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\Wireframe.VS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\Wireframe.PS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Cho\Resources\Shader\header\Demo.hlsli" />

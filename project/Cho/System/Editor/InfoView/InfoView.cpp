@@ -130,6 +130,13 @@ void InfoView::Update()
                 ImGui::Text("Texture : %s", materialComp.textureID.c_str());
             }
 
+            if (componentManager_->GetRender(selectGO->GetEntityID())) {
+                RenderComponent& render = *componentManager_->GetRender(selectGO->GetEntityID());
+
+                ImGui::Checkbox("Visible", &render.visible);
+                ImGui::Checkbox("Wireframe", &render.wireframe);
+            }
+
             if (componentManager_->GetScript(selectGO->GetEntityID(),selectGO->GetObjectType())) {
                 ScriptComponent& scriptComp = *componentManager_->GetScript(selectGO->GetEntityID(),selectGO->GetObjectType());
                 

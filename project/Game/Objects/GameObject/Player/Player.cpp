@@ -10,4 +10,9 @@ void Player::Init(ComponentManager* compManager)
 
 void Player::Update()
 {
+
+}
+
+void Player::Input()
+{
 }

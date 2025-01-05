@@ -79,20 +79,27 @@ void RenderSystem::ObjectRender(EntityManager& entityManager, ComponentManager& 
             // 頂点データ取得キー
             uint32_t meshesIndex = meshComp->meshID;
             // 描画処理: 描画コンポーネントに基づきリソースをバインドして描画
-
-            commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Demo).rootSignature.Get());
-            commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Demo).Blend[kBlendModeNone].Get());
+            if (renderComp->wireframe) {
+                commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Wireframe).rootSignature.Get());
+                commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Wireframe).Blend[kBlendModeNone].Get());
+            }
+            else {
+                commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Demo).rootSignature.Get());
+                commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Demo).Blend[kBlendModeNone].Get());
+            }
             for (std::string name : rvManager->GetMeshs(meshesIndex)->names) {
                 commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->vbvData.vbv);
                 commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
 
                 commandList->SetGraphicsRootConstantBufferView(0, rvManager->GetCBVResource(transComp->cbvIndex)->GetGPUVirtualAddress());
                 commandList->SetGraphicsRootConstantBufferView(1, rvManager->GetCBVResource(cameraComp->cbvIndex)->GetGPUVirtualAddress());
-                if (materialComp) {
-                    commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetTexture(materialComp->textureID).rvIndex).GPUHandle);
-                }
-                else {
-                    commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetWhitePixel().rvIndex).GPUHandle);
+                if (!renderComp->wireframe) {
+                    if (materialComp) {
+                        commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetTexture(materialComp->textureID).rvIndex).GPUHandle);
+                    }
+                    else {
+                        commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetWhitePixel().rvIndex).GPUHandle);
+                    }
                 }
                 //commandList->DrawInstanced(static_cast<UINT>(rvManager->GetMeshes(meshesIndex)->meshData[name].vertices), 1, 0, 0);
                 commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMeshs(meshesIndex)->meshData[name].size.indices), 1, 0, 0, 0);

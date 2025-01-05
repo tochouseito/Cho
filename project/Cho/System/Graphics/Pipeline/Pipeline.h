@@ -18,6 +18,7 @@ enum PSOMode {
 	Init,
 	Emit,
 	ParticleUpdate,
+	Wireframe,
 };
 
 class D3DDevice;
@@ -54,6 +55,8 @@ private:
 	void CreatePSOEmit();
 
 	void CreatePSOUpdate();
+
+	void CreatePSOWireframe();
 
 private:
 

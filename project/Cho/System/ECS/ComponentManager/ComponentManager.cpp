@@ -27,7 +27,6 @@ void ComponentManager::AddComponent(Entity entity, const TransformComponent& com
 // 指定されたEntityにRenderComponentをRendersマップに割り当てます。
 void ComponentManager::AddComponent(Entity entity, const RenderComponent& component) {
     renders[entity] = component;
-	renders[entity].visible = true;
 }
 
 // EntityにPhysicsComponentを追加します。
