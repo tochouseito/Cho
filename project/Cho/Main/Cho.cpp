@@ -532,7 +532,7 @@ void Cho::SelectGameProject()
 				SystemState::GetInstance().SetProjectRoot(startSetting->GetProjectRoot());
 
 				// 最初のシーンを作成
-				sceneManager->ChangeScene("MainScene");
+				sceneManager->ChangeScene("Game");
 
 				// 新プロジェクトの時のみ
 				/*スターター*/

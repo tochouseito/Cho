@@ -34,6 +34,8 @@ public:
 	virtual void ChangeScene()=0;
 
 	virtual void SetSceneManager(SceneManager* sceneManager) { sceneManager_ = sceneManager; }
+
+	virtual SceneManager* GetSceneManager()const { return sceneManager_; }
 private:
 	/*シーンマネージャを借りてくる*/
 	SceneManager* sceneManager_ = nullptr;

@@ -105,6 +105,8 @@ public:
 	std::string SpriteObjectListRename(const std::string& newName, const std::string& deleteName);
 	std::string ParticleObjectListRename(const std::string& newName, const std::string& deleteName);
 
+	ComponentManager* GetCompPtr()const { return componentManager_; }
+
 private:
 	// ユニークな名前を生成する関数
 	std::string GenerateUniqueName(

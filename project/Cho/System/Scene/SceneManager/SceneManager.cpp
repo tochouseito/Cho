@@ -38,7 +38,6 @@ void SceneManager::Finalize()
 
 void SceneManager::Update()
 {
-	if (!scene_) { return; }
 	if (nextScene_) {
 		/*旧シーンの終了*/
 		if (scene_) {
@@ -54,6 +53,7 @@ void SceneManager::Update()
 		scene_->Initialize();
 		systemManager_->Start(*entityManager_, *componentManager_);
 	}
+	if (!scene_) { return; }
 	scene_->Update();
 }
 
