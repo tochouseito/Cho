@@ -299,11 +299,11 @@ void Cho::Initialize()
 	// スタート設定
 	startSetting = std::make_unique<StartSetting>();
 
-	/*読み込み*/
-	Load();
-
 	// デフォルトメッシュ生成
 	resourceViewManager->CreateMeshPattern();
+
+	/*読み込み*/
+	Load();
 
 }
 
@@ -461,7 +461,9 @@ void Cho::Load()
 	textureLoader->FirstResourceLoad("Cho/Resources/Texture/");
 
 	// Game
-	textureLoader->FirstResourceLoad("Game/Assets/Texture/");
+	textureLoader->FirstResourceLoad("Game/Assets/Textures/");
+
+	modelLoader->FirstResourceLoad("Game/Assets/Models/");
 }
 
 void Cho::StartSetUp()

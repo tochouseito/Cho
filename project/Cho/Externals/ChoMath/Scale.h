@@ -45,6 +45,43 @@ public:
 		return { x / scalar, y / scalar, z / scalar };
 	}
 
+	// += 演算子
+	Scale& operator+=(const Scale& other) {
+		x += other.x;
+		y += other.y;
+		z += other.z;
+		return *this;
+	}
+
+	// -= 演算子
+	Scale& operator-=(const Scale& other) {
+		x -= other.x;
+		y -= other.y;
+		z -= other.z;
+		return *this;
+	}
+
+	// *= 演算子
+	Scale& operator*=(float scalar) {
+		x *= scalar;
+		y *= scalar;
+		z *= scalar;
+		return *this;
+	}
+
+	// /= 演算子
+	Scale& operator/=(float scalar) {
+		if (scalar != 0.0f) {
+			x /= scalar;
+			y /= scalar;
+			z /= scalar;
+		}
+		else {
+			Initialize(); // ゼロ除算の場合、初期化
+		}
+		return *this;
+	}
+
 	// 均一スケール判定
 	inline bool IsUniform() const {
 		return x == y && y == z;

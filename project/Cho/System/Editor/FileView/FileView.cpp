@@ -56,13 +56,6 @@ void FileView::Update() {
         files = GetFilesInDirectory(currentDirectory);
         exit = true;
     }
-
-    ImGui::Begin("test");
-    if (ImGui::Button("modelLoad")) {
-        modelLoader_->LoadModel("C:\\ChoProject\\test\\Assets\\Models", "axis");
-        modelLoader_->LoadModel("C:\\ChoProject\\test\\Assets\\Models", "teapot");
-    }
-    ImGui::End();
 }
 
 void FileView::UpdateFiles()

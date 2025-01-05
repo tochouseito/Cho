@@ -36,6 +36,35 @@ void ModelLoader::LoadModel(const std::string& fileRoot, const std::string& file
 	}
 }
 
+void ModelLoader::FirstResourceLoad(const std::string& directoryPath)
+{
+	// ファイルパスのリストを取得
+	for (const auto& entry : fs::directory_iterator(directoryPath))
+	{
+		// ファイルかどうかを確認
+		if (fs::is_directory(entry.path()))
+		{
+			for (const auto& modelEntty : fs::directory_iterator(entry.path()))
+			{
+				std::string filePath = modelEntty.path().string();
+
+				// ファイル名部分のみ取得（ディレクトリパスを除去）
+				std::string fileName = modelEntty.path().filename().string();
+				std::string fileStem = modelEntty.path().stem().string(); // 拡張子を除いた部分
+
+				// ファイルの形式をチェック
+				if (fileName.ends_with(".obj") || fileName.ends_with(".gltf"))
+				{
+					// directoryPath をフルパスに変換
+					std::string fullDirectoryPath = fs::absolute(directoryPath).string();
+					// ファイルを読み込み
+					LoadModel(fullDirectoryPath, fileStem);
+				}
+			}
+		}
+	}
+}
+
 void ModelLoader::LoadModelFile(ModelData* modelData,const std::string& fileRoot, const std::string& fileName)
 {
 	// 変数の宣言
@@ -50,7 +79,7 @@ void ModelLoader::LoadModelFile(ModelData* modelData,const std::string& fileRoot
 	// ここからファイルを開く
 	
 	// まずobjファイルの読み込みのみ
-	filePath = fileRoot + "\\" + fileName + "\\" + fileName + ".obj";
+	filePath = fileRoot + fileName + "\\" + fileName + ".obj";
 
 	const aiScene* scene = importer.ReadFile(filePath.c_str(), aiProcess_FlipWindingOrder | aiProcess_FlipUVs);
 	assert(scene->HasMeshes());// メッシュがないのは対応しない

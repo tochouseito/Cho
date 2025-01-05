@@ -9,7 +9,7 @@ void GameScene::Initialize()
 	{
 		player = std::make_unique<Player>();
 		CreateGameObject(player->name);
-		player->Init(compManager_);
+		player->Init(sceneManager_, compManager_);
 	}
 	{
 		ground = std::make_unique<Ground>();

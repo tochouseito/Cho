@@ -45,6 +45,43 @@ struct Vector3 final {
         return { x * scalar, y * scalar, z * scalar };
     }
 
+    // += 演算子
+    Vector3& operator+=(const Vector3& other) {
+        x += other.x;
+        y += other.y;
+        z += other.z;
+        return *this;
+    }
+
+    // -= 演算子
+    Vector3& operator-=(const Vector3& other) {
+        x -= other.x;
+        y -= other.y;
+        z -= other.z;
+        return *this;
+    }
+
+    // *= 演算子
+    Vector3& operator*=(float scalar) {
+        x *= scalar;
+        y *= scalar;
+        z *= scalar;
+        return *this;
+    }
+
+    // /= 演算子
+    Vector3& operator/=(float scalar) {
+        if (scalar != 0.0f) {
+            x /= scalar;
+            y /= scalar;
+            z /= scalar;
+        }
+        else {
+            Initialize(); // ゼロ除算の場合、初期化
+        }
+        return *this;
+    }
+
     // ベクトルの長さ
     float Length() const {
         return std::sqrt(x * x + y * y + z * z);

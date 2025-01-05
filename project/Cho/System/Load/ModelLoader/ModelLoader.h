@@ -3,6 +3,9 @@
 // C++
 #include<string>
 #include<memory>
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 // assimp
 #include<assimp/Importer.hpp>
@@ -22,6 +25,11 @@ public:
 	void Initialize(ResourceViewManager* rvManager,TextureLoader* texLoader, MeshLoader* meshLoader);
 
 	void LoadModel(const std::string& fileRoot, const std::string& fileName);
+
+	/// <summary>
+	/// 開始ロード
+	/// </summary>
+	void FirstResourceLoad(const std::string& directoryPath);
 
 private:
 

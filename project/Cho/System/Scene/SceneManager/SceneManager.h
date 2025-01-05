@@ -106,6 +106,7 @@ public:
 	std::string ParticleObjectListRename(const std::string& newName, const std::string& deleteName);
 
 	ComponentManager* GetCompPtr()const { return componentManager_; }
+	ResourceViewManager* GetRVManagerPtr()const { return rvManager_; }
 
 	void SetNowCamera(const Entity& id) { entityManager_->SetCameraID(id); }
 
