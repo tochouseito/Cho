@@ -459,6 +459,9 @@ void Cho::Load()
 
 	/*テクスチャリソースの読み込み*/
 	textureLoader->FirstResourceLoad("Cho/Resources/Texture/");
+
+	// Game
+	textureLoader->FirstResourceLoad("Game/Assets/Texture/");
 }
 
 void Cho::StartSetUp()

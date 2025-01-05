@@ -22,5 +22,8 @@ private:
 	// Components
 	TransformComponent* tf = nullptr;
 	MeshComponent* mesh = nullptr;
+	MaterialComponent* material = nullptr;
+
+	const std::string textureID = "ground.png";
 };
 
