@@ -19,6 +19,7 @@ enum PSOMode {
 	Emit,
 	ParticleUpdate,
 	Wireframe,
+	SkinningCS,
 };
 
 class D3DDevice;
@@ -57,6 +58,8 @@ private:
 	void CreatePSOUpdate();
 
 	void CreatePSOWireframe();
+
+	void CreatePSOSkinningCS();
 
 private:
 

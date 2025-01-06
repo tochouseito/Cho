@@ -134,6 +134,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cho\System\ECS\System\AnimationSystem\AnimationSystem.cpp" />
     <ClCompile Include="Cho\System\Audio\AudioManager.cpp" />
     <ClCompile Include="Cho\System\ECS\System\CameraSystem\CameraSystem.cpp" />
     <ClCompile Include="Cho\System\Generator\GameProject\GameProject.cpp" />
@@ -216,6 +217,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClCompile Include="Cho\System\ECS\System\ParticleSystem\ParticleSystem.cpp" />
     <ClCompile Include="Game\Scens\TitleScene\TitleScene.cpp" />
     <ClCompile Include="Game\Objects\GameObject\Player\Player.cpp" />
+    <ClInclude Include="Cho\System\ECS\System\AnimationSystem\AnimationSystem.h" />
     <ClInclude Include="Cho\System\Audio\AudioManager.h" />
     <ClInclude Include="Cho\System\ConstantData\AnimationData.h" />
     <ClInclude Include="Cho\System\ConstantData\EmitterData.h" />
@@ -226,6 +228,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClInclude Include="Cho\System\ConstantData\SpriteData.h" />
     <ClInclude Include="Cho\System\ConstantData\ViewProjection.h" />
     <ClInclude Include="Cho\System\ConstantData\WorldTransform.h" />
+    <ClInclude Include="Cho\System\ECS\ComponentManager\Components\AnimationComponent\AnimationComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\CameraComponent\CameraComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\EmitterComponent\EmitterComponent.h" />
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\MaterialComponent\MaterialComponent.h" />
@@ -364,6 +367,20 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
     <FxCompile Include="Cho\Resources\Shader\Particle.VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Cho\Resources\Shader\Skinning.CS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Cho\Resources\Shader\Skinning.VS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

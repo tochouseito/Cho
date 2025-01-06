@@ -26,6 +26,7 @@ struct Node
 struct ObjectData {
 	std::map<std::string, JointWeightData>skinClusterData;
 	SkinningInformation* infoData=nullptr;
+	uint32_t infoCBVIndex = 0;
 	std::vector<VertexData> vertices;// 頂点リスト
 	std::vector<uint32_t>indices;// Indexリスト
 	uint32_t meshIndex;

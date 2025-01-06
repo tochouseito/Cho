@@ -18,6 +18,7 @@ void Pipeline::Initialize(D3DDevice* d3dDevice, ShaderCompiler* shaderCompiler)
 	CreatePSOEmit();
 	CreatePSOUpdate();
 	CreatePSOWireframe();
+	CreatePSOSkinningCS();
 }
 
 void Pipeline::CreatePSODemo()
@@ -1281,7 +1282,7 @@ void Pipeline::CreatePSOWireframe()
 	graphicsPipelineStateDesc.PrimitiveTopologyType =
 		D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
 	//D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT;
-// どのように画面に色を打ち込むかの設定（気にしなくてもいい）
+	// どのように画面に色を打ち込むかの設定（気にしなくてもいい）
 	graphicsPipelineStateDesc.SampleDesc.Count = 1;
 	graphicsPipelineStateDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
 	// DepthStencilの設定
@@ -1289,6 +1290,105 @@ void Pipeline::CreatePSOWireframe()
 	graphicsPipelineStateDesc.DSVFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	// 実際に生成
 	hr = d3dDevice_->GetDevice()->CreateGraphicsPipelineState(&graphicsPipelineStateDesc,
+		IID_PPV_ARGS(&psoBlend.Blend[kBlendModeNone]));
+	assert(SUCCEEDED(hr));
+
+	psoBlends.push_back(psoBlend);
+}
+
+void Pipeline::CreatePSOSkinningCS()
+{
+	HRESULT hr;
+	PSOBlend psoBlend;
+
+	// Shaderをコンパイルする
+	Microsoft::WRL::ComPtr < IDxcBlob> computeShaderBlob =
+		shaderCompiler_->CompilerShader(
+			L"Cho/Resources/Shader/Skinning.CS.hlsl",
+			L"cs_6_0");
+	assert(computeShaderBlob);
+
+	// RootSignature作成
+	D3D12_ROOT_SIGNATURE_DESC descriptionRooTSignature{};
+	descriptionRooTSignature.Flags =
+		D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
+
+	// RootParameter作成。PixelShaderのMaterialとVertexShaderのTransform
+	D3D12_ROOT_PARAMETER rootParameter[5] = {};
+
+	D3D12_DESCRIPTOR_RANGE descriptorSRVRange = {};
+	descriptorSRVRange.BaseShaderRegister = 0;
+	descriptorSRVRange.NumDescriptors = 1;
+	descriptorSRVRange.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+	descriptorSRVRange.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+
+	rootParameter[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+	rootParameter[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
+	rootParameter[0].DescriptorTable.pDescriptorRanges = &descriptorSRVRange;// Tableの中身の配列を指定
+	rootParameter[0].DescriptorTable.NumDescriptorRanges = 1;// Tableで利用する数
+
+	D3D12_DESCRIPTOR_RANGE descriptorSRVRange1 = {};
+	descriptorSRVRange1.BaseShaderRegister = 1;
+	descriptorSRVRange1.NumDescriptors = 1;
+	descriptorSRVRange1.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+	descriptorSRVRange1.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+
+	rootParameter[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+	rootParameter[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
+	rootParameter[1].DescriptorTable.pDescriptorRanges = &descriptorSRVRange1;// Tableの中身の配列を指定
+	rootParameter[1].DescriptorTable.NumDescriptorRanges = 1;// Tableで利用する数
+
+	D3D12_DESCRIPTOR_RANGE descriptorSRVRange2 = {};
+	descriptorSRVRange2.BaseShaderRegister = 2;
+	descriptorSRVRange2.NumDescriptors = 1;
+	descriptorSRVRange2.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+	descriptorSRVRange2.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+
+	rootParameter[2].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+	rootParameter[2].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
+	rootParameter[2].DescriptorTable.pDescriptorRanges = &descriptorSRVRange2;// Tableの中身の配列を指定
+	rootParameter[2].DescriptorTable.NumDescriptorRanges = 1;// Tableで利用する数
+
+	D3D12_DESCRIPTOR_RANGE descriptorUAVRange = {};
+	descriptorUAVRange.BaseShaderRegister = 0;
+	descriptorUAVRange.NumDescriptors = 1;
+	descriptorUAVRange.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_UAV;
+	descriptorUAVRange.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+
+	rootParameter[3].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
+	rootParameter[3].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
+	rootParameter[3].DescriptorTable.pDescriptorRanges = &descriptorUAVRange;// Tableの中身の配列を指定
+	rootParameter[3].DescriptorTable.NumDescriptorRanges = 1;// Tableで利用する数
+
+	rootParameter[4].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;// CBVを使う
+	rootParameter[4].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
+	rootParameter[4].Descriptor.ShaderRegister = 0;// レジスタ番号０とバインド
+
+	descriptionRooTSignature.pParameters = rootParameter;// ルートパラメータ配列へのポインタ
+	descriptionRooTSignature.NumParameters = _countof(rootParameter);// 配列の長さ
+
+	// シリアライズしてバイナリにする
+	Microsoft::WRL::ComPtr < ID3DBlob> signatureBlob = nullptr;
+	Microsoft::WRL::ComPtr < ID3DBlob> errorBlob = nullptr;
+	hr = D3D12SerializeRootSignature(&descriptionRooTSignature,
+		D3D_ROOT_SIGNATURE_VERSION_1, &signatureBlob, &errorBlob);
+	if (FAILED(hr)) {
+		Log(reinterpret_cast<char*>(errorBlob->GetBufferPointer()));
+		assert(SUCCEEDED(hr));
+	}
+
+	// バイナリをもとに生成
+	hr = d3dDevice_->GetDevice()->CreateRootSignature(0, signatureBlob->GetBufferPointer(),
+		signatureBlob->GetBufferSize(), IID_PPV_ARGS(&psoBlend.rootSignature));
+	assert(SUCCEEDED(hr));
+
+	D3D12_COMPUTE_PIPELINE_STATE_DESC computePipelineStateDesc{};
+	computePipelineStateDesc.CS = {
+	.pShaderBytecode = computeShaderBlob->GetBufferPointer(),
+	.BytecodeLength = computeShaderBlob->GetBufferSize() };
+	computePipelineStateDesc.pRootSignature = psoBlend.rootSignature.Get();
+	// 実際に生成
+	hr = d3dDevice_->GetDevice()->CreateComputePipelineState(&computePipelineStateDesc,
 		IID_PPV_ARGS(&psoBlend.Blend[kBlendModeNone]));
 	assert(SUCCEEDED(hr));
 

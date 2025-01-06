@@ -66,7 +66,7 @@ public:// メンバ関数
 
 	ID3D12Resource* GetCBVResource(const uint32_t& index);
 
-	uint32_t CreateMeshView(const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes);
+	uint32_t CreateMeshView(const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes,ID3D12Resource* pResource=nullptr);
 
 	MeshView* GetMeshViewData(const uint32_t& index);
 
@@ -101,7 +101,7 @@ public:// メンバ関数
 
 	Meshs* GetMeshs(const uint32_t& index)const { return meshContainer[index].get(); }
 
-	uint32_t CreateMeshResource(const std::string& name, const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes);
+	uint32_t CreateMeshResource(const std::string& name, const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes,ID3D12Resource* pResource=nullptr);
 
 	void ModelMeshMap(const uint32_t& index, const std::string& name,const std::string& modelName);
 
@@ -131,7 +131,7 @@ private:
 	uint32_t MeshViewAllocate();
 
 	// VBVリソース作成
-	MeshView CreateMeshViewResource(const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes);
+	MeshView CreateMeshViewResource(const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes, ID3D12Resource* pResource=nullptr);
 
 	uint32_t SpriteAllocate();
 

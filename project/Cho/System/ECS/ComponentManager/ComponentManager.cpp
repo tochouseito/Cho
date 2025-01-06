@@ -183,6 +183,12 @@ void ComponentManager::AddComponent(Entity entity, const EmitterComponent& compo
     // 初期化
 }
 
+void ComponentManager::AddComponent(Entity entity, const AnimationComponent& component)
+{
+	animations[entity] = component;
+	// 初期化
+}
+
 // Entityに関連するすべてのコンポーネントを削除します。
 // 指定されたEntityに対して、TransformComponent、RenderComponent、PhysicsComponentをそれぞれのマップから削除します。
 void ComponentManager::RemoveComponent(Entity entity) {

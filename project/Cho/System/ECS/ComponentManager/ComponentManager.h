@@ -40,6 +40,8 @@ public:
 
     void AddComponent(Entity entity, const EmitterComponent& component);
 
+	void AddComponent(Entity entity, const AnimationComponent& component);
+
     // 指定されたエンティティのTransformコンポーネントを取得します。
     inline TransformComponent* GetTransform(Entity entity) {
         if (transforms.contains(entity)) {
@@ -139,6 +141,14 @@ public:
         return nullptr;
     }
 
+	inline AnimationComponent* GetAnimation(Entity entity) {
+
+		if (animations.contains(entity)) {
+			return &animations[entity];
+		}
+		return nullptr;
+	}
+
     // 指定されたエンティティからコンポーネントを削除します。
     void RemoveComponent(Entity entity);
 
@@ -159,6 +169,7 @@ private:
     std::unordered_map<Entity, SpriteComponent> sprites;
     std::unordered_map<Entity, ParticleComponent> particles;
     std::unordered_map<Entity, EmitterComponent> emitters;
+	std::unordered_map<Entity, AnimationComponent> animations;
 
     ResourceViewManager* rvManager_ = nullptr;
 };

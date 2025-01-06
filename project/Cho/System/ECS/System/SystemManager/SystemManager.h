@@ -12,6 +12,7 @@
 #include"ECS/System/MaterialSystem/MaterialSystem.h"
 #include"ECS/System/ParticleSystem/ParticleSystem.h"
 #include"ECS/System/EmitterSystem/EmitterSystem.h"
+#include"ECS/System/AnimationSystem/AnimationSystem.h"
 
 class D3DCommand;
 class ResourceViewManager;
@@ -69,7 +70,7 @@ private:
     MaterialSystem materialSystem;
     ParticleSystem particleSystem;
     EmitterSystem emitterSystem;
-
+	AnimationSystem animationSystem;
 
     EntityManager* entityManager_ = nullptr;
     ComponentManager* componentManager_ = nullptr;

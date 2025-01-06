@@ -33,6 +33,10 @@ void ModelLoader::LoadModel(const std::string& directoryPath, const fs::director
 		uint32_t indices = static_cast<uint32_t>(modelData->objects[name].indices.size());
 		modelData->objects[name].meshIndex = meshLoader_->LoadMesh(name, vertices, indices);
 		meshLoader_->Map(modelData->objects[name].meshIndex, name, modelName);
+
+		modelData->objects[name].infoCBVIndex = rvManager_->CreateCBV(sizeof(SkinningInformation));
+		rvManager_->GetCBVResource(modelData->objects[name].infoCBVIndex)->Map(0, nullptr, reinterpret_cast<void**>(&modelData->objects[name].infoData));
+		modelData->objects[name].infoData->numVertices = static_cast<uint32_t>(modelData->objects[name].vertices.size());
 	}
 }
 
@@ -65,63 +69,6 @@ void ModelLoader::FirstResourceLoad(const std::string& directoryPath)
 			}
 		}
 	}
-}
-
-Vector3 ModelLoader::CalculateValue(const std::vector<KeyframeVector3>& keyframes, float time)
-{
-	assert(!keyframes.empty());// キーがないものは返す値がわからないのでだめ
-	if (keyframes.size() == 1 || time <= keyframes[0].time) {// キーが一つか、時刻がキーフレーム前なら最初の値とする
-		return keyframes[0].value;
-	}
-	for (size_t index = 0; index < keyframes.size() - 1; ++index) {
-		size_t nextIndex = index + 1;
-		// indexとnextIndexの二つのkeyframeを取得して範囲内に時刻があるかを判定
-		if (keyframes[index].time <= time && time <= keyframes[nextIndex].time) {
-			// 範囲内を補間する
-			float t = (time - keyframes[index].time) / (keyframes[nextIndex].time - keyframes[index].time);
-			return Vector3::Lerp(keyframes[index].value, keyframes[nextIndex].value, t);
-		}
-	}
-	// ここまで来た場合は一番後の時刻よりも後ろなので最後の値を返すことにする
-	return (*keyframes.rbegin()).value;
-}
-
-Quaternion ModelLoader::CalculateValue(const std::vector<KeyframeQuaternion>& keyframes, float time)
-{
-	assert(!keyframes.empty());// キーがないものは返す値がわからないのでだめ
-	if (keyframes.size() == 1 || time <= keyframes[0].time) {// キーが一つか、時刻がキーフレーム前なら最初の値とする
-		return keyframes[0].value;
-	}
-	for (size_t index = 0; index < keyframes.size() - 1; ++index) {
-		size_t nextIndex = index + 1;
-		// indexとnextIndexの二つのkeyframeを取得して範囲内に時刻があるかを判定
-		if (keyframes[index].time <= time && time <= keyframes[nextIndex].time) {
-			// 範囲内を補間する
-			float t = (time - keyframes[index].time) / (keyframes[nextIndex].time - keyframes[index].time);
-			return Quaternion::Slerp(keyframes[index].value, keyframes[nextIndex].value, t);
-		}
-	}
-	// ここまで来た場合は一番後の時刻よりも後ろなので最後の値を返すことにする
-	return (*keyframes.rbegin()).value;
-}
-
-Scale ModelLoader::CalculateValue(const std::vector<KeyframeScale>& keyframes, float time)
-{
-	assert(!keyframes.empty());// キーがないものは返す値がわからないのでだめ
-	if (keyframes.size() == 1 || time <= keyframes[0].time) {// キーが一つか、時刻がキーフレーム前なら最初の値とする
-		return keyframes[0].value;
-	}
-	for (size_t index = 0; index < keyframes.size() - 1; ++index) {
-		size_t nextIndex = index + 1;
-		// indexとnextIndexの二つのkeyframeを取得して範囲内に時刻があるかを判定
-		if (keyframes[index].time <= time && time <= keyframes[nextIndex].time) {
-			// 範囲内を補間する
-			float t = (time - keyframes[index].time) / (keyframes[nextIndex].time - keyframes[index].time);
-			return Scale::Lerp(keyframes[index].value, keyframes[nextIndex].value, t);
-		}
-	}
-	// ここまで来た場合は一番後の時刻よりも後ろなので最後の値を返すことにする
-	return (*keyframes.rbegin()).value;
 }
 
 void ModelLoader::LoadModelFile(ModelData* modelData, const std::string& directoryPath, const fs::directory_entry& entry)
@@ -365,33 +312,6 @@ int32_t ModelLoader::CreateJoint(const Node& node, const std::optional<int32_t>&
 	*/
 }
 
-void ModelLoader::SkeletonUpdate(ModelData* modelData)
-{
-	// すべてのJointを更新。親が若いので通常ループで処理可能になっている
-	for (Joint& joint : modelData->skeleton.joints) {
-		joint.localMatrix = MakeAffineMatrix(joint.transform.scale, joint.transform.rotation, joint.transform.translation);
-		if (joint.parent) {
-			joint.skeletonSpaceMatrix = joint.localMatrix * modelData->skeleton.joints[*joint.parent].skeletonSpaceMatrix;
-		}
-		else {// 親がいないのでlocalMatrixとskeletonSpaceMatrixは一致する
-			joint.skeletonSpaceMatrix = joint.localMatrix;
-		}
-	}
-}
-
-void ModelLoader::ApplyAnimation(ModelData* modelData, const uint32_t& animationIndex, float animationTime)
-{
-	for (Joint& joint : modelData->skeleton.joints) {
-		// 対象のJointのAnimationがあれば、値の適用を行う。下記のif文はC++17から可能になった初期化付きif文
-		if (auto it = modelData->animations[animationIndex].nodeAnimations.find(joint.name); it != modelData->animations[animationIndex].nodeAnimations.end()) {
-			const NodeAnimation& rootNodeAnimation = (*it).second;
-			joint.transform.translation = CalculateValue(rootNodeAnimation.translate.keyframes, animationTime);
-			joint.transform.rotation = CalculateValue(rootNodeAnimation.rotate.keyframes, animationTime);
-			joint.transform.scale = CalculateValue(rootNodeAnimation.scale.keyframes, animationTime);
-		}
-	}
-}
-
 void ModelLoader::CreateSkinCluster(ModelData* modelData, const std::string& name, const ObjectData& objectData)
 {
 
@@ -437,6 +357,40 @@ void ModelLoader::CreateSkinCluster(ModelData* modelData, const std::string& nam
 		sizeof(ConstBufferDataVertexInfluence)
 	);
 
+	skinCluster.skinningData.inputSRVIndex = rvManager_->GetNewHandle();
+	rvManager_->CreateSRVforStructuredBuffer(
+		skinCluster.skinningData.inputSRVIndex,
+		static_cast<UINT>(modelData->objects.size()),
+		sizeof(VertexData) * objectData.vertices.size()
+	);
+
+	skinCluster.skinningData.inputMVIndex = 
+		rvManager_->CreateMeshResource(
+			name,
+			static_cast<uint32_t>(objectData.vertices.size()),
+			0,
+			sizeof(VertexData),
+			rvManager_->GetHandle(
+				skinCluster.skinningData.inputSRVIndex).resource.Get()
+		);
+
+	skinCluster.skinningData.outputUAVIndex = rvManager_->GetNewHandle();
+	rvManager_->CreateUAVforStructuredBuffer(
+		skinCluster.skinningData.outputUAVIndex,
+		static_cast<UINT>(modelData->objects.size()),
+		sizeof(VertexData) * objectData.vertices.size()
+	);
+
+	skinCluster.skinningData.outputMVIndex =
+		rvManager_->CreateMeshResource(
+			name,
+			static_cast<uint32_t>(objectData.vertices.size()),
+			0,
+			sizeof(VertexData),
+			rvManager_->GetHandle(
+				skinCluster.skinningData.outputUAVIndex).resource.Get()
+		);
+
 	/*Influence用のVBVを作成*/
 	skinCluster.influenceData.meshViewIndex = rvManager_->CreateMeshResource(name, static_cast<uint32_t>(objectData.vertices.size()), 0,sizeof(ConstBufferDataVertexInfluence));
 	/*InverseBindPoseMatrixの保存領域を作成*/
@@ -464,14 +418,3 @@ void ModelLoader::CreateSkinCluster(ModelData* modelData, const std::string& nam
 	modelData->skinCluster = skinCluster;
 }
 
-void ModelLoader::SkinClusterUpdate(ModelData* modelData)
-{
-	for (size_t jointIndex = 0; jointIndex < modelData->skeleton.joints.size(); ++jointIndex) {
-		assert(jointIndex < modelData->skinCluster.inverseBindPoseMatrices.size());
-		modelData->skinCluster.paletteData.map[jointIndex].skeletonSpaceMatrix =
-			modelData->skinCluster.inverseBindPoseMatrices[jointIndex] * modelData->skeleton.joints[jointIndex].skeletonSpaceMatrix;
-		modelData->skinCluster.paletteData.map[jointIndex].skeletonSpaceInverseTransposeMatrix =
-			ChoMath::Transpose(Matrix4::Inverse(modelData->skinCluster.paletteData.map[jointIndex].skeletonSpaceMatrix)
-			);
-	}
-}

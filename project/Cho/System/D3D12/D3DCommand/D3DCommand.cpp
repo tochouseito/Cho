@@ -20,7 +20,7 @@ void D3DCommand::Close(const QueueType& queueType, const CommandType& commandTyp
 	assert(SUCCEEDED(hr));
 
 	// GPUにコマンドリストの実行を行わせる
-	Microsoft::WRL::ComPtr < ID3D12CommandList> commandLists[] = { commands[commandType].list};
+	Microsoft::WRL::ComPtr<ID3D12CommandList> commandLists[] = { commands[commandType].list};
 	queues[queueType].queue->ExecuteCommandLists(1, commandLists->GetAddressOf());
 }
 

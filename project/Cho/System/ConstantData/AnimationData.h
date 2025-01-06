@@ -87,10 +87,17 @@ struct PaletteData {
 	std::span<ConstBufferDataWell> map;
 	uint32_t srvIndex = 0;
 };
+struct SkinningData {
+	uint32_t outputMVIndex = 0;
+	uint32_t inputMVIndex = 0;
+	uint32_t outputUAVIndex = 0;
+	uint32_t inputSRVIndex = 0;
+};
 struct SkinCluster {
 	std::vector<Matrix4> inverseBindPoseMatrices;
 	PaletteData paletteData;
 	InfluenceData influenceData;
+	SkinningData skinningData;
 };
 
 // アニメーションデータ構造体

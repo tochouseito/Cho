@@ -32,9 +32,6 @@ public:
 	/// </summary>
 	void FirstResourceLoad(const std::string& directoryPath);
 
-	Vector3 CalculateValue(const std::vector<KeyframeVector3>& keyframes, float time);
-	Quaternion CalculateValue(const std::vector<KeyframeQuaternion>& keyframes, float time);
-	Scale CalculateValue(const std::vector<KeyframeScale>& keyframes, float time);
 private:
 
 	void LoadModelFile(ModelData* modelData, const std::string& directoryPath, const fs::directory_entry& entry);
@@ -51,17 +48,12 @@ private:
 		std::vector<Joint>& joints
 	);
 
-	void SkeletonUpdate(ModelData* modelData);
-
-	void ApplyAnimation(ModelData* modelData, const uint32_t& animationIndex, float animationTime);
-
 	void CreateSkinCluster(
 		ModelData* modelData,
 		const std::string& name,
 		const ObjectData& objectData
 	);
 
-	void SkinClusterUpdate(ModelData* modelData);
 private:
 	// ポインタ
 	ResourceViewManager* rvManager_ = nullptr;

@@ -55,6 +55,8 @@ public:
 
     void AddComponent(const EmitterComponent& component);
 
+	void AddComponent(const AnimationComponent& component);
+
     // TransformComponentを取得します。
     inline TransformComponent* GetTransform() {
         return componentManager->GetTransform(entity);
@@ -97,6 +99,10 @@ public:
     inline EmitterComponent* GetEmitter() {
         return componentManager->GetEmitter(entity);
     }
+
+	inline AnimationComponent* GetAnimation() {
+		return componentManager->GetAnimation(entity);
+	}
 
     inline void SetName(const std::string& newName) {
         name = newName;

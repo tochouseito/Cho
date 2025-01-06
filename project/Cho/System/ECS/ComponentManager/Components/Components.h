@@ -23,5 +23,6 @@
 #include"ECS/ComponentManager/Components/SpriteComponent/SpriteComponent.h"
 #include"ECS/ComponentManager/Components/ParticleComponent/ParticleComponent.h"
 #include"ECS/ComponentManager/Components/EmitterComponent/EmitterComponent.h"
+#include"ECS/ComponentManager/Components/AnimationComponent/AnimationComponent.h"
 
 #include"ObjectType/ObjectType.h"

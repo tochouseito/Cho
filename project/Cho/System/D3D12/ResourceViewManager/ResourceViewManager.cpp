@@ -71,7 +71,7 @@ ID3D12Resource* ResourceViewManager::GetCBVResource(const uint32_t& index)
 	return CBVResources[index].Get();
 }
 
-uint32_t ResourceViewManager::CreateMeshView(const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes)
+uint32_t ResourceViewManager::CreateMeshView(const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes, ID3D12Resource* pResource)
 {
 	uint32_t index = MeshViewAllocate();
 
@@ -373,14 +373,18 @@ uint32_t ResourceViewManager::MeshViewAllocate()
 	return index;
 }
 
-MeshView ResourceViewManager::CreateMeshViewResource(const uint32_t& vertices, const uint32_t& indices,const size_t& sizeInBytes)
+MeshView ResourceViewManager::CreateMeshViewResource(const uint32_t& vertices, const uint32_t& indices,const size_t& sizeInBytes, ID3D12Resource* pResource)
 {
 	MeshView meshView;
 
 	//size_t sizeInBytes = sizeof(VertexData);
 
-	meshView.vbvData.resource = CreateBufferResource(sizeInBytes * static_cast<size_t>(vertices));
-
+	if (pResource != nullptr) {
+		meshView.vbvData.resource = CreateBufferResource(sizeInBytes * static_cast<size_t>(vertices));
+	}
+	else {
+		meshView.vbvData.resource = pResource;
+	}
 	// 頂点バッファビューを作成する
 	// リソースの先頭のアドレスから使う
 	meshView.vbvData.vbv.BufferLocation = meshView.vbvData.resource->GetGPUVirtualAddress();
@@ -432,13 +436,16 @@ void ResourceViewManager::CreateMeshViewDMP(const uint32_t& index, const  uint32
 	meshView = CreateMeshViewResource(vertices,indices,sizeof(VertexData));
 }
 
-uint32_t ResourceViewManager::CreateMeshResource(const std::string& name, const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes)
+uint32_t ResourceViewManager::CreateMeshResource(const std::string& name, const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes, ID3D12Resource* pResource)
 {
-	uint32_t index = CreateMeshView(vertices, indices,sizeInBytes);
+	uint32_t index = CreateMeshView(vertices, indices,sizeInBytes,pResource);
 
 	std::unique_ptr<Meshs> mesh = std::make_unique<Meshs>();
 
 	mesh->names.push_back(name);
+	if (mesh->meshData.contains(name)) {
+		assert(0);
+	}
 	MeshData& meshData = mesh->meshData[name];
 	meshData.meshViewIndex = index;
 	meshData.size.vertices = vertices;

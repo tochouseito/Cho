@@ -13,6 +13,9 @@ void SystemManager::Initialize(D3DCommand* d3dCommand, ResourceViewManager* rvMa
     particleSystem.SetD3DCommandPtr(d3dCommand);
     particleSystem.SetRVManagerPtr(rvManager);
     particleSystem.SetGraphicsSystemPtr(graphicsSystem);
+	animationSystem.SetRVManagerPtr(rvManager);
+	animationSystem.SetD3DCommandPtr(d3dCommand);
+	animationSystem.SetGraphicsSystemPtr(graphicsSystem);
     entityManager_ = entityManager;
     componentManager_ = componentManager;
 }
@@ -34,6 +37,7 @@ void SystemManager::Update(EntityManager& entityManager, ComponentManager& compo
         physicsSystem.Update(entityManager, componentManager, deltaTime);
         emitterSystem.Update(entityManager, componentManager);
         particleSystem.Update(entityManager, componentManager);
+		animationSystem.Update(entityManager, componentManager);
     } else {
         spriteSystem.Update(entityManager, componentManager);
         cameraSystem.UpdateEditor(entityManager, componentManager);
