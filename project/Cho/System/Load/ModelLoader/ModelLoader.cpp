@@ -31,24 +31,41 @@ void ModelLoader::LoadModel(const std::string& directoryPath, const fs::director
 	for (const std::string& name : modelData->names) {
 		uint32_t vertices = static_cast<uint32_t>(modelData->objects[name].vertices.size());
 		uint32_t indices = static_cast<uint32_t>(modelData->objects[name].indices.size());
-		modelData->objects[name].meshIndex = meshLoader_->LoadMesh(name, vertices, indices);
+		if (modelData->isBone) {
+			modelData->objects[name].meshIndex = rvManager_->CreateMeshResource(
+				name,
+				vertices,
+				indices,
+				sizeof(VertexData),
+				rvManager_->GetHandle(modelData->skinCluster.skinningData.inputSRVIndex).resource.Get()
+			);
+		}
+		else {
+			modelData->objects[name].meshIndex = rvManager_->CreateMeshResource(
+				name,
+				vertices,
+				indices,
+				sizeof(VertexData)
+			);
+		}
+		
 		rvManager_->ModelMeshMap(modelData->objects[name].meshIndex, name);
 		rvManager_->MeshDataCopy(modelData->objects[name].meshIndex, name, modelName);
 		if (modelData->isBone) {
 			// InputResourceのMapping
-			rvManager_->GetHandle(
-				modelData->skinCluster.skinningData.inputSRVIndex).resource->Map(
-					0,
-					nullptr,
-					reinterpret_cast<void**>(&rvManager_->GetMesh(
-						modelData->objects[name].meshIndex)->meshData[name].vertexData)
-				);
+			//rvManager_->GetHandle(
+				//modelData->skinCluster.skinningData.inputSRVIndex).resource->Map(
+				//	0,
+				//	nullptr,
+				//	reinterpret_cast<void**>(&rvManager_->GetMesh(
+				//		modelData->objects[name].meshIndex)->meshData[name].vertexData)
+				//);
 			modelData->objects[name].infoCBVIndex = rvManager_->CreateCBV(sizeof(SkinningInformation));
 			rvManager_->GetCBVResource(modelData->objects[name].infoCBVIndex)->Map(0, nullptr, reinterpret_cast<void**>(&modelData->objects[name].infoData));
 			modelData->objects[name].infoData->numVertices = static_cast<uint32_t>(modelData->objects[name].vertices.size());
 		}
 
-		rvManager_->MeshDataCopy(modelData->objects[name].meshIndex, name, modelName);
+		//rvManager_->MeshDataCopy(modelData->objects[name].meshIndex, name, modelName);
 	}
 }
 
