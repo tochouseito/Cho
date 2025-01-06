@@ -206,6 +206,24 @@ void ResourceViewManager::CreateSRVForTexture2D(const uint32_t& index, const DXG
 	);
 }
 
+void ResourceViewManager::CreateSRVforStructuredBuffer(const uint32_t& index, const UINT& numElements, const UINT& structuredByteStride)
+{
+	D3D12_SHADER_RESOURCE_VIEW_DESC instancingSrvDesc{};
+	instancingSrvDesc.Format = DXGI_FORMAT_UNKNOWN;
+	instancingSrvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+	instancingSrvDesc.ViewDimension = D3D12_SRV_DIMENSION_BUFFER;
+	instancingSrvDesc.Buffer.FirstElement = 0;
+	instancingSrvDesc.Buffer.Flags = D3D12_BUFFER_SRV_FLAG_NONE;
+	instancingSrvDesc.Buffer.NumElements = numElements;
+	instancingSrvDesc.Buffer.StructureByteStride = structuredByteStride;
+
+	d3dDevice_->GetDevice()->CreateShaderResourceView(
+		handles[index].resource.Get(),
+		&instancingSrvDesc,
+		handles[index].CPUHandle
+	);
+}
+
 void ResourceViewManager::CreateRenderTextureResource(const uint32_t& index, const uint32_t& width, const uint32_t& height, DXGI_FORMAT format, const Color& clearColor)
 {
 	// 生成するResourceの設定
@@ -366,12 +384,13 @@ MeshView ResourceViewManager::CreateMeshViewResource(const uint32_t& vertices, c
 	// 1頂点アタリのサイズ
 	meshView.vbvData.vbv.StrideInBytes = static_cast<UINT>(sizeInBytes);
 
-	// インデックスバッファービューを作成する
-	meshView.ibvData.resource = CreateBufferResource(sizeof(uint32_t) * static_cast<size_t>(indices));
-	meshView.ibvData.ibv.BufferLocation = meshView.ibvData.resource->GetGPUVirtualAddress();
-	meshView.ibvData.ibv.SizeInBytes = static_cast<UINT>(sizeof(uint32_t) * indices);
-	meshView.ibvData.ibv.Format = DXGI_FORMAT_R32_UINT;
-
+	if (indices > 0) {
+		// インデックスバッファービューを作成する
+		meshView.ibvData.resource = CreateBufferResource(sizeof(uint32_t) * static_cast<size_t>(indices));
+		meshView.ibvData.ibv.BufferLocation = meshView.ibvData.resource->GetGPUVirtualAddress();
+		meshView.ibvData.ibv.SizeInBytes = static_cast<UINT>(sizeof(uint32_t) * indices);
+		meshView.ibvData.ibv.Format = DXGI_FORMAT_R32_UINT;
+	}
 	return meshView;
 }
 

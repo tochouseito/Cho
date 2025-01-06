@@ -11,6 +11,9 @@
 #include<unordered_map>
 #include<string>
 #include<vector>
+#include<map>
+
+#include"ConstantData/AnimationData.h"
 
 struct Node
 {
@@ -21,6 +24,8 @@ struct Node
 };
 
 struct ObjectData {
+	std::map<std::string, JointWeightData>skinClusterData;
+	SkinningInformation* infoData=nullptr;
 	std::vector<VertexData> vertices;// 頂点リスト
 	std::vector<uint32_t>indices;// Indexリスト
 	uint32_t meshIndex;
@@ -33,4 +38,7 @@ struct ModelData {
 	std::vector<std::string> names;
 	Node rootNode;
 	bool isBone = false;
+	std::vector<AnimationData> animations;
+	Skeleton skeleton;
+	SkinCluster skinCluster;
 };

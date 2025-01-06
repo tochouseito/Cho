@@ -80,6 +80,9 @@ public:// メンバ関数
 
 	void CreateSRVForTexture2D(const uint32_t& index, const DXGI_FORMAT& Format, const UINT& MipLevels);
 
+	// SRV生成(StructuredBuffer用)
+	void CreateSRVforStructuredBuffer(const uint32_t& index, const UINT& numElements, const UINT& structuredByteStride);
+
 	void CreateRenderTextureResource(
 		const uint32_t& index,
 		const uint32_t& width,

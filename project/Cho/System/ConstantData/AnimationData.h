@@ -3,8 +3,7 @@
 // 数学ライブラリ
 #include"ChoMath.h"
 
-// デバッグ用
-#include"ConstantData/DebugTransform.h"
+#include"ConstantData/WorldTransform.h"
 
 // C++
 #include<cstdint>
@@ -12,6 +11,9 @@
 #include<map>
 #include<string>
 #include<optional>
+#include<span>
+
+const uint32_t kNumMaxInfluence = 4;
 
 template<typename T>
 struct Keyframe {
@@ -35,7 +37,7 @@ struct NodeAnimation {
 
 // ジョイント
 struct Joint {
-	DebugTransform transform;// Transform情報
+	NodeTransform transform;// Transform情報
 	Matrix4 localMatrix;
 	Matrix4 skeletonSpaceMatrix;// skeletonSpaceでの変換行列
 	std::string name;// 名前
@@ -65,6 +67,30 @@ struct JointWeightData {
 // skinning
 struct SkinningInformation {
 	uint32_t numVertices;
+};
+
+
+struct ConstBufferDataVertexInfluence {
+	std::array<float, kNumMaxInfluence>weights;
+	std::array<int32_t, kNumMaxInfluence>jointIndices;
+};
+struct InfluenceData {
+	std::span<ConstBufferDataVertexInfluence> map;
+	uint32_t srvIndex = 0;
+	uint32_t meshViewIndex = 0;
+};
+struct ConstBufferDataWell {
+	Matrix4 skeletonSpaceMatrix;// 位置用
+	Matrix4 skeletonSpaceInverseTransposeMatrix;// 法線用
+};
+struct PaletteData {
+	std::span<ConstBufferDataWell> map;
+	uint32_t srvIndex = 0;
+};
+struct SkinCluster {
+	std::vector<Matrix4> inverseBindPoseMatrices;
+	PaletteData paletteData;
+	InfluenceData influenceData;
 };
 
 // アニメーションデータ構造体
