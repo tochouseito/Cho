@@ -13,7 +13,3 @@ uint32_t MeshLoader::LoadMesh(const std::string& name,uint32_t& vertices, uint32
 	return rvManager_->CreateMeshResource(name, vertices, indices,sizeof(VertexData));
 }
 
-void MeshLoader::Map(uint32_t& index, const std::string& name, const std::string& modelName)
-{
-	rvManager_->ModelMeshMap(index, name,modelName);
-}

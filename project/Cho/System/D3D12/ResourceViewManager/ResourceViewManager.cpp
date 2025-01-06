@@ -79,7 +79,7 @@ uint32_t ResourceViewManager::CreateMeshView(const uint32_t& vertices, const uin
 
 	//size_t sizeInBytes = sizeof(VertexData);
 
-	meshView = CreateMeshViewResource(vertices,indices,sizeInBytes);
+	meshView = CreateMeshViewResource(vertices,indices,sizeInBytes,pResource);
 
 	return index;
 }
@@ -379,7 +379,7 @@ MeshView ResourceViewManager::CreateMeshViewResource(const uint32_t& vertices, c
 
 	//size_t sizeInBytes = sizeof(VertexData);
 
-	if (pResource != nullptr) {
+	if (pResource == nullptr) {
 		meshView.vbvData.resource = CreateBufferResource(sizeInBytes * static_cast<size_t>(vertices));
 	}
 	else {
@@ -456,10 +456,9 @@ uint32_t ResourceViewManager::CreateMeshResource(const std::string& name, const 
 	return index;
 }
 
-void ResourceViewManager::ModelMeshMap(const uint32_t& index, const std::string& name, const std::string& modelName)
+void ResourceViewManager::ModelMeshMap(const uint32_t& index, const std::string& name)
 {
 	Meshs* meshs = meshContainer[index].get();
-	ModelData* modelData = modelContainer[modelName].get();
 
 	meshViews[index].vbvData.resource->Map(
 		0, nullptr, 
@@ -470,6 +469,13 @@ void ResourceViewManager::ModelMeshMap(const uint32_t& index, const std::string&
 		0, nullptr,
 		reinterpret_cast<void**>(&meshs->meshData[name].indexData)
 	);
+
+}
+
+void ResourceViewManager::MeshDataCopy(const uint32_t& index, const std::string& name, const std::string& modelName)
+{
+	Meshs* meshs = meshContainer[index].get();
+	ModelData* modelData = modelContainer[modelName].get();
 
 	// 頂点データをリソースにコピー
 	std::memcpy(meshs->meshData[name].vertexData,

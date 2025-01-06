@@ -5,6 +5,8 @@
 #include<vector>
 #include<unordered_map>
 
+#include"MeshPattern/MeshPattern.h"
+
 // MeshData
 #include"ConstantData/MeshData.h"
 #include"ConstantData/SpriteData.h"
@@ -13,14 +15,7 @@ struct Meshs {
 	std::unordered_map <std::string, MeshData> meshData;
 	std::vector<std::string> names;
 };
-// Mesh
-enum class MeshPattern:uint32_t
-{
-	Cube,
-	Plane,
-	Sphere,
-	CountPattern,// カウント用
-};
+
 class ResourceViewManager;
 class MeshGenerator
 {

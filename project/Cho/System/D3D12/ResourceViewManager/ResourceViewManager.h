@@ -99,15 +99,19 @@ public:// メンバ関数
 	// デフォルトメッシュ用の専用関数
 	void CreateMeshViewDMP(const uint32_t& index, const uint32_t& vertices, const uint32_t& indices);
 
-	Meshs* GetMeshs(const uint32_t& index)const { return meshContainer[index].get(); }
+	Meshs* GetMesh(const uint32_t& index)const { return meshContainer[index].get(); }
 
 	uint32_t CreateMeshResource(const std::string& name, const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes,ID3D12Resource* pResource=nullptr);
 
-	void ModelMeshMap(const uint32_t& index, const std::string& name,const std::string& modelName);
+	void ModelMeshMap(const uint32_t& index, const std::string& name);
+
+	void MeshDataCopy(const uint32_t& index, const std::string& name, const std::string& modelName);
 
 	void AddModel(const std::string& name);
 
 	ModelData* GetModelData(const std::string& name);
+
+	const std::vector<std::unique_ptr<Meshs>>& GetMeshs() { return meshContainer; }
 
 	const std::unordered_map<std::string, std::unique_ptr<ModelData>>& GetModels() { return modelContainer; }
 

@@ -54,6 +54,8 @@ public:// メンバ関数
 	ID3D12Fence* GetFence(const QueueType& type)const { return queues[type].fence.Get(); }
 	uint64_t GetValue(const QueueType& type)const { return queues[type].fenceValue; }
 
+	void BarrierTransition(const CommandType& type,ID3D12Resource* pResource, D3D12_RESOURCE_STATES Before, D3D12_RESOURCE_STATES After);
+
 private:
 
 	/*フェンス*/

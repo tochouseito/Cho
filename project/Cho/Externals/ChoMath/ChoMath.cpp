@@ -555,3 +555,5 @@ Matrix4 ChoMath::MakeAffineMatrix(const Scale& scale, const Quaternion& rotate, 
 	result = scaleMatrix * rotateMatrix * translateMatrix;
 	return result;
 }
+
+

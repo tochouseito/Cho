@@ -5,6 +5,8 @@
 #include"Graphics/GraphicsSystem/GraphicsSystem.h"
 #include"SystemState/SystemState.h"
 
+#include"MeshPattern/MeshPattern.h"
+
 void AnimationSystem::Initialize(EntityManager& entityManager, ComponentManager& componentManager)
 {
 	for (Entity entity : entityManager.GetActiveEntities()) {
@@ -20,19 +22,15 @@ void AnimationSystem::Update(EntityManager& entityManager, ComponentManager& com
 {
 	for (Entity entity : entityManager.GetActiveEntities()) {
 		AnimationComponent* comp = componentManager.GetAnimation(entity);
+		if (!comp) { continue; }
 		MeshComponent* meshComp = componentManager.GetMesh(entity);
 		ModelData* model = nullptr;
-		if (!meshComp) { return; }
-		uint32_t selectModelMesh = meshComp->meshID;
-		std::vector<const char*> modelOptions;
-		for (auto& pair : rvManager_->GetModels()) {
-			modelOptions.push_back(pair.first.c_str());
+		if (!meshComp) { continue; }
+		if (meshComp->meshModelName!="") {
+			model = rvManager_->GetModelData(meshComp->meshModelName);
+			comp->modelName = meshComp->meshModelName;
 		}
-		if (!modelOptions.empty()) {
-			// 選択されたモデルのメッシュIDをセット
-			std::string modelName = modelOptions[selectModelMesh];
-			model = rvManager_->GetModelData(modelName);
-		}else{return;}
+		else { continue; }
 		if (comp) {
 			timeUpdate(comp,model);
 		}
@@ -121,6 +119,7 @@ void AnimationSystem::ApplyAnimation(AnimationComponent* comp, ModelData* model)
 
 void AnimationSystem::SkeletonUpdate(AnimationComponent* comp, ModelData* model)
 {
+	comp;
 	// すべてのJointを更新。親が若いので通常ループで処理可能になっている
 	for (Joint& joint : model->skeleton.joints) {
 		joint.localMatrix = MakeAffineMatrix(joint.transform.scale, joint.transform.rotation, joint.transform.translation);
@@ -135,6 +134,7 @@ void AnimationSystem::SkeletonUpdate(AnimationComponent* comp, ModelData* model)
 
 void AnimationSystem::SkinClusterUpdate(AnimationComponent* comp, ModelData* model)
 {
+	comp;
 	for (size_t jointIndex = 0; jointIndex < model->skeleton.joints.size(); ++jointIndex) {
 		assert(jointIndex < model->skinCluster.inverseBindPoseMatrices.size());
 		model->skinCluster.paletteData.map[jointIndex].skeletonSpaceMatrix =
@@ -147,6 +147,7 @@ void AnimationSystem::SkinClusterUpdate(AnimationComponent* comp, ModelData* mod
 
 void AnimationSystem::ApplySkinning(AnimationComponent* comp, ModelData* model)
 {
+	comp;
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = d3dCommand_->GetCommand(CommandType::Compute).list.Get();
 
@@ -159,5 +160,14 @@ void AnimationSystem::ApplySkinning(AnimationComponent* comp, ModelData* model)
 		commandList->SetComputeRootDescriptorTable(3, rvManager_->GetHandle(model->skinCluster.skinningData.outputUAVIndex).GPUHandle);
 		commandList->SetComputeRootConstantBufferView(4, rvManager_->GetCBVResource(model->objects[name].infoCBVIndex)->GetGPUVirtualAddress());
 		commandList->Dispatch(UINT(model->objects[name].vertices.size() + 1023) / 1024, 1, 1);
+
+		// リソース遷移
+		d3dCommand_->BarrierTransition(
+			CommandType::Compute,
+			rvManager_->GetHandle(
+				model->skinCluster.skinningData.outputUAVIndex).resource.Get(),
+			D3D12_RESOURCE_STATE_UNORDERED_ACCESS,
+			D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER
+		);
 	}
 }

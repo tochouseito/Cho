@@ -590,6 +590,9 @@
     <ClInclude Include="Cho\System\ECS\System\AnimationSystem\AnimationSystem.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Cho\Utility\MeshPattern\MeshPattern.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Cho\Resources\Shader\DemoOBJ.PS.hlsl" />

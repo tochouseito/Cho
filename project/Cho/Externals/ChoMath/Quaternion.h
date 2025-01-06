@@ -106,21 +106,46 @@ public:// 静的メンバ
 
     // 球面線形補間（Slerp）
     static Quaternion Slerp(const Quaternion& start, const Quaternion& end, float t) {
-        float dot = start.x * end.x + start.y * end.y + start.z * end.z + start.w * end.w;
+        // クォータニオンの内積を計算
+		float dot = start.Dot(end);
         const float threshold = 0.9995f;
 
-        // 線形補間で近似
-        if (dot > threshold) {
-            return Lerp(start, end, t);
+        // クォータニオンが反対向きの場合、内積が負になるので符号を反転
+        if (dot < 0.0f) {
+            dot = -dot;
+            Quaternion negQ1 = { -end.x, -end.y, -end.z, -end.w };
+            return Slerp(start, negQ1, t);
         }
 
-        dot = std::fmax(std::fmin(dot, 1.0f), -1.0f);
-        float theta_0 = std::acos(dot);
-        float theta = theta_0 * t;
+        // 内積が閾値以上の場合、線形補間を使用
+        if (dot > threshold) {
+            Quaternion result = {
+                start.x + t * (end.x - start.x),
+                start.y + t * (end.y - start.y),
+                start.z + t * (end.z - start.z),
+                start.w + t * (end.w - start.w)
+            };
+            // 正規化
+            float norm = std::sqrt(result.x * result.x + result.y * result.y + result.z * result.z + result.w * result.w);
+            return { result.x / norm, result.y / norm, result.z / norm, result.w / norm };
+        }
 
-        Quaternion relative = (end - start * dot);
-        relative.Normalize();
-        return start * std::cos(theta) + relative * std::sin(theta);
+        // 角度を計算
+        float theta_0 = std::acos(dot);  // θ0 = angle between input vectors
+        float theta = theta_0 * t;       // θ = angle between q0 and result
+        float sin_theta = std::sin(theta); // Compute this value only once
+        float sin_theta_0 = std::sin(theta_0); // Compute this value only once
+
+        float s0 = std::cos(theta) - dot * sin_theta / sin_theta_0;  // s0 = sin((1 - t) * theta) / sin(theta)
+        float s1 = sin_theta / sin_theta_0; // s1 = sin(t * theta) / sin(theta)
+
+        return {
+            s0 * start.x + s1 * end.x,
+            s0 * start.y + s1 * end.y,
+            s0 * start.z + s1 * end.z,
+            s0 * start.w + s1 * end.w
+        };
+
     }
 
     // 単位クォータニオン

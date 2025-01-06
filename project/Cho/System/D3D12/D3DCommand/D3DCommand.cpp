@@ -67,6 +67,32 @@ void D3DCommand::Finalize()
 	}
 }
 
+void D3DCommand::BarrierTransition(const CommandType& type, ID3D12Resource* pResource, D3D12_RESOURCE_STATES Before, D3D12_RESOURCE_STATES After)
+{
+	ID3D12GraphicsCommandList* commandList = GetCommand(type).list.Get();
+
+	// TransitionBarrierの設定
+	D3D12_RESOURCE_BARRIER barrier{};
+
+	// 今回のバリアはTransition
+	barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+
+	// Noneにしておく
+	barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
+
+	// バリアを張る対象のリソース。現在のバックバッファに対して行う
+	barrier.Transition.pResource = pResource;
+
+	// 遷移前（現在）のResourceState
+	barrier.Transition.StateBefore = Before;
+
+	// 遷移後のResourceState
+	barrier.Transition.StateAfter = After;
+
+	// TransitionBarrierを張る
+	commandList->ResourceBarrier(1, &barrier);
+}
+
 void D3DCommand::CreateFences(ID3D12Device& device)
 {
 	HRESULT hr;

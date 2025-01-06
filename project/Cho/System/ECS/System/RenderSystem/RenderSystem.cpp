@@ -46,16 +46,16 @@ void RenderSystem::DebugRender(
 
             commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Demo).rootSignature.Get());
             commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Demo).Blend[kBlendModeNone].Get());
-            for (std::string name : rvManager->GetMeshs(meshesIndex)->names) {
-                commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->vbvData.vbv);
-                commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
+            for (std::string name : rvManager->GetMesh(meshesIndex)->names) {
+                commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(rvManager->GetMesh(meshesIndex)->meshData[name].meshViewIndex)->vbvData.vbv);
+                commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMesh(meshesIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
 
                 commandList->SetGraphicsRootConstantBufferView(0, rvManager->GetCBVResource(transComp->cbvIndex)->GetGPUVirtualAddress());
                 commandList->SetGraphicsRootConstantBufferView(1, rvManager->GetCBVResource(camera.cbvIndex)->GetGPUVirtualAddress());
                 if (materialComp) {
                     commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetTexture(materialComp->textureID).rvIndex).GPUHandle);
                 }
-                commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMeshs(meshesIndex)->meshData[name].size.indices), 1, 0, 0, 0);
+                commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMesh(meshesIndex)->meshData[name].size.indices), 1, 0, 0, 0);
             }
         }
     }
@@ -73,8 +73,9 @@ void RenderSystem::ObjectRender(EntityManager& entityManager, ComponentManager& 
         RenderComponent* renderComp = componentManager.GetRender(entity);
         MeshComponent* meshComp = componentManager.GetMesh(entity);
         MaterialComponent* materialComp = componentManager.GetMaterial(entity);
-        // 後で消す
+        
         TransformComponent* transComp = componentManager.GetTransform(entity);
+		AnimationComponent* animComp = componentManager.GetAnimation(entity);
         if (cameraComp && renderComp && renderComp->visible && meshComp) {
             // 頂点データ取得キー
             uint32_t meshesIndex = meshComp->meshID;
@@ -87,9 +88,16 @@ void RenderSystem::ObjectRender(EntityManager& entityManager, ComponentManager& 
                 commandList->SetGraphicsRootSignature(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Demo).rootSignature.Get());
                 commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Demo).Blend[kBlendModeNone].Get());
             }
-            for (std::string name : rvManager->GetMeshs(meshesIndex)->names) {
-                commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->vbvData.vbv);
-                commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
+            for (std::string name : rvManager->GetMesh(meshesIndex)->names) {
+                if (animComp&&animComp->modelName!="") {
+					ModelData* model = rvManager->GetModelData(animComp->modelName);
+					commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(model->skinCluster.skinningData.outputMVIndex)->vbvData.vbv);
+                }
+                else {
+                    commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(rvManager->GetMesh(meshesIndex)->meshData[name].meshViewIndex)->vbvData.vbv);
+                }
+                
+                commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMesh(meshesIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
 
                 commandList->SetGraphicsRootConstantBufferView(0, rvManager->GetCBVResource(transComp->cbvIndex)->GetGPUVirtualAddress());
                 commandList->SetGraphicsRootConstantBufferView(1, rvManager->GetCBVResource(cameraComp->cbvIndex)->GetGPUVirtualAddress());
@@ -101,8 +109,20 @@ void RenderSystem::ObjectRender(EntityManager& entityManager, ComponentManager& 
                         commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetWhitePixel().rvIndex).GPUHandle);
                     }
                 }
-                //commandList->DrawInstanced(static_cast<UINT>(rvManager->GetMeshes(meshesIndex)->meshData[name].vertices), 1, 0, 0);
-                commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMeshs(meshesIndex)->meshData[name].size.indices), 1, 0, 0, 0);
+                
+                commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMesh(meshesIndex)->meshData[name].size.indices), 1, 0, 0, 0);
+                if (animComp && animComp->modelName != "") {
+                    ModelData* model = rvManager->GetModelData(animComp->modelName);
+                    // リソース遷移
+                    d3dCommand->BarrierTransition(
+                        CommandType::Draw,
+                        rvManager->GetHandle(
+                            model->skinCluster.skinningData.outputUAVIndex).resource.Get(),
+                        D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER,
+                        D3D12_RESOURCE_STATE_UNORDERED_ACCESS
+                        
+                    );
+                }
             }
         }
     }
@@ -166,13 +186,13 @@ void RenderSystem::ParticleRender(EntityManager& entityManager, ComponentManager
             // パイプラインセット
             commandList->SetPipelineState(graphicsSystem->GetPipeline()->GetPSO(PSOMode::Particle).Blend[kBlendModeNone].Get());
 
-            for (std::string name : rvManager->GetMeshs(meshesIndex)->names) {
+            for (std::string name : rvManager->GetMesh(meshesIndex)->names) {
 
                 // VBVセット
-                commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->vbvData.vbv);
+                commandList->IASetVertexBuffers(0, 1, &rvManager->GetMeshViewData(rvManager->GetMesh(meshesIndex)->meshData[name].meshViewIndex)->vbvData.vbv);
 
                 // IBVセット
-                commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMeshs(meshesIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
+                commandList->IASetIndexBuffer(&rvManager->GetMeshViewData(rvManager->GetMesh(meshesIndex)->meshData[name].meshViewIndex)->ibvData.ibv);
 
                 // ルートパラメータをセット
                 commandList->SetGraphicsRootDescriptorTable(1, rvManager->GetHandle(particle->uavIndex).GPUHandle);
@@ -180,7 +200,7 @@ void RenderSystem::ParticleRender(EntityManager& entityManager, ComponentManager
                 commandList->SetGraphicsRootDescriptorTable(2, rvManager->GetHandle(texLoad->GetTexture(particle->material.textureID).rvIndex).GPUHandle);
 
                 // DrawCall
-                commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMeshs(meshesIndex)->meshData[name].size.indices), 1024, 0, 0, 0);
+                commandList->DrawIndexedInstanced(static_cast<UINT>(rvManager->GetMesh(meshesIndex)->meshData[name].size.indices), 1024, 0, 0, 0);
             }
         }
     }

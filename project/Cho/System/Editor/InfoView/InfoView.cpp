@@ -116,6 +116,7 @@ void InfoView::Update()
                         for (const std::string& meshName : rvManager_->GetModelData(modelName)->names) {
                             uint32_t index = rvManager_->GetModelData(modelName)->objects[meshName].meshIndex;
                             meshComp.SetMeshID(index);
+							meshComp.meshModelName = modelName;
                         }
                     }
                 }
@@ -219,6 +220,13 @@ void InfoView::Update()
                         
                         selectGO->AddComponent(scriptComp);
                     }
+                }
+                if (!selectGO->GetAnimation()) {
+					if (ImGui::Selectable("AnimationComponent")) {
+						isAdd = false;
+						AnimationComponent animationComp;
+						selectGO->AddComponent(animationComp);
+					}
                 }
             } else
             {

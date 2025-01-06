@@ -32,11 +32,23 @@ void ModelLoader::LoadModel(const std::string& directoryPath, const fs::director
 		uint32_t vertices = static_cast<uint32_t>(modelData->objects[name].vertices.size());
 		uint32_t indices = static_cast<uint32_t>(modelData->objects[name].indices.size());
 		modelData->objects[name].meshIndex = meshLoader_->LoadMesh(name, vertices, indices);
-		meshLoader_->Map(modelData->objects[name].meshIndex, name, modelName);
+		rvManager_->ModelMeshMap(modelData->objects[name].meshIndex, name);
+		rvManager_->MeshDataCopy(modelData->objects[name].meshIndex, name, modelName);
+		if (modelData->isBone) {
+			// InputResourceのMapping
+			rvManager_->GetHandle(
+				modelData->skinCluster.skinningData.inputSRVIndex).resource->Map(
+					0,
+					nullptr,
+					reinterpret_cast<void**>(&rvManager_->GetMesh(
+						modelData->objects[name].meshIndex)->meshData[name].vertexData)
+				);
+			modelData->objects[name].infoCBVIndex = rvManager_->CreateCBV(sizeof(SkinningInformation));
+			rvManager_->GetCBVResource(modelData->objects[name].infoCBVIndex)->Map(0, nullptr, reinterpret_cast<void**>(&modelData->objects[name].infoData));
+			modelData->objects[name].infoData->numVertices = static_cast<uint32_t>(modelData->objects[name].vertices.size());
+		}
 
-		modelData->objects[name].infoCBVIndex = rvManager_->CreateCBV(sizeof(SkinningInformation));
-		rvManager_->GetCBVResource(modelData->objects[name].infoCBVIndex)->Map(0, nullptr, reinterpret_cast<void**>(&modelData->objects[name].infoData));
-		modelData->objects[name].infoData->numVertices = static_cast<uint32_t>(modelData->objects[name].vertices.size());
+		rvManager_->MeshDataCopy(modelData->objects[name].meshIndex, name, modelName);
 	}
 }
 
@@ -357,13 +369,21 @@ void ModelLoader::CreateSkinCluster(ModelData* modelData, const std::string& nam
 		sizeof(ConstBufferDataVertexInfluence)
 	);
 
+	// Skinning用のInputResourceを作成
+	// Handleを取得
 	skinCluster.skinningData.inputSRVIndex = rvManager_->GetNewHandle();
+	// Resourceを作成
+	rvManager_->CreateSRVResource(
+		skinCluster.skinningData.inputSRVIndex,
+		sizeof(VertexData) * objectData.vertices.size()
+	);
+	// SRVを作成
 	rvManager_->CreateSRVforStructuredBuffer(
 		skinCluster.skinningData.inputSRVIndex,
 		static_cast<UINT>(modelData->objects.size()),
-		sizeof(VertexData) * objectData.vertices.size()
+		static_cast<UINT>(sizeof(VertexData) * objectData.vertices.size())
 	);
-
+	// MeshResourceを作成
 	skinCluster.skinningData.inputMVIndex = 
 		rvManager_->CreateMeshResource(
 			name,
@@ -374,13 +394,20 @@ void ModelLoader::CreateSkinCluster(ModelData* modelData, const std::string& nam
 				skinCluster.skinningData.inputSRVIndex).resource.Get()
 		);
 
+	// Skinning用のOutputResourceを作成
+	// Handleを取得
 	skinCluster.skinningData.outputUAVIndex = rvManager_->GetNewHandle();
+	// Resourceを作成
+	rvManager_->CreateUAVResource(skinCluster.skinningData.outputUAVIndex,
+		sizeof(VertexData) * objectData.vertices.size()
+	);
+	// UAVを作成
 	rvManager_->CreateUAVforStructuredBuffer(
 		skinCluster.skinningData.outputUAVIndex,
 		static_cast<UINT>(modelData->objects.size()),
-		sizeof(VertexData) * objectData.vertices.size()
+		static_cast<UINT>(sizeof(VertexData) * objectData.vertices.size())
 	);
-
+	// MeshResourceを作成
 	skinCluster.skinningData.outputMVIndex =
 		rvManager_->CreateMeshResource(
 			name,

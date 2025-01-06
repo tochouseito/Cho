@@ -2,6 +2,8 @@
 // ComponentManager
 #include"ECS/ComponentManager/ComponentManager.h"
 
+#include"ConstantData/ModelData.h"
+
 class D3DCommand;
 class ResourceViewManager;
 class GraphicsSystem;
