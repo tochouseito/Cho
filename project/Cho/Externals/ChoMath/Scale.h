@@ -86,4 +86,12 @@ public:
 	inline bool IsUniform() const {
 		return x == y && y == z;
 	}
+public:
+	// 線形補間
+	static Scale Lerp(const Scale& start, const Scale& end, float t) {
+		return Scale{
+			start.x + t * (end.x - start.x), start.y + t * (end.y - start.y),
+			start.z + t * (end.z - start.z)
+		};
+	}
 };
