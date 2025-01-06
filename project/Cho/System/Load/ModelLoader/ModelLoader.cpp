@@ -141,6 +141,8 @@ void ModelLoader::LoadModelFile(ModelData* modelData, const std::string& directo
 	filePath = fs::absolute(filePath).string();
 
 	const aiScene* scene = importer.ReadFile(filePath.c_str(), aiProcess_FlipWindingOrder | aiProcess_FlipUVs);
+
+	std::string err = importer.GetErrorString();
 	assert(scene->HasMeshes());// メッシュがないのは対応しない
 
 	// SceneのRootNodeを読んでシーン全体の階層構造を作り上げる
@@ -200,11 +202,32 @@ void ModelLoader::LoadModelFile(ModelData* modelData, const std::string& directo
 				assert(false && "Unsupported polygon type");
 			}
 		}
-		// ボーン解析
+		/*ボーン解析*/
 		if (!mesh->mNumBones) {
 			modelData->isBone = false;
-		} else {
+		}
+		else
+		{
 			modelData->isBone = true;
+		}
+		for (uint32_t boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex) {
+			aiBone* bone = mesh->mBones[boneIndex];// AssimpではJointをBoneと呼んでいる
+			std::string jointName = bone->mName.C_Str();
+			JointWeightData& jointWeightData = modelData->objects[meshName].skinClusterData[jointName];
+
+			aiMatrix4x4 bindPoseMatrixAssimp = bone->mOffsetMatrix.Inverse();// BindPoseMatrixに戻す
+			aiVector3D scale, translate;
+			aiQuaternion rotate;
+			bindPoseMatrixAssimp.Decompose(scale, rotate, translate);// 成分を抽出
+			/*左手系のBindPoseMatrixを作る*/
+			Matrix4 bindPoseMatrix = MakeAffineMatrix(
+				{ scale.x,scale.y,scale.z }, { rotate.x,-rotate.y,-rotate.z,rotate.w }, { -translate.x,translate.y,translate.z });
+			/*InverseBindPoseMatrixにする*/
+			jointWeightData.inverseBindPoseMatrix = Matrix4::Inverse(bindPoseMatrix);
+
+			for (uint32_t weightIndex = 0; weightIndex < bone->mNumWeights; ++weightIndex) {
+				jointWeightData.vertexWeights.push_back({ bone->mWeights[weightIndex].mWeight,bone->mWeights[weightIndex].mVertexId });
+			}
 		}
 
 		// マテリアル解析
@@ -221,8 +244,14 @@ void ModelLoader::LoadModelFile(ModelData* modelData, const std::string& directo
 		}
 	}
 	// ファイルの形式をチェック
-	if (scene->mNumAnimations!=0) {
+	if (scene->mNumAnimations != 0) {
 		LoadAnimationFile(modelData, directoryPath, entry);
+		if (modelData->isBone) {
+			CreateSkeleton(modelData, modelData->rootNode);
+			for (std::string& name : modelData->names) {
+				CreateSkinCluster(modelData,name, modelData->objects[name]);
+			}
+		}
 	}
 }
 
@@ -363,13 +392,16 @@ void ModelLoader::ApplyAnimation(ModelData* modelData, const uint32_t& animation
 	}
 }
 
-void ModelLoader::CreateSkinCluster(ModelData* modelData, const ObjectData& objectData)
+void ModelLoader::CreateSkinCluster(ModelData* modelData, const std::string& name, const ObjectData& objectData)
 {
 
 	SkinCluster skinCluster;
 	/*palette用のSRVを作成*/
 	skinCluster.paletteData.srvIndex = rvManager_->GetNewHandle();
-
+	rvManager_->CreateSRVResource(
+		skinCluster.paletteData.srvIndex,
+		sizeof(ConstBufferDataWell) * modelData->skeleton.joints.size()
+	);
 	ConstBufferDataWell* mappedPalette = nullptr;
 	rvManager_->GetHandle(
 		skinCluster.paletteData.srvIndex).resource->Map(
@@ -377,7 +409,7 @@ void ModelLoader::CreateSkinCluster(ModelData* modelData, const ObjectData& obje
 			nullptr,
 			reinterpret_cast<void**>(&mappedPalette)
 		);
-	skinCluster.paletteData.map = { mappedPalette,modelData->skeleton.joints.size() };// spanを使ってアクセスするskinCluster->mappedPalette = { mappedPalette,skeleton->joints.size() };// spanを使ってアクセスする
+	skinCluster.paletteData.map = { mappedPalette,modelData->skeleton.joints.size() };// spanを使ってアクセスする
 	rvManager_->CreateSRVforStructuredBuffer(
 		skinCluster.paletteData.srvIndex,
 		static_cast<UINT>(modelData->skeleton.joints.size()),
@@ -386,6 +418,10 @@ void ModelLoader::CreateSkinCluster(ModelData* modelData, const ObjectData& obje
 
 	/*influence用のsrvを作成。頂点ごとにInfluence情報を追加できるようにする*/
 	skinCluster.influenceData.srvIndex = rvManager_->GetNewHandle();
+	rvManager_->CreateSRVResource(
+		skinCluster.influenceData.srvIndex,
+		sizeof(ConstBufferDataVertexInfluence) * objectData.vertices.size()
+	);
 	ConstBufferDataVertexInfluence* mappedInfluence = nullptr;
 	rvManager_->GetHandle(
 		skinCluster.influenceData.srvIndex).resource->Map(
@@ -395,8 +431,14 @@ void ModelLoader::CreateSkinCluster(ModelData* modelData, const ObjectData& obje
 		);
 	std::memset(mappedInfluence, 0, sizeof(ConstBufferDataVertexInfluence) * objectData.vertices.size());// 0埋め。weightを0にしておく
 	skinCluster.influenceData.map = { mappedInfluence,objectData.vertices.size() };// spanを使ってアクセスする
+	rvManager_->CreateSRVforStructuredBuffer(
+		skinCluster.influenceData.srvIndex,
+		static_cast<UINT>(objectData.vertices.size()),
+		sizeof(ConstBufferDataVertexInfluence)
+	);
+
 	/*Influence用のVBVを作成*/
-	skinCluster.influenceData.meshViewIndex = rvManager_->CreateMeshView(static_cast<uint32_t>(objectData.vertices.size()), 0, sizeof(ConstBufferDataVertexInfluence));
+	skinCluster.influenceData.meshViewIndex = rvManager_->CreateMeshResource(name, static_cast<uint32_t>(objectData.vertices.size()), 0,sizeof(ConstBufferDataVertexInfluence));
 	/*InverseBindPoseMatrixの保存領域を作成*/
 	skinCluster.inverseBindPoseMatrices.resize(modelData->skeleton.joints.size());
 	std::generate(skinCluster.inverseBindPoseMatrices.begin(), skinCluster.inverseBindPoseMatrices.end(), []() { return ChoMath::MakeIdentity4x4(); });

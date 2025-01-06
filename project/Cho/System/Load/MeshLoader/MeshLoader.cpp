@@ -10,7 +10,7 @@ void MeshLoader::Initialize(ResourceViewManager* rvManager)
 
 uint32_t MeshLoader::LoadMesh(const std::string& name,uint32_t& vertices, uint32_t& indices)
 {
-	return rvManager_->CreateMeshResource(name, vertices, indices);
+	return rvManager_->CreateMeshResource(name, vertices, indices,sizeof(VertexData));
 }
 
 void MeshLoader::Map(uint32_t& index, const std::string& name, const std::string& modelName)

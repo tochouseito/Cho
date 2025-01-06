@@ -78,6 +78,8 @@ public:// メンバ関数
 
 	void CreateUAVforStructuredBuffer(const uint32_t& index,const UINT& numElements, const UINT& structuredByteStride);
 
+	void CreateSRVResource(const uint32_t& index, const size_t& sizeInBytes);
+
 	void CreateSRVForTexture2D(const uint32_t& index, const DXGI_FORMAT& Format, const UINT& MipLevels);
 
 	// SRV生成(StructuredBuffer用)
@@ -99,7 +101,7 @@ public:// メンバ関数
 
 	Meshs* GetMeshs(const uint32_t& index)const { return meshContainer[index].get(); }
 
-	uint32_t CreateMeshResource(const std::string& name, const uint32_t& vertices, const uint32_t& indices);
+	uint32_t CreateMeshResource(const std::string& name, const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes);
 
 	void ModelMeshMap(const uint32_t& index, const std::string& name,const std::string& modelName);
 

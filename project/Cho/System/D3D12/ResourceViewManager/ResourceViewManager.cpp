@@ -189,6 +189,13 @@ void ResourceViewManager::CreateUAVforStructuredBuffer(const uint32_t& index, co
 	);
 }
 
+void ResourceViewManager::CreateSRVResource(const uint32_t& index, const size_t& sizeInBytes)
+{
+	Microsoft::WRL::ComPtr<ID3D12Resource>& resource = handles[index].resource;
+
+	resource = CreateBufferResource(sizeInBytes);
+}
+
 void ResourceViewManager::CreateSRVForTexture2D(const uint32_t& index, const DXGI_FORMAT& Format, const UINT& MipLevels)
 {
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
@@ -425,9 +432,9 @@ void ResourceViewManager::CreateMeshViewDMP(const uint32_t& index, const  uint32
 	meshView = CreateMeshViewResource(vertices,indices,sizeof(VertexData));
 }
 
-uint32_t ResourceViewManager::CreateMeshResource(const std::string& name, const uint32_t& vertices, const uint32_t& indices)
+uint32_t ResourceViewManager::CreateMeshResource(const std::string& name, const uint32_t& vertices, const uint32_t& indices, const size_t& sizeInBytes)
 {
-	uint32_t index = CreateMeshView(vertices, indices,sizeof(VertexData));
+	uint32_t index = CreateMeshView(vertices, indices,sizeInBytes);
 
 	std::unique_ptr<Meshs> mesh = std::make_unique<Meshs>();
 

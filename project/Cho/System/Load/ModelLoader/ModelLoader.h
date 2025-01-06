@@ -57,6 +57,7 @@ private:
 
 	void CreateSkinCluster(
 		ModelData* modelData,
+		const std::string& name,
 		const ObjectData& objectData
 	);
 
