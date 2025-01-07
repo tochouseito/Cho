@@ -12,4 +12,5 @@ struct AnimationComponent
 	uint32_t animationIndex = 0;// アニメーションのIndex
 	uint32_t prevAnimationIndex = 0;// 1つ前のアニメーションのIndex
 	uint32_t transitionIndex = 0;// 遷移スタートのアニメーションのIndex
+	bool isLoop = false;
 };

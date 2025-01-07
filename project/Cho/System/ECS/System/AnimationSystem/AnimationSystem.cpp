@@ -105,9 +105,14 @@ void AnimationSystem::timeUpdate(AnimationComponent* comp, ModelData* model)
 		comp->transitionIndex = comp->prevAnimationIndex;
 		comp->transition = true;
 		comp->transitionTime = 0.0f;
+		comp->isLoop = false;
+		comp->time = 0.0f;
 	}
 	comp->time += DeltaTime();
 	comp->time = std::fmod(comp->time, model->animations[comp->animationIndex].duration);
+	if (comp->time >= model->animations[comp->animationIndex].duration) {
+		comp->isLoop = true;
+	}
 	if (comp->transition) {
 		comp->transitionTime += DeltaTime();
 		comp->lerpTime = comp->transitionTime / comp->transitionDuration;

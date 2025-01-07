@@ -17,6 +17,7 @@ void Player::Init(SceneManager* sceneManager, ComponentManager* compManager,Inpu
 	tf = compManager_->GetTransform(sceneManager_->GetGameObject(name)->GetEntityID());
 	mesh = compManager_->GetMesh(sceneManager_->GetGameObject(name)->GetEntityID());
 	material = compManager_->GetMaterial(sceneManager_->GetGameObject(name)->GetEntityID());
+	animation = compManager_->GetAnimation(sceneManager_->GetGameObject(name)->GetEntityID());
 
 	tf->translation.y = 0.0f;
 	tf->scale *= 10.0f;
@@ -36,6 +37,12 @@ void Player::Update()
 
 	// 振る舞いの更新
 	BehaviorUpdate();
+
+	// アニメーション更新
+	AnimationUpdate();
+
+	// 座標移動（ベクトルの加算）
+	tf->translation += velocity;
 }
 
 void Player::Input()
@@ -48,9 +55,6 @@ void Player::Input()
 
 	// 落下
 	Fall();
-
-	// 座標移動（ベクトルの加算）
-	tf->translation += velocity;
 }
 
 void Player::Move()
@@ -87,7 +91,16 @@ void Player::Move()
 }
 
 void Player::Jump()
-{
+{	
+	//  ゲームパッドの状態を得る変数(XINPUT)
+	XINPUT_STATE joyState;
+	if (input->GetJoystickState(0, joyState)) {
+		if (input->IsTriggerPadButton(PadButton::A)) {
+			//behaviorRequest = Behavior::kJump;
+			isJump = true;
+			velocity.y = kJumpFirstSpeed;
+		}
+	}
 	if (input->TriggerKey(DIK_SPACE) && !isJump) {
 		isJump = true;
 		velocity.y = kJumpFirstSpeed;
@@ -110,11 +123,11 @@ void Player::Fall()
 
 void Player::BehaviorInitialize()
 {
-	if (behaviorRequest_) {
+	if (behaviorRequest) {
 		// 振る舞いを変更する
-		behavior_ = behaviorRequest_.value();
+		behavior = behaviorRequest.value();
 		// 各振る舞い事の初期化を実行
-		switch (behavior_) {
+		switch (behavior) {
 		case Player::Behavior::kRoot:
 		default:
 			BehaviorRootInitialize();
@@ -127,13 +140,13 @@ void Player::BehaviorInitialize()
 			break;
 		}
 		// 振る舞いリクエストをリセット
-		behaviorRequest_ = std::nullopt;
+		behaviorRequest = std::nullopt;
 	}
 }
 
 void Player::BehaviorUpdate()
 {
-	switch (behavior_) {
+	switch (behavior) {
 	case Player::Behavior::kRoot:
 	default:
 		BehaviorRootUpdate();
@@ -170,4 +183,38 @@ void Player::BehaviorJumpInitialize()
 
 void Player::BehaviorJumpUpdate()
 {
+}
+
+void Player::AnimationUpdate()
+{
+	// アニメーション遷移
+	if (isJump && nowAnimation != kJump ||
+		isJump && nowAnimation != kFall) {
+		nowAnimation = PlayerAnimation::kJump;
+	}
+	else if (isJump&&nowAnimation==kJump&&animation->isLoop) {
+		nowAnimation = PlayerAnimation::kFall;
+	}
+	else if (!isJump && nowAnimation == kFall && animation->isLoop) {
+		nowAnimation = PlayerAnimation::kLand;
+	}
+	else {
+		if (velocity.x != 0.0f || velocity.z != 0.0f) {
+			if (nowAnimation != kLand &&
+				nowAnimation!=kJump&&
+				nowAnimation != kFall &&
+				animation->isLoop) {
+				nowAnimation = PlayerAnimation::kRun;
+			}
+			// 移動中
+			nowAnimation = PlayerAnimation::kRun;
+		}
+		else {
+			// 移動していない
+			nowAnimation = PlayerAnimation::kIdle;
+		}
+	}
+
+	// AnimationIndex更新
+	animation->animationIndex = static_cast<uint32_t>(nowAnimation);
 }

@@ -18,6 +18,16 @@ public:
 		kJump, // ジャンプ
 	};
 
+	enum PlayerAnimation {
+		kAttack,
+		kFall,
+		kIdle,
+		kJump,
+		kLand,
+		kRun,
+		kWalk,
+	};
+
 public:
 	void Init(SceneManager* sceneManager, ComponentManager* compManager, InputManager* inputManager);
 
@@ -50,6 +60,8 @@ private:
 	// ジャンプ行動更新
 	void BehaviorJumpUpdate();
 
+	void AnimationUpdate();
+
 public:
 	const std::string name = "Player";
 private:
@@ -61,6 +73,7 @@ private:
 	TransformComponent* tf = nullptr;
 	MeshComponent* mesh = nullptr;
 	MaterialComponent* material = nullptr;
+	AnimationComponent* animation = nullptr;
 
 	const std::string modelName = "BaseHuman";
 
@@ -79,8 +92,9 @@ private:
 	// flag
 	bool isJump = false;
 
-	Behavior behavior_ = Behavior::kRoot;
+	Behavior behavior = Behavior::kRoot;
+	PlayerAnimation nowAnimation = PlayerAnimation::kIdle;
 	// 次のふるまいリクエスト
-	std::optional<Behavior> behaviorRequest_ = std::nullopt;
+	std::optional<Behavior> behaviorRequest = std::nullopt;
 };
 
