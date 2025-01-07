@@ -9,6 +9,7 @@ struct TransformComponent final {
     Scale scale = { 1.0f, 1.0f, 1.0f };
 
     Matrix4 matWorld = ChoMath::MakeIdentity4x4();
+	Matrix4* parent = nullptr;
     Matrix4 rootMatrix = ChoMath::MakeIdentity4x4();
 
     // 度数表示,操作用変数

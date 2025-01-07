@@ -93,6 +93,11 @@ void CameraSystem::UpdateMatrix(CameraComponent& compo) {
 	compo.prePos = compo.translation;
 	compo.preRot = radians;
 
+	// 親があれば親のワールド行列を掛ける
+	if (compo.parent) {
+		compo.matWorld = Multiply(compo.matWorld, *compo.parent);
+	}
+
 	// 行列の転送
 	TransferMatrix(compo);
 }

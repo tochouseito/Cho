@@ -16,6 +16,7 @@ struct CameraComponent final{
     Vector3 preRot = { 0.0f,0.0f,0.0f };
 
     Matrix4 matWorld = ChoMath::MakeIdentity4x4(); // ワールド行列
+    Matrix4* parent = nullptr;
 
     // 垂直方向視野角
     float fovAngleY = 45.0f * std::numbers::pi_v<float> / 180.0f;

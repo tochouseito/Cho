@@ -72,7 +72,8 @@ void Player::Move()
 			// 移動ベクトルの長さを1に正規化
 			velocity.Normalize();
 			velocity = velocity * kCharacterSpeed;
-			Matrix4 matRot = (MakeRotateYMatrix(ChoMath::DegreesToRadians(compManager_->GetCamera(sceneManager_->GetNowCamera())->degrees.y)));
+			Matrix4 matRot = (MakeRotateMatrix(compManager_->GetCamera(sceneManager_->GetCameraObject(followCameraName)->GetEntityID())->rotation));
+				//(MakeRotateYMatrix(ChoMath::DegreesToRadians(compManager_->GetCamera(sceneManager_->GetCameraObject(followCameraName)->GetEntityID())->degrees.y)));
 			velocity = ChoMath::TransformNormal(velocity, matRot);
 			// 移動ベクトルの長さがゼロでないことを確認
 			if (velocity.x != 0 || velocity.z != 0) {

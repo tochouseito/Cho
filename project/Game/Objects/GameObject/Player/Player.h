@@ -76,7 +76,7 @@ private:
 	AnimationComponent* animation = nullptr;
 
 	const std::string modelName = "BaseHuman";
-
+	const std::string followCameraName = "FollowCamera";
 	// parm
 	Vector3 velocity;
 	// キャラクターの移動速度

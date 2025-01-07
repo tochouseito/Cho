@@ -379,8 +379,10 @@ void Cho::Update()
 
 	inputManager->Update();
 
+#ifdef _DEBUG
 	// エディタを更新
 	editorManager->Update();
+#endif // _DEBUG
 
 	// シーンを更新
 	sceneManager->Update();

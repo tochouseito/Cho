@@ -21,7 +21,7 @@ void GameScene::Initialize()
 	{
 		followCamera = std::make_unique<FollowCamera>();
 		CreateCamera(followCamera->name);
-		followCamera->Init(sceneManager_, compManager_);
+		followCamera->Init(sceneManager_, compManager_,sceneManager_->GetInputManagerPtr());
 		sceneManager_->SetNowCamera(sceneManager_->GetCameraObject(followCamera->name)->GetEntityID());
 	}
 }
@@ -33,6 +33,7 @@ void GameScene::Finalize()
 void GameScene::Update()
 {
 	player->Update();
+	followCamera->Update();
 }
 
 void GameScene::Draw()

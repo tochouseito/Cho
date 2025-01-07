@@ -75,6 +75,6 @@ private:
     EntityManager* entityManager_ = nullptr;
     ComponentManager* componentManager_ = nullptr;
 
-    bool run = false;
+    bool run = true;
 };
 
