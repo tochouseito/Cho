@@ -188,6 +188,15 @@ void InfoView::Update()
                 int maxValue = animationComp.numAnimation - 1;;
                 static int currentValue = 0;
 
+				if (maxValue < 0)
+				{
+					maxValue = 0;
+				}
+				if (currentValue > maxValue)
+				{
+					currentValue = maxValue;
+				}
+
                 ImGui::Text("Current Value: %d", currentValue);
 
                 if (ImGui::Button("Decrease")) {

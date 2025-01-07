@@ -22,6 +22,7 @@ void Player::Init(SceneManager* sceneManager, ComponentManager* compManager,Inpu
 
 	std::string meshName = sceneManager_->GetRVManagerPtr()->GetModelData(modelName)->names[0];
 	mesh->meshID = sceneManager_->GetRVManagerPtr()->GetModelData(modelName)->objects[meshName].meshIndex;
+	mesh->meshModelName = modelName;
 }
 
 void Player::Update()
