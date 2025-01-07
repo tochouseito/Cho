@@ -97,12 +97,28 @@ Scale AnimationSystem::CalculateValue(const std::vector<KeyframeScale>& keyframe
 
 void AnimationSystem::timeUpdate(AnimationComponent* comp, ModelData* model)
 {
+	if (comp->lerpTime >= 1.0f) {
+		comp->transition = false;
+		comp->lerpTime = 0.0f;
+	}
+	if (comp->prevAnimationIndex != comp->animationIndex) {
+		comp->transitionIndex = comp->prevAnimationIndex;
+		comp->transition = true;
+		comp->transitionTime = 0.0f;
+	}
 	comp->time += DeltaTime();
 	comp->time = std::fmod(comp->time, model->animations[comp->animationIndex].duration);
+	if (comp->transition) {
+		comp->transitionTime += DeltaTime();
+		comp->lerpTime = comp->transitionTime / comp->transitionDuration;
+		comp->lerpTime = std::clamp(comp->lerpTime, 0.0f, 1.0f);
+	}
 	ApplyAnimation(comp, model);
 	SkeletonUpdate(comp, model);
 	SkinClusterUpdate(comp, model);
 	ApplySkinning(comp, model);
+
+	comp->prevAnimationIndex = comp->animationIndex;
 }
 
 void AnimationSystem::ApplyAnimation(AnimationComponent* comp, ModelData* model)
@@ -111,9 +127,25 @@ void AnimationSystem::ApplyAnimation(AnimationComponent* comp, ModelData* model)
 		// 対象のJointのAnimationがあれば、値の適用を行う。下記のif文はC++17から可能になった初期化付きif文
 		if (auto it = model->animations[comp->animationIndex].nodeAnimations.find(joint.name); it != model->animations[comp->animationIndex].nodeAnimations.end()) {
 			const NodeAnimation& rootNodeAnimation = (*it).second;
-			joint.transform.translation = CalculateValue(rootNodeAnimation.translate.keyframes, comp->time);
-			joint.transform.rotation = CalculateValue(rootNodeAnimation.rotate.keyframes, comp->time);
-			joint.transform.scale = CalculateValue(rootNodeAnimation.scale.keyframes, comp->time);
+			if (comp->transition) {
+				if(auto it2 = model->animations[comp->transitionIndex].nodeAnimations.find(joint.name); it2 != model->animations[comp->transitionIndex].nodeAnimations.end()) {
+					const NodeAnimation& rootNodeAnimation2 = (*it2).second;
+					Vector3 startTranslate = CalculateValue(rootNodeAnimation2.translate.keyframes, comp->time);
+					Quaternion startRotate = CalculateValue(rootNodeAnimation2.rotate.keyframes, comp->time);
+					Scale startScale = CalculateValue(rootNodeAnimation2.scale.keyframes, comp->time);
+					Vector3 endTranslate = CalculateValue(rootNodeAnimation.translate.keyframes, comp->time);
+					Quaternion endRotate = CalculateValue(rootNodeAnimation.rotate.keyframes, comp->time);
+					Scale endScale = CalculateValue(rootNodeAnimation.scale.keyframes, comp->time);
+					joint.transform.translation = Vector3::Lerp(startTranslate, endTranslate, comp->lerpTime);
+					joint.transform.rotation = Quaternion::Slerp(startRotate, endRotate, comp->lerpTime);
+					joint.transform.scale = Scale::Lerp(startScale, endScale, comp->lerpTime);
+				}
+			}
+			else {
+				joint.transform.translation = CalculateValue(rootNodeAnimation.translate.keyframes, comp->time);
+				joint.transform.rotation = CalculateValue(rootNodeAnimation.rotate.keyframes, comp->time);
+				joint.transform.scale = CalculateValue(rootNodeAnimation.scale.keyframes, comp->time);
+			}
 		}
 	}
 }
