@@ -87,7 +87,7 @@ void ModelLoader::FirstResourceLoad(const std::string& directoryPath)
 					std::string fileStem = modelEntry.path().stem().string(); // 拡張子を除いた部分
 
 					// ファイルの形式をチェック
-					if (fileName.ends_with(".obj") || fileName.ends_with(".gltf"))
+					if (fileName.ends_with(".obj") || fileName.ends_with(".gltf")|| fileName.ends_with(".fbx"))
 					{
 						// directoryPath をフルパスに変換
 						std::string fullDirectoryPath = fs::absolute(directoryPath).string();
@@ -106,7 +106,7 @@ void ModelLoader::LoadModelFile(ModelData* modelData, const std::string& directo
 	//ModelData* modelData = new ModelData();
 	std::vector<Vector4> positions;// 位置
 	std::vector<Vector3> normals;// 法線
-	std::vector<Vector2> rexcoords;// UV座標
+	std::vector<Vector2> texcoords;// UV座標
 	std::string line;// ファイルから読んだ1行を格納するもの
 	Assimp::Importer importer;
 	std::string filePath;
@@ -236,7 +236,7 @@ void ModelLoader::LoadAnimationFile(ModelData* modelData, const std::string& dir
 	AnimationData animation; // 今回作成するアニメーションデータ
 	Assimp::Importer importer; // Assimp のインポーターを作成
 	std::string filePath;
-
+	directoryPath;
 	// ファイルパスの取得と正規化
 	filePath = entry.path().string();
 	filePath = fs::absolute(filePath).string();
@@ -412,8 +412,8 @@ void ModelLoader::CreateSkinCluster(ModelData* modelData, const std::string& nam
 	// SRVを作成
 	rvManager_->CreateSRVforStructuredBuffer(
 		skinCluster.skinningData.inputSRVIndex,
-		static_cast<UINT>(modelData->objects.size()),
-		static_cast<UINT>(sizeof(VertexData) * objectData.vertices.size())
+		static_cast<UINT>(objectData.vertices.size()),
+		static_cast<UINT>(sizeof(VertexData))
 	);
 	// MeshResourceを作成
 	skinCluster.skinningData.inputMVIndex = 
@@ -436,8 +436,8 @@ void ModelLoader::CreateSkinCluster(ModelData* modelData, const std::string& nam
 	// UAVを作成
 	rvManager_->CreateUAVforStructuredBuffer(
 		skinCluster.skinningData.outputUAVIndex,
-		static_cast<UINT>(modelData->objects.size()),
-		static_cast<UINT>(sizeof(VertexData) * objectData.vertices.size())
+		static_cast<UINT>(objectData.vertices.size()),
+		static_cast<UINT>(sizeof(VertexData))
 	);
 	// MeshResourceを作成
 	skinCluster.skinningData.outputMVIndex =
