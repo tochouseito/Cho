@@ -24,6 +24,9 @@ void GameScene::Initialize()
 		followCamera->Init(sceneManager_, compManager_,sceneManager_->GetInputManagerPtr());
 		sceneManager_->SetNowCamera(sceneManager_->GetCameraObject(followCamera->name)->GetEntityID());
 	}
+
+	// CollisionManager
+	collisionManager = std::make_unique<CollisionManager>();
 }
 
 void GameScene::Finalize()
@@ -34,6 +37,7 @@ void GameScene::Update()
 {
 	player->Update();
 	followCamera->Update();
+	
 }
 
 void GameScene::Draw()
@@ -62,4 +66,19 @@ void GameScene::CreateCamera(const std::string& name)
 	sceneManager_->AddCameraObject(name);
 	CameraComponent camera;
 	sceneManager_->GetCameraObject(name)->AddComponent(camera);
+}
+
+void GameScene::CheckAllCollisions()
+{
+	// 衝突マネージャのリセット
+	collisionManager->Reset();
+
+	// コライダーをリストに登録
+	collisionManager->AddCollider(player.get());
+	// 敵すべてについて
+	for (const std::unique_ptr<Enemy>& enemy : enemies) {
+		collisionManager->AddCollider(enemy.get());
+	}
+	// 衝突判定と応答
+	collisionManager->CheckAllCollisions();
 }

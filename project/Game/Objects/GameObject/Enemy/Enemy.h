@@ -12,7 +12,7 @@ class SceneManager;
 class ComponentManager;
 class InputManager;
 
-class Player : public BaseCharacter
+class Enemy : public BaseCharacter
 {
 public:
 	enum class Behavior {
@@ -21,7 +21,7 @@ public:
 		kJump, // ジャンプ
 	};
 
-	enum PlayerAnimation {
+	enum EnemyAnimation {
 		kAttack,
 		kFall,
 		kIdle,
@@ -66,7 +66,7 @@ private:
 	void AnimationUpdate();
 
 public:
-	const std::string name = "Player";
+	const std::string name = "Enemy";
 private:
 	SceneManager* sceneManager_ = nullptr;
 	ComponentManager* compManager_ = nullptr;
@@ -78,7 +78,7 @@ private:
 	MaterialComponent* material = nullptr;
 	AnimationComponent* animation = nullptr;
 
-	const std::string modelName = "BaseHuman";
+	const std::string modelName = "Enemy";
 	const std::string followCameraName = "FollowCamera";
 	// parm
 	Vector3 velocity;
@@ -96,7 +96,7 @@ private:
 	bool isJump = false;
 
 	Behavior behavior = Behavior::kRoot;
-	PlayerAnimation nowAnimation = PlayerAnimation::kIdle;
+	EnemyAnimation nowAnimation = EnemyAnimation::kIdle;
 	// 次のふるまいリクエスト
 	std::optional<Behavior> behaviorRequest = std::nullopt;
 };

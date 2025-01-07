@@ -134,6 +134,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Objects\GameObject\BaseCharacter\BaseCharacter.cpp" />
     <ClCompile Include="Cho\System\ECS\System\AnimationSystem\AnimationSystem.cpp" />
     <ClCompile Include="Cho\System\Audio\AudioManager.cpp" />
     <ClCompile Include="Cho\System\ECS\System\CameraSystem\CameraSystem.cpp" />
@@ -190,6 +191,9 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClCompile Include="Cho\System\Editor\DebugCamera\DebugCamera.cpp" />
     <ClCompile Include="Cho\System\Input\InputManager.cpp" />
     <ClCompile Include="Cho\System\ECS\System\EmitterSystem\EmitterSystem.cpp" />
+    <ClCompile Include="Game\Collider\Collider.cpp" />
+    <ClCompile Include="Game\ColliderManager\ColliderManager.cpp" />
+    <ClCompile Include="Game\Objects\GameObject\Enemy\Enemy.cpp" />
     <ClCompile Include="Game\Objects\Camera\FollowCamera\FollowCamera.cpp" />
     <ClCompile Include="Game\Scens\GameScene\GameScene.cpp" />
     <ClCompile Include="Game\Objects\GameObject\Ground\Ground.cpp" />
@@ -217,6 +221,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClCompile Include="Cho\System\ECS\System\ParticleSystem\ParticleSystem.cpp" />
     <ClCompile Include="Game\Scens\TitleScene\TitleScene.cpp" />
     <ClCompile Include="Game\Objects\GameObject\Player\Player.cpp" />
+    <ClInclude Include="Game\Objects\GameObject\BaseCharacter\BaseCharacter.h" />
     <ClInclude Include="Cho\System\ECS\System\AnimationSystem\AnimationSystem.h" />
     <ClInclude Include="Cho\System\Audio\AudioManager.h" />
     <ClInclude Include="Cho\System\ConstantData\AnimationData.h" />
@@ -307,6 +312,9 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClInclude Include="Cho\System\Input\InputManager.h" />
     <ClInclude Include="Cho\System\ECS\System\EmitterSystem\EmitterSystem.h" />
     <ClInclude Include="Cho\System\ECS\System\ParticleSystem\ParticleSystem.h" />
+    <ClInclude Include="Game\Collider\Collider.h" />
+    <ClInclude Include="Game\ColliderManager\ColliderManager.h" />
+    <ClInclude Include="Game\Objects\GameObject\Enemy\Enemy.h" />
     <ClInclude Include="Game\Objects\Camera\FollowCamera\FollowCamera.h" />
     <ClInclude Include="Game\Scens\GameScene\GameScene.h" />
     <ClInclude Include="Game\Scens\TitleScene\TitleScene.h" />
