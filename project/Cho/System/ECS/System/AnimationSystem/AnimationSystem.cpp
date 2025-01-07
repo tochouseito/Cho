@@ -97,42 +97,47 @@ Scale AnimationSystem::CalculateValue(const std::vector<KeyframeScale>& keyframe
 
 void AnimationSystem::timeUpdate(AnimationComponent* comp, ModelData* model)
 {
-	if (comp->lerpTime >= 1.0f) {
-		comp->transition = false;
-		//comp->isLoop = false;
-		comp->lerpTime = 0.0f;
-		comp->time = comp->transitionTime;
-		comp->transitionTime = 0.0f;
-	}
+	// animationIndexが変更された場合、遷移を開始する
 	if (comp->prevAnimationIndex != comp->animationIndex) {
 		comp->transitionIndex = comp->prevAnimationIndex;
 		comp->transition = true;
 		comp->transitionTime = 0.0f;
-		//comp->time = 0.0f;
 	}
-	static bool goNext = false;
-	comp->time += DeltaTime();
-	if (comp->transition&&comp->time >= model->animations[comp->animationIndex].duration&&!comp->isLoop) {
-		comp->isLoop = true;
-		goNext = true;
+
+	// 遷移が終了した場合、遷移フラグをfalseにする
+	if (comp->lerpTime >= 1.0f) {
+		comp->transition = false;
+		comp->lerpTime = 0.0f;
+		comp->time = comp->transitionTime;
+		comp->transitionTime = 0.0f;
 	}
-	comp->time = std::fmod(comp->time, model->animations[comp->animationIndex].duration);
+	static float deltaTime = 1.0f / 60.0f;
+	// 遷移中の場合、遷移時間を更新
 	if (comp->transition) {
-		comp->transitionTime += DeltaTime();
+		comp->transitionTime += deltaTime;//DeltaTime();
 		comp->lerpTime = comp->transitionTime / comp->transitionDuration;
 		comp->lerpTime = std::clamp(comp->lerpTime, 0.0f, 1.0f);
 	}
-	
+
+	// 時間更新
+	static bool isLoop =false;
+	comp->time += deltaTime;//DeltaTime();
+	if (comp->time >= model->animations[comp->animationIndex].duration) {
+		isLoop = true;
+	}
+	else {
+		isLoop = false;
+	}
+	comp->time = std::fmod(comp->time, model->animations[comp->animationIndex].duration);
+
+	// アニメーション更新
 	ApplyAnimation(comp, model);
 	SkeletonUpdate(comp, model);
 	SkinClusterUpdate(comp, model);
 	ApplySkinning(comp, model);
 
 	comp->prevAnimationIndex = comp->animationIndex;
-	if (goNext) {
-		comp->animationIndex = comp->nextAnimationIndex;
-		goNext = false;
-	}
+	
 }
 
 void AnimationSystem::ApplyAnimation(AnimationComponent* comp, ModelData* model)

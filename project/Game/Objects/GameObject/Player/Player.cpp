@@ -31,6 +31,9 @@ void Player::Init(SceneManager* sceneManager, ComponentManager* compManager,Inpu
 
 void Player::Update()
 {
+	// アニメーション更新
+	AnimationUpdate();
+
 	// 振る舞いの初期化
 	BehaviorInitialize();
 
@@ -39,9 +42,6 @@ void Player::Update()
 
 	// 振る舞いの更新
 	BehaviorUpdate();
-
-	// アニメーション更新
-	AnimationUpdate();
 
 	// 座標移動（ベクトルの加算）
 	velocity.y = fallVelocity;
@@ -112,11 +112,13 @@ void Player::Jump()
 			//behaviorRequest = Behavior::kJump;
 			isJump = true;
 			fallVelocity = kJumpFirstSpeed;
+			nowAnimation = kJump;
 		}
 	}
 	if (input->TriggerKey(DIK_SPACE) && !isJump) {
 		isJump = true;
 		fallVelocity = kJumpFirstSpeed;
+		nowAnimation = kJump;
 	}
 }
 
@@ -132,6 +134,7 @@ void Player::Fall()
 		velocity.y = 0.0f;
 		tf->translation.y = 0.0f;
 		isJump = false;
+		nowAnimation = kLand;
 	}
 }
 
@@ -202,43 +205,8 @@ void Player::BehaviorJumpUpdate()
 void Player::AnimationUpdate()
 {
 	// アニメーション遷移
-	static Vector3 preVelocity = { 0.0f, 0.0f, 0.0f };
-	if (velocity.y > 0.0f&&isJump) {
-		nowAnimation = kFall;
-	}
-	else if (velocity.y < 0.0f && isJump) {
-		nowAnimation = kFall;
-	}
-	else if (velocity.y==0.0f&&preVelocity.y<0.0f)
-	{
-		nowAnimation = kLand;
-		if (animation->isLoop)
-		{
-			nowAnimation = kIdle;
-		}
-	}
-
-	if (!isJump && nowAnimation != kFall) {
-		if (velocity.x != 0.0f || velocity.z != 0.0f)
-		{
-			nowAnimation = kRun;
-		}
-		else {
-			nowAnimation = kIdle;
-		}
-	}
 	
-	if (isAttack)
-	{
-		nowAnimation = kAttack;
-		if (animation->isLoop)
-		{
-			isAttack=false;
-		}
-	}
-
 	// AnimationIndex更新
-	animation->animationIndex = static_cast<uint32_t>(nowAnimation);
+	//animation->animationIndex = static_cast<uint32_t>(nowAnimation);
 
-	preVelocity = velocity;
 }

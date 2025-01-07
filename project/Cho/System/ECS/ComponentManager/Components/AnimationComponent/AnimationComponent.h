@@ -2,7 +2,7 @@
 #include"ChoMath.h"
 struct AnimationComponent
 {
-	float time = 0.0f;
+	float time = 0.0f;// 現在のアニメーションの時間
 	float transitionTime = 0.0f;// 遷移中経過時間
 	float transitionDuration = 0.1f;// 遷移にかける時間
 	float lerpTime = 0.0f;// 線形補間の時間
@@ -12,6 +12,5 @@ struct AnimationComponent
 	uint32_t animationIndex = 0;// アニメーションのIndex
 	uint32_t prevAnimationIndex = 0;// 1つ前のアニメーションのIndex
 	uint32_t transitionIndex = 0;// 遷移スタートのアニメーションのIndex
-	bool isLoop = true;// ループするかどうか
-	uint32_t nextAnimationIndex = 0;// 次のアニメーションのIndex
+	
 };

@@ -26,3 +26,1065 @@
 [2025-1-7 23:51:34] Gameモデル読み込み
 [2025-1-7 23:51:34] 読み込み
 [2025-1-7 23:51:34] 初期化終了
+[2025-1-8 1:58:28] ウィンドウ作成
+[2025-1-8 1:58:29] DirectX初期化
+[2025-1-8 1:58:29] GraphicsSystem初期化
+[2025-1-8 1:58:29] 汎用機能初期化
+[2025-1-8 1:58:29] Loader初期化
+[2025-1-8 1:58:29] ImGui初期化
+[2025-1-8 1:58:29] ECS初期化
+[2025-1-8 1:58:29] SceneManager初期化
+[2025-1-8 1:58:29] Editor初期化
+[2025-1-8 1:58:29] Json初期化
+[2025-1-8 1:58:29] デフォルトメッシュ生成
+[2025-1-8 1:58:29] テクスチャ読み込み
+[2025-1-8 1:58:30] Gameテクスチャ読み込み
+[2025-1-8 1:58:30] ModelLoader::FirstResourceLoad
+
+[2025-1-8 1:58:30] openFile
+
+[2025-1-8 1:58:30] openFile
+
+[2025-1-8 1:58:30] BaseHuman
+[2025-1-8 1:58:30] Start LoadModelFile
+
+[2025-1-8 1:58:30] Start ReadFile
+
+[2025-1-8 1:58:30] End ReadFile
+
+[2025-1-8 1:58:30] 
+[2025-1-8 1:58:31] modelLoad
+[2025-1-8 1:58:31] ModelLoader::Load
+
+[2025-1-8 1:58:31] ModelLoader::FirstResourceLoad
+
+[2025-1-8 1:58:31] openFile
+
+[2025-1-8 1:58:31] openFile
+
+[2025-1-8 1:58:31] teapot
+[2025-1-8 1:58:31] Start LoadModelFile
+
+[2025-1-8 1:58:31] Start ReadFile
+
+[2025-1-8 1:58:31] End ReadFile
+
+[2025-1-8 1:58:31] 
+[2025-1-8 1:58:31] modelLoad
+[2025-1-8 1:58:31] ModelLoader::Load
+
+[2025-1-8 1:58:31] ModelLoader::FirstResourceLoad
+
+[2025-1-8 1:58:31] openFile
+
+[2025-1-8 1:58:31] openFile
+
+[2025-1-8 1:58:31] walk
+[2025-1-8 1:58:31] Start LoadModelFile
+
+[2025-1-8 1:58:31] Start ReadFile
+
+[2025-1-8 1:58:31] End ReadFile
+
+[2025-1-8 1:58:31] 
+[2025-1-8 1:58:31] modelLoad
+[2025-1-8 1:58:31] ModelLoader::Load
+
+[2025-1-8 1:58:31] openFile
+
+[2025-1-8 1:58:31] Gameモデル読み込み
+[2025-1-8 1:58:31] 読み込み
+[2025-1-8 1:58:31] 初期化終了
+[2025-1-8 2:16:55] ウィンドウ作成
+[2025-1-8 2:16:56] DirectX初期化
+[2025-1-8 2:16:56] GraphicsSystem初期化
+[2025-1-8 2:16:56] 汎用機能初期化
+[2025-1-8 2:16:56] Loader初期化
+[2025-1-8 2:16:56] ImGui初期化
+[2025-1-8 2:16:56] ECS初期化
+[2025-1-8 2:16:56] SceneManager初期化
+[2025-1-8 2:16:56] Editor初期化
+[2025-1-8 2:16:56] Json初期化
+[2025-1-8 2:16:56] デフォルトメッシュ生成
+[2025-1-8 2:16:57] テクスチャ読み込み
+[2025-1-8 2:16:58] Gameテクスチャ読み込み
+[2025-1-8 2:16:58] ModelLoader::FirstResourceLoad
+
+[2025-1-8 2:16:58] openFile
+
+[2025-1-8 2:16:58] openFile
+
+[2025-1-8 2:16:58] BaseHuman
+[2025-1-8 2:16:58] Start LoadModelFile
+
+[2025-1-8 2:16:58] Start ReadFile
+
+[2025-1-8 2:16:58] End ReadFile
+
+[2025-1-8 2:16:58] 
+[2025-1-8 2:16:58] modelLoad
+[2025-1-8 2:16:58] ModelLoader::Load
+
+[2025-1-8 2:16:58] ModelLoader::FirstResourceLoad
+
+[2025-1-8 2:16:58] openFile
+
+[2025-1-8 2:16:58] openFile
+
+[2025-1-8 2:16:58] teapot
+[2025-1-8 2:16:58] Start LoadModelFile
+
+[2025-1-8 2:16:58] Start ReadFile
+
+[2025-1-8 2:16:58] End ReadFile
+
+[2025-1-8 2:16:58] 
+[2025-1-8 2:16:58] modelLoad
+[2025-1-8 2:16:58] ModelLoader::Load
+
+[2025-1-8 2:16:58] ModelLoader::FirstResourceLoad
+
+[2025-1-8 2:16:58] openFile
+
+[2025-1-8 2:16:58] openFile
+
+[2025-1-8 2:16:58] walk
+[2025-1-8 2:16:58] Start LoadModelFile
+
+[2025-1-8 2:16:58] Start ReadFile
+
+[2025-1-8 2:16:58] End ReadFile
+
+[2025-1-8 2:16:58] 
+[2025-1-8 2:16:58] modelLoad
+[2025-1-8 2:16:58] ModelLoader::Load
+
+[2025-1-8 2:16:58] openFile
+
+[2025-1-8 2:16:58] Gameモデル読み込み
+[2025-1-8 2:16:58] 読み込み
+[2025-1-8 2:16:58] 初期化終了
+[2025-1-8 2:17:18] ウィンドウ作成
+[2025-1-8 2:17:18] DirectX初期化
+[2025-1-8 2:17:19] GraphicsSystem初期化
+[2025-1-8 2:17:19] 汎用機能初期化
+[2025-1-8 2:17:19] Loader初期化
+[2025-1-8 2:17:19] ImGui初期化
+[2025-1-8 2:17:19] ECS初期化
+[2025-1-8 2:17:19] SceneManager初期化
+[2025-1-8 2:17:19] Editor初期化
+[2025-1-8 2:17:19] Json初期化
+[2025-1-8 2:17:19] デフォルトメッシュ生成
+[2025-1-8 2:17:19] テクスチャ読み込み
+[2025-1-8 2:17:20] Gameテクスチャ読み込み
+[2025-1-8 2:17:20] ModelLoader::FirstResourceLoad
+
+[2025-1-8 2:17:20] openFile
+
+[2025-1-8 2:17:20] openFile
+
+[2025-1-8 2:17:20] BaseHuman
+[2025-1-8 2:17:20] Start LoadModelFile
+
+[2025-1-8 2:17:20] Start ReadFile
+
+[2025-1-8 2:17:20] End ReadFile
+
+[2025-1-8 2:17:20] 
+[2025-1-8 2:17:20] modelLoad
+[2025-1-8 2:17:20] ModelLoader::Load
+
+[2025-1-8 2:17:20] ModelLoader::FirstResourceLoad
+
+[2025-1-8 2:17:20] openFile
+
+[2025-1-8 2:17:20] openFile
+
+[2025-1-8 2:17:20] teapot
+[2025-1-8 2:17:20] Start LoadModelFile
+
+[2025-1-8 2:17:20] Start ReadFile
+
+[2025-1-8 2:17:20] End ReadFile
+
+[2025-1-8 2:17:20] 
+[2025-1-8 2:17:20] modelLoad
+[2025-1-8 2:17:20] ModelLoader::Load
+
+[2025-1-8 2:17:20] ModelLoader::FirstResourceLoad
+
+[2025-1-8 2:17:20] openFile
+
+[2025-1-8 2:17:20] openFile
+
+[2025-1-8 2:17:20] walk
+[2025-1-8 2:17:20] Start LoadModelFile
+
+[2025-1-8 2:17:20] Start ReadFile
+
+[2025-1-8 2:17:21] End ReadFile
+
+[2025-1-8 2:17:21] 
+[2025-1-8 2:17:21] modelLoad
+[2025-1-8 2:17:21] ModelLoader::Load
+
+[2025-1-8 2:17:21] openFile
+
+[2025-1-8 2:17:21] Gameモデル読み込み
+[2025-1-8 2:17:21] 読み込み
+[2025-1-8 2:17:21] 初期化終了
+[2025-1-8 2:17:57] ウィンドウ作成
+[2025-1-8 2:17:57] DirectX初期化
+[2025-1-8 2:17:57] GraphicsSystem初期化
+[2025-1-8 2:17:58] 汎用機能初期化
+[2025-1-8 2:17:58] Loader初期化
+[2025-1-8 2:17:58] ImGui初期化
+[2025-1-8 2:17:58] ECS初期化
+[2025-1-8 2:17:58] SceneManager初期化
+[2025-1-8 2:17:58] Editor初期化
+[2025-1-8 2:17:58] Json初期化
+[2025-1-8 2:17:58] デフォルトメッシュ生成
+[2025-1-8 2:17:58] テクスチャ読み込み
+[2025-1-8 2:17:59] Gameテクスチャ読み込み
+[2025-1-8 2:17:59] ModelLoader::FirstResourceLoad
+
+[2025-1-8 2:17:59] openFile
+
+[2025-1-8 2:17:59] openFile
+
+[2025-1-8 2:17:59] BaseHuman
+[2025-1-8 2:17:59] Start LoadModelFile
+
+[2025-1-8 2:17:59] Start ReadFile
+
+[2025-1-8 2:17:59] End ReadFile
+
+[2025-1-8 2:17:59] 
+[2025-1-8 2:17:59] modelLoad
+[2025-1-8 2:17:59] ModelLoader::Load
+
+[2025-1-8 2:17:59] ModelLoader::FirstResourceLoad
+
+[2025-1-8 2:17:59] openFile
+
+[2025-1-8 2:17:59] openFile
+
+[2025-1-8 2:17:59] teapot
+[2025-1-8 2:17:59] Start LoadModelFile
+
+[2025-1-8 2:17:59] Start ReadFile
+
+[2025-1-8 2:17:59] End ReadFile
+
+[2025-1-8 2:17:59] 
+[2025-1-8 2:17:59] modelLoad
+[2025-1-8 2:17:59] ModelLoader::Load
+
+[2025-1-8 2:17:59] ModelLoader::FirstResourceLoad
+
+[2025-1-8 2:17:59] openFile
+
+[2025-1-8 2:17:59] openFile
+
+[2025-1-8 2:17:59] walk
+[2025-1-8 2:17:59] Start LoadModelFile
+
+[2025-1-8 2:17:59] Start ReadFile
+
+[2025-1-8 2:17:59] End ReadFile
+
+[2025-1-8 2:17:59] 
+[2025-1-8 2:17:59] modelLoad
+[2025-1-8 2:17:59] ModelLoader::Load
+
+[2025-1-8 2:17:59] openFile
+
+[2025-1-8 2:17:59] Gameモデル読み込み
+[2025-1-8 2:17:59] 読み込み
+[2025-1-8 2:17:59] 初期化終了
+[2025-1-8 2:18:58] ウィンドウ作成
+[2025-1-8 2:18:58] DirectX初期化
+[2025-1-8 2:18:58] GraphicsSystem初期化
+[2025-1-8 2:18:58] 汎用機能初期化
+[2025-1-8 2:18:58] Loader初期化
+[2025-1-8 2:18:58] ImGui初期化
+[2025-1-8 2:18:58] ECS初期化
+[2025-1-8 2:18:58] SceneManager初期化
+[2025-1-8 2:18:58] Editor初期化
+[2025-1-8 2:18:58] Json初期化
+[2025-1-8 2:18:58] デフォルトメッシュ生成
+[2025-1-8 2:18:58] テクスチャ読み込み
+[2025-1-8 2:19:0] Gameテクスチャ読み込み
+[2025-1-8 2:19:0] ModelLoader::FirstResourceLoad
+
+[2025-1-8 2:19:0] openFile
+
+[2025-1-8 2:19:0] openFile
+
+[2025-1-8 2:19:0] BaseHuman
+[2025-1-8 2:19:0] Start LoadModelFile
+
+[2025-1-8 2:19:0] Start ReadFile
+
+[2025-1-8 2:19:0] End ReadFile
+
+[2025-1-8 2:19:0] 
+[2025-1-8 2:38:53] ウィンドウ作成
+[2025-1-8 2:38:54] DirectX初期化
+[2025-1-8 2:38:54] GraphicsSystem初期化
+[2025-1-8 2:38:54] 汎用機能初期化
+[2025-1-8 2:38:54] Loader初期化
+[2025-1-8 2:38:54] ImGui初期化
+[2025-1-8 2:38:54] ECS初期化
+[2025-1-8 2:38:54] SceneManager初期化
+[2025-1-8 2:38:54] Editor初期化
+[2025-1-8 2:38:54] Json初期化
+[2025-1-8 2:38:54] デフォルトメッシュ生成
+[2025-1-8 2:38:54] テクスチャ読み込み
+[2025-1-8 2:38:55] Gameテクスチャ読み込み
+[2025-1-8 2:38:55] ModelLoader::FirstResourceLoad
+
+[2025-1-8 2:38:55] openFile
+
+[2025-1-8 2:38:55] openFile
+
+[2025-1-8 2:38:55] BaseHuman
+[2025-1-8 2:38:55] Start LoadModelFile
+
+[2025-1-8 2:38:55] Start ReadFile
+
+[2025-1-8 2:38:56] End ReadFile
+
+[2025-1-8 2:38:56] 
+[2025-1-8 2:38:56] modelLoad
+[2025-1-8 2:38:56] ModelLoader::Load
+
+[2025-1-8 2:38:56] ModelLoader::FirstResourceLoad
+
+[2025-1-8 2:38:56] openFile
+
+[2025-1-8 2:38:56] openFile
+
+[2025-1-8 2:38:56] teapot
+[2025-1-8 2:38:56] Start LoadModelFile
+
+[2025-1-8 2:38:56] Start ReadFile
+
+[2025-1-8 2:38:56] End ReadFile
+
+[2025-1-8 2:38:56] 
+[2025-1-8 2:38:56] modelLoad
+[2025-1-8 2:38:56] ModelLoader::Load
+
+[2025-1-8 2:38:56] ModelLoader::FirstResourceLoad
+
+[2025-1-8 2:38:56] openFile
+
+[2025-1-8 2:38:56] openFile
+
+[2025-1-8 2:38:56] walk
+[2025-1-8 2:38:56] Start LoadModelFile
+
+[2025-1-8 2:38:56] Start ReadFile
+
+[2025-1-8 2:38:56] End ReadFile
+
+[2025-1-8 2:38:56] 
+[2025-1-8 2:38:56] modelLoad
+[2025-1-8 2:38:56] ModelLoader::Load
+
+[2025-1-8 2:38:56] openFile
+
+[2025-1-8 2:38:56] Gameモデル読み込み
+[2025-1-8 2:38:56] 読み込み
+[2025-1-8 2:38:56] 初期化終了
+[2025-1-8 3:0:45] ウィンドウ作成
+[2025-1-8 3:0:45] DirectX初期化
+[2025-1-8 3:0:46] GraphicsSystem初期化
+[2025-1-8 3:0:46] 汎用機能初期化
+[2025-1-8 3:0:46] Loader初期化
+[2025-1-8 3:0:46] ImGui初期化
+[2025-1-8 3:0:46] ECS初期化
+[2025-1-8 3:0:46] SceneManager初期化
+[2025-1-8 3:0:46] Editor初期化
+[2025-1-8 3:0:46] Json初期化
+[2025-1-8 3:0:46] デフォルトメッシュ生成
+[2025-1-8 3:0:46] テクスチャ読み込み
+[2025-1-8 3:0:47] Gameテクスチャ読み込み
+[2025-1-8 3:0:47] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:0:47] openFile
+
+[2025-1-8 3:0:47] openFile
+
+[2025-1-8 3:0:47] BaseHuman
+[2025-1-8 3:0:47] Start LoadModelFile
+
+[2025-1-8 3:0:47] Start ReadFile
+
+[2025-1-8 3:0:47] End ReadFile
+
+[2025-1-8 3:0:47] 
+[2025-1-8 3:0:48] modelLoad
+[2025-1-8 3:0:48] ModelLoader::Load
+
+[2025-1-8 3:0:48] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:0:48] openFile
+
+[2025-1-8 3:0:48] openFile
+
+[2025-1-8 3:0:48] teapot
+[2025-1-8 3:0:48] Start LoadModelFile
+
+[2025-1-8 3:0:48] Start ReadFile
+
+[2025-1-8 3:0:48] End ReadFile
+
+[2025-1-8 3:0:48] 
+[2025-1-8 3:0:48] modelLoad
+[2025-1-8 3:0:48] ModelLoader::Load
+
+[2025-1-8 3:0:48] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:0:48] openFile
+
+[2025-1-8 3:0:48] openFile
+
+[2025-1-8 3:0:48] walk
+[2025-1-8 3:0:48] Start LoadModelFile
+
+[2025-1-8 3:0:48] Start ReadFile
+
+[2025-1-8 3:0:48] End ReadFile
+
+[2025-1-8 3:0:48] 
+[2025-1-8 3:0:48] modelLoad
+[2025-1-8 3:0:48] ModelLoader::Load
+
+[2025-1-8 3:0:48] openFile
+
+[2025-1-8 3:0:48] Gameモデル読み込み
+[2025-1-8 3:0:48] 読み込み
+[2025-1-8 3:0:48] 初期化終了
+[2025-1-8 3:36:5] ウィンドウ作成
+[2025-1-8 3:36:6] DirectX初期化
+[2025-1-8 3:36:6] GraphicsSystem初期化
+[2025-1-8 3:36:6] 汎用機能初期化
+[2025-1-8 3:36:6] Loader初期化
+[2025-1-8 3:36:6] ImGui初期化
+[2025-1-8 3:36:6] ECS初期化
+[2025-1-8 3:36:6] SceneManager初期化
+[2025-1-8 3:36:6] Editor初期化
+[2025-1-8 3:36:6] Json初期化
+[2025-1-8 3:36:6] デフォルトメッシュ生成
+[2025-1-8 3:36:7] テクスチャ読み込み
+[2025-1-8 3:36:8] Gameテクスチャ読み込み
+[2025-1-8 3:36:8] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:36:8] openFile
+
+[2025-1-8 3:36:8] openFile
+
+[2025-1-8 3:36:8] BaseHuman
+[2025-1-8 3:36:8] Start LoadModelFile
+
+[2025-1-8 3:36:8] Start ReadFile
+
+[2025-1-8 3:36:8] End ReadFile
+
+[2025-1-8 3:36:8] 
+[2025-1-8 3:36:8] modelLoad
+[2025-1-8 3:36:8] ModelLoader::Load
+
+[2025-1-8 3:36:8] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:36:8] openFile
+
+[2025-1-8 3:36:8] openFile
+
+[2025-1-8 3:36:8] teapot
+[2025-1-8 3:36:8] Start LoadModelFile
+
+[2025-1-8 3:36:8] Start ReadFile
+
+[2025-1-8 3:36:8] End ReadFile
+
+[2025-1-8 3:36:8] 
+[2025-1-8 3:36:8] modelLoad
+[2025-1-8 3:36:8] ModelLoader::Load
+
+[2025-1-8 3:36:8] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:36:8] openFile
+
+[2025-1-8 3:36:8] openFile
+
+[2025-1-8 3:36:8] walk
+[2025-1-8 3:36:8] Start LoadModelFile
+
+[2025-1-8 3:36:8] Start ReadFile
+
+[2025-1-8 3:36:8] End ReadFile
+
+[2025-1-8 3:36:8] 
+[2025-1-8 3:36:8] modelLoad
+[2025-1-8 3:36:8] ModelLoader::Load
+
+[2025-1-8 3:36:8] openFile
+
+[2025-1-8 3:36:8] Gameモデル読み込み
+[2025-1-8 3:36:8] 読み込み
+[2025-1-8 3:36:8] 初期化終了
+[2025-1-8 3:46:44] ウィンドウ作成
+[2025-1-8 3:46:45] DirectX初期化
+[2025-1-8 3:46:45] GraphicsSystem初期化
+[2025-1-8 3:46:45] 汎用機能初期化
+[2025-1-8 3:46:45] Loader初期化
+[2025-1-8 3:46:45] ImGui初期化
+[2025-1-8 3:46:45] ECS初期化
+[2025-1-8 3:46:45] SceneManager初期化
+[2025-1-8 3:46:45] Editor初期化
+[2025-1-8 3:46:45] Json初期化
+[2025-1-8 3:46:45] デフォルトメッシュ生成
+[2025-1-8 3:46:46] テクスチャ読み込み
+[2025-1-8 3:46:47] Gameテクスチャ読み込み
+[2025-1-8 3:46:47] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:46:47] openFile
+
+[2025-1-8 3:46:47] openFile
+
+[2025-1-8 3:46:47] BaseHuman
+[2025-1-8 3:46:47] Start LoadModelFile
+
+[2025-1-8 3:46:47] Start ReadFile
+
+[2025-1-8 3:46:47] End ReadFile
+
+[2025-1-8 3:46:47] 
+[2025-1-8 3:46:47] modelLoad
+[2025-1-8 3:46:47] ModelLoader::Load
+
+[2025-1-8 3:46:47] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:46:47] openFile
+
+[2025-1-8 3:46:47] openFile
+
+[2025-1-8 3:46:47] teapot
+[2025-1-8 3:46:47] Start LoadModelFile
+
+[2025-1-8 3:46:47] Start ReadFile
+
+[2025-1-8 3:46:47] End ReadFile
+
+[2025-1-8 3:46:47] 
+[2025-1-8 3:46:47] modelLoad
+[2025-1-8 3:46:47] ModelLoader::Load
+
+[2025-1-8 3:46:47] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:46:47] openFile
+
+[2025-1-8 3:46:47] openFile
+
+[2025-1-8 3:46:47] walk
+[2025-1-8 3:46:47] Start LoadModelFile
+
+[2025-1-8 3:46:47] Start ReadFile
+
+[2025-1-8 3:46:47] End ReadFile
+
+[2025-1-8 3:46:47] 
+[2025-1-8 3:46:47] modelLoad
+[2025-1-8 3:46:47] ModelLoader::Load
+
+[2025-1-8 3:46:47] openFile
+
+[2025-1-8 3:46:47] Gameモデル読み込み
+[2025-1-8 3:46:47] 読み込み
+[2025-1-8 3:46:47] 初期化終了
+[2025-1-8 3:47:28] ウィンドウ作成
+[2025-1-8 3:47:29] DirectX初期化
+[2025-1-8 3:47:29] GraphicsSystem初期化
+[2025-1-8 3:47:29] 汎用機能初期化
+[2025-1-8 3:47:29] Loader初期化
+[2025-1-8 3:47:29] ImGui初期化
+[2025-1-8 3:47:29] ECS初期化
+[2025-1-8 3:47:29] SceneManager初期化
+[2025-1-8 3:47:29] Editor初期化
+[2025-1-8 3:47:29] Json初期化
+[2025-1-8 3:47:29] デフォルトメッシュ生成
+[2025-1-8 3:47:29] テクスチャ読み込み
+[2025-1-8 3:47:31] Gameテクスチャ読み込み
+[2025-1-8 3:47:31] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:47:31] openFile
+
+[2025-1-8 3:47:31] openFile
+
+[2025-1-8 3:47:31] BaseHuman
+[2025-1-8 3:47:31] Start LoadModelFile
+
+[2025-1-8 3:47:31] Start ReadFile
+
+[2025-1-8 3:47:31] End ReadFile
+
+[2025-1-8 3:47:31] 
+[2025-1-8 3:47:31] modelLoad
+[2025-1-8 3:47:31] ModelLoader::Load
+
+[2025-1-8 3:47:31] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:47:31] openFile
+
+[2025-1-8 3:47:31] openFile
+
+[2025-1-8 3:47:31] teapot
+[2025-1-8 3:47:31] Start LoadModelFile
+
+[2025-1-8 3:47:31] Start ReadFile
+
+[2025-1-8 3:47:31] End ReadFile
+
+[2025-1-8 3:47:31] 
+[2025-1-8 3:47:31] modelLoad
+[2025-1-8 3:47:31] ModelLoader::Load
+
+[2025-1-8 3:47:31] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:47:31] openFile
+
+[2025-1-8 3:47:31] openFile
+
+[2025-1-8 3:47:31] walk
+[2025-1-8 3:47:31] Start LoadModelFile
+
+[2025-1-8 3:47:31] Start ReadFile
+
+[2025-1-8 3:47:31] End ReadFile
+
+[2025-1-8 3:47:31] 
+[2025-1-8 3:47:31] modelLoad
+[2025-1-8 3:47:31] ModelLoader::Load
+
+[2025-1-8 3:47:31] openFile
+
+[2025-1-8 3:47:31] Gameモデル読み込み
+[2025-1-8 3:47:31] 読み込み
+[2025-1-8 3:47:31] 初期化終了
+[2025-1-8 3:51:11] ウィンドウ作成
+[2025-1-8 3:51:12] DirectX初期化
+[2025-1-8 3:51:12] GraphicsSystem初期化
+[2025-1-8 3:51:12] 汎用機能初期化
+[2025-1-8 3:51:12] Loader初期化
+[2025-1-8 3:51:12] ImGui初期化
+[2025-1-8 3:51:12] ECS初期化
+[2025-1-8 3:51:12] SceneManager初期化
+[2025-1-8 3:51:12] Editor初期化
+[2025-1-8 3:51:12] Json初期化
+[2025-1-8 3:51:12] デフォルトメッシュ生成
+[2025-1-8 3:51:12] テクスチャ読み込み
+[2025-1-8 3:51:14] Gameテクスチャ読み込み
+[2025-1-8 3:51:14] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:51:14] openFile
+
+[2025-1-8 3:51:14] openFile
+
+[2025-1-8 3:51:14] BaseHuman
+[2025-1-8 3:51:14] Start LoadModelFile
+
+[2025-1-8 3:51:14] Start ReadFile
+
+[2025-1-8 3:51:14] End ReadFile
+
+[2025-1-8 3:51:14] 
+[2025-1-8 3:51:14] modelLoad
+[2025-1-8 3:51:14] ModelLoader::Load
+
+[2025-1-8 3:51:14] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:51:14] openFile
+
+[2025-1-8 3:51:14] openFile
+
+[2025-1-8 3:51:14] teapot
+[2025-1-8 3:51:14] Start LoadModelFile
+
+[2025-1-8 3:51:14] Start ReadFile
+
+[2025-1-8 3:51:14] End ReadFile
+
+[2025-1-8 3:51:14] 
+[2025-1-8 3:51:14] modelLoad
+[2025-1-8 3:51:14] ModelLoader::Load
+
+[2025-1-8 3:51:14] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:51:14] openFile
+
+[2025-1-8 3:51:14] openFile
+
+[2025-1-8 3:51:14] walk
+[2025-1-8 3:51:14] Start LoadModelFile
+
+[2025-1-8 3:51:14] Start ReadFile
+
+[2025-1-8 3:51:14] End ReadFile
+
+[2025-1-8 3:51:14] 
+[2025-1-8 3:51:14] modelLoad
+[2025-1-8 3:51:14] ModelLoader::Load
+
+[2025-1-8 3:51:14] openFile
+
+[2025-1-8 3:51:14] Gameモデル読み込み
+[2025-1-8 3:51:14] 読み込み
+[2025-1-8 3:51:14] 初期化終了
+[2025-1-8 3:52:8] ウィンドウ作成
+[2025-1-8 3:52:8] DirectX初期化
+[2025-1-8 3:52:9] GraphicsSystem初期化
+[2025-1-8 3:52:9] 汎用機能初期化
+[2025-1-8 3:52:9] Loader初期化
+[2025-1-8 3:52:9] ImGui初期化
+[2025-1-8 3:52:9] ECS初期化
+[2025-1-8 3:52:9] SceneManager初期化
+[2025-1-8 3:52:9] Editor初期化
+[2025-1-8 3:52:9] Json初期化
+[2025-1-8 3:52:9] デフォルトメッシュ生成
+[2025-1-8 3:52:9] テクスチャ読み込み
+[2025-1-8 3:52:10] Gameテクスチャ読み込み
+[2025-1-8 3:52:10] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:52:10] openFile
+
+[2025-1-8 3:52:10] openFile
+
+[2025-1-8 3:52:10] BaseHuman
+[2025-1-8 3:52:10] Start LoadModelFile
+
+[2025-1-8 3:52:10] Start ReadFile
+
+[2025-1-8 3:52:10] End ReadFile
+
+[2025-1-8 3:52:10] 
+[2025-1-8 3:52:10] modelLoad
+[2025-1-8 3:52:10] ModelLoader::Load
+
+[2025-1-8 3:52:10] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:52:10] openFile
+
+[2025-1-8 3:52:10] openFile
+
+[2025-1-8 3:52:10] teapot
+[2025-1-8 3:52:10] Start LoadModelFile
+
+[2025-1-8 3:52:10] Start ReadFile
+
+[2025-1-8 3:52:10] End ReadFile
+
+[2025-1-8 3:52:10] 
+[2025-1-8 3:52:10] modelLoad
+[2025-1-8 3:52:11] ModelLoader::Load
+
+[2025-1-8 3:52:11] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:52:11] openFile
+
+[2025-1-8 3:52:11] openFile
+
+[2025-1-8 3:52:11] walk
+[2025-1-8 3:52:11] Start LoadModelFile
+
+[2025-1-8 3:52:11] Start ReadFile
+
+[2025-1-8 3:52:11] End ReadFile
+
+[2025-1-8 3:52:11] 
+[2025-1-8 3:52:11] modelLoad
+[2025-1-8 3:52:11] ModelLoader::Load
+
+[2025-1-8 3:52:11] openFile
+
+[2025-1-8 3:52:11] Gameモデル読み込み
+[2025-1-8 3:52:11] 読み込み
+[2025-1-8 3:52:11] 初期化終了
+[2025-1-8 3:59:22] ウィンドウ作成
+[2025-1-8 3:59:22] DirectX初期化
+[2025-1-8 3:59:23] GraphicsSystem初期化
+[2025-1-8 3:59:23] 汎用機能初期化
+[2025-1-8 3:59:23] Loader初期化
+[2025-1-8 3:59:23] ImGui初期化
+[2025-1-8 3:59:23] ECS初期化
+[2025-1-8 3:59:23] SceneManager初期化
+[2025-1-8 3:59:23] Editor初期化
+[2025-1-8 3:59:23] Json初期化
+[2025-1-8 3:59:23] デフォルトメッシュ生成
+[2025-1-8 3:59:23] テクスチャ読み込み
+[2025-1-8 3:59:24] Gameテクスチャ読み込み
+[2025-1-8 3:59:24] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:59:24] openFile
+
+[2025-1-8 3:59:24] openFile
+
+[2025-1-8 3:59:24] BaseHuman
+[2025-1-8 3:59:24] Start LoadModelFile
+
+[2025-1-8 3:59:24] Start ReadFile
+
+[2025-1-8 3:59:24] End ReadFile
+
+[2025-1-8 3:59:24] 
+[2025-1-8 3:59:24] modelLoad
+[2025-1-8 3:59:24] ModelLoader::Load
+
+[2025-1-8 3:59:24] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:59:24] openFile
+
+[2025-1-8 3:59:24] openFile
+
+[2025-1-8 3:59:24] teapot
+[2025-1-8 3:59:24] Start LoadModelFile
+
+[2025-1-8 3:59:24] Start ReadFile
+
+[2025-1-8 3:59:25] End ReadFile
+
+[2025-1-8 3:59:25] 
+[2025-1-8 3:59:25] modelLoad
+[2025-1-8 3:59:25] ModelLoader::Load
+
+[2025-1-8 3:59:25] ModelLoader::FirstResourceLoad
+
+[2025-1-8 3:59:25] openFile
+
+[2025-1-8 3:59:25] openFile
+
+[2025-1-8 3:59:25] walk
+[2025-1-8 3:59:25] Start LoadModelFile
+
+[2025-1-8 3:59:25] Start ReadFile
+
+[2025-1-8 3:59:25] End ReadFile
+
+[2025-1-8 3:59:25] 
+[2025-1-8 3:59:25] modelLoad
+[2025-1-8 3:59:25] ModelLoader::Load
+
+[2025-1-8 3:59:25] openFile
+
+[2025-1-8 3:59:25] Gameモデル読み込み
+[2025-1-8 3:59:25] 読み込み
+[2025-1-8 3:59:25] 初期化終了
+[2025-1-8 5:0:31] ウィンドウ作成
+[2025-1-8 5:0:32] DirectX初期化
+[2025-1-8 5:0:32] GraphicsSystem初期化
+[2025-1-8 5:0:32] 汎用機能初期化
+[2025-1-8 5:0:32] Loader初期化
+[2025-1-8 5:0:32] ImGui初期化
+[2025-1-8 5:0:32] ECS初期化
+[2025-1-8 5:0:32] SceneManager初期化
+[2025-1-8 5:0:32] Editor初期化
+[2025-1-8 5:0:32] Json初期化
+[2025-1-8 5:0:32] デフォルトメッシュ生成
+[2025-1-8 5:0:32] テクスチャ読み込み
+[2025-1-8 5:0:34] Gameテクスチャ読み込み
+[2025-1-8 5:0:34] ModelLoader::FirstResourceLoad
+
+[2025-1-8 5:0:34] openFile
+
+[2025-1-8 5:0:34] openFile
+
+[2025-1-8 5:0:34] BaseHuman
+[2025-1-8 5:0:34] Start LoadModelFile
+
+[2025-1-8 5:0:34] Start ReadFile
+
+[2025-1-8 5:0:34] End ReadFile
+
+[2025-1-8 5:0:34] 
+[2025-1-8 5:0:34] modelLoad
+[2025-1-8 5:0:34] ModelLoader::Load
+
+[2025-1-8 5:0:34] ModelLoader::FirstResourceLoad
+
+[2025-1-8 5:0:34] openFile
+
+[2025-1-8 5:0:34] openFile
+
+[2025-1-8 5:0:34] teapot
+[2025-1-8 5:0:34] Start LoadModelFile
+
+[2025-1-8 5:0:34] Start ReadFile
+
+[2025-1-8 5:0:34] End ReadFile
+
+[2025-1-8 5:0:34] 
+[2025-1-8 5:0:34] modelLoad
+[2025-1-8 5:0:34] ModelLoader::Load
+
+[2025-1-8 5:0:34] ModelLoader::FirstResourceLoad
+
+[2025-1-8 5:0:34] openFile
+
+[2025-1-8 5:0:34] openFile
+
+[2025-1-8 5:0:34] walk
+[2025-1-8 5:0:34] Start LoadModelFile
+
+[2025-1-8 5:0:34] Start ReadFile
+
+[2025-1-8 5:0:34] End ReadFile
+
+[2025-1-8 5:0:34] 
+[2025-1-8 5:0:34] modelLoad
+[2025-1-8 5:0:34] ModelLoader::Load
+
+[2025-1-8 5:0:34] openFile
+
+[2025-1-8 5:0:34] Gameモデル読み込み
+[2025-1-8 5:0:34] 読み込み
+[2025-1-8 5:0:34] 初期化終了
+[2025-1-8 5:39:2] ウィンドウ作成
+[2025-1-8 5:39:2] DirectX初期化
+[2025-1-8 5:39:2] GraphicsSystem初期化
+[2025-1-8 5:39:3] 汎用機能初期化
+[2025-1-8 5:39:3] Loader初期化
+[2025-1-8 5:39:3] ImGui初期化
+[2025-1-8 5:39:3] ECS初期化
+[2025-1-8 5:39:3] SceneManager初期化
+[2025-1-8 5:39:3] Editor初期化
+[2025-1-8 5:39:3] Json初期化
+[2025-1-8 5:39:3] デフォルトメッシュ生成
+[2025-1-8 5:39:3] テクスチャ読み込み
+[2025-1-8 5:39:4] Gameテクスチャ読み込み
+[2025-1-8 5:39:4] ModelLoader::FirstResourceLoad
+
+[2025-1-8 5:39:4] openFile
+
+[2025-1-8 5:39:4] openFile
+
+[2025-1-8 5:39:4] BaseHuman
+[2025-1-8 5:39:4] Start LoadModelFile
+
+[2025-1-8 5:39:4] Start ReadFile
+
+[2025-1-8 5:39:4] End ReadFile
+
+[2025-1-8 5:39:4] 
+[2025-1-8 5:39:4] modelLoad
+[2025-1-8 5:39:4] ModelLoader::Load
+
+[2025-1-8 5:39:4] ModelLoader::FirstResourceLoad
+
+[2025-1-8 5:39:4] openFile
+
+[2025-1-8 5:39:4] openFile
+
+[2025-1-8 5:39:4] teapot
+[2025-1-8 5:39:4] Start LoadModelFile
+
+[2025-1-8 5:39:4] Start ReadFile
+
+[2025-1-8 5:39:4] End ReadFile
+
+[2025-1-8 5:39:4] 
+[2025-1-8 5:39:4] modelLoad
+[2025-1-8 5:39:4] ModelLoader::Load
+
+[2025-1-8 5:39:4] ModelLoader::FirstResourceLoad
+
+[2025-1-8 5:39:4] openFile
+
+[2025-1-8 5:39:4] openFile
+
+[2025-1-8 5:39:4] walk
+[2025-1-8 5:39:4] Start LoadModelFile
+
+[2025-1-8 5:39:4] Start ReadFile
+
+[2025-1-8 5:39:4] End ReadFile
+
+[2025-1-8 5:39:4] 
+[2025-1-8 5:39:4] modelLoad
+[2025-1-8 5:39:4] ModelLoader::Load
+
+[2025-1-8 5:39:4] openFile
+
+[2025-1-8 5:39:4] Gameモデル読み込み
+[2025-1-8 5:39:4] 読み込み
+[2025-1-8 5:39:4] 初期化終了
+[2025-1-8 5:44:24] ウィンドウ作成
+[2025-1-8 5:44:25] DirectX初期化
+[2025-1-8 5:44:25] GraphicsSystem初期化
+[2025-1-8 5:44:25] 汎用機能初期化
+[2025-1-8 5:44:25] Loader初期化
+[2025-1-8 5:44:25] ImGui初期化
+[2025-1-8 5:44:25] ECS初期化
+[2025-1-8 5:44:25] SceneManager初期化
+[2025-1-8 5:44:25] Editor初期化
+[2025-1-8 5:44:25] Json初期化
+[2025-1-8 5:44:25] デフォルトメッシュ生成
+[2025-1-8 5:44:25] テクスチャ読み込み
+[2025-1-8 5:44:26] Gameテクスチャ読み込み
+[2025-1-8 5:44:26] ModelLoader::FirstResourceLoad
+
+[2025-1-8 5:44:26] openFile
+
+[2025-1-8 5:44:26] openFile
+
+[2025-1-8 5:44:26] BaseHuman
+[2025-1-8 5:44:26] Start LoadModelFile
+
+[2025-1-8 5:44:26] Start ReadFile
+
+[2025-1-8 5:44:26] End ReadFile
+
+[2025-1-8 5:44:26] 
+[2025-1-8 5:44:27] modelLoad
+[2025-1-8 5:44:27] ModelLoader::Load
+
+[2025-1-8 5:44:27] ModelLoader::FirstResourceLoad
+
+[2025-1-8 5:44:27] openFile
+
+[2025-1-8 5:44:27] openFile
+
+[2025-1-8 5:44:27] teapot
+[2025-1-8 5:44:27] Start LoadModelFile
+
+[2025-1-8 5:44:27] Start ReadFile
+
+[2025-1-8 5:44:27] End ReadFile
+
+[2025-1-8 5:44:27] 
+[2025-1-8 5:44:27] modelLoad
+[2025-1-8 5:44:27] ModelLoader::Load
+
+[2025-1-8 5:44:27] ModelLoader::FirstResourceLoad
+
+[2025-1-8 5:44:27] openFile
+
+[2025-1-8 5:44:27] openFile
+
+[2025-1-8 5:44:27] walk
+[2025-1-8 5:44:27] Start LoadModelFile
+
+[2025-1-8 5:44:27] Start ReadFile
+
+[2025-1-8 5:44:27] End ReadFile
+
+[2025-1-8 5:44:27] 
+[2025-1-8 5:44:27] modelLoad
+[2025-1-8 5:44:27] ModelLoader::Load
+
+[2025-1-8 5:44:27] openFile
+
+[2025-1-8 5:44:27] Gameモデル読み込み
+[2025-1-8 5:44:27] 読み込み
+[2025-1-8 5:44:27] 初期化終了

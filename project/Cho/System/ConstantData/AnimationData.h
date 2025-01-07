@@ -103,6 +103,7 @@ struct SkinCluster {
 // アニメーションデータ構造体
 struct AnimationData {
 	float duration = 0.0f;// アニメーション全体の尺（単位は秒）
+	uint32_t allFrame = 0;// アニメーション全体のフレーム数
 	std::map<std::string, NodeAnimation> nodeAnimations;
 	AnimationData() = default;
 };

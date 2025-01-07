@@ -259,6 +259,7 @@ void ModelLoader::LoadAnimationFile(ModelData* modelData, const std::string& dir
 		AnimationData animation; // 今回作成するアニメーションデータ
 		aiAnimation* animationAssimp = scene->mAnimations[animationIndex];
 		animation.duration = float(animationAssimp->mDuration / animationAssimp->mTicksPerSecond); // アニメーションの時間を秒単位に変換
+		
 
 		// チャネル（ノードのアニメーション情報）の解析
 		for (uint32_t channelIndex = 0; channelIndex < animationAssimp->mNumChannels; ++channelIndex) {
