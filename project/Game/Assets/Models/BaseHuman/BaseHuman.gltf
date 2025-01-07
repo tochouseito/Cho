@@ -1,6 +1,6 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v4.1.63",
+		"generator":"Khronos glTF Blender I/O v4.2.57",
 		"version":"2.0"
 	},
 	"scene":0,
@@ -5320,12 +5320,12 @@
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":248
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":249
 				},
 				{
@@ -5380,12 +5380,12 @@
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":260
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":261
 				},
 				{
@@ -5440,12 +5440,12 @@
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":272
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":273
 				},
 				{
@@ -5500,12 +5500,12 @@
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":284
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":285
 				},
 				{
@@ -5560,12 +5560,12 @@
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":296
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":297
 				},
 				{
@@ -5680,12 +5680,12 @@
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":320
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":321
 				},
 				{
@@ -5740,12 +5740,12 @@
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":332
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":333
 				},
 				{
@@ -5800,17 +5800,17 @@
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":344
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":345
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":346
 				},
 				{
@@ -5860,12 +5860,12 @@
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":356
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":357
 				},
 				{
@@ -5920,12 +5920,12 @@
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":368
 				},
 				{
 					"input":207,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":369
 				},
 				{
@@ -9894,12 +9894,12 @@
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":618
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":619
 				},
 				{
@@ -10014,17 +10014,17 @@
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":642
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":643
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":644
 				},
 				{
@@ -10074,12 +10074,12 @@
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":654
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":655
 				},
 				{
@@ -10134,17 +10134,17 @@
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":666
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":667
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":668
 				},
 				{
@@ -10194,17 +10194,17 @@
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":678
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":679
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":680
 				},
 				{
@@ -10254,12 +10254,12 @@
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":690
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":691
 				},
 				{
@@ -10374,12 +10374,12 @@
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":714
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":715
 				},
 				{
@@ -10434,12 +10434,12 @@
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":726
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":727
 				},
 				{
@@ -10494,17 +10494,17 @@
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":738
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":739
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":740
 				},
 				{
@@ -10554,12 +10554,12 @@
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":750
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":751
 				},
 				{
@@ -10614,12 +10614,12 @@
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":762
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":763
 				},
 				{
@@ -10689,12 +10689,12 @@
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":777
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":778
 				},
 				{
@@ -10764,17 +10764,17 @@
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":792
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":793
 				},
 				{
 					"input":601,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":794
 				}
 			]
@@ -12241,12 +12241,12 @@
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":815
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":816
 				},
 				{
@@ -12361,17 +12361,17 @@
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":839
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":840
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":841
 				},
 				{
@@ -12421,12 +12421,12 @@
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":851
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":852
 				},
 				{
@@ -12481,12 +12481,12 @@
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":863
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":864
 				},
 				{
@@ -12541,12 +12541,12 @@
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":875
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":876
 				},
 				{
@@ -12601,12 +12601,12 @@
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":887
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":888
 				},
 				{
@@ -12721,12 +12721,12 @@
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":911
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":912
 				},
 				{
@@ -12781,12 +12781,12 @@
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":923
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":924
 				},
 				{
@@ -12841,17 +12841,17 @@
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":935
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":936
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":937
 				},
 				{
@@ -12901,12 +12901,12 @@
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":947
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":948
 				},
 				{
@@ -12961,17 +12961,17 @@
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":959
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":960
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":961
 				},
 				{
@@ -13036,12 +13036,12 @@
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":974
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":975
 				},
 				{
@@ -13111,12 +13111,12 @@
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":989
 				},
 				{
 					"input":798,
-					"interpolation":"STEP",
+					"interpolation":"LINEAR",
 					"output":990
 				},
 				{

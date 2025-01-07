@@ -99,31 +99,40 @@ void AnimationSystem::timeUpdate(AnimationComponent* comp, ModelData* model)
 {
 	if (comp->lerpTime >= 1.0f) {
 		comp->transition = false;
+		//comp->isLoop = false;
 		comp->lerpTime = 0.0f;
+		comp->time = comp->transitionTime;
+		comp->transitionTime = 0.0f;
 	}
 	if (comp->prevAnimationIndex != comp->animationIndex) {
 		comp->transitionIndex = comp->prevAnimationIndex;
 		comp->transition = true;
 		comp->transitionTime = 0.0f;
-		comp->isLoop = false;
-		comp->time = 0.0f;
+		//comp->time = 0.0f;
 	}
+	static bool goNext = false;
 	comp->time += DeltaTime();
-	comp->time = std::fmod(comp->time, model->animations[comp->animationIndex].duration);
-	if (comp->time >= model->animations[comp->animationIndex].duration) {
+	if (comp->transition&&comp->time >= model->animations[comp->animationIndex].duration&&!comp->isLoop) {
 		comp->isLoop = true;
+		goNext = true;
 	}
+	comp->time = std::fmod(comp->time, model->animations[comp->animationIndex].duration);
 	if (comp->transition) {
 		comp->transitionTime += DeltaTime();
 		comp->lerpTime = comp->transitionTime / comp->transitionDuration;
 		comp->lerpTime = std::clamp(comp->lerpTime, 0.0f, 1.0f);
 	}
+	
 	ApplyAnimation(comp, model);
 	SkeletonUpdate(comp, model);
 	SkinClusterUpdate(comp, model);
 	ApplySkinning(comp, model);
 
 	comp->prevAnimationIndex = comp->animationIndex;
+	if (goNext) {
+		comp->animationIndex = comp->nextAnimationIndex;
+		goNext = false;
+	}
 }
 
 void AnimationSystem::ApplyAnimation(AnimationComponent* comp, ModelData* model)
@@ -138,9 +147,9 @@ void AnimationSystem::ApplyAnimation(AnimationComponent* comp, ModelData* model)
 					Vector3 startTranslate = CalculateValue(rootNodeAnimation2.translate.keyframes, comp->time);
 					Quaternion startRotate = CalculateValue(rootNodeAnimation2.rotate.keyframes, comp->time);
 					Scale startScale = CalculateValue(rootNodeAnimation2.scale.keyframes, comp->time);
-					Vector3 endTranslate = CalculateValue(rootNodeAnimation.translate.keyframes, comp->time);
-					Quaternion endRotate = CalculateValue(rootNodeAnimation.rotate.keyframes, comp->time);
-					Scale endScale = CalculateValue(rootNodeAnimation.scale.keyframes, comp->time);
+					Vector3 endTranslate = CalculateValue(rootNodeAnimation.translate.keyframes, comp->transitionTime);
+					Quaternion endRotate = CalculateValue(rootNodeAnimation.rotate.keyframes, comp->transitionTime);
+					Scale endScale = CalculateValue(rootNodeAnimation.scale.keyframes, comp->transitionTime);
 					joint.transform.translation = Vector3::Lerp(startTranslate, endTranslate, comp->lerpTime);
 					joint.transform.rotation = Quaternion::Slerp(startRotate, endRotate, comp->lerpTime);
 					joint.transform.scale = Scale::Lerp(startScale, endScale, comp->lerpTime);

@@ -24,7 +24,15 @@ void GameScene::Initialize()
 		followCamera->Init(sceneManager_, compManager_,sceneManager_->GetInputManagerPtr());
 		sceneManager_->SetNowCamera(sceneManager_->GetCameraObject(followCamera->name)->GetEntityID());
 	}
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			enemies.push_back(std::make_unique<Enemy>());
 
+			enemies[i]->name=CreateGameObject(enemies[i]->name);
+			enemies[i]->Init(sceneManager_, compManager_, sceneManager_->GetInputManagerPtr());
+		}
+	}
 	// CollisionManager
 	collisionManager = std::make_unique<CollisionManager>();
 }
@@ -48,17 +56,20 @@ void GameScene::ChangeScene()
 {
 }
 
-void GameScene::CreateGameObject(const std::string& name)
+std::string GameScene::CreateGameObject(const std::string& name)
 {
-	sceneManager_->AddGameObject(name);
+	std::string newName;
+	newName=sceneManager_->AddGameObject(name);
 	TransformComponent tf;
-	sceneManager_->GetGameObject(name)->AddComponent(tf);
+	sceneManager_->GetGameObject(newName)->AddComponent(tf);
 	MeshComponent mesh;
-	sceneManager_->GetGameObject(name)->AddComponent(mesh);
+	sceneManager_->GetGameObject(newName)->AddComponent(mesh);
 	MaterialComponent material;
-	sceneManager_->GetGameObject(name)->AddComponent(material);
+	sceneManager_->GetGameObject(newName)->AddComponent(material);
 	RenderComponent render;
-	sceneManager_->GetGameObject(name)->AddComponent(render);
+	sceneManager_->GetGameObject(newName)->AddComponent(render);
+
+	return newName;
 }
 
 void GameScene::CreateCamera(const std::string& name)

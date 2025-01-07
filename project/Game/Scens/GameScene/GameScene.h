@@ -4,6 +4,7 @@
 // C++
 #include<memory>
 #include<string>
+#include<vector>
 
 // Objects
 #include"Game/Objects/GameObject/Player/Player.h"
@@ -29,7 +30,7 @@ public:
     void Draw() override;
     void ChangeScene() override;
 
-    void CreateGameObject(const std::string& name);
+    std::string CreateGameObject(const std::string& name);
     void CreateCamera(const std::string& name);
 
 private:
@@ -50,7 +51,7 @@ private:
     std::unique_ptr<Player> player = nullptr;
     std::unique_ptr<Ground> ground = nullptr;
     // 敵リスト
-    std::list<std::unique_ptr<Enemy>> enemies;
+    std::vector<std::unique_ptr<Enemy>> enemies;
 
     // CameraObjects
     std::unique_ptr<FollowCamera> followCamera = nullptr;

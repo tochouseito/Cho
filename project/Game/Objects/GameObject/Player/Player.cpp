@@ -25,6 +25,8 @@ void Player::Init(SceneManager* sceneManager, ComponentManager* compManager,Inpu
 	std::string meshName = sceneManager_->GetRVManagerPtr()->GetModelData(modelName)->names[0];
 	mesh->meshID = sceneManager_->GetRVManagerPtr()->GetModelData(modelName)->objects[meshName].meshIndex;
 	mesh->meshModelName = modelName;
+
+	material->textureID = "White1x1.png";
 }
 
 void Player::Update()
@@ -42,6 +44,7 @@ void Player::Update()
 	AnimationUpdate();
 
 	// 座標移動（ベクトルの加算）
+	velocity.y = fallVelocity;
 	tf->translation += velocity;
 }
 
@@ -55,6 +58,15 @@ void Player::Input()
 
 	// 落下
 	Fall();
+
+	//  ゲームパッドの状態を得る変数(XINPUT)
+	XINPUT_STATE joyState;
+	if (input->GetJoystickState(0, joyState)) {
+		if (input->IsTriggerPadButton(PadButton::B) && !isJump) {
+			//behaviorRequest = Behavior::kJump;
+			isAttack = true;
+		}
+	}
 }
 
 void Player::Move()
@@ -96,15 +108,15 @@ void Player::Jump()
 	//  ゲームパッドの状態を得る変数(XINPUT)
 	XINPUT_STATE joyState;
 	if (input->GetJoystickState(0, joyState)) {
-		if (input->IsTriggerPadButton(PadButton::A)) {
+		if (input->IsTriggerPadButton(PadButton::A)&&!isJump) {
 			//behaviorRequest = Behavior::kJump;
 			isJump = true;
-			velocity.y = kJumpFirstSpeed;
+			fallVelocity = kJumpFirstSpeed;
 		}
 	}
 	if (input->TriggerKey(DIK_SPACE) && !isJump) {
 		isJump = true;
-		velocity.y = kJumpFirstSpeed;
+		fallVelocity = kJumpFirstSpeed;
 	}
 }
 
@@ -113,9 +125,10 @@ void Player::Fall()
 	// 加速度ベクトル
 	float accelerationVector = -kGravityAcceleration;
 	if (isJump) {
-		velocity.y += accelerationVector;
+		fallVelocity += accelerationVector;
 	}
 	if (tf->translation.y < 0.0f) {
+		fallVelocity = 0.0f;
 		velocity.y = 0.0f;
 		tf->translation.y = 0.0f;
 		isJump = false;
@@ -189,33 +202,43 @@ void Player::BehaviorJumpUpdate()
 void Player::AnimationUpdate()
 {
 	// アニメーション遷移
-	if (isJump && nowAnimation != kJump ||
-		isJump && nowAnimation != kFall) {
-		nowAnimation = PlayerAnimation::kJump;
+	static Vector3 preVelocity = { 0.0f, 0.0f, 0.0f };
+	if (velocity.y > 0.0f&&isJump) {
+		nowAnimation = kFall;
 	}
-	else if (isJump&&nowAnimation==kJump&&animation->isLoop) {
-		nowAnimation = PlayerAnimation::kFall;
+	else if (velocity.y < 0.0f && isJump) {
+		nowAnimation = kFall;
 	}
-	else if (!isJump && nowAnimation == kFall && animation->isLoop) {
-		nowAnimation = PlayerAnimation::kLand;
+	else if (velocity.y==0.0f&&preVelocity.y<0.0f)
+	{
+		nowAnimation = kLand;
+		if (animation->isLoop)
+		{
+			nowAnimation = kIdle;
+		}
 	}
-	else {
-		if (velocity.x != 0.0f || velocity.z != 0.0f) {
-			if (nowAnimation != kLand &&
-				nowAnimation!=kJump&&
-				nowAnimation != kFall &&
-				animation->isLoop) {
-				nowAnimation = PlayerAnimation::kRun;
-			}
-			// 移動中
-			nowAnimation = PlayerAnimation::kRun;
+
+	if (!isJump && nowAnimation != kFall) {
+		if (velocity.x != 0.0f || velocity.z != 0.0f)
+		{
+			nowAnimation = kRun;
 		}
 		else {
-			// 移動していない
-			nowAnimation = PlayerAnimation::kIdle;
+			nowAnimation = kIdle;
+		}
+	}
+	
+	if (isAttack)
+	{
+		nowAnimation = kAttack;
+		if (animation->isLoop)
+		{
+			isAttack=false;
 		}
 	}
 
 	// AnimationIndex更新
 	animation->animationIndex = static_cast<uint32_t>(nowAnimation);
+
+	preVelocity = velocity;
 }

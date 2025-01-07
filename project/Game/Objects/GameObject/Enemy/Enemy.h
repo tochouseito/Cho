@@ -66,7 +66,7 @@ private:
 	void AnimationUpdate();
 
 public:
-	const std::string name = "Enemy";
+	std::string name = "Enemy";
 private:
 	SceneManager* sceneManager_ = nullptr;
 	ComponentManager* compManager_ = nullptr;

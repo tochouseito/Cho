@@ -45,16 +45,16 @@ void FollowCamera::Move()
 		comp->degrees += degree;
 	}
 	if (targetName!="") {
-		targetOffset_ = { 0.0f, 20.0f, -30.0f };
+		targetOffset_ = { 0.0f, 16.0f, -30.0f };
 
 		// 度数からラジアンに変換
 		Vector3 radians = ChoMath::DegreesToRadians(comp->degrees);
 
-		// 変更がなければreturn
-		if (comp->translation == comp->prePos &&
-			radians == comp->preRot) {
-			return;
-		}
+		//// 変更がなければreturn
+		//if (comp->translation == comp->prePos &&
+		//	radians == comp->preRot) {
+		//	return;
+		//}
 
 		// 差分計算
 		Vector3 diff = comp->preRot - radians;

@@ -85,15 +85,16 @@ private:
 	// キャラクターの移動速度
 	const float kCharacterSpeed = 0.2f;
 	// ジャンプ初速
-	const float kJumpFirstSpeed = 1.0f;
+	const float kJumpFirstSpeed = 3.0f;
 
-	const float fallVelocity = 0.5f;
+	float fallVelocity = 0.0f;
 
 	// 重力加速度
 	const float kGravityAcceleration = 0.05f;
 
 	// flag
 	bool isJump = false;
+	bool isAttack = false;
 
 	Behavior behavior = Behavior::kRoot;
 	PlayerAnimation nowAnimation = PlayerAnimation::kIdle;

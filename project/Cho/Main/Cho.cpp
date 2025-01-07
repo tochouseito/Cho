@@ -310,8 +310,10 @@ void Cho::Initialize()
 
 void Cho::Finalize()
 {
+#ifdef _DEBUG
 	// セーブ
 	Save();
+#endif // _DEBUG
 	// シーン解放
 	sceneManager->Finalize();
 	// ImGui解放
@@ -457,8 +459,10 @@ void Cho::PostDraw()
 
 void Cho::Load()
 {
+#ifdef _DEBUG
 	/*ImGuiのスタイル読み込み*/
 	jsonFileLoader->LoadStyleFromProject();
+#endif // _DEBUG
 
 	/*テクスチャリソースの読み込み*/
 	textureLoader->FirstResourceLoad("Cho/Resources/Texture/");
@@ -471,6 +475,8 @@ void Cho::Load()
 
 void Cho::StartSetUp()
 {
+#ifdef _DEBUG
+
 	startSetting->Initialize(
 		resourceViewManager.get(),
 		rtvManager.get(),
@@ -482,6 +488,9 @@ void Cho::StartSetUp()
 		sceneManager.get(),
 		editorManager.get()
 	);
+
+#endif // _DEBUG
+
 
 	/*テクスチャリソースの読み込み*/
 	std::string textureRoot = startSetting->GetProjectRoot();
@@ -547,9 +556,9 @@ void Cho::SelectGameProject()
 				StartSetUp();
 				//startSetting->LoadProject(jsonFileLoader.get());
 				//startSetting->CreateProject();
-
+#ifdef _DEBUG
 				ScriptProject::GenerateSolutionAndProject();
-
+#endif // _DEBUG
 				// 解放
 				startSetting.reset();
 
