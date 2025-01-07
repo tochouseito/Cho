@@ -9,6 +9,8 @@ void GameScene::Initialize()
 	{
 		player = std::make_unique<Player>();
 		CreateGameObject(player->name);
+		AnimationComponent animation;
+		compManager_->AddComponent(sceneManager_->GetGameObject(player->name)->GetEntityID(), animation);
 		player->Init(sceneManager_, compManager_,sceneManager_->GetInputManagerPtr());
 	}
 	{

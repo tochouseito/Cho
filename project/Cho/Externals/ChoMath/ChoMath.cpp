@@ -46,6 +46,11 @@ Matrix4 ChoMath::Transpose(const Matrix4& m)
 	return result;
 }
 
+Vector3 ChoMath::TransformNormal(const Vector3& v, const Matrix4& m) {
+	Vector3 result{ v.x * m.m[0][0] + v.y * m.m[1][0] + v.z * m.m[2][0], v.x * m.m[0][1] + v.y * m.m[1][1] + v.z * m.m[2][1], v.x * m.m[0][2] + v.y * m.m[1][2] + v.z * m.m[2][2] };
+	return result;
+}
+
 Matrix4 ChoMath::MakeIdentity4x4()
 {
 	Matrix4 result = { 0 };

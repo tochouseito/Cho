@@ -19,6 +19,7 @@ namespace ChoMath {
 
 	Matrix4 Transpose(const Matrix4& m);
 
+	Vector3 TransformNormal(const Vector3& v, const Matrix4& m);
 
 	Matrix4 MakeIdentity4x4();
 

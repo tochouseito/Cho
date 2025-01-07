@@ -2,6 +2,7 @@
 
 //C++
 #include<string>
+#include<optional>
 
 #include"ECS/ComponentManager/Components/Components.h"
 class SceneManager;
@@ -10,6 +11,13 @@ class InputManager;
 
 class Player
 {
+public:
+	enum class Behavior {
+		kRoot,// 通常状態
+		kAttack,// 攻撃中
+		kJump, // ジャンプ
+	};
+
 public:
 	void Init(SceneManager* sceneManager, ComponentManager* compManager, InputManager* inputManager);
 
@@ -24,6 +32,23 @@ private:
 	void Jump();
 
 	void Fall();
+
+	void BehaviorInitialize();
+
+	void BehaviorUpdate();
+
+	// 通常行動更新
+	void BehaviorRootInitialize();
+	void BehaviorRootUpdate();
+
+	// 攻撃行動更新
+	void BehaviorAttackInitialize();
+	void BehaviorAttackUpdate();
+
+	// ジャンプ行動初期化
+	void BehaviorJumpInitialize();
+	// ジャンプ行動更新
+	void BehaviorJumpUpdate();
 
 public:
 	const std::string name = "Player";
@@ -41,6 +66,8 @@ private:
 
 	// parm
 	Vector3 velocity;
+	// キャラクターの移動速度
+	const float kCharacterSpeed = 0.2f;
 	// ジャンプ初速
 	const float kJumpFirstSpeed = 1.0f;
 
@@ -51,5 +78,9 @@ private:
 
 	// flag
 	bool isJump = false;
+
+	Behavior behavior_ = Behavior::kRoot;
+	// 次のふるまいリクエスト
+	std::optional<Behavior> behaviorRequest_ = std::nullopt;
 };
 

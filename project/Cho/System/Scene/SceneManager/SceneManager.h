@@ -113,6 +113,7 @@ public:
 	InputManager* GetInputManagerPtr()const { return inputManager_; }
 
 	void SetNowCamera(const Entity& id) { entityManager_->SetCameraID(id); }
+	Entity GetNowCamera() { return entityManager_->GetNowCameraEntity(); }
 
 private:
 	// ユニークな名前を生成する関数
