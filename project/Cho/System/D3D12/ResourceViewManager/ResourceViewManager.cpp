@@ -2,6 +2,7 @@
 #include "ResourceViewManager.h"
 #include"D3D12/D3DDevice/D3DDevice.h"
 #include"D3D12/D3DCommand/D3DCommand.h"
+#include"LogGenerator/LogGenerator.h"
 
 void ResourceViewManager::Initialize(D3DDevice* d3dDevice, D3DCommand* d3dCommand)
 {
@@ -416,6 +417,7 @@ void ResourceViewManager::CreateMeshPattern()
 {
 	for (uint32_t index = 0; index < static_cast<uint32_t>(MeshPattern::CountPattern); index++) {
 		if (MeshViewAllocate() != index) {
+			//WriteLog("MeshViewAllocate Error");
 			assert(0);
 		}
 
@@ -497,6 +499,7 @@ void ResourceViewManager::AddModel(const std::string& name)
 ModelData* ResourceViewManager::GetModelData(const std::string& name)
 {
 	if (!modelContainer.contains(name)) {
+		WriteLog("ModelData Error");
 		assert(0);
 	}
 	return modelContainer[name].get();

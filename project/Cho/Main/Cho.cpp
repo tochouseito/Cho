@@ -1,4 +1,5 @@
 #include "Cho.h"
+#include"LogGenerator/LogGenerator.h"
 
 // System
 #include"WinApp/WinApp.h"
@@ -117,6 +118,8 @@ void Cho::Initialize()
 	win = std::make_unique<WinApp>();
 	win->CreateGameWindow();
 
+	WriteLog("ウィンドウ作成");
+
 	// フレーム
 	frameRate = std::make_unique<FrameRate>();
 	frameRate->Initialize();
@@ -161,6 +164,7 @@ void Cho::Initialize()
 		d3dDevice.get()
 	);
 
+	WriteLog("DirectX初期化");
 #pragma endregion
 
 #pragma region グラフィックスシステム
@@ -179,7 +183,7 @@ void Cho::Initialize()
 		dsvManager.get(),
 		graphicsSystem.get()
 	);
-
+	WriteLog("GraphicsSystem初期化");
 #pragma endregion
 
 #pragma region 汎用機能初期化
@@ -200,6 +204,8 @@ void Cho::Initialize()
 		resourceViewManager.get()
 	);
 
+	WriteLog("汎用機能初期化");
+
 	// MeshLoader
 	meshLoader = std::make_unique<MeshLoader>();
 	meshLoader->Initialize(resourceViewManager.get());
@@ -207,6 +213,8 @@ void Cho::Initialize()
 	// ModelLoader
 	modelLoader = std::make_unique<ModelLoader>();
 	modelLoader->Initialize(resourceViewManager.get(),textureLoader.get(), meshLoader.get());
+
+	WriteLog("Loader初期化");
 
 	// ScriptManager
 	scriptManager = std::make_unique<ScriptManager>();
@@ -220,6 +228,8 @@ void Cho::Initialize()
 		d3dCommand.get(),
 		resourceViewManager.get()
 	);
+
+	WriteLog("ImGui初期化");
 
 #pragma endregion
 
@@ -246,6 +256,8 @@ void Cho::Initialize()
 	// PrefabManager
 	prefabManager = std::make_unique<PrefabManager>();
 
+	WriteLog("ECS初期化");
+
 #pragma endregion
 
 	// SceneManager
@@ -258,6 +270,8 @@ void Cho::Initialize()
 		prefabManager.get(),
 		inputManager.get()
 		);
+
+	WriteLog("SceneManager初期化");
 
 #pragma region プロジェクトデータの読み込み
 
@@ -281,6 +295,8 @@ void Cho::Initialize()
 		scriptManager.get()
 		);
 
+	WriteLog("Editor初期化");
+
 #pragma endregion
 
 #pragma region JSON
@@ -295,6 +311,8 @@ void Cho::Initialize()
 		sceneManager.get()
 	);
 
+	WriteLog("Json初期化");
+
 #pragma endregion
 
 	// スタート設定
@@ -303,9 +321,12 @@ void Cho::Initialize()
 	// デフォルトメッシュ生成
 	resourceViewManager->CreateMeshPattern();
 
+	WriteLog("デフォルトメッシュ生成");
+
 	/*読み込み*/
 	Load();
 
+	WriteLog("読み込み");
 }
 
 void Cho::Finalize()
@@ -342,6 +363,7 @@ void Cho::Operation()
 {
 	/*初期化*/
 	Initialize();
+	WriteLog("初期化終了");
 	/*メインループ*/
 	while (true) {
 		frameRate->StartFrame();
@@ -466,11 +488,12 @@ void Cho::Load()
 
 	/*テクスチャリソースの読み込み*/
 	textureLoader->FirstResourceLoad("Cho/Resources/Texture/");
-
+	WriteLog("テクスチャ読み込み");
 	// Game
 	textureLoader->FirstResourceLoad("Game/Assets/Textures/");
-
+	WriteLog("Gameテクスチャ読み込み");
 	modelLoader->FirstResourceLoad("Game/Assets/Models/");
+	WriteLog("Gameモデル読み込み");
 }
 
 void Cho::StartSetUp()

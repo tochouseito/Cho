@@ -8,6 +8,7 @@
 #include<assert.h>
 #include"Load/MeshLoader/MeshLoader.h"
 #include"D3D12/ResourceViewManager/ResourceViewManager.h"
+#include"LogGenerator/LogGenerator.h"
 
 void ModelLoader::Initialize(ResourceViewManager* rvManager, TextureLoader* texLoader,MeshLoader* meshLoader)
 {
@@ -20,13 +21,13 @@ void ModelLoader::LoadModel(const std::string& directoryPath, const fs::director
 {
 	// モデルファイルの名前でコンテナに保存する
 	std::string modelName = entry.path().stem().string(); // 拡張子を除いた部分
-
+	WriteLog(modelName);
 	// モデルファイルの読み込み
 	rvManager_->AddModel(modelName);
 	
 	ModelData* modelData = rvManager_->GetModelData(modelName);
 	LoadModelFile(modelData,directoryPath, entry);
-
+	WriteLog("modelLoad");
 	// meshリソースの作成
 	for (const std::string& name : modelData->names) {
 		uint32_t vertices = static_cast<uint32_t>(modelData->objects[name].vertices.size());
@@ -74,6 +75,7 @@ void ModelLoader::FirstResourceLoad(const std::string& directoryPath)
 	// ファイルパスのリストを取得
 	for (const auto& entry : fs::directory_iterator(directoryPath))
 	{
+		WriteLog("ModelLoader::FirstResourceLoad\n");
 		// ファイルかどうかを確認
 		if (fs::is_directory(entry.path()))
 		{
@@ -81,6 +83,8 @@ void ModelLoader::FirstResourceLoad(const std::string& directoryPath)
 			{
 				if (fs::is_regular_file(modelEntry.path())) {
 					std::string filePath = modelEntry.path().string();
+
+					WriteLog("openFile\n");
 
 					// ファイル名部分のみ取得（ディレクトリパスを除去）
 					std::string fileName = modelEntry.path().filename().string();
@@ -93,6 +97,7 @@ void ModelLoader::FirstResourceLoad(const std::string& directoryPath)
 						std::string fullDirectoryPath = fs::absolute(directoryPath).string();
 						// ファイルを読み込み
 						LoadModel(fullDirectoryPath, modelEntry);
+						WriteLog("ModelLoader::Load\n");
 					}
 				}
 			}
@@ -103,7 +108,7 @@ void ModelLoader::FirstResourceLoad(const std::string& directoryPath)
 void ModelLoader::LoadModelFile(ModelData* modelData, const std::string& directoryPath, const fs::directory_entry& entry)
 {
 	// 変数の宣言
-	//ModelData* modelData = new ModelData();
+	WriteLog("Start LoadModelFile\n");
 	std::vector<Vector4> positions;// 位置
 	std::vector<Vector3> normals;// 法線
 	std::vector<Vector2> texcoords;// UV座標
@@ -115,10 +120,14 @@ void ModelLoader::LoadModelFile(ModelData* modelData, const std::string& directo
 	directoryPath;
 	filePath = entry.path().string();
 	filePath = fs::absolute(filePath).string();
-
+	WriteLog("Start ReadFile\n");
 	const aiScene* scene = importer.ReadFile(filePath.c_str(), aiProcess_FlipWindingOrder | aiProcess_FlipUVs);
-
+	WriteLog("End ReadFile\n");
 	std::string err = importer.GetErrorString();
+	WriteLog(err);
+	if (!scene->HasMeshes()) {
+		WriteLog("Err:NoMesh");
+	}
 	assert(scene->HasMeshes());// メッシュがないのは対応しない
 
 	// SceneのRootNodeを読んでシーン全体の階層構造を作り上げる

@@ -10,3 +10,4 @@ using namespace ChoMath;
 
 /*Utility*/
 #include"ConvertString/ConvertString.h"
+//#include"LogGenerator/LogGenerator.h"

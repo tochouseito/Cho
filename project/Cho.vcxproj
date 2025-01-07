@@ -134,6 +134,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cho\Utility\LogGenerator\LogGenerator.cpp" />
     <ClCompile Include="Game\Objects\GameObject\BaseCharacter\BaseCharacter.cpp" />
     <ClCompile Include="Cho\System\ECS\System\AnimationSystem\AnimationSystem.cpp" />
     <ClCompile Include="Cho\System\Audio\AudioManager.cpp" />
@@ -221,6 +222,7 @@ copy "$(SolutionDir)imgui.ini" "$(TargetDir)imgui.ini"</Command>
     <ClCompile Include="Cho\System\ECS\System\ParticleSystem\ParticleSystem.cpp" />
     <ClCompile Include="Game\Scens\TitleScene\TitleScene.cpp" />
     <ClCompile Include="Game\Objects\GameObject\Player\Player.cpp" />
+    <ClInclude Include="Cho\Utility\LogGenerator\LogGenerator.h" />
     <ClInclude Include="Game\Objects\GameObject\BaseCharacter\BaseCharacter.h" />
     <ClInclude Include="Cho\System\ECS\System\AnimationSystem\AnimationSystem.h" />
     <ClInclude Include="Cho\System\Audio\AudioManager.h" />
