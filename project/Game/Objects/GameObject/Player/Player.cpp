@@ -18,7 +18,6 @@ void Player::Init(SceneManager* sceneManager, ComponentManager* compManager,Inpu
 	material = compManager_->GetMaterial(sceneManager_->GetGameObject(name)->GetEntityID());
 
 	tf->translation.y = 0.0f;
-	tf->degrees.x = -90.0f;
 	tf->scale *= 10.0f;
 
 	std::string meshName = sceneManager_->GetRVManagerPtr()->GetModelData(modelName)->names[0];

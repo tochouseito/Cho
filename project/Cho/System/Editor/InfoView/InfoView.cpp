@@ -177,6 +177,29 @@ void InfoView::Update()
                     }
                 }
             }
+
+			if (componentManager_->GetAnimation(selectGO->GetEntityID())) {
+				AnimationComponent& animationComp = *componentManager_->GetAnimation(selectGO->GetEntityID());
+
+				ImGui::SeparatorText("Animation");
+
+                // 範囲と値
+                int minValue = 0;
+                int maxValue = animationComp.numAnimation - 1;;
+                static int currentValue = 0;
+
+                ImGui::Text("Current Value: %d", currentValue);
+
+                if (ImGui::Button("Decrease")) {
+                    currentValue = std::max(currentValue - 1, minValue);
+                }
+                ImGui::SameLine();
+                if (ImGui::Button("Increase")) {
+                    currentValue = std::min(currentValue + 1, maxValue);
+                }
+
+				animationComp.animationIndex = currentValue;
+			}
             
             if (isAdd) {
                 if (!selectGO->GetMesh()) {

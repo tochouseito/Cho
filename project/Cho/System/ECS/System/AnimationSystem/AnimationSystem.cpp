@@ -29,6 +29,7 @@ void AnimationSystem::Update(EntityManager& entityManager, ComponentManager& com
 		if (meshComp->meshModelName!="") {
 			model = rvManager_->GetModelData(meshComp->meshModelName);
 			comp->modelName = meshComp->meshModelName;
+			comp->numAnimation = static_cast<uint32_t>(model->animations.size());
 		}
 		else { continue; }
 		if (comp) {
