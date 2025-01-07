@@ -233,50 +233,65 @@ void ModelLoader::LoadModelFile(ModelData* modelData, const std::string& directo
 
 void ModelLoader::LoadAnimationFile(ModelData* modelData, const std::string& directoryPath, const fs::directory_entry& entry)
 {
-	AnimationData animation;// 今回作るアニメーション
-	Assimp::Importer importer;
+	AnimationData animation; // 今回作成するアニメーションデータ
+	Assimp::Importer importer; // Assimp のインポーターを作成
 	std::string filePath;
 
-	directoryPath;
+	// ファイルパスの取得と正規化
 	filePath = entry.path().string();
 	filePath = fs::absolute(filePath).string();
-	const aiScene* scene = importer.ReadFile(filePath.c_str(), 0);
-	assert(scene->mNumAnimations != 0);// アニメーションがない
 
-	aiAnimation* animationAssimp = scene->mAnimations[0];// 最初のanimationだけ採用。複数対応予定
-	animation.duration = float(animationAssimp->mDuration / animationAssimp->mTicksPerSecond);// 時間の単位を秒に変換
-	// assimpでは個々のNodeのAnimationをchannelと呼んでいるのでchannelを回してNodeAnimationの情報をとってくる
+	// ファイルを読み込み、シーン情報を取得
+	const aiScene* scene = importer.ReadFile(filePath.c_str(), 0);
+	assert(scene->mNumAnimations != 0); // アニメーションが存在しない場合にアサート
+
+	// 最初のアニメーションを採用（複数対応は今後の予定）
+	aiAnimation* animationAssimp = scene->mAnimations[0];
+	animation.duration = float(animationAssimp->mDuration / animationAssimp->mTicksPerSecond); // アニメーションの時間を秒単位に変換
+
+	// チャネル（ノードのアニメーション情報）の解析
 	for (uint32_t channelIndex = 0; channelIndex < animationAssimp->mNumChannels; ++channelIndex) {
 		aiNodeAnim* nodeAnimationAssimp = animationAssimp->mChannels[channelIndex];
+
+		// ノードのアニメーション情報を取得
 		NodeAnimation& nodeAnimation = animation.nodeAnimations[nodeAnimationAssimp->mNodeName.C_Str()];
+
+		// 平行移動（Translate）のキーフレームを解析
 		for (uint32_t keyIndex = 0; keyIndex < nodeAnimationAssimp->mNumPositionKeys; ++keyIndex) {
 			aiVectorKey& keyAssimp = nodeAnimationAssimp->mPositionKeys[keyIndex];
 			KeyframeVector3 keyframe;
-			keyframe.time = float(keyAssimp.mTime / animationAssimp->mTicksPerSecond);// ここも秒に変換
-			keyframe.value = { -keyAssimp.mValue.x,keyAssimp.mValue.y,keyAssimp.mValue.z };// 右手->左手
+			keyframe.time = float(keyAssimp.mTime / animationAssimp->mTicksPerSecond); // 時間を秒単位に変換
+			keyframe.value = { -keyAssimp.mValue.x, keyAssimp.mValue.y, keyAssimp.mValue.z }; // 右手座標系を左手座標系に変換
 			nodeAnimation.translate.keyframes.push_back(keyframe);
 		}
+
+		// 回転（Rotate）のキーフレームを解析
 		for (uint32_t keyIndex = 0; keyIndex < nodeAnimationAssimp->mNumRotationKeys; ++keyIndex) {
 			aiQuatKey& keyAssimp = nodeAnimationAssimp->mRotationKeys[keyIndex];
 			KeyframeQuaternion keyframe;
-			keyframe.time = float(keyAssimp.mTime / animationAssimp->mTicksPerSecond);// ここも秒に変換
-			keyframe.value = { keyAssimp.mValue.x,-keyAssimp.mValue.y,-keyAssimp.mValue.z,keyAssimp.mValue.w };
+			keyframe.time = float(keyAssimp.mTime / animationAssimp->mTicksPerSecond); // 時間を秒単位に変換
+			keyframe.value = { keyAssimp.mValue.x, -keyAssimp.mValue.y, -keyAssimp.mValue.z, keyAssimp.mValue.w }; // 右手座標系を左手座標系に変換（y と z を反転）
 			nodeAnimation.rotate.keyframes.push_back(keyframe);
 		}
+
+		// スケール（Scale）のキーフレームを解析
 		for (uint32_t keyIndex = 0; keyIndex < nodeAnimationAssimp->mNumScalingKeys; ++keyIndex) {
 			aiVectorKey& keyAssimp = nodeAnimationAssimp->mScalingKeys[keyIndex];
 			KeyframeScale keyframe;
-			keyframe.time = float(keyAssimp.mTime / animationAssimp->mTicksPerSecond);// ここも秒に変換
-			keyframe.value = { keyAssimp.mValue.x,keyAssimp.mValue.y,keyAssimp.mValue.z };
+			keyframe.time = float(keyAssimp.mTime / animationAssimp->mTicksPerSecond); // 時間を秒単位に変換
+			keyframe.value = { keyAssimp.mValue.x, keyAssimp.mValue.y, keyAssimp.mValue.z }; // スケールはそのまま変換なし
 			nodeAnimation.scale.keyframes.push_back(keyframe);
 		}
+
 		/*
-		RotateはmNumRotationKeys/mRotationKeys,ScaleはmNumScalingKeys/mScalingKeysで取得できるので同様に行う。
-		RotateはQuaternionで、右手->左手に変換するために、yとzを反転させる必要がある。Scaleはそのままでいい。
+		Rotate は mNumRotationKeys / mRotationKeys を使用。
+		右手座標系を左手座標系に変換するため、y と z を反転させる必要がある。
+		Scale はそのままで変換なし。
 		Keyframe.value={rotate.x,-rotate.y,-rotate.z,rotate.w};
 		*/
 	}
-	// 解析完了
+
+	// アニメーション解析完了後、ModelData に追加
 	modelData->animations.push_back(animation);
 }
 
