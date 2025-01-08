@@ -29,6 +29,14 @@ enum class PadButton {
 	RTrigger = VK_PAD_RTRIGGER,
 };
 
+enum MouseButton {
+	Left = 0,
+	Right,
+	Center,
+	Extra1,
+	Extra2,
+};
+
 enum class LR {
 	LEFT = 0,
 	RIGHT
@@ -119,7 +127,13 @@ public:
 	/// マウスの位置を取得する（ウィンドウ座標系）
 	/// </summary>
 	/// <returns>マウスの位置</returns>
-	const Vector2& GetMousePosition() const;
+	const Vector2& GetMouseWindowPosition() const;
+
+	/// <summary>
+	/// マウスの位置を取得する（スクリーン座標系）
+	/// </summary>
+	/// <returns>マウスの位置</returns>
+	Vector2 GetMouseScreenPosition() const;
 
 	/// <summary>
 	/// 現在のジョイスティック状態を取得する
@@ -157,6 +171,9 @@ public:
 	bool IsPressPadButton(PadButton button, int32_t stickNo = 0);
 	Vector2 GetStickValue(LR padStick, int32_t stickNo = 0);
 	float GetLRTrigger(LR LorR, int32_t stickNo = 0);
+
+	Vector2 CheckAndWarpMouse();
+
 
 private:
 		bool IsTriggerTrigger(LR LorR, int32_t stickNo = 0);

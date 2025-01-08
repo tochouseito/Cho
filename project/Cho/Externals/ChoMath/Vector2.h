@@ -12,6 +12,8 @@ public:
 		x = 0.0f;
 		y = 0.0f;
 	}
+    // 負号演算子のオーバーロード
+    Vector2 operator-() const { return { -x, -y }; }
     // 加算
     inline Vector2 operator+(const Vector2& other) const {
         return { x + other.x, y + other.y };
@@ -33,6 +35,20 @@ public:
             return { 0.0f, 0.0f };
         }
         return { x / scalar, y / scalar };
+    }
+
+    // += 演算子
+    Vector2& operator+=(const Vector2& other) {
+        x += other.x;
+        y += other.y;
+        return *this;
+    }
+
+    // -= 演算子
+    Vector2& operator-=(const Vector2& other) {
+        x -= other.x;
+        y -= other.y;
+        return *this;
     }
 
     // 内積

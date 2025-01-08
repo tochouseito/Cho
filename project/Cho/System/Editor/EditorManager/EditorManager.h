@@ -15,6 +15,9 @@
 // DebugCamera
 #include"Editor/DebugCamera/DebugCamera.h"
 
+// WinApp
+class WinApp;
+
 // D3D12
 class ResourceViewManager;
 class RTVManager;
@@ -33,6 +36,9 @@ class ComponentManager;
 class SystemManager;
 class PrefabManager;
 
+// Input
+class InputManager;
+
 // GameObject
 class GameObject;
 
@@ -47,6 +53,7 @@ public:
 	/// 初期化
 	/// </summary>
 	void Initialize(
+		WinApp* win,
 		ResourceViewManager* rvManager,
 		RTVManager* rtvManager,
 		DrawExecution* drawExe,
@@ -56,6 +63,7 @@ public:
 		ComponentManager* componentManager,
 		SystemManager* systemManager,
 		PrefabManager* prefabManager,
+		InputManager* inputManager,
 		SceneManager* sceneManager,
 		ScriptManager* scriptManager
 	);
@@ -99,6 +107,9 @@ private:
 	std::unique_ptr<ToolBar> toolBar = nullptr;
 	std::unique_ptr<DebugCamera> debugCamera = nullptr;
 
+	/*WinApp*/
+	WinApp* win_ = nullptr;
+
 	/*D3D12*/
 	ResourceViewManager* rvManager_ = nullptr;
 	RTVManager* rtvManager_ = nullptr;
@@ -110,6 +121,9 @@ private:
 	SystemManager* systemManager_ = nullptr;
 	PrefabManager* prefabManager_ = nullptr;
 	SceneManager* sceneManager_ = nullptr;
+
+	/*Input*/
+	InputManager* inputManager_ = nullptr;
 
 	/*ScriptManager*/
 	ScriptManager* scriptManager_ = nullptr;

@@ -282,6 +282,7 @@ void Cho::Initialize()
 	// EditorManager
 	editorManager = std::make_unique<EditorManager>();
 	editorManager->Initialize(
+		win.get(),
 		resourceViewManager.get(),
 		rtvManager.get(),
 		drawExecution.get(),
@@ -291,6 +292,7 @@ void Cho::Initialize()
 		componentManager.get(),
 		systemManager.get(),
 		prefabManager.get(),
+		inputManager.get(),
 		sceneManager.get(),
 		scriptManager.get()
 		);

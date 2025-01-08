@@ -21,6 +21,8 @@ namespace ChoMath {
 
 	Vector3 TransformNormal(const Vector3& v, const Matrix4& m);
 
+	Vector3 Transform(const Vector3& vector, const Matrix4& matrix);
+
 	Matrix4 MakeIdentity4x4();
 
 

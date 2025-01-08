@@ -171,9 +171,18 @@ int32_t InputManager::GetWheel() const
 	return mouse.lZ;
 }
 
-const Vector2& InputManager::GetMousePosition() const
+const Vector2& InputManager::GetMouseWindowPosition() const
 {
 	return mousePosition_;
+}
+
+Vector2 InputManager::GetMouseScreenPosition() const
+{
+	// マウス位置の取得
+	POINT point;
+	GetCursorPos(&point);
+	Vector2 result=Vector2(static_cast<float>(point.x), static_cast<float>(point.y));
+	return result;
 }
 
 bool InputManager::GetJoystickState(int32_t stickNo, XINPUT_STATE& out) const
@@ -284,6 +293,55 @@ float InputManager::GetLRTrigger(LR LorR, int32_t stickNo)
 	}
 
 	return value;
+}
+
+Vector2 InputManager::CheckAndWarpMouse()
+{
+	if (IsPressMouse(Left) ||
+		IsPressMouse(Right) ||
+		IsPressMouse(Center)) {
+
+		// 画面の解像度を取得
+		RECT screenRect;
+		GetClientRect(GetDesktopWindow(), &screenRect);
+		int screenWidth = screenRect.right;
+		int screenHeight = screenRect.bottom;
+
+		// マウスカーソルの現在位置を取得
+		POINT cursorPos;
+		GetCursorPos(&cursorPos);
+
+		// マウスの相対移動量（補正用）
+		float deltaX = 0.0f;
+		float deltaY = 0.0f;
+
+		// 画面端でワープ処理
+		if (cursorPos.x <= 0) {
+			deltaX = static_cast<float>(screenWidth - 2); // ワープによる移動量
+			SetCursorPos(screenWidth - 2, cursorPos.y);
+		}
+		else if (cursorPos.x >= screenWidth - 1) {
+			deltaX = static_cast<float>(-screenWidth + 2);
+			SetCursorPos(1, cursorPos.y);
+		}
+
+		if (cursorPos.y <= 0) {
+			deltaY = static_cast<float>(screenHeight - 2);
+			SetCursorPos(cursorPos.x, screenHeight - 2);
+		}
+		else if (cursorPos.y >= screenHeight - 1) {
+			deltaY = static_cast<float>(-screenHeight + 2);
+			SetCursorPos(cursorPos.x, 1);
+		}
+
+		// マウスの相対移動量を補正
+		Vector2 result = { deltaX,deltaY };
+		return result;
+	}
+	else {
+		return { 0.0f,0.0f };
+	}
+
 }
 
 bool InputManager::IsTriggerTrigger(LR LorR, int32_t stickNo)

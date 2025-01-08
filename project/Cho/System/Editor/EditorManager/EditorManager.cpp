@@ -8,12 +8,15 @@
 #include"D3D12/RTVManager/RTVManager.h"
 #include"D3D12/DrawExecution/DrawExecution.h"
 
+#include"Input/InputManager.h"
+
 // SceneManager
 #include"Scene/SceneManager/SceneManager.h"
 
 #include"ECS/GameObject/GameObject.h"
 
 void EditorManager::Initialize(
+    WinApp* win,
     ResourceViewManager* rvManager,
     RTVManager* rtvManager,
     DrawExecution* drawExe,
@@ -23,13 +26,14 @@ void EditorManager::Initialize(
     ComponentManager* componentManager,
     SystemManager* systemManager,
     PrefabManager* prefabManager,
+    InputManager* inputManager,
     SceneManager* sceneManager,
     ScriptManager* scriptManager
 )
 {
     // デバッグカメラを作成
     debugCamera = std::make_unique<DebugCamera>();
-    debugCamera->Initialize(componentManager,systemManager);
+    debugCamera->Initialize(componentManager,systemManager,inputManager);
 
 	// MainMenu
 	mainMenu = std::make_unique<MainMenu>();
@@ -47,7 +51,7 @@ void EditorManager::Initialize(
 
     // SceneView
     sceneView = std::make_unique<SceneView>();
-    sceneView->Initialize(drawExe->GetDebugRenTexInd(), rvManager,debugCamera.get());
+    sceneView->Initialize(drawExe->GetDebugRenTexInd(),win, rvManager,inputManager,debugCamera.get());
 
     // PopupMenu
     popupMenu = std::make_unique<PopupMenu>();
@@ -111,6 +115,9 @@ void EditorManager::Initialize(
         scriptManager
     );
 
+    // WinApp
+    win_ = win;
+
     // D3D12
     rvManager_ = rvManager;
     rtvManager_ = rtvManager;
@@ -121,6 +128,9 @@ void EditorManager::Initialize(
     componentManager_ = componentManager;
     systemManager_ = systemManager;
     prefabManager_ = prefabManager;
+
+    // Input
+	inputManager_ = inputManager;
 
     // SceneManager
     sceneManager_ = sceneManager;
@@ -158,6 +168,13 @@ void EditorManager::Update()
     // DebugCamera
     if (sceneView->IsWindowHovered()) {
         debugCamera->Update();
+    }
+
+    ImGuiIO& io = ImGui::GetIO();
+    Vector2 vec = inputManager_->CheckAndWarpMouse();
+    if (vec.x != 0.0f || vec.y != 0.0f) {
+        io.MousePos.x += vec.x;
+        io.MousePos.y += vec.y;
     }
 }
 
