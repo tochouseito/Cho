@@ -288,37 +288,40 @@
     <ClCompile Include="Cho\System\ECS\System\EmitterSystem\EmitterSystem.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scens\GameScene\GameScene.cpp">
+    <ClCompile Include="EngineTest\Scens\GameScene\GameScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scens\TitleScene\TitleScene.cpp">
+    <ClCompile Include="EngineTest\Scens\TitleScene\TitleScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\GameObject\Player\Player.cpp">
+    <ClCompile Include="EngineTest\Objects\GameObject\Player\Player.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\GameObject\Ground\Ground.cpp">
+    <ClCompile Include="EngineTest\Objects\GameObject\Ground\Ground.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Camera\FollowCamera\FollowCamera.cpp">
+    <ClCompile Include="EngineTest\Objects\Camera\FollowCamera\FollowCamera.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cho\System\ECS\System\AnimationSystem\AnimationSystem.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\GameObject\Enemy\Enemy.cpp">
+    <ClCompile Include="EngineTest\Objects\GameObject\Enemy\Enemy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\GameObject\BaseCharacter\BaseCharacter.cpp">
+    <ClCompile Include="EngineTest\Objects\GameObject\BaseCharacter\BaseCharacter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\ColliderManager\ColliderManager.cpp">
+    <ClCompile Include="EngineTest\ColliderManager\ColliderManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Collider\Collider.cpp">
+    <ClCompile Include="EngineTest\Collider\Collider.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cho\Utility\LogGenerator\LogGenerator.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scenes\GamePlayScene\GamePlayScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -584,19 +587,19 @@
     <ClInclude Include="Cho\System\ECS\System\EmitterSystem\EmitterSystem.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scens\GameScene\GameScene.h">
+    <ClInclude Include="EngineTest\Scens\GameScene\GameScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scens\TitleScene\TitleScene.h">
+    <ClInclude Include="EngineTest\Scens\TitleScene\TitleScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\GameObject\Player\Player.h">
+    <ClInclude Include="EngineTest\Objects\GameObject\Player\Player.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\GameObject\Ground\Ground.h">
+    <ClInclude Include="EngineTest\Objects\GameObject\Ground\Ground.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Camera\FollowCamera\FollowCamera.h">
+    <ClInclude Include="EngineTest\Objects\Camera\FollowCamera\FollowCamera.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\System\ECS\ComponentManager\Components\AnimationComponent\AnimationComponent.h">
@@ -608,19 +611,22 @@
     <ClInclude Include="Cho\Utility\MeshPattern\MeshPattern.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\GameObject\Enemy\Enemy.h">
+    <ClInclude Include="EngineTest\Objects\GameObject\Enemy\Enemy.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\GameObject\BaseCharacter\BaseCharacter.h">
+    <ClInclude Include="EngineTest\Objects\GameObject\BaseCharacter\BaseCharacter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ColliderManager\ColliderManager.h">
+    <ClInclude Include="EngineTest\ColliderManager\ColliderManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Collider\Collider.h">
+    <ClInclude Include="EngineTest\Collider\Collider.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Cho\Utility\LogGenerator\LogGenerator.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scenes\GamePlayScene\GamePlayScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

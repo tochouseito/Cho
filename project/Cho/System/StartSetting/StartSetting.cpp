@@ -33,27 +33,30 @@ void StartSetting::Initialize(
 )
 {
 	// ひとまず開発用プロジェクトの作成
-	GameProject::CreateGameFolder(projectName);
+	//GameProject::CreateGameFolder(projectName);
 
-	std::string name = "SceneCamera";
-	name = sceneManager->AddCameraObject(name);
-	Entity ent = sceneManager->GetCameraObject(name)->GetEntityID();
-	entityManager->SetCameraID(ent);
-	// デフォルトオブジェクト生成
-	name = "Cube";
-	name = sceneManager->AddGameObject(name);
-	TransformComponent TFComp;
-	MeshComponent MeshComp;
-	MeshComp.meshID = static_cast<uint32_t>(MeshPattern::Cube);
-	MaterialComponent MaterialComp;
-	RenderComponent renderComp;
-    renderComp.visible = false;
-	sceneManager->GetGameObject(name)->AddComponent(TFComp);
-	sceneManager->GetGameObject(name)->AddComponent(MeshComp);
-	sceneManager->GetGameObject(name)->AddComponent(MaterialComp);
-	sceneManager->GetGameObject(name)->AddComponent(renderComp);
-	editorManager->SetSelectedGOName(name);
-	editorManager->SetSelectedGO(sceneManager->GetGameObject(name));
+	//std::string name = "SceneCamera";
+	//name = sceneManager->AddCameraObject(name);
+	//Entity ent = sceneManager->GetCameraObject(name)->GetEntityID();
+	//entityManager->SetCameraID(ent);
+	//// デフォルトオブジェクト生成
+	//name = "Cube";
+	//name = sceneManager->AddGameObject(name);
+	//TransformComponent TFComp;
+	//MeshComponent MeshComp;
+	//MeshComp.meshID = static_cast<uint32_t>(MeshPattern::Cube);
+	//MaterialComponent MaterialComp;
+	//RenderComponent renderComp;
+ //   renderComp.visible = false;
+	//sceneManager->GetGameObject(name)->AddComponent(TFComp);
+	//sceneManager->GetGameObject(name)->AddComponent(MeshComp);
+	//sceneManager->GetGameObject(name)->AddComponent(MaterialComp);
+	//sceneManager->GetGameObject(name)->AddComponent(renderComp);
+	//editorManager->SetSelectedGOName(name);
+	//editorManager->SetSelectedGO(sceneManager->GetGameObject(name));
+    sceneManager;
+    editorManager;
+    entityManager;
 	rtvManager;
     rvManager;
 	drawExe;
