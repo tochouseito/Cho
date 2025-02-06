@@ -1,0 +1,13 @@
+{
+    "Boss": {
+        "DelayTime": 1.5,
+        "HP": 30.0,
+        "PowerUpTime": 10.0,
+        "SpeedBoost": 1.0,
+        "SpeedUpTime": 2.0,
+        "healingValue": 1.0,
+        "kKnockbackSpeed": 5.0,
+        "kKnockbackTime": 0.20000000298023224,
+        "kSpeed": 7.5
+    }
+}

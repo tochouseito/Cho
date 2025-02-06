@@ -1,0 +1,10 @@
+{
+    "Yoyo": {
+        "DelayTime": 0.30000001192092896,
+        "ReturnTime": 0.7799999713897705,
+        "ShotLength": 12.0,
+        "ShotLengthMax": 24.0,
+        "ShotSpeed": 35.0,
+        "rotateDegreeZ": 1080.0
+    }
+}
