@@ -115,11 +115,10 @@ void Pipeline::CreatePSODemo()
 {
 	HRESULT hr;
 	PSOBlend psoBlend;
-
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/DemoOBJ.VS.hlsl",
+			vsPath+L"DemoOBJ.VS.hlsl",
 			L"vs_6_5");
 	assert(vertexShaderBlob);
 
@@ -128,7 +127,7 @@ void Pipeline::CreatePSODemo()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/DemoOBJ.PS.hlsl",
+			psPath+L"DemoOBJ.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 
@@ -337,7 +336,7 @@ void Pipeline::CreatePSOScreenCopy()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/FullScreen.VS.hlsl",
+			vsPath+L"FullScreen.VS.hlsl",
 			L"vs_6_5");
 	assert(vertexShaderBlob);
 
@@ -346,7 +345,7 @@ void Pipeline::CreatePSOScreenCopy()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/FullScreen.PS.hlsl",
+			psPath+L"FullScreen.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 
@@ -538,7 +537,7 @@ void Pipeline::CreatePSOSprite()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/Sprite.VS.hlsl",
+			vsPath+L"Sprite.VS.hlsl",
 			L"vs_6_5");
 	assert(vertexShaderBlob);
 
@@ -547,7 +546,7 @@ void Pipeline::CreatePSOSprite()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/Sprite.PS.hlsl",
+			psPath+L"Sprite.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 
@@ -752,7 +751,7 @@ void Pipeline::CreatePSOParticle()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/Particle.VS.hlsl",
+			vsPath+L"Particle.VS.hlsl",
 			L"vs_6_5");
 	assert(vertexShaderBlob);
 
@@ -761,7 +760,7 @@ void Pipeline::CreatePSOParticle()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/Particle.PS.hlsl",
+			psPath+L"Particle.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 
@@ -974,7 +973,7 @@ void Pipeline::CreatePSOParticleInit()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> computeShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/InitParticle.CS.hlsl",
+			csPath+L"InitParticle.CS.hlsl",
 			L"cs_6_5");
 	assert(computeShaderBlob);
 
@@ -1060,7 +1059,7 @@ void Pipeline::CreatePSOEmit()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> computeShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/EmitParticle.CS.hlsl",
+			csPath+L"EmitParticle.CS.hlsl",
 			L"cs_6_5");
 	assert(computeShaderBlob);
 
@@ -1152,7 +1151,7 @@ void Pipeline::CreatePSOUpdate()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> computeShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/UpdateParticle.CS.hlsl",
+			csPath+L"UpdateParticle.CS.hlsl",
 			L"cs_6_5");
 	assert(computeShaderBlob);
 
@@ -1240,7 +1239,7 @@ void Pipeline::CreatePSOWireframe()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/Wireframe.VS.hlsl",
+			vsPath+L"Wireframe.VS.hlsl",
 			L"vs_6_5");
 	assert(vertexShaderBlob);
 
@@ -1249,7 +1248,7 @@ void Pipeline::CreatePSOWireframe()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/Wireframe.PS.hlsl",
+			psPath+L"Wireframe.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 
@@ -1394,7 +1393,7 @@ void Pipeline::CreatePSOSkinningCS()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> computeShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/Skinning.CS.hlsl",
+			csPath+L"Skinning.CS.hlsl",
 			L"cs_6_5");
 	assert(computeShaderBlob);
 
@@ -1493,7 +1492,7 @@ void Pipeline::CreatePSODemoMS()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> msShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/Basic.MS.hlsl",
+			msPath+L"Basic.MS.hlsl",
 			L"ms_6_5");
 	assert(msShaderBlob);
 
@@ -1502,7 +1501,7 @@ void Pipeline::CreatePSODemoMS()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/Demo.PS.hlsl",
+			psPath+L"Demo.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 
@@ -1705,7 +1704,7 @@ void Pipeline::CreatePSOGBuffer()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/DemoOBJ.VS.hlsl",
+			vsPath+L"DemoOBJ.VS.hlsl",
 			L"vs_6_5");
 	assert(vertexShaderBlob);
 
@@ -1714,7 +1713,7 @@ void Pipeline::CreatePSOGBuffer()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/GBuffer.PS.hlsl",
+			psPath+L"GBuffer.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 
@@ -1926,7 +1925,7 @@ void Pipeline::CreatePSOWireframeGB()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/DemoOBJ.VS.hlsl",
+			vsPath+L"DemoOBJ.VS.hlsl",
 			L"vs_6_5");
 	assert(vertexShaderBlob);
 
@@ -1935,7 +1934,7 @@ void Pipeline::CreatePSOWireframeGB()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/GBuffer.PS.hlsl",
+			psPath+L"GBuffer.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 
@@ -2147,7 +2146,7 @@ void Pipeline::CreatePSOGBufferMix()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/FullScreen.VS.hlsl",
+			vsPath+L"FullScreen.VS.hlsl",
 			L"vs_6_5");
 	assert(vertexShaderBlob);
 
@@ -2156,7 +2155,7 @@ void Pipeline::CreatePSOGBufferMix()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/GBufferMIX.PS.hlsl",
+			psPath+L"GBufferMIX.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 
@@ -2364,7 +2363,7 @@ void Pipeline::CreatePSOWireframeMix()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/DemoOBJ.VS.hlsl",
+			vsPath+L"DemoOBJ.VS.hlsl",
 			L"vs_6_5");
 	assert(vertexShaderBlob);
 
@@ -2373,7 +2372,7 @@ void Pipeline::CreatePSOWireframeMix()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/GBufferMIX.PS.hlsl",
+			psPath+L"GBufferMIX.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 
@@ -2582,7 +2581,7 @@ void Pipeline::CreatePSODrawLine()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/Line.VS.hlsl",
+			vsPath+L"Line.VS.hlsl",
 			L"vs_6_5");
 	assert(vertexShaderBlob);
 
@@ -2591,7 +2590,7 @@ void Pipeline::CreatePSODrawLine()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/Line.PS.hlsl",
+			psPath+L"Line.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 
@@ -2731,7 +2730,7 @@ void Pipeline::CreatePSOMapChip()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/MapChipBlocks.VS.hlsl",
+			vsPath+L"MapChipBlocks.VS.hlsl",
 			L"vs_6_5");
 	assert(vertexShaderBlob);
 
@@ -2740,7 +2739,7 @@ void Pipeline::CreatePSOMapChip()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/DemoOBJ.PS.hlsl",
+			psPath+L"DemoOBJ.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 
@@ -2949,7 +2948,7 @@ void Pipeline::CreatePSOEffectSprite()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/Effect_Sprite.VS.hlsl",
+			vsPath+L"Effect_Sprite.VS.hlsl",
 			L"vs_6_5");
 	assert(vertexShaderBlob);
 
@@ -2958,7 +2957,7 @@ void Pipeline::CreatePSOEffectSprite()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/Effect_Sprite.PS.hlsl",
+			psPath+L"Effect_Sprite.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 
@@ -3170,7 +3169,7 @@ void Pipeline::CreatePSOEffectInit()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> computeShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/EffectParticleInit.CS.hlsl",
+			csPath+L"EffectParticleInit.CS.hlsl",
 			L"cs_6_5");
 	assert(computeShaderBlob);
 
@@ -3256,7 +3255,7 @@ void Pipeline::CreatePSOEffectEmit()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> computeShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/EffectParticleEmit.CS.hlsl",
+			csPath+L"EffectParticleEmit.CS.hlsl",
 			L"cs_6_5");
 	assert(computeShaderBlob);
 
@@ -3355,7 +3354,7 @@ void Pipeline::CreatePSOEffectUpdate()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> computeShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/EffectParticleUpdate.CS.hlsl",
+			csPath+L"EffectParticleUpdate.CS.hlsl",
 			L"cs_6_5");
 	assert(computeShaderBlob);
 
@@ -3454,7 +3453,7 @@ void Pipeline::CreatePSOMapChipGBuffer()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/MapChipBlocks.VS.hlsl",
+			vsPath+L"MapChipBlocks.VS.hlsl",
 			L"vs_6_5");
 	assert(vertexShaderBlob);
 
@@ -3463,7 +3462,7 @@ void Pipeline::CreatePSOMapChipGBuffer()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/GBuffer.PS.hlsl",
+			psPath+L"GBuffer.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 
@@ -3675,7 +3674,7 @@ void Pipeline::CreatePSODif_ToonLighting()
 	// Shaderをコンパイルする
 	Microsoft::WRL::ComPtr < IDxcBlob> vertexShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/FullScreen.VS.hlsl",
+			vsPath+L"FullScreen.VS.hlsl",
 			L"vs_6_5");
 	assert(vertexShaderBlob);
 
@@ -3684,7 +3683,7 @@ void Pipeline::CreatePSODif_ToonLighting()
 
 	Microsoft::WRL::ComPtr < IDxcBlob> pixelShaderBlob =
 		shaderCompiler_->CompilerShader(
-			L"Cho/Resources/Shader/Dfe_ToonLighting.PS.hlsl",
+			psPath+L"Dfe_ToonLighting.PS.hlsl",
 			L"ps_6_5");
 	assert(pixelShaderBlob);
 

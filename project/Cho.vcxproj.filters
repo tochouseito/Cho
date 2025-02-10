@@ -1,40 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <FxCompile Include="Cho\Resources\Shader\Atmosphere.PS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Basic.MS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Demo.MS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Demo.PS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\DemoOBJ.PS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\DemoOBJ.VS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\DepthBasedOutline.PS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Dfe_ToonLighting.PS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Effect_Sprite.PS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Effect_Sprite.VS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\EffectMeshGenerate.CS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\EffectParticleEmit.CS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\EffectParticleInit.CS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\EffectParticleUpdate.CS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\EmitParticle.CS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\FullScreen.PS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\FullScreen.VS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\GBuffer.PS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\GbufferMIX.PS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\InitParticle.CS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Line.PS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Line.VS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\MapChipBlocks.CS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\MapChipBlocks.VS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Particle.PS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Particle.VS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\ShadowMap.PS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Skinning.CS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Skinning.VS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Sprite.VS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Sprite.PS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\UpdateParticle.CS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Wireframe.PS.hlsl" />
-    <FxCompile Include="Cho\Resources\Shader\Wireframe.VS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\PixelShader\Atmosphere.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\MeshShader\Basic.MS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\MeshShader\Demo.MS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\PixelShader\Demo.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\PixelShader\DemoOBJ.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\VertexShader\DemoOBJ.VS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\PixelShader\DepthBasedOutline.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\PixelShader\Dfe_ToonLighting.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\PixelShader\Effect_Sprite.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\VertexShader\Effect_Sprite.VS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\ComputeShader\EffectMeshGenerate.CS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\ComputeShader\EffectParticleEmit.CS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\ComputeShader\EffectParticleInit.CS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\ComputeShader\EffectParticleUpdate.CS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\ComputeShader\EmitParticle.CS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\PixelShader\FullScreen.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\VertexShader\FullScreen.VS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\PixelShader\GBuffer.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\PixelShader\GbufferMIX.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\ComputeShader\InitParticle.CS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\PixelShader\Line.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\VertexShader\Line.VS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\ComputeShader\MapChipBlocks.CS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\VertexShader\MapChipBlocks.VS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\PixelShader\Particle.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\VertexShader\Particle.VS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\PixelShader\ShadowMap.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\ComputeShader\Skinning.CS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\VertexShader\Skinning.VS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\VertexShader\Sprite.VS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\PixelShader\Sprite.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\ComputeShader\UpdateParticle.CS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\PixelShader\Wireframe.PS.hlsl" />
+    <FxCompile Include="Cho\Resources\Shader\VertexShader\Wireframe.VS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Scripts\Effect\BaseEffect\BaseEffect.cpp" />
@@ -256,9 +256,6 @@
     <ClInclude Include="Cho\System\ECS\System\LightSystem\LightSystem.h" />
     <ClInclude Include="Game\Scripts\ColliderID\ColliderType.h" />
     <ClInclude Include="Game\Scenes\GameScene\GameScene.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Cho\Resources\Texture\uvChecker.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Cho\Resources\ImGuiStyle\style.json" />
