@@ -90,6 +90,9 @@ public:
 	// 仮のEffect作成関数
 	void CreateEffect(EffectNode& effectNode);
 
+	// シーン追加
+	//void AddScene(const std::string& sceneName, BaseScene* scene);
+
 private:
 	// ユニークな名前を生成する関数
 	std::string GenerateUniqueName(
@@ -125,6 +128,9 @@ private:
 
 	// 現在のSpotLightの数
 	uint32_t spotLightCount = 0;
+
+	/*シーンコンテナ*/
+	std::unordered_map<std::string, std::unique_ptr<BaseScene>> scenes;
 	
 	std::unordered_map<std::string, std::unique_ptr<GameObject>> gameObjects;
 };
