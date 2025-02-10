@@ -84,5 +84,10 @@ private:
 	std::vector<PSOBlend> psoBlends;
 	
 	ShaderCompiler* shaderCompiler_ = nullptr;
+
+	std::wstring psPath = L"Cho/Resources/Shader/PixelShader/";
+	std::wstring vsPath = L"Cho/Resources/Shader/VertexShader/";
+	std::wstring csPath = L"Cho/Resources/Shader/ComputeShader/";
+	std::wstring msPath = L"Cho/Resources/Shader/MeshShader/";
 };
 
