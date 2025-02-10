@@ -1,7 +1,7 @@
 #include "PrecompiledHeader.h"
 #include "Game/Scripts/Collider/Collider.h"
 #include "ColliderManager.h"
-#include "Game/Scripts/Objects/ColliderID/ColliderType.h"
+#include "Game/Scripts/ColliderID/ColliderType.h"
 
 void CollisionManager::Initialize()
 {
