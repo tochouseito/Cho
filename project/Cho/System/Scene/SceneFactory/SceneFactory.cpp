@@ -1,10 +1,7 @@
 #include "PrecompiledHeader.h"
 #include "SceneFactory.h"
 #include "Scene/MainScene.h"
-#include "Game/Scenes/GamePlayScene/GamePlayScene.h"
-#include "Game/Scenes/TitlePlayScene/TitlePlayScene.h"
-#include "Game/Scenes/ResultScene/ResultScene.h"
-#include "Game/Scenes/GameOverScene/GameOverScene.h"
+#include "Game/Scenes/GameScene/GameScene.h"
 #include <cassert>
 
 BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
@@ -14,17 +11,8 @@ BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
 	if (sceneName == "MainScene") {
 		newScene = new MainScene();
 	}
-	else if (sceneName == "Game") {
-		newScene = new GamePlayScene();
-	}
-	else if (sceneName == "Title") {
-		newScene = new TitlePlayScene();
-	}
-	else if (sceneName == "Result") {
-		newScene = new ResultScene();
-	}
-	else if (sceneName == "GameOver") {
-		newScene = new GameOverScene();
+	else if (sceneName == "GameScene") {
+		newScene = new GameScene();
 	}
 	else {
 		// 未定義のシーン名

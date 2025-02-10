@@ -664,7 +664,7 @@ void Cho::SelectGameProject()
 					sceneManager->ChangeScene("TestTitle");
 				}
 				else {
-					sceneManager->ChangeScene("Title");
+					sceneManager->ChangeScene("GameScene");
 				}
 
 				// 新プロジェクトの時のみ

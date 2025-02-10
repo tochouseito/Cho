@@ -1,7 +1,7 @@
 #pragma once
 #include<string>
 #include"ECS/ComponentManager/Components/Components.h"
-#include "Game/Scripts/Objects/ColliderID/ColliderType.h"
+#include "Game/Scripts/ColliderID/ColliderType.h"
 #include "Audio/AudioManager.h"
 class SceneManager;
 class ComponentManager;
